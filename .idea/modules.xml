@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+<<<<<<< HEAD
       <module fileurl="file://$PROJECT_DIR$/GUI_AIR.iml" filepath="$PROJECT_DIR$/GUI_AIR.iml" />
+=======
+      <module fileurl="file://$PROJECT_DIR$/seng202-group-4.iml" filepath="$PROJECT_DIR$/seng202-group-4.iml" />
+>>>>>>> d1ee72ab4da4a6373c0af13847b9ce8058772678
     </modules>
   </component>
 </project>

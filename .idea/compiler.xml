@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
+<<<<<<< HEAD
     <option name="DEFAULT_COMPILER" value="Javac" />
+=======
+>>>>>>> d1ee72ab4da4a6373c0af13847b9ce8058772678
     <resourceExtensions />
     <wildcardResourcePatterns>
       <entry name="!?*.java" />
@@ -12,12 +15,32 @@
       <entry name="!?*.flex" />
       <entry name="!?*.kt" />
       <entry name="!?*.clj" />
+<<<<<<< HEAD
+=======
+      <entry name="!?*.aj" />
+>>>>>>> d1ee72ab4da4a6373c0af13847b9ce8058772678
     </wildcardResourcePatterns>
     <annotationProcessing>
       <profile default="true" name="Default" enabled="false">
         <processorPath useClasspath="true" />
       </profile>
+<<<<<<< HEAD
     </annotationProcessing>
   </component>
 </project>
 
+=======
+      <profile default="false" name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="true" />
+        <module name="seng202-group-4" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="seng202-group-4" target="1.5" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
+>>>>>>> d1ee72ab4da4a6373c0af13847b9ce8058772678
