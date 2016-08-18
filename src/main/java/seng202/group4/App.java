@@ -18,8 +18,8 @@ public class App extends Application {
         Parent root = loader.load(getClass().getClassLoader().getResource("GUI.fxml").openStream());
 //        Parent root = FXMLLoader.load(getClass().getResource("GUI.fxml"));
         //Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("../GUI.fxml"));
-        primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(root, 300, 275));
+        primaryStage.setTitle("Wurly and Curly");
+        primaryStage.setScene(new Scene(root, 600, 775));
         primaryStage.show();
     }
 
