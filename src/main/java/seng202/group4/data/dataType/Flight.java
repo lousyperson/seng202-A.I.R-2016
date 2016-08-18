@@ -6,6 +6,7 @@ package seng202.group4.data.dataType;
 public class Flight {
     private String type;
     private double altitude;
-    private
+    private double longitude;
+    private double latitude;
 
 }
