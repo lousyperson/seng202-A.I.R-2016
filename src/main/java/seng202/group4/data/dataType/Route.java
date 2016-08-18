@@ -6,7 +6,7 @@ package seng202.group4.data.dataType;
 public class Route {
     private String airline;
     private int ID;
-    private String SrcAirport;
+    private String srcAirport;
     private int srcAirportID;
     private String destAirport;
     private int destAirportID;
@@ -37,11 +37,11 @@ public class Route {
     }
 
     public String getSrcAirport() {
-        return SrcAirport;
+        return srcAirport;
     }
 
     public void setSrcAirport(String srcAirport) {
-        SrcAirport = srcAirport;
+        this.srcAirport = srcAirport;
     }
 
     public int getSrcAirportID() {
@@ -99,4 +99,6 @@ public class Route {
     public void setDistance(double distance) {
         this.distance = distance;
     }
+
+
 }
