@@ -13,7 +13,7 @@ public class Airline {
     private String country;
     private String active;
 
-
+    //the following lines are all the getters and setters for Airline Data Sets
 
     public int getID() {
         return ID;
