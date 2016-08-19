@@ -5,18 +5,19 @@ import java.io.BufferedReader;
 /**
  * Created by jjg64 on 15/08/16.
  */
-public class FlightParser {
+public class RouteParser {
     private BufferedReader file;
 
-    FlightParser(BufferedReader file) {
+    RouteParser(BufferedReader file) {
         this.file = file;
     }
+
 }
 
-class FlightFileValidator {
+class RouteFileValidator {
     private BufferedReader file;
 
-    FlightFileValidator(BufferedReader file) {
-        this.file = file;
+    RouteFileValidator(BufferedReader file) {
+
     }
 }

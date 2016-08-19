@@ -11,7 +11,7 @@ public class Airline {
     private String ICAO;
     private String callsign;
     private String country;
-    private String active;
+    private boolean active; // Can be active or not active
 
 
 
@@ -71,11 +71,15 @@ public class Airline {
         this.country = country;
     }
 
-    public String getActive() {
+    public boolean getActive() {
         return active;
     }
 
     public void setActive(String active) {
-        this.active = active;
+        if (active == "Y") {
+            this.active = true;
+        } else {
+            this.active = false;
+        }
     }
 }

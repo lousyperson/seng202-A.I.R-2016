@@ -12,5 +12,12 @@ public class AirlineParser {
         this.file = file;
     }
 
+}
 
+class AirlineFileValidator {
+    private BufferedReader file;
+
+    AirlineFileValidator(BufferedReader file) {
+        this.file = file;
+    }
 }
