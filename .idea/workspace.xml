@@ -1109,7 +1109,7 @@
       <workItem from="1471510312452" duration="109000" />
       <workItem from="1471570701356" duration="1040000" />
       <workItem from="1471573488565" duration="218000" />
-      <workItem from="1471574418287" duration="76000" />
+      <workItem from="1471574418287" duration="110000" />
     </task>
     <task id="LOCAL-00001" summary="Fixed mistakes">
       <created>1471573587672</created>
@@ -1139,11 +1139,18 @@
       <option name="project" value="LOCAL" />
       <updated>1471574113261</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="workspace.xml won't ruin this push">
+      <created>1471574512730</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1471574512730</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="8111000" />
+    <option name="totallyTimeSpent" value="8145000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1" y="0" width="1922" height="1055" extended-state="6" />
@@ -1192,7 +1199,8 @@
     <MESSAGE value="Updated Airline class, started working on Airline parser, made DST enum" />
     <MESSAGE value="Made a file validator skeleton for each data type, airline &quot;active&quot; property changed to type bool, as it can be &quot;Y&quot; or &quot;N&quot;" />
     <MESSAGE value="Fixed mistakes" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed mistakes" />
+    <MESSAGE value="workspace.xml won't ruin this push" />
+    <option name="LAST_COMMIT_MESSAGE" value="workspace.xml won't ruin this push" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
