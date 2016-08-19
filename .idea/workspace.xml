@@ -70,9 +70,7 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="126">
               <caret line="7" column="51" selection-start-line="7" selection-start-column="51" selection-end-line="7" selection-end-column="51" />
-              <folding>
-                <element signature="e#210#219#0" expanded="true" />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
@@ -108,7 +106,7 @@
       <file leaf-file-name="RouteParser.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/seng202/group4/data/parser/RouteParser.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="378">
+            <state relative-caret-position="342">
               <caret line="21" column="5" selection-start-line="21" selection-start-column="5" selection-end-line="21" selection-end-column="5" />
               <folding>
                 <element signature="e#208#209#0" expanded="true" />
@@ -131,7 +129,7 @@
       <file leaf-file-name="Airline.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/seng202/group4/data/dataType/Airline.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="954">
+            <state relative-caret-position="630">
               <caret line="53" column="7" selection-start-line="53" selection-start-column="7" selection-end-line="53" selection-end-column="7" />
               <folding />
             </state>
@@ -142,6 +140,11 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="jjg64" />
+      </map>
+    </option>
   </component>
   <component name="GradleLocalSettings">
     <option name="externalProjectsViewState">
@@ -213,6 +216,7 @@
     </navigator>
     <panes>
       <pane id="PackagesPane" />
+      <pane id="Scratches" />
       <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
@@ -512,7 +516,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -1003,6 +1006,7 @@
       <workItem from="1471510312452" duration="109000" />
       <workItem from="1471570701356" duration="1040000" />
       <workItem from="1471573488565" duration="218000" />
+      <workItem from="1471573941627" duration="147000" />
     </task>
     <task id="LOCAL-00001" summary="Fixed mistakes">
       <created>1471573587672</created>
@@ -1022,7 +1026,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="7737000" />
+    <option name="totallyTimeSpent" value="7884000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1" y="0" width="1922" height="1055" extended-state="6" />
@@ -1378,7 +1382,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/seng202/group4/data/parser/RouteParser.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
+        <state relative-caret-position="342">
           <caret line="21" column="5" selection-start-line="21" selection-start-column="5" selection-end-line="21" selection-end-column="5" />
           <folding>
             <element signature="e#208#209#0" expanded="true" />
@@ -1429,7 +1433,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/seng202/group4/data/dataType/Airline.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="954">
+        <state relative-caret-position="630">
           <caret line="53" column="7" selection-start-line="53" selection-start-column="7" selection-end-line="53" selection-end-column="7" />
           <folding />
         </state>
@@ -1439,9 +1443,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="126">
           <caret line="7" column="51" selection-start-line="7" selection-start-column="51" selection-end-line="7" selection-end-column="51" />
-          <folding>
-            <element signature="e#210#219#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
