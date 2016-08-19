@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="0361b248-2ca4-443a-8fe8-f22ea275edc7" name="Default" comment="Made a file validator skeleton for each data type, airline &quot;active&quot; property changed to type bool, as it can be &quot;Y&quot; or &quot;N&quot;">
+    <list default="true" id="0361b248-2ca4-443a-8fe8-f22ea275edc7" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/seng202/group4/data/repository/AirportRepository.java" afterPath="$PROJECT_DIR$/src/main/java/seng202/group4/data/repository/AirportRepository.java" />
     </list>
     <ignored path="seng202-group-4.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -1006,12 +1005,20 @@
       <workItem from="1471510164345" duration="100000" />
       <workItem from="1471510312452" duration="109000" />
       <workItem from="1471570701356" duration="1040000" />
-      <workItem from="1471573488565" duration="83000" />
+      <workItem from="1471573488565" duration="103000" />
     </task>
+    <task id="LOCAL-00001" summary="Fixed mistakes">
+      <created>1471573587672</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1471573587672</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="7602000" />
+    <option name="totallyTimeSpent" value="7622000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1" y="0" width="1922" height="1055" extended-state="6" />
@@ -1059,7 +1066,8 @@
     <MESSAGE value="Updated Airline class, started working on Airline parser" />
     <MESSAGE value="Updated Airline class, started working on Airline parser, made DST enum" />
     <MESSAGE value="Made a file validator skeleton for each data type, airline &quot;active&quot; property changed to type bool, as it can be &quot;Y&quot; or &quot;N&quot;" />
-    <option name="LAST_COMMIT_MESSAGE" value="Made a file validator skeleton for each data type, airline &quot;active&quot; property changed to type bool, as it can be &quot;Y&quot; or &quot;N&quot;" />
+    <MESSAGE value="Fixed mistakes" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed mistakes" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
