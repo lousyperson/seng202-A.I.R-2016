@@ -13,7 +13,16 @@ public class Airline {
     private String country;
     private boolean active; // Can be active or not active
 
-
+    public Airline(int ID, String name, String alias, String IATA, String ICAO, String callsign, String country, boolean active) {
+        this.ID = ID;
+        this.name = name;
+        this.alias = alias;
+        this.IATA = IATA;
+        this.ICAO = ICAO;
+        this.callsign = callsign;
+        this.country = country;
+        this.active = active;
+    }
 
     public int getID() {
         return ID;
