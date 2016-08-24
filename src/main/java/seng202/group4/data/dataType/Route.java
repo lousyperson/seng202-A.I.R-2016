@@ -1,5 +1,8 @@
 package seng202.group4.data.dataType;
 
+import java.util.ArrayList;
+
+
 /**
  * Created by jjg64 on 15/08/16.
  */
@@ -12,8 +15,8 @@ public class Route {
     private int destAirportID;
     private String codeshare;
     private int stops;
-    private String equipment;
     private double distance;
+    private ArrayList<String> equipments = new ArrayList<String>();
 
     Route() {
 
@@ -84,14 +87,6 @@ public class Route {
         this.stops = stops;
     }
 
-    public String getEquipment() {
-        return equipment;
-    }
-
-    public void setEquipment(String equipment) {
-        this.equipment = equipment;
-    }
-
     public double getDistance() {
         return distance;
     }
@@ -101,4 +96,13 @@ public class Route {
     }
 
 
+    public ArrayList<String> getEquipments() {
+        return equipments;
+    }
+
+    public void setEquipments(String equips) {
+        for (String equipment: equips.split(" ")) {
+            equipments.add(equipment);
+        }
+    }
 }
