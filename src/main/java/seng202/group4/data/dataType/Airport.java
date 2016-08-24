@@ -17,8 +17,23 @@ public class Airport {
     private DaylightSavingsTime DST;
     private String tz;
 
-    Airport() {
+    public Airport() {
 
+    }
+    public Airport(int ID, String name, String city, String country, String IATA, String ICAO, double latitude,
+            double longitude, double altitude, float timezone, DaylightSavingsTime DST, String tz) {
+        this.ID = ID;
+        this.name = name;
+        this.city = city;
+        this.country = country;
+        this.IATA = IATA;
+        this.ICAO = ICAO;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.altitude = altitude;
+        this.timezone = timezone;
+        this.DST = DST;
+        this.tz = tz;
     }
 
 
