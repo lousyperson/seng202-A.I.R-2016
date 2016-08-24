@@ -19,7 +19,6 @@ public class FilterTest extends TestCase {
 
     @Test
     public void filterCountryFromAirport() {
-        // TODO Implement me
         AirportRepository airports = new AirportRepository();
         ArrayList<Airport> nzAirports = airports.getCountry("New Zealand");
 
