@@ -13,10 +13,3 @@ public class FlightParser {
     }
 }
 
-class FlightFileValidator {
-    private BufferedReader file;
-
-    FlightFileValidator(BufferedReader file) {
-        this.file = file;
-    }
-}
