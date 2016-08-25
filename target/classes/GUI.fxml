@@ -16,9 +16,9 @@
                   <Menu mnemonicParsing="false" text="Import">
                     <items>
                         <MenuItem mnemonicParsing="false" onAction="#loadAirline" text="Airline" />
-                        <MenuItem mnemonicParsing="false" text="Route" />
-                        <MenuItem mnemonicParsing="false" text="Airport" />
-                        <MenuItem mnemonicParsing="false" text="Flight" />
+                        <MenuItem mnemonicParsing="false" onAction="#loadAirport" text="Airport" />
+                        <MenuItem mnemonicParsing="false" onAction="#loadRoute" text="Route" />
+                        <MenuItem mnemonicParsing="false" onAction="#loadFlight" text="Flight" />
                     </items>
                   </Menu>
             </items>
@@ -30,7 +30,7 @@
           </Menu>
           <Menu mnemonicParsing="false" text="View">
             <items>
-              <MenuItem mnemonicParsing="false" text="About" />
+              <MenuItem mnemonicParsing="false" text="Extend Data Table" />
             </items>
           </Menu>
             <Menu mnemonicParsing="false" text="Tools">
@@ -77,10 +77,16 @@
                               <Text layoutX="10.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Data Lists" />
                            </children>
                         </AnchorPane>
-                        <TableView prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="6" GridPane.rowSpan="4">
+                        <TableView fx:id="tableID" prefHeight="200.0" prefWidth="200.0" tableMenuButtonVisible="true" GridPane.columnIndex="1" GridPane.columnSpan="6" GridPane.rowSpan="4">
                           <columns>
-                            <TableColumn prefWidth="75.0" text="C1" />
-                            <TableColumn prefWidth="75.0" text="C2" />
+                            <TableColumn fx:id="name" prefWidth="131.0" text="Name" />
+                            <TableColumn fx:id="country" prefWidth="153.0" text="Country" />
+                              <TableColumn fx:id="callsign" minWidth="0.0" prefWidth="131.0" text="Callsign" />
+                              <TableColumn fx:id="alias" prefWidth="82.0" text="Alias" />
+                              <TableColumn fx:id="iata" prefWidth="72.0" text="IATA" />
+                              <TableColumn fx:id="icao" prefWidth="68.0" text="ICAO" />
+                              <TableColumn fx:id="active" prefWidth="72.0" text="Active" />
+                              <TableColumn fx:id="id" minWidth="0.0" prefWidth="94.0" text="ID" />
                           </columns>
                         </TableView>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="172.0" prefWidth="220.0">
@@ -96,7 +102,7 @@
                               </MenuButton>
                            </children>
                         </AnchorPane>
-                        <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
+                        <AnchorPane fx:id="airlineTable" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
                            <children>
                               <TextField layoutX="14.0" layoutY="39.0" text="Filter" />
                               <Text layoutX="14.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Advanced filter stuff" />
@@ -106,20 +112,65 @@
                   </GridPane>
                </content>
           </Tab>
-          <Tab text="Map View">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+            <Tab text="Map View">
+               <content>
+                  <GridPane>
                      <children>
-                        <TableView layoutX="368.0" layoutY="490.0" prefHeight="205.0" prefWidth="645.0">
-                          <columns>
-                            <TableColumn prefWidth="75.0" text="C1" />
-                            <TableColumn prefWidth="75.0" text="C2" />
-                          </columns>
-                        </TableView>
+                        <AnchorPane maxWidth="220.0" minHeight="0.0" minWidth="0.0" prefHeight="706.0" prefWidth="220.0" GridPane.rowIndex="2" GridPane.rowSpan="2">
+                           <children>
+                              <ListView layoutX="10.0" layoutY="34.0" prefHeight="307.0" prefWidth="200.0" />
+                              <Text layoutX="10.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Data Lists" />
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="172.0" prefWidth="220.0">
+                           <children>
+                              <TextField layoutX="11.0" layoutY="23.0" prefHeight="25.0" prefWidth="196.0" text="Search" />
+                              <Button layoutX="163.0" layoutY="58.0" mnemonicParsing="false" text="Go" />
+                              <MenuButton layoutX="14.0" layoutY="58.0" mnemonicParsing="false" text="Filter based on">
+                                 <items>
+                                    <MenuItem mnemonicParsing="false" text="Action 1" />
+                                    <MenuItem mnemonicParsing="false" text="Action 2" />
+                                    <CheckMenuItem mnemonicParsing="false" text="Unspecified Action" />
+                                 </items>
+                              </MenuButton>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
+                           <children>
+                              <TextField layoutX="14.0" layoutY="39.0" text="Filter" />
+                              <Text layoutX="14.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Advanced filter stuff" />
+                           </children>
+                        </AnchorPane>
+                        <SplitPane dividerPositions="0.05823863636363636" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" GridPane.columnIndex="1" GridPane.columnSpan="6" GridPane.rowSpan="4">
+                          <items>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" />
+                              <TableView prefHeight="248.0" prefWidth="699.0">
+                                <columns>
+                                  <TableColumn prefWidth="75.0" text="C1" />
+                                  <TableColumn prefWidth="75.0" text="C2" />
+                                </columns>
+                              </TableView>
+                          </items>
+                        </SplitPane>
                      </children>
-                  </AnchorPane>
-            </content>
-          </Tab>
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="220.0" minWidth="10.0" prefWidth="220.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="311.0" minWidth="10.0" prefWidth="218.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="266.0" minWidth="10.0" prefWidth="168.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints maxHeight="100.0" minHeight="0.0" prefHeight="145.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="255.0" minHeight="0.0" prefHeight="221.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                  </GridPane>
+               </content>
+            </Tab>
         </tabs>
       </TabPane>
    </center>
