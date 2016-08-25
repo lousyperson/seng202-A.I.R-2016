@@ -3,10 +3,7 @@ package seng202.group4.data.parser.validator;
 import seng202.group4.data.dataType.Airline;
 import seng202.group4.data.parser.AirlineParser;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 
 /**
@@ -14,7 +11,7 @@ import java.util.ArrayList;
  */
 public class AirlineValidator {
     private final int MAX_ITEMS_PER_LINE = 8;
-    private String filepath;
+    private File filepath;
     private BufferedReader file;
     private String[] splitLine = new String[MAX_ITEMS_PER_LINE];
     private String splitBy = ",";
@@ -22,7 +19,7 @@ public class AirlineValidator {
     private boolean active;
     private String currentLine;
 
-    public AirlineValidator(String filepath) throws FileNotFoundException {
+    public AirlineValidator(File filepath) throws FileNotFoundException {
         this.filepath = filepath;
         this.file = new BufferedReader(new FileReader(filepath));
     }
