@@ -5,6 +5,7 @@ import seng202.group4.data.dataType.DaylightSavingsTime;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -19,6 +20,7 @@ public class AirlineParser {
     private int ID;
     private boolean active;
     private String currentLine;
+    private ArrayList<Airline> airlines = new ArrayList<Airline>();
 
     public AirlineParser(BufferedReader file) {
         this.file = file;
@@ -47,20 +49,18 @@ public class AirlineParser {
         thisAirline = new Airline(ID, splitLine[1], splitLine[2],
                 splitLine[3], splitLine[4], splitLine[5],
                 splitLine[6], active);
+
+        airlines.add(thisAirline);
     }
 
-    public void readFile() throws IOException {
+    public ArrayList<Airline> makeAirlines() throws IOException {
         while ((currentLine = file.readLine()) != null) {
-            addAirline();
+            if (!currentLine.matches(("\\w"))) {
+                addAirline();
+            }
         }
+        return airlines;
     }
 
 }
 
-class AirlineFileValidator {
-    private BufferedReader file;
-
-    AirlineFileValidator(BufferedReader file) {
-        this.file = file;
-    }
-}

@@ -65,10 +65,3 @@ public class AirportParser {
 
 }
 
-class AirportFileValidator {
-    private BufferedReader file;
-
-    AirportFileValidator(BufferedReader file) {
-        this.file = file;
-    }
-}

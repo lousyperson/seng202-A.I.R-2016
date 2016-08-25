@@ -14,10 +14,3 @@ public class RouteParser {
 
 }
 
-class RouteFileValidator {
-    private BufferedReader file;
-
-    RouteFileValidator(BufferedReader file) {
-
-    }
-}
