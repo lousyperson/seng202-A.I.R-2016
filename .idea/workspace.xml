@@ -2,12 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ca2aa813-8719-4e3c-a54d-137829d6f1e4" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/testfiles/Airlines/oneDodgyAirline.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/seng202/group4/data/parser/AirlineParser.class" afterPath="$PROJECT_DIR$/target/classes/seng202/group4/data/parser/AirlineParser.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/seng202/group4/data/parser/validator/AirlineValidator.java" afterPath="$PROJECT_DIR$/src/main/java/seng202/group4/data/parser/validator/AirlineValidator.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/seng202/group4/ValidatorTest.java" afterPath="$PROJECT_DIR$/src/test/java/seng202/group4/ValidatorTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/testfiles/Airlines/oneValidAirline.txt" afterPath="$PROJECT_DIR$/testfiles/Airlines/oneValidAirline.txt" />
     </list>
     <ignored path="seng202-project.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -101,7 +96,7 @@
       <file leaf-file-name="AirlineValidator.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/seng202/group4/data/parser/validator/AirlineValidator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-36">
+            <state relative-caret-position="-488">
               <caret line="16" column="31" selection-start-line="16" selection-start-column="31" selection-end-line="16" selection-end-column="31" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -1016,7 +1011,7 @@
       <workItem from="1472091398388" duration="8000" />
       <workItem from="1472092353796" duration="151000" />
       <workItem from="1472092790194" duration="10813000" />
-      <workItem from="1472104298246" duration="6000" />
+      <workItem from="1472104298246" duration="108000" />
     </task>
     <task id="LOCAL-00001" summary="New junit version">
       <created>1472011458815</created>
@@ -1046,7 +1041,14 @@
       <option name="project" value="LOCAL" />
       <updated>1472092942684</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Airline Validator can pick up garbage in a file. Still need to implement no duplicate IDs and whitespace in the same line skipper">
+      <created>1472104357683</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1472104357683</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1082,11 +1084,11 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="16161000" />
+    <option name="totallyTimeSpent" value="16263000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1" y="0" width="1682" height="1025" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -1130,7 +1132,8 @@
     <MESSAGE value="New junit version" />
     <MESSAGE value="Airline parser return arraylist of airlines" />
     <MESSAGE value="Airline Validator intialised" />
-    <option name="LAST_COMMIT_MESSAGE" value="Airline Validator intialised" />
+    <MESSAGE value="Airline Validator can pick up garbage in a file. Still need to implement no duplicate IDs and whitespace in the same line skipper" />
+    <option name="LAST_COMMIT_MESSAGE" value="Airline Validator can pick up garbage in a file. Still need to implement no duplicate IDs and whitespace in the same line skipper" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -1654,7 +1657,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/seng202/group4/data/parser/validator/AirlineValidator.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-36">
+        <state relative-caret-position="-488">
           <caret line="16" column="31" selection-start-line="16" selection-start-column="31" selection-end-line="16" selection-end-column="31" />
           <folding>
             <element signature="imports" expanded="true" />
