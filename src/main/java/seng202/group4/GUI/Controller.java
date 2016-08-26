@@ -10,10 +10,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import seng202.group4.data.dataType.Airline;
-import seng202.group4.data.parser.AirlineParser;
 import seng202.group4.data.parser.AirportParser;
-import seng202.group4.data.parser.FlightParser;
-import seng202.group4.data.parser.RouteParser;
 import seng202.group4.data.parser.validator.AirlineValidator;
 
 
@@ -25,52 +22,98 @@ import java.util.ResourceBundle;
 
 public class Controller implements Initializable{
 
-    // DEFINE TABLE
+    // DEFINE TABLES
+
+    // Airline Table
     @FXML
-    TableView<airlineTable> tableID;
+    TableView<airlineTable> airlineTableID;
 
     @FXML
-    TableColumn<airlineTable, String> id;
+    TableColumn<airlineTable, String> aid;
 
     @FXML
-    TableColumn<airlineTable, String> name;
+    TableColumn<airlineTable, String> aname;
 
     @FXML
-    TableColumn<airlineTable, String> alias;
+    TableColumn<airlineTable, String> aalias;
 
     @FXML
-    TableColumn<airlineTable, String> iata;
+    TableColumn<airlineTable, String> aiata;
 
     @FXML
-    TableColumn<airlineTable, String> icao;
+    TableColumn<airlineTable, String> aicao;
 
     @FXML
-    TableColumn<airlineTable, String> callsign;
+    TableColumn<airlineTable, String> acallsign;
 
     @FXML
-    TableColumn<airlineTable, String> country;
+    TableColumn<airlineTable, String> acountry;
 
     @FXML
-    TableColumn<airlineTable, String> active;
+    TableColumn<airlineTable, String> aactive;
+
+    // Airport Table
+    @FXML
+    TableView<airportTable> airportTableID;
+
+    @FXML
+    TableColumn<airportTable, String> apid;
+
+    @FXML
+    TableColumn<airportTable, String> apname;
+
+    @FXML
+    TableColumn<airportTable, String> apcity;
+
+    @FXML
+    TableColumn<airportTable, String> apcountry;
+
+    @FXML
+    TableColumn<airportTable, String> apiata;
+
+    @FXML
+    TableColumn<airportTable, String> apicao;
+
+    @FXML
+    TableColumn<airportTable, String> aplat;
+
+    @FXML
+    TableColumn<airportTable, String> aplong;
+
+    @FXML
+    TableColumn<airportTable, String> apalt;
+
+    @FXML
+    TableColumn<airportTable, String> aptimezone;
+
+    @FXML
+    TableColumn<airportTable, String> apdst;
+
+    @FXML
+    TableColumn<airportTable, String> aptz;
+
+
+
+
 
 
     //create table data
+    final ObservableList<airlineTable> airlineTData = FXCollections.observableArrayList();
 
-    final ObservableList<airlineTable> data = FXCollections.observableArrayList();
-
+    final ObservableList<airlineTable> airportTData = FXCollections.observableArrayList();
 
 
     public void initialize(URL location, ResourceBundle resources) {
-        id.setCellValueFactory(new PropertyValueFactory<airlineTable, String>("rid"));
-        name.setCellValueFactory(new PropertyValueFactory<airlineTable, String>("rname"));
-        alias.setCellValueFactory(new PropertyValueFactory<airlineTable, String>("ralias"));
-        iata.setCellValueFactory(new PropertyValueFactory<airlineTable, String>("riata"));
-        icao.setCellValueFactory(new PropertyValueFactory<airlineTable, String>("ricao"));
-        callsign.setCellValueFactory(new PropertyValueFactory<airlineTable, String>("rcallsign"));
-        country.setCellValueFactory(new PropertyValueFactory<airlineTable, String>("rcountry"));
-        active.setCellValueFactory(new PropertyValueFactory<airlineTable, String>("ractive"));
+        aid.setCellValueFactory(new PropertyValueFactory<airlineTable, String>("rid"));
+        aname.setCellValueFactory(new PropertyValueFactory<airlineTable, String>("rname"));
+        aalias.setCellValueFactory(new PropertyValueFactory<airlineTable, String>("ralias"));
+        aiata.setCellValueFactory(new PropertyValueFactory<airlineTable, String>("riata"));
+        aicao.setCellValueFactory(new PropertyValueFactory<airlineTable, String>("ricao"));
+        acallsign.setCellValueFactory(new PropertyValueFactory<airlineTable, String>("rcallsign"));
+        acountry.setCellValueFactory(new PropertyValueFactory<airlineTable, String>("rcountry"));
+        aactive.setCellValueFactory(new PropertyValueFactory<airlineTable, String>("ractive"));
 
-        tableID.setItems(data);
+        airlineTableID.setItems(airlineTData);
 
 
 
