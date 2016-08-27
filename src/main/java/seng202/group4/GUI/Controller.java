@@ -92,18 +92,52 @@ public class Controller implements Initializable{
     @FXML
     TableColumn<airportTable, String> aptz;
 
+    // Route table
+
+    @FXML
+    TableView<routeTable> routeTableID;
+
+    @FXML
+    TableColumn<routeTable, String> airline;
+
+    @FXML
+    TableColumn<routeTable, Integer> airlineID;
+
+    @FXML
+    TableColumn<routeTable, String> source;
+
+    @FXML
+    TableColumn<routeTable, Integer> sourceID;
+
+    @FXML
+    TableColumn<routeTable, String> dest;
+
+    @FXML
+    TableColumn<routeTable, Integer> destID;
+
+    @FXML
+    TableColumn<routeTable, String> codeshare;
+
+    @FXML
+    TableColumn<routeTable, Integer> stops;
+
+    @FXML
+    TableColumn<routeTable, String> equipment;
 
 
 
-
-
-    //create table data
+    // create table data
     final ObservableList<airlineTable> airlineTData = FXCollections.observableArrayList();
 
-    final ObservableList<airlineTable> airportTData = FXCollections.observableArrayList();
+    final ObservableList<airportTable> airportTData = FXCollections.observableArrayList();
+
+    final ObservableList<routeTable> routeTData = FXCollections.observableArrayList();
+
 
 
     public void initialize(URL location, ResourceBundle resources) {
+
+        // initiliase airline table resources
         aid.setCellValueFactory(new PropertyValueFactory<airlineTable, String>("rid"));
         aname.setCellValueFactory(new PropertyValueFactory<airlineTable, String>("rname"));
         aalias.setCellValueFactory(new PropertyValueFactory<airlineTable, String>("ralias"));
@@ -115,9 +149,34 @@ public class Controller implements Initializable{
 
         airlineTableID.setItems(airlineTData);
 
+        // initiliase airport table resources
+        apid.setCellValueFactory(new PropertyValueFactory<airportTable, String>("atid"));
+        apname.setCellValueFactory(new PropertyValueFactory<airportTable, String>("atname"));
+        apcity.setCellValueFactory(new PropertyValueFactory<airportTable, String>("atcity"));
+        apcountry.setCellValueFactory(new PropertyValueFactory<airportTable, String>("atcountry"));
+        apiata.setCellValueFactory(new PropertyValueFactory<airportTable, String>("atiata"));
+        apicao.setCellValueFactory(new PropertyValueFactory<airportTable, String>("aticao"));
+        aplat.setCellValueFactory(new PropertyValueFactory<airportTable, String>("atlatitude"));
+        aplong.setCellValueFactory(new PropertyValueFactory<airportTable, String>("atlongitude"));
+        apalt.setCellValueFactory(new PropertyValueFactory<airportTable, String>("ataltitude"));
+        aptimezone.setCellValueFactory(new PropertyValueFactory<airportTable, String>("attimezone"));
+        apdst.setCellValueFactory(new PropertyValueFactory<airportTable, String>("atdst"));
+        aptz.setCellValueFactory(new PropertyValueFactory<airportTable, String>("attzdatabase"));
 
+        airportTableID.setItems(airportTData);
 
+        // initiliase route data table resources
+        airline.setCellValueFactory(new PropertyValueFactory<routeTable, String>("rairline"));
+        airlineID.setCellValueFactory(new PropertyValueFactory<routeTable, Integer>("rid"));
+        source.setCellValueFactory(new PropertyValueFactory<routeTable, String>("rsource"));
+        sourceID.setCellValueFactory(new PropertyValueFactory<routeTable, Integer>("rsourceid"));
+        dest.setCellValueFactory(new PropertyValueFactory<routeTable, String>("rdest"));
+        destID.setCellValueFactory(new PropertyValueFactory<routeTable, Integer>("rdestid"));
+        codeshare.setCellValueFactory(new PropertyValueFactory<routeTable, String>("rcodeshare"));
+        stops.setCellValueFactory(new PropertyValueFactory<routeTable, Integer>("rstops"));
+        equipment.setCellValueFactory(new PropertyValueFactory<routeTable, String>("requipment"));
 
+        routeTableID.setItems(routeTData);
     }
 
 
