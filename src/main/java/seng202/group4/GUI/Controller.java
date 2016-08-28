@@ -1,9 +1,12 @@
 package seng202.group4.GUI;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -125,6 +128,9 @@ public class Controller implements Initializable{
     TableColumn<routeTable, String> equipment;
 
 
+    // data list
+    @FXML
+    ListView<String> datalist;
 
     // create table data
     final ObservableList<airlineTable> airlineTData = FXCollections.observableArrayList();
@@ -133,9 +139,28 @@ public class Controller implements Initializable{
 
     final ObservableList<routeTable> routeTData = FXCollections.observableArrayList();
 
+    final ObservableList<String> items = FXCollections.observableArrayList("Default Airlines", "Default Airports", "Default Routes");
+
 
 
     public void initialize(URL location, ResourceBundle resources) {
+
+        datalist.setItems(items);
+
+        datalist.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+            public void changed(ObservableValue<? extends String> ov, String old_val, String new_val) {
+                // action goes here.
+                System.out.println("Selected item: " + new_val);
+                if (new_val.equals("Default Airlines")) {
+                    airlineTableID.toFront();
+                } else if (new_val.equals("Default Airports")) {
+                    airportTableID.toFront();
+                } else if (new_val.equals("Default Routes")) {
+                    routeTableID.toFront();
+                }
+
+            }
+        });
 
         // initiliase airline table resources
         aid.setCellValueFactory(new PropertyValueFactory<airlineTable, String>("rid"));
@@ -177,6 +202,8 @@ public class Controller implements Initializable{
         equipment.setCellValueFactory(new PropertyValueFactory<routeTable, String>("requipment"));
 
         routeTableID.setItems(routeTData);
+
+
     }
 
 
