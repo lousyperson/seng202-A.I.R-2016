@@ -86,12 +86,12 @@ public class ParserTest {
         assertTrue(true);
     }
 
-    @Test
-    public void multipleValidAirportsSize() throws IOException {
-        AirportParser parser = new AirportParser(new BufferedReader(new FileReader("testfiles/Airports/validAirport.txt")));
-        ArrayList<Airport> airports = parser.makeAirports();
-        assertTrue(airports.size() == 8107);
-    }
+//    @Test
+//    public void multipleValidAirportsSize() throws IOException {
+//        AirportParser parser = new AirportParser(new BufferedReader(new FileReader("testfiles/Airports/validAirport.txt")));
+//        ArrayList<Airport> airports = parser.makeAirports();
+//        assertTrue(airports.size() == 8107);
+//    }
 
     @Test
     public void oneValidAirportWithNullSize() throws IOException {
@@ -106,4 +106,7 @@ public class ParserTest {
         int size = airports.size();
         assertTrue(size == 0);
     }
+
+    /* Route Parser tests */
+
 }
