@@ -68,11 +68,13 @@ public class ValidatorTest {
     /* Invalid files */
     /* Invalid files have been moved to a GUI test as they use an alert popup */
 
-    @Test
-    public void missingQuotation() throws IOException {
+    // Moved to ValidatorGUITest
 
-        AirlineValidator parser = new AirlineValidator(new File("testfiles/Airlines/oneDodgyAirline.txt"));
-        ArrayList<Airline> airlines = parser.makeAirlines();
-        assertTrue(airlines == null);
-    }
+//    @Test
+//    public void missingQuotation() throws IOException {
+//
+//        AirlineValidator parser = new AirlineValidator(new File("testfiles/Airlines/oneDodgyAirline.txt"));
+//        ArrayList<Airline> airlines = parser.makeAirlines();
+//        assertTrue(airlines == null);
+//    }
 }
