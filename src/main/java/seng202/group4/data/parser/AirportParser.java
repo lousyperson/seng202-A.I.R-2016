@@ -5,6 +5,7 @@ import seng202.group4.data.dataType.DaylightSavingsTime;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -19,6 +20,7 @@ public class AirportParser {
     private int ID;
     private String currentLine;
     private HashMap<String, DaylightSavingsTime> DSTs = new HashMap<String, DaylightSavingsTime>();
+    private ArrayList<Airport> airports = new ArrayList<Airport>();
 
     public AirportParser(BufferedReader file) {
         this.file = file;
@@ -40,7 +42,8 @@ public class AirportParser {
         if (splitLine[i].equals("\\N")) {
             splitLine[i] = null;
         } else {
-            splitLine[i] = splitLine[i].replaceAll("^\"|\"$", "");      // Remove quotation marks
+            // Remove quotation marks
+            splitLine[i] = splitLine[i].replaceAll("^\"|\"$", "");
         }
     }
 
@@ -55,12 +58,17 @@ public class AirportParser {
                 Double.parseDouble(splitLine[6]), Double.parseDouble(splitLine[7]),
                 Double.parseDouble(splitLine[8]), Float.parseFloat(splitLine[9]),
                 DSTs.get(splitLine[10]), splitLine[11]);
+        airports.add(thisAirport);
     }
 
-    public void readFile() throws IOException {
+    public ArrayList<Airport> makeAirports() throws IOException {
         while ((currentLine = file.readLine()) != null) {
-            addAirport();
+            currentLine = currentLine.trim();
+            if (!currentLine.matches("\\w") && !currentLine.matches("")) {
+                addAirport();
+            }
         }
+        return airports;
     }
 
 }

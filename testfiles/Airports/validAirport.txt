@@ -4439,7 +4439,6 @@
 5884,"Niue International Airport","Alofi","Niue","IUE","NIUE",-19.080028,-169.925639,209,-11,"U","Pacific/Niue"
 5883,"Vanua Balavu Airport","Vanua Balavu","Fiji","VBV","NFVB",-17.269,-178.976,76,12,"U","Pacific/Fiji"
 5882,"Kuini Lavenia Airport","Niuatoputapu","Tonga","NTT","NFTP",-15.9767,-173.755,0,13,"U","Pacific/Tongatapu"
-5881,"Mata'aho Airport","Angaha, Niuafo'ou Island","Tonga","NFO","NFTO",-15.5708,-175.633,160,13,"U","Pacific/Tongatapu"
 5880,"Lifuka Island Airport","Lifuka","Tonga","HPA","NFTL",-19.777,-174.341,31,13,"U","Pacific/Tongatapu"
 5879,"Kaufana Airport","Eua Island","Tonga","EUA","NFTE",-21.3783,-174.958,325,13,"U","Pacific/Tongatapu"
 5878,"Savusavu Airport","Savusavu","Fiji","SVU","NFNS",-16.8028,179.341,17,12,"U","Pacific/Fiji"
@@ -8104,4 +8103,4 @@
 9538,"Port McNeill Airport","Port McNeill","Canada","YMP",\N,50.575556,-127.028611,225,-8,"A","America/Vancouver"
 9539,"Sullivan Bay Water Aerodrome","Sullivan Bay","Canada","YTG",\N,50.883333,-126.833333,0,-8,"A","America/Vancouver"
 9540,"Deer Harbor Seaplane","Deer Harbor","United States","DHB",\N,48.618397,-123.00596,0,-8,"A","America/Los_Angeles"
-9541,"San Diego Old Town Transit Center","San Diego","United States","OLT",\N,32.7552,-117.1995,0,-8,"A","America/Los_Angeles"
+9541,"San Diego Old Town Transit Center","San Diego","United States","OLT",\N,32.7552,-117.1995,0,-8,"A","America/Los_Angeles"F

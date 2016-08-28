@@ -1,6 +1,11 @@
 package seng202.group4;
 
 
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 import junit.framework.TestCase;
 import org.junit.After;
 import org.junit.Before;
@@ -61,14 +66,15 @@ public class ValidatorTest {
     }
 
     /* Invalid files */
+    /* Invalid files have been moved to a GUI test as they use an alert popup */
 
-    @Test
-    public void missingQuotation() throws IOException {
-        try {
-            AirlineValidator parser = new AirlineValidator(new File("testfiles/Airlines/oneDodgyAirline.txt"));
-            ArrayList<Airline> airlines = parser.makeAirlines();
-        } catch (Exception e) {
-            assertTrue(true);
-        }
-    }
+    // Moved to ValidatorGUITest
+
+//    @Test
+//    public void missingQuotation() throws IOException {
+//
+//        AirlineValidator parser = new AirlineValidator(new File("testfiles/Airlines/oneDodgyAirline.txt"));
+//        ArrayList<Airline> airlines = parser.makeAirlines();
+//        assertTrue(airlines == null);
+//    }
 }

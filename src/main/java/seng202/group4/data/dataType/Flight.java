@@ -5,6 +5,16 @@ package seng202.group4.data.dataType;
  */
 public class Flight {
     private String type;
+    private String ID;
+
+    public String getID() {
+        return ID;
+    }
+
+    public void setID(String ID) {
+        this.ID = ID;
+    }
+
     private double altitude;
     private double longitude;
     private double latitude;
