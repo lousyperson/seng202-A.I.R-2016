@@ -4,16 +4,19 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import seng202.group4.data.dataType.Airline;
 import seng202.group4.data.parser.AirportParser;
+import seng202.group4.data.parser.RouteParser;
 import seng202.group4.data.parser.validator.AirlineValidator;
 
 
@@ -132,6 +135,10 @@ public class Controller implements Initializable{
     @FXML
     ListView<String> datalist;
 
+    // search field
+    @FXML
+    TextField searchField;
+
     // create table data
     final ObservableList<airlineTable> airlineTData = FXCollections.observableArrayList();
 
@@ -203,6 +210,28 @@ public class Controller implements Initializable{
 
         routeTableID.setItems(routeTData);
 
+        // filtering for airline table
+        FilteredList<airlineTable> airlineFiltered = new FilteredList<airlineTable>(airlineTData, p -> true);
+
+        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+            airlineFiltered.setPredicate(data -> {
+                // If filter text is empty, display all data.
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+
+                // Compare first name and last name of every data with filter text.
+                String lowerCaseFilter = newValue.toLowerCase();
+
+                if (data.getRcountry().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                    return true; // Filter matches first name.
+                } else if (data.getRname().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                    return true; // Filter matches last name.
+                }
+                return false; // Does not match.
+            });
+        });
+
 
     }
 
@@ -254,6 +283,8 @@ public class Controller implements Initializable{
         if (file != null) {
             BufferedReader br = new BufferedReader(new FileReader(file));
             //TODO
+            //RouteParser parser = new RouteParser(br);
+
 
         }
     }

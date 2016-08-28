@@ -71,60 +71,27 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="6" GridPane.rowSpan="4">
-                           <children>
-                              <TableView fx:id="airlineTableID" prefHeight="200.0" prefWidth="200.0" tableMenuButtonVisible="true">
-                                <columns>
-                                    <TableColumn fx:id="aid" minWidth="0.0" prefWidth="68.0" text="ID" />
-                                  <TableColumn fx:id="aname" prefWidth="145.0" text="Name" />
-                                    <TableColumn fx:id="aalias" prefWidth="82.0" text="Alias" />
-                                    <TableColumn fx:id="aiata" prefWidth="72.0" text="IATA" />
-                                    <TableColumn fx:id="aicao" prefWidth="68.0" text="ICAO" />
-                                    <TableColumn fx:id="acallsign" minWidth="0.0" prefWidth="131.0" text="Callsign" />
-                                  <TableColumn fx:id="acountry" prefWidth="139.0" text="Country" />
-                                    <TableColumn fx:id="aactive" prefWidth="72.0" text="Active" />
-                                </columns>
-                              </TableView>
-                              <TableView fx:id="airportTableID" prefHeight="200.0" prefWidth="200.0" tableMenuButtonVisible="true">
-                                 <columns>
-                                    <TableColumn fx:id="apid" minWidth="0.0" prefWidth="92.0" text="Airport ID" />
-                                    <TableColumn fx:id="apname" prefWidth="86.0" text="Name" />
-                                    <TableColumn fx:id="apcity" prefWidth="52.0" text="City" />
-                                    <TableColumn fx:id="apcountry" prefWidth="78.0" text="Country" />
-                                    <TableColumn fx:id="apiata" prefWidth="102.0" text="IATA/FAA" />
-                                    <TableColumn fx:id="apicao" prefWidth="32.0" text="ICAO" />
-                                    <TableColumn fx:id="aplat" prefWidth="103.0" text="Latitude" />
-                                    <TableColumn fx:id="aplong" prefWidth="82.0" text="Longitude" />
-                                    <TableColumn fx:id="apalt" minWidth="0.0" prefWidth="98.0" text="Altitude" />
-                                    <TableColumn fx:id="aptimezone" prefWidth="101.0" text="Timezone" />
-                                    <TableColumn fx:id="apdst" prefWidth="72.0" text="DST" />
-                                    <TableColumn fx:id="aptz" prefWidth="72.0" text="Tz database time zone" />
-                                 </columns>
-                              </TableView>
-                              <TableView fx:id="routeTableID" prefHeight="200.0" prefWidth="200.0" tableMenuButtonVisible="true">
-                                 <columns>
-                                    <TableColumn fx:id="airline" prefWidth="75.0" text="Airline" />
-                                    <TableColumn fx:id="airlineID" minWidth="0.0" prefWidth="68.0" text="ID" />
-                                    <TableColumn fx:id="source" prefWidth="145.0" text="Source airport" />
-                                    <TableColumn fx:id="sourceID" prefWidth="82.0" text="Source airport ID" />
-                                    <TableColumn fx:id="dest" prefWidth="72.0" text="Destination airport" />
-                                    <TableColumn fx:id="destID" prefWidth="68.0" text="Destination airport ID" />
-                                    <TableColumn fx:id="codeshare" minWidth="0.0" prefWidth="131.0" text="Codeshare" />
-                                    <TableColumn fx:id="stops" prefWidth="139.0" text="Stops" />
-                                    <TableColumn fx:id="equipment" prefWidth="72.0" text="Equipment" />
-                                 </columns>
-                              </TableView>
-                           </children>
-                        </StackPane>
                       <AnchorPane maxWidth="220.0" minHeight="0.0" minWidth="0.0" prefHeight="706.0" prefWidth="220.0" GridPane.rowIndex="2" GridPane.rowSpan="2">
                            <children>
-                              <ListView fx:id="datalist" layoutX="10.0" layoutY="34.0" prefHeight="307.0" prefWidth="200.0" />
+                              <ListView layoutX="10.0" layoutY="34.0" prefHeight="307.0" prefWidth="200.0" />
                               <Text layoutX="10.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Data Lists" />
                            </children>
                         </AnchorPane>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="97.0" prefWidth="971.0">
+                        <TableView fx:id="airlineTableID" prefHeight="200.0" prefWidth="200.0" tableMenuButtonVisible="true" visible="false" GridPane.columnIndex="1" GridPane.columnSpan="6" GridPane.rowSpan="4">
+                          <columns>
+                              <TableColumn fx:id="aid" minWidth="0.0" prefWidth="68.0" text="ID" />
+                            <TableColumn fx:id="aname" prefWidth="145.0" text="Name" />
+                              <TableColumn fx:id="aalias" prefWidth="82.0" text="Alias" />
+                              <TableColumn fx:id="aiata" prefWidth="72.0" text="IATA" />
+                              <TableColumn fx:id="aicao" prefWidth="68.0" text="ICAO" />
+                              <TableColumn fx:id="acallsign" minWidth="0.0" prefWidth="131.0" text="Callsign" />
+                            <TableColumn fx:id="acountry" prefWidth="139.0" text="Country" />
+                              <TableColumn fx:id="aactive" prefWidth="72.0" text="Active" />
+                          </columns>
+                        </TableView>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="172.0" prefWidth="220.0">
                            <children>
-                              <TextField layoutX="11.0" layoutY="23.0" prefHeight="25.0" prefWidth="196.0" text="Search" />
+                              <TextField fx:id="searchField" layoutX="11.0" layoutY="23.0" prefHeight="25.0" prefWidth="196.0" text="Search" />
                               <Button layoutX="163.0" layoutY="58.0" mnemonicParsing="false" text="Go" />
                               <MenuButton layoutX="14.0" layoutY="58.0" mnemonicParsing="false" text="Filter based on">
                                 <items>
@@ -141,6 +108,35 @@
                               <Text layoutX="14.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Advanced filter stuff" />
                            </children>
                         </AnchorPane>
+                        <TableView fx:id="airportTableID" layoutX="230.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" tableMenuButtonVisible="true" visible="false" GridPane.columnIndex="1" GridPane.columnSpan="6" GridPane.rowSpan="4">
+                           <columns>
+                              <TableColumn fx:id="apid" minWidth="0.0" prefWidth="92.0" text="Airport ID" />
+                              <TableColumn fx:id="apname" prefWidth="86.0" text="Name" />
+                              <TableColumn fx:id="apcity" prefWidth="52.0" text="City" />
+                              <TableColumn fx:id="apcountry" prefWidth="78.0" text="Country" />
+                              <TableColumn fx:id="apiata" prefWidth="102.0" text="IATA/FAA" />
+                              <TableColumn fx:id="apicao" prefWidth="32.0" text="ICAO" />
+                              <TableColumn fx:id="aplat" prefWidth="103.0" text="Latitude" />
+                              <TableColumn fx:id="aplong" prefWidth="82.0" text="Longitude" />
+                              <TableColumn fx:id="apalt" minWidth="0.0" prefWidth="98.0" text="Altitude" />
+                              <TableColumn fx:id="aptimezone" prefWidth="101.0" text="Timezone" />
+                              <TableColumn fx:id="apdst" prefWidth="72.0" text="DST" />
+                              <TableColumn fx:id="aptz" prefWidth="72.0" text="Tz database time zone" />
+                           </columns>
+                        </TableView>
+                        <TableView fx:id="routeTableID" layoutX="230.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" tableMenuButtonVisible="true" GridPane.columnIndex="1" GridPane.columnSpan="6" GridPane.rowSpan="4">
+                           <columns>
+                              <TableColumn fx:id="airline" prefWidth="75.0" text="Airline" />
+                              <TableColumn fx:id="airlineID" minWidth="0.0" prefWidth="68.0" text="ID" />
+                              <TableColumn fx:id="source" prefWidth="145.0" text="Source airport" />
+                              <TableColumn fx:id="sourceID" prefWidth="82.0" text="Source airport ID" />
+                              <TableColumn fx:id="dest" prefWidth="72.0" text="Destination airport" />
+                              <TableColumn fx:id="destID" prefWidth="68.0" text="Destination airport ID" />
+                              <TableColumn fx:id="codeshare" minWidth="0.0" prefWidth="131.0" text="Codeshare" />
+                              <TableColumn fx:id="stops" prefWidth="139.0" text="Stops" />
+                              <TableColumn fx:id="equipment" prefWidth="72.0" text="Equipment" />
+                           </columns>
+                        </TableView>
                      </children>
                   </GridPane>
                </content>
