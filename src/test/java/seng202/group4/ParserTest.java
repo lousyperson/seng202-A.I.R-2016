@@ -9,6 +9,7 @@ import seng202.group4.data.dataType.Airline;
 import seng202.group4.data.dataType.Airport;
 import seng202.group4.data.dataType.Route;
 import seng202.group4.data.parser.AirlineParser;
+import seng202.group4.data.parser.AirportParser;
 import seng202.group4.data.repository.AirlineRepository;
 import seng202.group4.data.repository.AirportRepository;
 import seng202.group4.data.repository.RouteRepository;
@@ -38,6 +39,18 @@ public class ParserTest {
     }
 
     @Test
+    public void oneValidAirlineContents() throws IOException {
+        AirlineParser parser = new AirlineParser(new BufferedReader(new FileReader("testfiles/Airlines/oneValidAirline.txt")));
+        ArrayList<Airline> airlines = parser.makeAirlines();
+        Airline airline = airlines.get(0);
+        boolean isEqual = airline.getID() == 324 && airline.getName().equals("All Nippon Airways") &&
+                          airline.getAlias().equals("ANA All Nippon Airways") && airline.getIATA().equals("NH") &&
+                          airline.getICAO().equals("ANA") && airline.getCallsign().equals("ALL NIPPON") &&
+                          airline.getCountry().equals("Japan") && airline.getActive() == true;
+        assertTrue(isEqual);
+    }
+
+    @Test
     public void multipleValidAirlinesSize() throws IOException {
         AirlineParser parser = new AirlineParser(new BufferedReader(new FileReader("testfiles/Airlines/validAirline.txt")));
         ArrayList<Airline> airlines = parser.makeAirlines();
@@ -53,10 +66,41 @@ public class ParserTest {
     }
 
     @Test
-    public void emptyFile() throws IOException {
+    public void emptyFileAirline() throws IOException {
         AirlineParser parser = new AirlineParser(new BufferedReader(new FileReader("testfiles/empty.txt")));
         ArrayList<Airline> airlines = parser.makeAirlines();
         int size = airlines.size();
+        assertTrue(size == 0);
+    }
+
+    /* Airport parser test cases */
+
+    @Test
+    public void oneValidAirportSize() throws IOException {
+
+    }
+
+    @Test
+    public void oneValidAirportContents() throws IOException {
+    }
+
+    @Test
+    public void multipleValidAirportsSize() throws IOException {
+        AirportParser parser = new AirportParser(new BufferedReader(new FileReader("testfiles/Airports/validAirport.txt")));
+        ArrayList<Airport> airports = parser.makeAirports();
+        assertTrue(airports.size() == 8107);
+    }
+
+    @Test
+    public void oneValidAirportWithNullSize() throws IOException {
+
+    }
+
+    @Test
+    public void emptyFileAirport() throws IOException {
+        AirportParser parser = new AirportParser(new BufferedReader(new FileReader("testfiles/empty.txt")));
+        ArrayList<Airport> airports = parser.makeAirports();
+        int size = airports.size();
         assertTrue(size == 0);
     }
 }
