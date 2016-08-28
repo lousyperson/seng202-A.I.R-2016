@@ -1,5 +1,7 @@
 package seng202.group4.GUI;
 
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 /**
@@ -7,35 +9,35 @@ import javafx.beans.property.SimpleStringProperty;
  */
 public class airlineTable {
 
-    private SimpleStringProperty rid;
+    private SimpleIntegerProperty rid;
     private SimpleStringProperty rname;
     private SimpleStringProperty ralias;
     private SimpleStringProperty riata;
     private SimpleStringProperty ricao;
     private SimpleStringProperty rcallsign;
     private SimpleStringProperty rcountry;
-    private SimpleStringProperty ractive;
+    private SimpleBooleanProperty ractive;
 
-    public airlineTable(String tid, String tname, String talias, String tiata, String ticao, String tcallsign, String tcountry, String tactive){
-        this.rid = new SimpleStringProperty(tid);
+    public airlineTable(int tid, String tname, String talias, String tiata, String ticao, String tcallsign, String tcountry, boolean tactive){
+        this.rid = new SimpleIntegerProperty(tid);
         this.rname = new SimpleStringProperty(tname);
         this.ralias = new SimpleStringProperty(talias);
         this.riata = new SimpleStringProperty(tiata);
         this.ricao = new SimpleStringProperty(ticao);
         this.rcallsign = new SimpleStringProperty(tcallsign);
         this.rcountry = new SimpleStringProperty(tcountry);
-        this.ractive = new SimpleStringProperty(tactive);
+        this.ractive = new SimpleBooleanProperty(tactive);
 
     }
-    public String getRid() {
+    public int getRid() {
         return rid.get();
     }
 
-    public SimpleStringProperty ridProperty() {
+    public SimpleIntegerProperty ridProperty() {
         return rid;
     }
 
-    public void setRid(String rid) {
+    public void setRid(int rid) {
         this.rid.set(rid);
     }
 
@@ -111,15 +113,15 @@ public class airlineTable {
         this.rcountry.set(rcountry);
     }
 
-    public String getRactive() {
+    public boolean getRactive() {
         return ractive.get();
     }
 
-    public SimpleStringProperty ractiveProperty() {
+    public SimpleBooleanProperty ractiveProperty() {
         return ractive;
     }
 
-    public void setRactive(String ractive) {
+    public void setRactive(boolean ractive) {
         this.ractive.set(ractive);
     }
 

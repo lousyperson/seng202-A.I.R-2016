@@ -220,6 +220,13 @@ public class Controller implements Initializable{
 
                 AirlineValidator validator = new AirlineValidator(file);
                 ArrayList<Airline> airlines = validator.makeAirlines();
+                for(int i = 0; i < airlines.size(); i++) {
+                    Airline airline = airlines.get(i);
+                    airlineTData.add(new airlineTable(airline.getID(), airline.getName(),
+                                     airline.getAlias(), airline.getIATA(),
+                                     airline.getICAO(), airline.getCallsign(),
+                                     airline.getCountry(), airline.getActive()));
+                }
 
             }
     }
@@ -233,6 +240,7 @@ public class Controller implements Initializable{
         if (file != null) {
             BufferedReader br = new BufferedReader(new FileReader(file));
             AirportParser parser = new AirportParser(br);
+
         }
     }
 
@@ -246,6 +254,7 @@ public class Controller implements Initializable{
         if (file != null) {
             BufferedReader br = new BufferedReader(new FileReader(file));
             //TODO
+
         }
     }
 
