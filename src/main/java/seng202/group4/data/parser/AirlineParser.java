@@ -55,7 +55,8 @@ public class AirlineParser {
 
     public ArrayList<Airline> makeAirlines() throws IOException {
         while ((currentLine = file.readLine()) != null) {
-            if (!currentLine.matches(("\\w"))) {
+            currentLine = currentLine.trim();
+            if (!currentLine.matches("\\w") && !currentLine.matches("")) {
                 addAirline();
             }
         }

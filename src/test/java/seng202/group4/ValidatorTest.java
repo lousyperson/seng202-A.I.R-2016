@@ -1,16 +1,28 @@
 package seng202.group4;
 
+
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+import junit.framework.TestCase;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import seng202.group4.data.dataType.Airline;
+import seng202.group4.data.dataType.Airport;
+import seng202.group4.data.dataType.Route;
 import seng202.group4.data.parser.AirlineParser;
 import seng202.group4.data.parser.validator.AirlineValidator;
+import seng202.group4.data.repository.AirlineRepository;
+import seng202.group4.data.repository.AirportRepository;
+import seng202.group4.data.repository.RouteRepository;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -54,14 +66,13 @@ public class ValidatorTest {
     }
 
     /* Invalid files */
+    /* Invalid files have been moved to a GUI test as they use an alert popup */
 
     @Test
     public void missingQuotation() throws IOException {
-        try {
-            AirlineValidator parser = new AirlineValidator(new File("testfiles/Airlines/oneDodgyAirline.txt"));
-            ArrayList<Airline> airlines = parser.makeAirlines();
-        } catch (Exception e) {
-            assertTrue(true);
-        }
+
+        AirlineValidator parser = new AirlineValidator(new File("testfiles/Airlines/oneDodgyAirline.txt"));
+        ArrayList<Airline> airlines = parser.makeAirlines();
+        assertTrue(airlines == null);
     }
 }
