@@ -42,7 +42,8 @@ public class AirportParser {
         if (splitLine[i].equals("\\N")) {
             splitLine[i] = null;
         } else {
-            splitLine[i] = splitLine[i].replaceAll("^\"|\"$", "");      // Remove quotation marks
+            // Remove quotation marks
+            splitLine[i] = splitLine[i].replaceAll("^\"|\"$", "");
         }
     }
 
@@ -61,8 +62,8 @@ public class AirportParser {
     }
 
     public ArrayList<Airport> makeAirports() throws IOException {
-        currentLine = currentLine.trim();
         while ((currentLine = file.readLine()) != null) {
+            currentLine = currentLine.trim();
             if (!currentLine.matches("\\w") && !currentLine.matches("")) {
                 addAirport();
             }

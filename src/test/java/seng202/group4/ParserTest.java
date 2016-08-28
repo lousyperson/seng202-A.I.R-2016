@@ -95,6 +95,7 @@ public class ParserTest {
 
     @Test
     public void oneValidAirportWithNullSize() throws IOException {
+        assertTrue(true);
 
     }
 

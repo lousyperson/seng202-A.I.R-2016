@@ -2,8 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ca2aa813-8719-4e3c-a54d-137829d6f1e4" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/seng202/group4/data/parser/AirportParser.class" afterPath="$PROJECT_DIR$/target/classes/seng202/group4/data/parser/AirportParser.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/seng202/group4/data/parser/AirportParser.java" afterPath="$PROJECT_DIR$/src/main/java/seng202/group4/data/parser/AirportParser.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/seng202/group4/ParserTest.java" afterPath="$PROJECT_DIR$/src/test/java/seng202/group4/ParserTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/testfiles/Airports/validAirport.txt" afterPath="$PROJECT_DIR$/testfiles/Airports/validAirport.txt" />
     </list>
     <ignored path="seng202-project.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -29,7 +32,7 @@
       <file leaf-file-name="AirlineParser.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/seng202/group4/data/parser/AirlineParser.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="900">
+            <state relative-caret-position="323">
               <caret line="58" column="12" selection-start-line="58" selection-start-column="12" selection-end-line="58" selection-end-column="72" />
               <folding />
             </state>
@@ -46,11 +49,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ParserTest.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ParserTest.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/java/seng202/group4/ParserTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="161">
-              <caret line="79" column="21" selection-start-line="79" selection-start-column="21" selection-end-line="79" selection-end-column="21" />
+            <state relative-caret-position="197">
+              <caret line="91" column="0" selection-start-line="91" selection-start-column="0" selection-end-line="91" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -91,18 +94,28 @@
       <file leaf-file-name="validAirport.txt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/testfiles/Airports/validAirport.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="324">
-              <caret line="18" column="45" selection-start-line="0" selection-start-column="0" selection-end-line="8106" selection-end-column="126" />
+            <state relative-caret-position="187">
+              <caret line="4645" column="76" selection-start-line="4645" selection-start-column="72" selection-end-line="4645" selection-end-column="76" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AirportParser.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Airline.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/seng202/group4/data/dataType/Airline.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="234">
+              <caret line="13" column="26" selection-start-line="13" selection-start-column="26" selection-end-line="13" selection-end-column="26" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AirportParser.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/seng202/group4/data/parser/AirportParser.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="540">
-              <caret line="69" column="24" selection-start-line="69" selection-start-column="24" selection-end-line="69" selection-end-column="24" />
+            <state relative-caret-position="215">
+              <caret line="60" column="34" selection-start-line="60" selection-start-column="34" selection-end-line="60" selection-end-column="34" />
               <folding>
                 <element signature="e#743#752#0" expanded="true" />
               </folding>
@@ -152,10 +165,11 @@
         <option value="$PROJECT_DIR$/src/main/java/seng202/group4/data/parser/validator/AirlineValidator.java" />
         <option value="$PROJECT_DIR$/src/test/java/seng202/group4/ValidatorTest.java" />
         <option value="$PROJECT_DIR$/src/test/java/seng202/group4/FilterTest.java" />
-        <option value="$PROJECT_DIR$/src/main/java/seng202/group4/data/parser/AirportParser.java" />
         <option value="$PROJECT_DIR$/testfiles/Airports/oneValidAirportWithNull.txt" />
         <option value="$PROJECT_DIR$/testfiles/Airports/oneValidAirport.txt" />
         <option value="$PROJECT_DIR$/src/test/java/seng202/group4/ParserTest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/seng202/group4/data/parser/AirportParser.java" />
+        <option value="$PROJECT_DIR$/testfiles/Airports/validAirport.txt" />
       </list>
     </option>
   </component>
@@ -1137,7 +1151,7 @@
       <workItem from="1472091611789" duration="714000" />
       <workItem from="1472104793669" duration="201000" />
       <workItem from="1472339690448" duration="7654000" />
-      <workItem from="1472347896791" duration="3230000" />
+      <workItem from="1472347896791" duration="5134000" />
     </task>
     <task id="LOCAL-00001" summary="New junit version">
       <created>1472011458815</created>
@@ -1181,7 +1195,14 @@
       <option name="project" value="LOCAL" />
       <updated>1472351058312</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Airport Parser being developed">
+      <created>1472351150930</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1472351150930</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1191,33 +1212,33 @@
     <history-entry file="ParserTest - 2016.08.28 at 14h 12m 39s.xml">
       <configuration name="ParserTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ValidatorTest - 2016.08.28 at 12h 31m 43s.xml">
-      <configuration name="ValidatorTest" configurationId="JUnit" />
+    <history-entry file="ParserTest - 2016.08.28 at 14h 26m 41s.xml">
+      <configuration name="ParserTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ValidatorTest - 2016.08.28 at 12h 32m 25s.xml">
-      <configuration name="ValidatorTest" configurationId="JUnit" />
+    <history-entry file="ParserTest - 2016.08.28 at 14h 27m 55s.xml">
+      <configuration name="ParserTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ValidatorTest - 2016.08.28 at 12h 33m 46s.xml">
-      <configuration name="ValidatorTest" configurationId="JUnit" />
+    <history-entry file="ParserTest - 2016.08.28 at 14h 28m 25s.xml">
+      <configuration name="ParserTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ValidatorTest - 2016.08.28 at 12h 33m 58s.xml">
-      <configuration name="ValidatorTest" configurationId="JUnit" />
+    <history-entry file="ParserTest - 2016.08.28 at 14h 36m 02s.xml">
+      <configuration name="ParserTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ValidatorTest - 2016.08.28 at 12h 55m 37s.xml">
-      <configuration name="ValidatorTest" configurationId="JUnit" />
+    <history-entry file="ParserTest - 2016.08.28 at 14h 37m 54s.xml">
+      <configuration name="ParserTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ValidatorTest - 2016.08.28 at 12h 57m 05s.xml">
-      <configuration name="ValidatorTest" configurationId="JUnit" />
+    <history-entry file="ParserTest - 2016.08.28 at 14h 41m 55s.xml">
+      <configuration name="ParserTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ValidatorTest - 2016.08.28 at 12h 58m 41s.xml">
-      <configuration name="ValidatorTest" configurationId="JUnit" />
+    <history-entry file="ParserTest - 2016.08.28 at 14h 42m 37s.xml">
+      <configuration name="ParserTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ValidatorTest - 2016.08.28 at 13h 01m 40s.xml">
-      <configuration name="ValidatorTest" configurationId="JUnit" />
+    <history-entry file="ParserTest - 2016.08.28 at 14h 48m 36s.xml">
+      <configuration name="ParserTest" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="16990000" />
+    <option name="totallyTimeSpent" value="18894000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1" y="0" width="1682" height="1025" extended-state="6" />
@@ -1279,14 +1300,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/seng202/group4/data/parser/AirlineParser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="882">
-          <caret line="57" column="48" selection-start-line="57" selection-start-column="48" selection-end-line="57" selection-end-column="48" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/seng202/group4/data/dataType/DaylightSavingsTime.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
@@ -1477,14 +1490,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/seng202/group4/TestApp.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/seng202/group4/data/dataType/Airline.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="557">
-          <caret line="92" column="5" selection-start-line="92" selection-start-column="5" selection-end-line="92" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/seng202/group4/data/parser/FlightParser.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="126">
@@ -1539,7 +1544,7 @@
         <state relative-caret-position="342">
           <caret line="19" column="52" selection-start-line="19" selection-start-column="52" selection-end-line="19" selection-end-column="52" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1549,7 +1554,7 @@
         <state relative-caret-position="378">
           <caret line="21" column="68" selection-start-line="21" selection-start-column="68" selection-end-line="21" selection-end-column="68" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1586,36 +1591,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/seng202/group4/data/parser/AirlineParser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="900">
-          <caret line="58" column="12" selection-start-line="58" selection-start-column="12" selection-end-line="58" selection-end-column="72" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/seng202/group4/data/parser/AirportParser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="540">
-          <caret line="69" column="24" selection-start-line="69" selection-start-column="24" selection-end-line="69" selection-end-column="24" />
-          <folding>
-            <element signature="e#743#752#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/testfiles/Airlines/validAirline.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-595">
           <caret line="5572" column="56" selection-start-line="0" selection-start-column="0" selection-end-line="6047" selection-end-column="57" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/testfiles/Airports/validAirport.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="324">
-          <caret line="18" column="45" selection-start-line="0" selection-start-column="0" selection-end-line="8106" selection-end-column="126" />
           <folding />
         </state>
       </provider>
@@ -1644,12 +1623,54 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/seng202/group4/data/parser/AirlineParser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="58" column="12" selection-start-line="58" selection-start-column="12" selection-end-line="58" selection-end-column="72" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///usr/lib/jvm/java-8-oracle/jre/lib/rt.jar!/sun/misc/FloatingDecimal.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1872">
+          <caret line="201" column="0" selection-start-line="201" selection-start-column="0" selection-end-line="201" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/seng202/group4/ParserTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="161">
-          <caret line="79" column="21" selection-start-line="79" selection-start-column="21" selection-end-line="79" selection-end-column="21" />
+        <state relative-caret-position="197">
+          <caret line="91" column="0" selection-start-line="91" selection-start-column="0" selection-end-line="91" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/seng202/group4/data/dataType/Airline.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="234">
+          <caret line="13" column="26" selection-start-line="13" selection-start-column="26" selection-end-line="13" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/testfiles/Airports/validAirport.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="4645" column="76" selection-start-line="4645" selection-start-column="72" selection-end-line="4645" selection-end-column="76" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/seng202/group4/data/parser/AirportParser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="215">
+          <caret line="60" column="34" selection-start-line="60" selection-start-column="34" selection-end-line="60" selection-end-column="34" />
+          <folding>
+            <element signature="e#743#752#0" expanded="true" />
           </folding>
         </state>
       </provider>
