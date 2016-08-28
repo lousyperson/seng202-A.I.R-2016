@@ -1,10 +1,12 @@
 package seng202.group4.data.parser.validator;
 
+import javafx.scene.control.Alert;
 import seng202.group4.data.dataType.Airline;
 import seng202.group4.data.parser.AirlineParser;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Created by jjg64 on 25/08/16.
@@ -14,10 +16,11 @@ public class AirlineValidator {
     private File filepath;
     private BufferedReader file;
     private String[] splitLine = new String[ITEMS_PER_LINE + 1];
-    private String splitBy = ",";
+    private String splitBy = "\\s*\\,\\s*";
     private String currentLine;
-    private boolean isInvalidString;
     private int lineNumber = 0;
+    private Alert alert;
+    private boolean hasError = false;
 
     public AirlineValidator(File filepath) throws FileNotFoundException {
         this.filepath = filepath;
@@ -27,8 +30,12 @@ public class AirlineValidator {
     public ArrayList<Airline> makeAirlines() throws IOException {
         while ((currentLine = file.readLine()) != null) {
             lineNumber++;
-            if (!currentLine.matches("\\w")) {
+            currentLine = currentLine.trim();
+            if (!currentLine.matches("\\w") && !currentLine.equals("")) {
                 validateLine();
+            }
+            if (hasError) {
+                return null;
             }
         }
 
@@ -39,49 +46,62 @@ public class AirlineValidator {
     private void validateLine() throws IOException {
         splitLine = currentLine.split(splitBy, ITEMS_PER_LINE + 1);
         if (splitLine.length != ITEMS_PER_LINE) {
-            System.out.println(splitLine.length);
-            throw new IOException();
+            makeAlert("Expected " + ITEMS_PER_LINE + " comma separated variables.");
         } else {
             checkLine();
         }
     }
 
     private void checkLine() throws IOException {
+        // Error if ID is invalid (ID must be an int)
         try {
             Integer.parseInt(splitLine[0]);
         } catch (NumberFormatException e) {
-            System.out.println(0);
-            throw new IOException();
+            makeAlert("Airline ID should be a number with no decimal points.");
+            return;
         }
 
-
-        if (checkString(1)) {   // Name
-            System.out.println(1);
-            throw new IOException();
-        } else if (checkString(2)) {    // Alias
-            System.out.println(2);
-            throw new IOException();
-        } else if (checkString(3) && splitLine[4].length() != 4 && !splitLine[4].equals("\\N")) {  // IATA must be length 2 (inlcudes quotation)
-            System.out.println(3);
-            throw new IOException();
-        } else if (checkString(4) && splitLine[4].length() != 5 && !splitLine[4].equals("\\N")) {  // ICAO must be length 3 (includes quoation)
-            System.out.println(4);
-            throw new IOException();
-        } else if (checkString(5)) {    // Callsign
-            System.out.println(5);
-            throw new IOException();
-        } else if (checkString(6)) {    // Country
-            System.out.println(6);
-            throw new IOException();
-        } else if (!(splitLine[7].toUpperCase().equals("\"Y\"")) && !(splitLine[7].toUpperCase().equals("\"N\""))) {
-            System.out.println(7);
-            throw new IOException();
+        // Error if anything is invalid is invalid
+        if (!checkString(1)) {                                                                                          // Name
+            makeAlert("Airline Name should only contain letters, spaces and hyphens.");
+            return;
+        } else if (!checkString(2)) {                                                                                   // Alias
+            makeAlert("Airline alias should be a string.");
+            return;
+        } else if (!checkString(3)) {                                                                                   // IATA
+            makeAlert("Airline IATA should be letters with a length two.");
+            return;
+        } else if (!checkString(4)) {                                                                                   // ICAO
+            makeAlert("Airline ICAO should be letters with a length of three.");
+            return;
+        } else if (!checkString(5)) {                                                                                   // Callsign
+            makeAlert("Airline Callsign should only contain letters, spaces and hyphens.");
+            return;
+        } else if (!checkString(6)) {                                                                                   // Country
+            makeAlert("Airline Country should only contain letters, spaces and hyphens.");
+        } else if (!(splitLine[7].toUpperCase().equals("\"Y\"")) && !(splitLine[7].toUpperCase().equals("\"N\""))) {    // Active
+            makeAlert("Airline activity should only be either \"Y\" or \"N\".");
+            return;
         }
     }
 
+    // Returns true if the string is valid
     private boolean checkString(int i) {
-        isInvalidString = !(splitLine[i].equals("\\N"));
-        isInvalidString = isInvalidString && !(splitLine[i].startsWith("\"") && splitLine[i].endsWith("\""));
-        return isInvalidString;
+        boolean isNull = (splitLine[i].equals("\\N"));
+        if (!isNull) {
+            // Checks if the string starts and ends with " and contains no numbers
+            return splitLine[i].startsWith("\"") && splitLine[i].endsWith("\"");
+        } else {
+            return true;
+        }
+    }
+
+    private void makeAlert(String message) {
+        hasError = true;
+        alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText("There is an error in your file on line " + lineNumber);
+        alert.setContentText(message + "\nNo airlines were added.\nPlease go to help drop down for file formatting help.");
+        alert.showAndWait();
     }
 }
