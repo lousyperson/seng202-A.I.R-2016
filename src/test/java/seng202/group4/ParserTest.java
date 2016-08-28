@@ -77,11 +77,13 @@ public class ParserTest {
 
     @Test
     public void oneValidAirportSize() throws IOException {
+        assert(true);
 
     }
 
     @Test
     public void oneValidAirportContents() throws IOException {
+        assertTrue(true);
     }
 
     @Test
