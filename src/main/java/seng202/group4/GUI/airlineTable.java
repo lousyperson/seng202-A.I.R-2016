@@ -3,6 +3,7 @@ package seng202.group4.GUI;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
 /**
  * Created by psu43 on 25/08/16.
@@ -15,7 +16,7 @@ public class airlineTable {
     private SimpleStringProperty riata;
     private SimpleStringProperty ricao;
     private SimpleStringProperty rcallsign;
-    private SimpleStringProperty rcountry;
+    private StringProperty rcountry;
     private SimpleBooleanProperty ractive;
 
     public airlineTable(int tid, String tname, String talias, String tiata, String ticao, String tcallsign, String tcountry, boolean tactive){
@@ -105,7 +106,7 @@ public class airlineTable {
         return rcountry.get();
     }
 
-    public SimpleStringProperty rcountryProperty() {
+    public StringProperty rcountryProperty() {
         return rcountry;
     }
 

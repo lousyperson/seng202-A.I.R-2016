@@ -5,6 +5,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
@@ -149,94 +150,187 @@ public class Controller implements Initializable{
     final ObservableList<String> items = FXCollections.observableArrayList("Default Airlines", "Default Airports", "Default Routes");
 
 
-
     public void initialize(URL location, ResourceBundle resources) {
 
+        // initialise data list
         datalist.setItems(items);
 
-        datalist.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
-            public void changed(ObservableValue<? extends String> ov, String old_val, String new_val) {
-                // action goes here.
-                System.out.println("Selected item: " + new_val);
-                if (new_val.equals("Default Airlines")) {
-                    airlineTableID.toFront();
-                } else if (new_val.equals("Default Airports")) {
-                    airportTableID.toFront();
-                } else if (new_val.equals("Default Routes")) {
-                    routeTableID.toFront();
-                }
-
+        datalist.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends  String> ov, String old_val, String new_val) -> {
+            System.out.println("Selected item: " + new_val);
+            if (new_val.equals("Default Airlines")) {
+                airlineTableID.toFront();
+            } else if (new_val.equals("Default Airports")) {
+                airportTableID.toFront();
+            } else if (new_val.equals("Default Routes")) {
+                routeTableID.toFront();
             }
+
         });
 
-        // initiliase airline table resources
-        aid.setCellValueFactory(new PropertyValueFactory<airlineTable, String>("rid"));
-        aname.setCellValueFactory(new PropertyValueFactory<airlineTable, String>("rname"));
-        aalias.setCellValueFactory(new PropertyValueFactory<airlineTable, String>("ralias"));
-        aiata.setCellValueFactory(new PropertyValueFactory<airlineTable, String>("riata"));
-        aicao.setCellValueFactory(new PropertyValueFactory<airlineTable, String>("ricao"));
-        acallsign.setCellValueFactory(new PropertyValueFactory<airlineTable, String>("rcallsign"));
-        acountry.setCellValueFactory(new PropertyValueFactory<airlineTable, String>("rcountry"));
-        aactive.setCellValueFactory(new PropertyValueFactory<airlineTable, String>("ractive"));
+        // initialise airline table resources
+        aid.setCellValueFactory(new PropertyValueFactory<>("rid"));
+        aname.setCellValueFactory(new PropertyValueFactory<>("rname"));
+        aalias.setCellValueFactory(new PropertyValueFactory<>("ralias"));
+        aiata.setCellValueFactory(new PropertyValueFactory<>("riata"));
+        aicao.setCellValueFactory(new PropertyValueFactory<>("ricao"));
+        acallsign.setCellValueFactory(new PropertyValueFactory<>("rcallsign"));
+        acountry.setCellValueFactory(new PropertyValueFactory<>("rcountry"));
+        aactive.setCellValueFactory(new PropertyValueFactory<>("ractive"));
 
         airlineTableID.setItems(airlineTData);
 
-        // initiliase airport table resources
-        apid.setCellValueFactory(new PropertyValueFactory<airportTable, String>("atid"));
-        apname.setCellValueFactory(new PropertyValueFactory<airportTable, String>("atname"));
-        apcity.setCellValueFactory(new PropertyValueFactory<airportTable, String>("atcity"));
-        apcountry.setCellValueFactory(new PropertyValueFactory<airportTable, String>("atcountry"));
-        apiata.setCellValueFactory(new PropertyValueFactory<airportTable, String>("atiata"));
-        apicao.setCellValueFactory(new PropertyValueFactory<airportTable, String>("aticao"));
-        aplat.setCellValueFactory(new PropertyValueFactory<airportTable, String>("atlatitude"));
-        aplong.setCellValueFactory(new PropertyValueFactory<airportTable, String>("atlongitude"));
-        apalt.setCellValueFactory(new PropertyValueFactory<airportTable, String>("ataltitude"));
-        aptimezone.setCellValueFactory(new PropertyValueFactory<airportTable, String>("attimezone"));
-        apdst.setCellValueFactory(new PropertyValueFactory<airportTable, String>("atdst"));
-        aptz.setCellValueFactory(new PropertyValueFactory<airportTable, String>("attzdatabase"));
-
-        airportTableID.setItems(airportTData);
-
-        // initiliase route data table resources
-        airline.setCellValueFactory(new PropertyValueFactory<routeTable, String>("rairline"));
-        airlineID.setCellValueFactory(new PropertyValueFactory<routeTable, Integer>("rid"));
-        source.setCellValueFactory(new PropertyValueFactory<routeTable, String>("rsource"));
-        sourceID.setCellValueFactory(new PropertyValueFactory<routeTable, Integer>("rsourceid"));
-        dest.setCellValueFactory(new PropertyValueFactory<routeTable, String>("rdest"));
-        destID.setCellValueFactory(new PropertyValueFactory<routeTable, Integer>("rdestid"));
-        codeshare.setCellValueFactory(new PropertyValueFactory<routeTable, String>("rcodeshare"));
-        stops.setCellValueFactory(new PropertyValueFactory<routeTable, Integer>("rstops"));
-        equipment.setCellValueFactory(new PropertyValueFactory<routeTable, String>("requipment"));
-
-        routeTableID.setItems(routeTData);
-
-        // filtering for airline table
-        FilteredList<airlineTable> airlineFiltered = new FilteredList<airlineTable>(airlineTData, p -> true);
+        // searching for airline
+        FilteredList<airlineTable> airlineTableFiltered = new FilteredList<>(airlineTData, p -> true);
 
         searchField.textProperty().addListener((observable, oldValue, newValue) -> {
-            airlineFiltered.setPredicate(data -> {
+            airlineTableFiltered.setPredicate(airline -> {
+                // All the columns in airline table (at)
+                Integer atID = airline.getRid();
+                String atName = airline.getRname();
+                String atAlias = airline.getRalias();
+                String atIATA = airline.getRiata();
+                String atICAO = airline.getRicao();
+                String atCallsign = airline.getRcallsign();
+                String atCountry = airline.getRcountry();
+                //Boolean atActive = airline.getRactive();
+
+                String lowerCaseFilter = newValue.toLowerCase();
+
                 // If filter text is empty, display all data.
-                if (newValue == null || newValue.isEmpty()) {
+                if (newValue.isEmpty()) {
                     return true;
                 }
 
-                // Compare first name and last name of every data with filter text.
-                String lowerCaseFilter = newValue.toLowerCase();
-
-                if (data.getRcountry().toLowerCase().indexOf(lowerCaseFilter) != -1) {
-                    return true; // Filter matches first name.
-                } else if (data.getRname().toLowerCase().indexOf(lowerCaseFilter) != -1) {
-                    return true; // Filter matches last name.
+                if (lowerCaseFilter.matches("[0-9]+") && atID == Integer.parseInt(lowerCaseFilter)) {
+                    return true; // Filter matches
                 }
+
+                if (atName != null && atName.toLowerCase().contains(lowerCaseFilter)){
+                    return true; // Filter matches
+                }
+                if (atAlias != null && atAlias.toLowerCase().contains(lowerCaseFilter)){
+                    return true; // Filter matches
+                }
+                if (atIATA != null && atIATA.toLowerCase().contains(lowerCaseFilter)){
+                    return true; // Filter matches
+                }
+                if (atICAO != null &&  atICAO.toLowerCase().contains(lowerCaseFilter)){
+                    return true; // Filter matches
+                }
+                if (atCallsign != null && atCallsign.toLowerCase().contains(lowerCaseFilter)){
+                    return true; // Filter matches
+                }
+                if (atCountry != null && atCountry.toLowerCase().contains(lowerCaseFilter)){
+                    return true; // Filter matches
+                }
+
                 return false; // Does not match.
             });
+
         });
+
+        // Wrap the filtered list in a SortedList
+        SortedList<airlineTable> airlineTableSorted = new SortedList<>(airlineTableFiltered);
+
+        // Bind the SortedList comparator to the TableView comparator
+        airlineTableSorted.comparatorProperty().bind(airlineTableID.comparatorProperty());
+
+        // Add sorted (and filtered) data to the table
+        airlineTableID.setItems(airlineTableSorted);
+
+        System.out.println("added!");
+
+
+
+
+
+
+
+
+
+        // initialise airport table resources
+        apid.setCellValueFactory(new PropertyValueFactory<>("atid"));
+        apname.setCellValueFactory(new PropertyValueFactory<>("atname"));
+        apcity.setCellValueFactory(new PropertyValueFactory<>("atcity"));
+        apcountry.setCellValueFactory(new PropertyValueFactory<>("atcountry"));
+        apiata.setCellValueFactory(new PropertyValueFactory<>("atiata"));
+        apicao.setCellValueFactory(new PropertyValueFactory<>("aticao"));
+        aplat.setCellValueFactory(new PropertyValueFactory<>("atlatitude"));
+        aplong.setCellValueFactory(new PropertyValueFactory<>("atlongitude"));
+        apalt.setCellValueFactory(new PropertyValueFactory<>("ataltitude"));
+        aptimezone.setCellValueFactory(new PropertyValueFactory<>("attimezone"));
+        apdst.setCellValueFactory(new PropertyValueFactory<>("atdst"));
+        aptz.setCellValueFactory(new PropertyValueFactory<>("attzdatabase"));
+
+        airportTableID.setItems(airportTData);
+
+        // initialise route data table resources
+        airline.setCellValueFactory(new PropertyValueFactory<>("rairline"));
+        airlineID.setCellValueFactory(new PropertyValueFactory<>("rid"));
+        source.setCellValueFactory(new PropertyValueFactory<>("rsource"));
+        sourceID.setCellValueFactory(new PropertyValueFactory<>("rsourceid"));
+        dest.setCellValueFactory(new PropertyValueFactory<>("rdest"));
+        destID.setCellValueFactory(new PropertyValueFactory<>("rdestid"));
+        codeshare.setCellValueFactory(new PropertyValueFactory<>("rcodeshare"));
+        stops.setCellValueFactory(new PropertyValueFactory<>("rstops"));
+        equipment.setCellValueFactory(new PropertyValueFactory<>("requipment"));
+
+        routeTableID.setItems(routeTData);
+
+
+
 
 
     }
 
+    public void search() throws IOException {
+        String query = searchField.getText();
+        System.out.println("GO!" + query);
 
+        if (searchField == null || query.isEmpty()) {
+            System.out.println("nothng search");
+            airlineTableID.setItems(airlineTData);
+        }
+        else {
+            System.out.println("better search");
+            String queryLower = query.toLowerCase();
 
+            for (airlineTable airline: airlineTableID.getItems()) {
+
+                String filterCountry = airline.getRcountry();
+                System.out.println(airline.getRid() + filterCountry);
+                if (filterCountry == null || filterCountry.equals("null")) {
+                    System.out.println("NULL COUNTRY");
+                }
+                else if(filterCountry.toLowerCase().contains(queryLower)) {
+                    System.out.println("inside seachlol");
+                    System.out.println(airline.getRname() + " " + filterCountry);
+                }
+
+            }
+        }
+    }
+
+    public void searchAirline(String oldValue, String newValue) {
+        System.out.println("GO!" + searchField.getText());
+
+        // searching for airline
+        ObservableList<airlineTable> filteredList = FXCollections.observableArrayList();
+        if(searchField == null || (newValue.length() < oldValue.length()) || newValue.isEmpty()) {
+            airlineTableID.setItems(airlineTData);
+        }
+        else {
+            newValue = newValue.toUpperCase();
+            for(airlineTable airline : airlineTableID.getItems()) {
+                String filterFirstName = airline.getRcountry();
+                String filterLastName = airline.getRname();
+                if(filterFirstName.toUpperCase().contains(newValue) || filterLastName.toUpperCase().contains(newValue)) {
+                    filteredList.add(airline);
+                }
+            }
+            airlineTableID.setItems(filteredList);
+        }
+    }
 
     public void loadAirline() throws IOException {
 

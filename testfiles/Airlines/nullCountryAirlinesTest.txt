@@ -1,0 +1,5 @@
+5526,"Zracno Pristaniste Mali Losinj",\N,"","MLU","MALI LOSINJ","Croatia","N"
+5533,"Tyrolean Airways",\N,\N,"TYR","TYROLEAN",\N,"Y"
+5556,"buzz",\N,"UK","BUZ",\N,\N,"N"
+2635,"Gulf & Caribbean Cargo / Contract Air Cargo",\N,"","TSU","TRANSAUTO","United States","N"
+2636,"Gulf African Airlines - Gambia",\N,"","GUF","GULF AFRICAN","","N"
