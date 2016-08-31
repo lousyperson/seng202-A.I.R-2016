@@ -13,7 +13,7 @@ public class RouteRepository {
 
 
     public void addRoute(Route route) {
-        Routes.put(route.getID(), route);
+        Routes.put(route.getDestAirportID(), route);
     }
 
     public HashMap<Integer, Route> getRoutes() {

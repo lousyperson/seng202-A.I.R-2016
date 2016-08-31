@@ -20,21 +20,27 @@ public class RouteParser {
     private boolean active;
     private String currentLine;
     private ArrayList<Route> routes = new ArrayList<Route>();
+    private boolean[] isInt = {false, true, false, true, false, true, false, true, false};
+    private String nullIntegerValue = "420";    // When a null int is there
 
-    RouteParser(BufferedReader file) {
+    public RouteParser(BufferedReader file) {
         this.file = file;
     }
 
     private void readString(int i) {
         if (splitLine[i].equals("\\N")) {
-            splitLine[i] = null;
+            if (isInt[i]) {
+                splitLine[i] = nullIntegerValue;
+            } else {
+                splitLine[i] = null;
+            }
         }
     }
 
     private ArrayList<String> makeEquipment() {
         ArrayList<String> equipment = new ArrayList<String>();
         String[] splitEquipment = splitLine[8].split("\\s");
-        for (String item: splitEquipment) {
+        for (String item : splitEquipment) {
             equipment.add(item);
         }
         return equipment;
@@ -42,7 +48,7 @@ public class RouteParser {
 
     private void addRoute() throws IOException {
         splitLine = currentLine.split(splitBy, ITEMS_PER_LINE);
-        for (int i = 1; i < ITEMS_PER_LINE; i++) {      // Checks indices 1 to 7
+        for (int i = 1; i < ITEMS_PER_LINE; i++) {      // Checks indices 1 to 9
             readString(i);
         }
         ArrayList<String> equipment = makeEquipment();
@@ -53,7 +59,7 @@ public class RouteParser {
         routes.add(thisRoute);
     }
 
-    public ArrayList<Route> makeAirlines() throws IOException {
+    public ArrayList<Route> makeRoutes() throws IOException {
         while ((currentLine = file.readLine()) != null) {
             currentLine = currentLine.trim();
             if (!currentLine.matches("\\w") && !currentLine.matches("")) {

@@ -10,6 +10,7 @@ import seng202.group4.data.dataType.Airport;
 import seng202.group4.data.dataType.Route;
 import seng202.group4.data.parser.AirlineParser;
 import seng202.group4.data.parser.AirportParser;
+import seng202.group4.data.parser.RouteParser;
 import seng202.group4.data.repository.AirlineRepository;
 import seng202.group4.data.repository.AirportRepository;
 import seng202.group4.data.repository.RouteRepository;
@@ -72,6 +73,7 @@ public class ParserTest {
         int size = airlines.size();
         assertTrue(size == 0);
     }
+    /* ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ */
 
     /* Airport parser test cases */
 
@@ -107,11 +109,25 @@ public class ParserTest {
         assertTrue(size == 0);
     }
 
+     /* ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ */
+
     /* Route Parser tests */
 
     @Test
+    public void emptyFileRoute() throws IOException {
+        RouteParser parser = new RouteParser((new BufferedReader(new FileReader("testfiles/empty.txt"))));
+        ArrayList<Route> routes = parser.makeRoutes();
+        int size = routes.size();
+        assertTrue(size == 0);
+    }
+
+
+    @Test
     public void oneValidRouteSize() throws IOException {
-        assertTrue(true);
+        RouteParser parser = new RouteParser((new BufferedReader(new FileReader("testfiles/routes/oneValidRoute.txt"))));
+        ArrayList<Route> routes = parser.makeRoutes();
+        int size = routes.size();
+        assertTrue(size == 1);
     }
 
     @Test
@@ -121,7 +137,10 @@ public class ParserTest {
 
     @Test
     public void oneValidRouteWithNullSize() throws IOException {
-        assertTrue(true);
+        RouteParser parser = new RouteParser((new BufferedReader(new FileReader("testfiles/routes/oneValidRouteWithNull.txt"))));
+        ArrayList<Route> routes = parser.makeRoutes();
+        int size = routes.size();
+        assertTrue(size == 1);
     }
 
     @Test
@@ -131,7 +150,10 @@ public class ParserTest {
 
     @Test
     public void oneValidRouteWithMultiEquipmentSize() throws IOException {
-        assertTrue(true);
+        RouteParser parser = new RouteParser((new BufferedReader(new FileReader("testfiles/routes/oneValidRouteWithMultiEquipment.txt"))));
+        ArrayList<Route> routes = parser.makeRoutes();
+        int size = routes.size();
+        assertTrue(size == 1);
     }
 
     @Test
@@ -141,7 +163,10 @@ public class ParserTest {
 
     @Test
     public void multipleValidRoutesSize() throws IOException {
-        assertTrue(true);
+        RouteParser parser = new RouteParser((new BufferedReader(new FileReader("testfiles/routes/validRoute.txt"))));
+        ArrayList<Route> routes = parser.makeRoutes();
+        int size = routes.size();
+        assertTrue(size == 67663);
     }
 
 }
