@@ -8,10 +8,7 @@ import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -140,6 +137,12 @@ public class Controller implements Initializable{
     @FXML
     TextField searchField;
 
+    // airlines inactive and active check boxes
+    @FXML
+    CheckBox active;
+    @FXML
+    CheckBox inactive;
+
     // create table data
     final ObservableList<airlineTable> airlineTData = FXCollections.observableArrayList();
 
@@ -179,74 +182,7 @@ public class Controller implements Initializable{
 
         airlineTableID.setItems(airlineTData);
 
-        // searching for airline
-        FilteredList<airlineTable> airlineTableFiltered = new FilteredList<>(airlineTData, p -> true);
-
-        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
-            airlineTableFiltered.setPredicate(airline -> {
-                // All the columns in airline table (at)
-                Integer atID = airline.getRid();
-                String atName = airline.getRname();
-                String atAlias = airline.getRalias();
-                String atIATA = airline.getRiata();
-                String atICAO = airline.getRicao();
-                String atCallsign = airline.getRcallsign();
-                String atCountry = airline.getRcountry();
-                //Boolean atActive = airline.getRactive();
-
-                String lowerCaseFilter = newValue.toLowerCase();
-
-                // If filter text is empty, display all data.
-                if (newValue.isEmpty()) {
-                    return true;
-                }
-
-                if (lowerCaseFilter.matches("[0-9]+") && atID == Integer.parseInt(lowerCaseFilter)) {
-                    return true; // Filter matches
-                }
-
-                if (atName != null && atName.toLowerCase().contains(lowerCaseFilter)){
-                    return true; // Filter matches
-                }
-                if (atAlias != null && atAlias.toLowerCase().contains(lowerCaseFilter)){
-                    return true; // Filter matches
-                }
-                if (atIATA != null && atIATA.toLowerCase().contains(lowerCaseFilter)){
-                    return true; // Filter matches
-                }
-                if (atICAO != null &&  atICAO.toLowerCase().contains(lowerCaseFilter)){
-                    return true; // Filter matches
-                }
-                if (atCallsign != null && atCallsign.toLowerCase().contains(lowerCaseFilter)){
-                    return true; // Filter matches
-                }
-                if (atCountry != null && atCountry.toLowerCase().contains(lowerCaseFilter)){
-                    return true; // Filter matches
-                }
-
-                return false; // Does not match.
-            });
-
-        });
-
-        // Wrap the filtered list in a SortedList
-        SortedList<airlineTable> airlineTableSorted = new SortedList<>(airlineTableFiltered);
-
-        // Bind the SortedList comparator to the TableView comparator
-        airlineTableSorted.comparatorProperty().bind(airlineTableID.comparatorProperty());
-
-        // Add sorted (and filtered) data to the table
-        airlineTableID.setItems(airlineTableSorted);
-
-        System.out.println("added!");
-
-
-
-
-
-
-
-
+        searchAirlines();
 
         // initialise airport table resources
         apid.setCellValueFactory(new PropertyValueFactory<>("atid"));
@@ -277,59 +213,91 @@ public class Controller implements Initializable{
 
         routeTableID.setItems(routeTData);
 
-
-
-
-
     }
 
-    public void search() throws IOException {
-        String query = searchField.getText();
-        System.out.println("GO!" + query);
-
-        if (searchField == null || query.isEmpty()) {
-            System.out.println("nothng search");
-            airlineTableID.setItems(airlineTData);
-        }
-        else {
-            System.out.println("better search");
-            String queryLower = query.toLowerCase();
-
-            for (airlineTable airline: airlineTableID.getItems()) {
-
-                String filterCountry = airline.getRcountry();
-                System.out.println(airline.getRid() + filterCountry);
-                if (filterCountry == null || filterCountry.equals("null")) {
-                    System.out.println("NULL COUNTRY");
-                }
-                else if(filterCountry.toLowerCase().contains(queryLower)) {
-                    System.out.println("inside seachlol");
-                    System.out.println(airline.getRname() + " " + filterCountry);
-                }
-
-            }
-        }
-    }
-
-    public void searchAirline(String oldValue, String newValue) {
-        System.out.println("GO!" + searchField.getText());
-
+    public void searchAirlines(){
         // searching for airline
-        ObservableList<airlineTable> filteredList = FXCollections.observableArrayList();
-        if(searchField == null || (newValue.length() < oldValue.length()) || newValue.isEmpty()) {
-            airlineTableID.setItems(airlineTData);
-        }
-        else {
-            newValue = newValue.toUpperCase();
-            for(airlineTable airline : airlineTableID.getItems()) {
-                String filterFirstName = airline.getRcountry();
-                String filterLastName = airline.getRname();
-                if(filterFirstName.toUpperCase().contains(newValue) || filterLastName.toUpperCase().contains(newValue)) {
-                    filteredList.add(airline);
+        FilteredList<airlineTable> airlineTableFiltered = new FilteredList<>(airlineTData, p -> true);
+
+        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+            airlineTableFiltered.setPredicate(airline -> {
+                // All the columns in airline table (at)
+                Integer atID = airline.getRid();
+                String atName = airline.getRname();
+                String atAlias = airline.getRalias();
+                String atIATA = airline.getRiata();
+                String atICAO = airline.getRicao();
+                String atCallsign = airline.getRcallsign();
+                String atCountry = airline.getRcountry();
+                Boolean atActive = airline.getRactive();
+                Boolean toggled = false;
+
+                String lowerCaseFilter = newValue.toLowerCase();
+
+                // Return true if filter matches
+                if (newValue.isEmpty()) {
+                    return true;                 // If filter text is empty, display all data.
                 }
-            }
-            airlineTableID.setItems(filteredList);
-        }
+
+                if (lowerCaseFilter.matches("[0-9]+") && atID == Integer.parseInt(lowerCaseFilter)) {
+                    toggled = true;
+                }
+
+                if (atName != null && atName.toLowerCase().contains(lowerCaseFilter)){
+                    toggled = true;
+                }
+                if (atAlias != null && atAlias.toLowerCase().contains(lowerCaseFilter)){
+                    toggled = true;
+                }
+                if (atIATA != null && atIATA.toLowerCase().contains(lowerCaseFilter)){
+                    toggled = true;
+                }
+                if (atICAO != null &&  atICAO.toLowerCase().contains(lowerCaseFilter)){
+                    toggled = true;
+                }
+                if (atCallsign != null && atCallsign.toLowerCase().contains(lowerCaseFilter)){
+                    toggled = true;
+                }
+                if (atCountry != null && atCountry.toLowerCase().contains(lowerCaseFilter)){
+                    toggled = true;
+                }
+                if (!active.isSelected() && toggled && !inactive.isSelected()){
+                    return true;
+                }
+                if (active.isSelected() && atActive && toggled){
+                    return true;
+                }
+//                if (toggled && inactive.isSelected() && !atActive){
+//                    return true;
+//                }
+                return toggled && inactive.isSelected() && !atActive; // Does not match.
+            });
+
+        });
+
+        // Wrap the filtered list in a SortedList
+        SortedList<airlineTable> airlineTableSorted = new SortedList<>(airlineTableFiltered);
+
+        // Bind the SortedList comparator to the TableView comparator
+        airlineTableSorted.comparatorProperty().bind(airlineTableID.comparatorProperty());
+
+        // Add sorted (and filtered) data to the table
+        airlineTableID.setItems(airlineTableSorted);
+
+    }
+
+
+    public void updateSearchField(){
+        String text = searchField.getText();
+        searchField.setText(text + " ");
+        searchField.setText(text);
+    }
+    public void selectActiveAirlines() throws IOException {
+        updateSearchField();
+    }
+
+    public void selectInactiveAirlines() throws IOException {
+        updateSearchField();
     }
 
     public void loadAirline() throws IOException {
