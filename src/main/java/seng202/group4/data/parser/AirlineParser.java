@@ -16,7 +16,7 @@ public class AirlineParser {
     private BufferedReader file;
     private Airline thisAirline;
     private String[] splitLine = new String[MAX_ITEMS_PER_LINE];
-    private String splitBy = ",";
+    private String splitBy = "\\s*\\,\\s*";
     private int ID;
     private boolean active;
     private String currentLine;
