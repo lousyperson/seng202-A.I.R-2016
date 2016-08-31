@@ -8,19 +8,28 @@ import java.util.ArrayList;
  */
 public class Route {
     private String airline;
-    private int ID;
+    private int AirlineID;
     private String srcAirport;
     private int srcAirportID;
     private String destAirport;
+
+    public Route(String airline, int airlineID, String srcAirport, int srcAirportID, String destAirport, int destAirportID, String codeshare, int stops, ArrayList<String> equipments) {
+        this.airline = airline;
+        AirlineID = airlineID;
+        this.srcAirport = srcAirport;
+        this.srcAirportID = srcAirportID;
+        this.destAirport = destAirport;
+        this.destAirportID = destAirportID;
+        this.codeshare = codeshare;
+        this.stops = stops;
+        this.equipments = equipments;
+    }
+
     private int destAirportID;
     private String codeshare;
     private int stops;
     private double distance;
     private ArrayList<String> equipments = new ArrayList<String>();
-
-    Route() {
-
-    }
 
 
     public String getAirline() {
@@ -31,12 +40,12 @@ public class Route {
         this.airline = airline;
     }
 
-    public int getID() {
-        return ID;
+    public int getAirlineID() {
+        return AirlineID;
     }
 
-    public void setID(int ID) {
-        this.ID = ID;
+    public void setAirlineID(int AirlineID) {
+        this.AirlineID = AirlineID;
     }
 
     public String getSrcAirport() {

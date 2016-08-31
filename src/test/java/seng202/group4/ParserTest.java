@@ -77,7 +77,7 @@ public class ParserTest {
 
     @Test
     public void oneValidAirportSize() throws IOException {
-        assert(true);
+        assertTrue(true);
 
     }
 
@@ -108,5 +108,40 @@ public class ParserTest {
     }
 
     /* Route Parser tests */
+
+    @Test
+    public void oneValidRouteSize() throws IOException {
+        assertTrue(true);
+    }
+
+    @Test
+    public void oneValidRouteContents() throws IOException {
+        assertTrue(true);
+    }
+
+    @Test
+    public void oneValidRouteWithNullSize() throws IOException {
+        assertTrue(true);
+    }
+
+    @Test
+    public void oneValidRouteWithNullContents() throws IOException {
+        assertTrue(true);
+    }
+
+    @Test
+    public void oneValidRouteWithMultiEquipmentSize() throws IOException {
+        assertTrue(true);
+    }
+
+    @Test
+    public void oneValidRouteWithMultiEquipmentContents() throws IOException {
+        assertTrue(true);
+    }
+
+    @Test
+    public void multipleValidRoutesSize() throws IOException {
+        assertTrue(true);
+    }
 
 }
