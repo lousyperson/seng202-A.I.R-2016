@@ -157,6 +157,14 @@ public class ParserTest {
     }
 
     @Test
+    public void oneValidRouteWithMultiEquipmentSize2() throws IOException {
+        RouteParser parser = new RouteParser((new BufferedReader(new FileReader("testfiles/routes/oneValidRouteWithMultiEquipment.txt"))));
+        ArrayList<Route> routes = parser.makeRoutes();
+        int size = routes.get(0).getEquipment().size();
+        assertTrue(size == 3);
+    }
+
+    @Test
     public void oneValidRouteWithMultiEquipmentContents() throws IOException {
         assertTrue(true);
     }

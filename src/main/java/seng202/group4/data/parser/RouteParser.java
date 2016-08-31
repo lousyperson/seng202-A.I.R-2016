@@ -39,7 +39,7 @@ public class RouteParser {
 
     private ArrayList<String> makeEquipment() {
         ArrayList<String> equipment = new ArrayList<String>();
-        String[] splitEquipment = splitLine[8].split("\\s");
+        String[] splitEquipment = splitLine[8].split("[\\s]+");
         for (String item : splitEquipment) {
             equipment.add(item);
         }

@@ -116,7 +116,7 @@ public class FilterTest extends TestCase {
 
         // test that all the filteredEquipments are 777
         for (Route route : filteredEquipments) {
-            assertTrue(route.getEquipments().contains("777"));
+            assertTrue(route.getEquipment().contains("777"));
         }
     }
 }

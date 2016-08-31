@@ -12,8 +12,13 @@ public class Route {
     private String srcAirport;
     private int srcAirportID;
     private String destAirport;
+    private int destAirportID;
+    private String codeshare;
+    private int stops;
+    private double distance;
+    private ArrayList<String> equipment = new ArrayList<String>();
 
-    public Route(String airline, int airlineID, String srcAirport, int srcAirportID, String destAirport, int destAirportID, String codeshare, int stops, ArrayList<String> equipments) {
+    public Route(String airline, int airlineID, String srcAirport, int srcAirportID, String destAirport, int destAirportID, String codeshare, int stops, ArrayList<String> equipment) {
         this.airline = airline;
         AirlineID = airlineID;
         this.srcAirport = srcAirport;
@@ -22,14 +27,8 @@ public class Route {
         this.destAirportID = destAirportID;
         this.codeshare = codeshare;
         this.stops = stops;
-        this.equipments = equipments;
+        this.equipment = equipment;
     }
-
-    private int destAirportID;
-    private String codeshare;
-    private int stops;
-    private double distance;
-    private ArrayList<String> equipments = new ArrayList<String>();
 
 
     public String getAirline() {
@@ -104,14 +103,12 @@ public class Route {
         this.distance = distance;
     }
 
-
-    public ArrayList<String> getEquipments() {
-        return equipments;
+    public ArrayList<String> getEquipment() {
+        return equipment;
     }
 
-    public void setEquipments(String equips) {
-        for (String equipment: equips.split(" ")) {
-            equipments.add(equipment);
-        }
+    public void setEquipment(ArrayList<String> equipment) {
+        this.equipment = equipment;
     }
+
 }
