@@ -6,6 +6,9 @@ package seng202.group4.data.dataType;
 public class Flight {
     private String type;
     private String ID;
+    private double altitude;
+    private double longitude;
+    private double latitude;
 
     public String getID() {
         return ID;
@@ -14,10 +17,6 @@ public class Flight {
     public void setID(String ID) {
         this.ID = ID;
     }
-
-    private double altitude;
-    private double longitude;
-    private double latitude;
 
     public String getType() {
         return type;

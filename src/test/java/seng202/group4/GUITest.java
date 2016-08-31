@@ -20,7 +20,7 @@ public class GUITest extends Application{
         primaryStage.setTitle("Aviation Information Reader");
         primaryStage.setScene(new Scene(root, 600, 775));
         primaryStage.show();
-        ValidatorGUITest.testInvalidFile("testfiles/Airlines/oneDodgyAirline.txt");
+        ValidatorGUITest.testInvalidAirlineFile("testfiles/Airlines/oneDodgyAirline.txt");
     }
 
     public static void main(String[] args) {

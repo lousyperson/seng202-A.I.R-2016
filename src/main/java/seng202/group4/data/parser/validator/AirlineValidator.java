@@ -61,7 +61,7 @@ public class AirlineValidator {
             return;
         }
 
-        // Error if anything is invalid is invalid
+        // Error if anything is invalid
         if (!checkString(1)) {                                                                                          // Name
             makeAlert("Airline Name should only contain letters, spaces and hyphens.");
             return;
