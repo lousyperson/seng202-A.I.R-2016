@@ -10,6 +10,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import seng202.group4.data.dataType.Airline;
@@ -22,6 +24,8 @@ import seng202.group4.data.repository.AirlineRepository;
 
 
 import java.io.*;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -138,17 +142,57 @@ public class Controller implements Initializable{
 
     // search field
     @FXML
-    TextField searchField;
+    TextField airlineSearch;
 
     // airlines inactive and active check boxes
     @FXML
     CheckBox active;
+
     @FXML
     CheckBox inactive;
 
     // airline country filter
     @FXML
     ComboBox airlineCountryFilter;
+
+    // airport FXML
+    @FXML
+    TextField airportSearch;
+
+    @FXML
+    ComboBox airportCountryFilter;
+
+    // route FXML
+    @FXML
+    TextField routeSearch;
+
+    @FXML
+    ComboBox routeDepCountryFilter;
+
+    @FXML
+    ComboBox routeDestCountryFilter;
+
+    @FXML
+    CheckBox direct;
+
+    @FXML
+    CheckBox indirect;
+
+    @FXML
+    ComboBox routeEquipFilter;
+
+    // StackPane for search
+    @FXML
+    StackPane searchPanes;
+
+    @FXML
+    AnchorPane airlinePane;
+
+    @FXML
+    AnchorPane airportPane;
+
+    @FXML
+    AnchorPane routePane;
 
     // create table data
     private ObservableList<airlineTable> airlineTData = FXCollections.observableArrayList();
@@ -166,15 +210,26 @@ public class Controller implements Initializable{
 
         // initialise data list
         datalist.setItems(items);
+        // defaults airport list
+        datalist.getSelectionModel().clearAndSelect(0);
 
         datalist.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends  String> ov, String old_val, String new_val) -> {
             System.out.println("Selected item: " + new_val);
             if (new_val.equals("Default Airlines")) {
                 airlineTableID.toFront();
+                airlinePane.setVisible(true);
+                airportPane.setVisible(false);
+                routePane.setVisible(false);
             } else if (new_val.equals("Default Airports")) {
                 airportTableID.toFront();
+                airlinePane.setVisible(false);
+                airportPane.setVisible(true);
+                routePane.setVisible(false);
             } else if (new_val.equals("Default Routes")) {
                 routeTableID.toFront();
+                airlinePane.setVisible(false);
+                airportPane.setVisible(false);
+                routePane.setVisible(true);
             }
 
         });
@@ -193,6 +248,15 @@ public class Controller implements Initializable{
 
         searchAirlines();
         //fillCountryBox();
+
+        // loads default airline list
+        try {
+            loadDefaultAirline();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
 
         // initialise airport table resources
         apid.setCellValueFactory(new PropertyValueFactory<>("atid"));
@@ -223,13 +287,21 @@ public class Controller implements Initializable{
 
         routeTableID.setItems(routeTData);
 
+        //loads default route list
+        try {
+            loadDefaultRoute();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
     }
 
     public void searchAirlines(){
         // searching for airline
         FilteredList<airlineTable> airlineTableFiltered = new FilteredList<>(airlineTData, p -> true);
 
-        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+        airlineSearch.textProperty().addListener((observable, oldValue, newValue) -> {
             airlineTableFiltered.setPredicate(airline -> {
                 // All the columns in airline table (at)
                 Integer atID = airline.getRid();
@@ -324,16 +396,16 @@ public class Controller implements Initializable{
         }
     }
 
-    public void updateSearchField(){
-        String text = searchField.getText();
-        searchField.setText(text + " ");
-        searchField.setText(text);
+    public void updateAirlineSearch(){
+        String text = airlineSearch.getText();
+        airlineSearch.setText(text + " ");
+        airlineSearch.setText(text);
 
     }
 
     public void filterCountry() throws IOException {
-        updateSearchField();
-        //searchField.setText(airlineCountryFilter.getValue().toString());
+        updateAirlineSearch();
+        //airlineSearch.setText(airlineCountryFilter.getValue().toString());
         for(airlineTable airline : airlineTableID.getItems()){
             if (airline.getRcountry() != null){
                 System.out.println(airline.getRcountry().toLowerCase());
@@ -345,11 +417,11 @@ public class Controller implements Initializable{
     }
 
     public void selectActiveAirlines() throws IOException {
-        updateSearchField();
+        updateAirlineSearch();
     }
 
     public void selectInactiveAirlines() throws IOException {
-        updateSearchField();
+        updateAirlineSearch();
     }
 
     public void loadAirline() throws IOException {
@@ -374,6 +446,27 @@ public class Controller implements Initializable{
                 }
 
             }
+    }
+
+    public void loadDefaultAirline() throws IOException, URISyntaxException {
+
+        File file = new File(getClass().getClassLoader().getResource("airlines.dat").toURI());
+        if (file != null) {
+            System.out.println("file opened yeah~");
+
+            AirlineValidator validator = new AirlineValidator(file);
+            ArrayList<Airline> airlines = validator.makeAirlines();
+            for(int i = 0; i < airlines.size(); i++) {
+                Airline airline = airlines.get(i);
+                airlineTData.add(new airlineTable(airline.getID(), airline.getName(),
+                        airline.getAlias(), airline.getIATA(),
+                        airline.getICAO(), airline.getCallsign(),
+                        airline.getCountry(), airline.getActive()));
+                countrySet.add(airline.getCountry());
+                updateCountryBox();
+            }
+
+        }
     }
 
     public void loadAirport() throws IOException {
@@ -408,6 +501,25 @@ public class Controller implements Initializable{
         File file = fileChooser.showOpenDialog(stage);
         if (file != null) {
             System.out.println("file opneeeedddd");
+
+            RouteValidator validator = new RouteValidator(file);
+            ArrayList<Route> routes = validator.makeroutes();
+            for(int i = 0; i < routes.size(); i++) {
+                Route route = routes.get(i);
+                routeTData.add(new routeTable(route.getAirline(), route.getAirlineID(),
+                        route.getSrcAirport(), route.getSrcAirportID(),
+                        route.getDestAirport(), route.getDestAirportID(),
+                        route.getCodeshare(), route.getStops(),
+                        route.getEquipment().stream().collect(Collectors.joining(", "))));
+            }
+        }
+    }
+
+    public void loadDefaultRoute() throws IOException, URISyntaxException {
+
+        File file = new File(getClass().getClassLoader().getResource("routes.dat").toURI());
+        if (file != null) {
+            System.out.println("file opened oh yeah~");
 
             RouteValidator validator = new RouteValidator(file);
             ArrayList<Route> routes = validator.makeroutes();
