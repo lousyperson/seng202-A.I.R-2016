@@ -13,7 +13,7 @@ public class RouteRepository {
 
 
     public void addRoute(Route route) {
-        Routes.put(route.getID(), route);
+        Routes.put(route.getDestAirportID(), route);
     }
 
     public HashMap<Integer, Route> getRoutes() {
@@ -72,7 +72,7 @@ public class RouteRepository {
     public ArrayList<Route> getEquipment(String equipment) {
         ArrayList<Route> equipmentRoute = new ArrayList<Route>();
         for (Route route: Routes.values()) {
-            for (String equip: route.getEquipments()) {
+            for (String equip: route.getEquipment()) {
                 if (equip.equals(equipment)) {
                     equipmentRoute.add(route);
                 }
