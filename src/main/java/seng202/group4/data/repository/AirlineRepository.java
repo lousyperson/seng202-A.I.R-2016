@@ -9,15 +9,19 @@ import java.util.HashMap;
  * Created by jjg64 on 15/08/16.
  */
 public class AirlineRepository extends Repository {
+
     private HashMap<Integer, Airline> Airlines = new HashMap<Integer, Airline>();
 
     public void addAirline(Airline airline) {
         Airlines.put(airline.getID(), airline);
     }
 
-    public HashMap<Integer, Airline> getAirline() {
+
+    public HashMap<Integer, Airline> getAirlines() {
         return Airlines;
     }
+
+
 
     //given a country, finds all airlines based in that country
     public ArrayList<Airline> getCountry(String country) {

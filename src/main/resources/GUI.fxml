@@ -99,21 +99,8 @@
                            <children>
                               <CheckBox fx:id="active" layoutX="20.0" layoutY="45.0" mnemonicParsing="false" onAction="#selectActiveAirlines" text="Active" />
                               <Text layoutX="17.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Filter Options" />
-                              <MenuButton layoutX="18.0" layoutY="78.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="184.0" text="Country">
-                                <items>
-                                    <CustomMenuItem hideOnClick="false" mnemonicParsing="false" text="Unspecified Action">
-                                      <content>
-                                        <CheckBox text="Country" />
-                                      </content>
-                                    </CustomMenuItem>
-                                    <CustomMenuItem hideOnClick="false" mnemonicParsing="false" text="Unspecified Action">
-                                       <content>
-                                          <CheckBox text="Activity" />
-                                       </content>
-                                    </CustomMenuItem>
-                                </items>
-                              </MenuButton>
                               <CheckBox fx:id="inactive" layoutX="122.0" layoutY="45.0" mnemonicParsing="false" onAction="#selectInactiveAirlines" text="Inactive" />
+                              <ComboBox fx:id="airlineCountryFilter" layoutX="10.0" layoutY="80.0" onAction="#filterCountry" prefHeight="25.0" prefWidth="197.0" promptText="Country" />
                            </children>
                         </AnchorPane>
                         <TableView fx:id="airportTableID" layoutX="230.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" tableMenuButtonVisible="true" GridPane.columnIndex="1" GridPane.columnSpan="6" GridPane.rowSpan="4">
