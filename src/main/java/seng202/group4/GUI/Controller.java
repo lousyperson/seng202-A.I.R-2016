@@ -13,15 +13,18 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import seng202.group4.data.dataType.Airline;
+import seng202.group4.data.dataType.Route;
 import seng202.group4.data.parser.AirportParser;
 import seng202.group4.data.parser.RouteParser;
 import seng202.group4.data.parser.validator.AirlineValidator;
+import seng202.group4.data.parser.validator.RouteValidator;
 import seng202.group4.data.repository.AirlineRepository;
 
 
 import java.io.*;
 import java.net.URL;
 import java.util.*;
+import java.util.stream.Collectors;
 
 
 public class Controller implements Initializable{
@@ -373,32 +376,49 @@ public class Controller implements Initializable{
             }
     }
 
-    public void loadAirport() throws FileNotFoundException {
+    public void loadAirport() throws IOException {
 
         Stage stage = new Stage();
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open file");
         File file = fileChooser.showOpenDialog(stage);
-        if (file != null) {
-            BufferedReader br = new BufferedReader(new FileReader(file));
-            AirportParser parser = new AirportParser(br);
-
-        }
+//        if (file != null) {
+//            System.out.println("file opneeeddd");
+//
+//            AirportValidator validator = new AirportValidator(file);
+//            ArrayList<Airport> airports = validator.makeAirports();
+//            for(int i = 0; i < airports.size(); i++) {
+//                Airport airport = airports.get(i);
+//                airportTData.add(new airportTable(airport.getID(), airport.getName(),
+//                        airport.getCity(), airport.getCountry(),
+//                        airport.getIATA(), airport.getICAO(),
+//                        airport.getLatitude(), airport.getLongitude(),
+//                        airport.getAltitude(), airport.getTimezone(),
+//                        airport.getDST(), airport.getTz()));
+//            }
+//        }
     }
 
 
-    public void loadRoute() throws FileNotFoundException {
+    public void loadRoute() throws IOException {
 
         Stage stage = new Stage();
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open file");
         File file = fileChooser.showOpenDialog(stage);
         if (file != null) {
-            BufferedReader br = new BufferedReader(new FileReader(file));
-            //TODO
-            //RouteParser parser = new RouteParser(br);
+            System.out.println("file opneeeedddd");
 
-
+            RouteValidator validator = new RouteValidator(file);
+            ArrayList<Route> routes = validator.makeroutes();
+            for(int i = 0; i < routes.size(); i++) {
+                Route route = routes.get(i);
+                routeTData.add(new routeTable(route.getAirline(), route.getAirlineID(),
+                        route.getSrcAirport(), route.getSrcAirportID(),
+                        route.getDestAirport(), route.getDestAirportID(),
+                        route.getCodeshare(), route.getStops(),
+                        route.getEquipment().stream().collect(Collectors.joining(", "))));
+            }
         }
     }
 
