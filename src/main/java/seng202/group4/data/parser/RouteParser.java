@@ -17,11 +17,11 @@ public class RouteParser {
     private Route thisRoute;
     private String[] splitLine = new String[ITEMS_PER_LINE];
     private String splitBy = "\\s*\\,\\s*";
-    private boolean active;
     private String currentLine;
     private ArrayList<Route> routes = new ArrayList<Route>();
-    private boolean[] isInt = {false, true, false, true, false, true, false, true, false};
-    private String nullIntegerValue = "420";    // When a null int is there
+    private Integer[] usedInts = new Integer[4];
+//    private boolean[] isInt = {false, true, false, true, false, true, false, true, false};
+//    private String nullIntegerValue = "-420";    // When a null int is there
 
     public RouteParser(BufferedReader file) {
         this.file = file;
@@ -29,11 +29,13 @@ public class RouteParser {
 
     private void readString(int i) {
         if (splitLine[i].equals("\\N")) {
-            if (isInt[i]) {
-                splitLine[i] = nullIntegerValue;
-            } else {
-                splitLine[i] = null;
-            }
+            splitLine[i] = null;
+        }
+    }
+
+    private void readInt(int i) {
+        if (splitLine[i].equals("\\N")) {
+            usedInts[i / 2] = null;
         }
     }
 
@@ -48,13 +50,16 @@ public class RouteParser {
 
     private void addRoute() throws IOException {
         splitLine = currentLine.split(splitBy, ITEMS_PER_LINE);
-        for (int i = 1; i < ITEMS_PER_LINE; i++) {      // Checks indices 1 to 9
+        for (int i = 0; i < ITEMS_PER_LINE; i+= 2) {      // Checks even indices 0 to 8 (strings)
             readString(i);
         }
+        for (int i = 1; i < ITEMS_PER_LINE; i+= 2) {      // Checks even indices 1 to 7 (ints)
+            readInt(i);
+        }
         ArrayList<String> equipment = makeEquipment();
-        thisRoute = new Route(splitLine[0], Integer.parseInt(splitLine[1]), splitLine[2],
-                              Integer.parseInt(splitLine[3]), splitLine[4], Integer.parseInt(splitLine[5]),
-                              splitLine[6], Integer.parseInt(splitLine[7]), equipment);
+        thisRoute = new Route(splitLine[0], usedInts[0], splitLine[2],
+                              usedInts[1], splitLine[4], usedInts[2],
+                              splitLine[6], usedInts[3], equipment);
 
         routes.add(thisRoute);
     }

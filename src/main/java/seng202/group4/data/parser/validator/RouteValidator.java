@@ -53,7 +53,7 @@ public class RouteValidator {
 
     private void checkLine() throws IOException {
 
-        // Error if anything is invalid
+        // Error if anything is invalid (int checker)
         if (!checkInt(1)) {                                                     // Airline ID
             makeAlert("Airline ID should be a number or \"\\N\"");
             return;
@@ -65,6 +65,11 @@ public class RouteValidator {
             return;
         } else if (!checkInt(7)) {                                              // Number of stops
             makeAlert("Number of stops should be a number or \"\\N\"");
+            return;
+        }
+
+        else if (splitLine[6].length() > 0 && !(splitLine[6].toUpperCase().equals("Y") || splitLine[6].equals("\\N"))) { // Codeshare
+            makeAlert("Codeshare must be \"Y\", empty or \"\\N\"");
             return;
         }
     }

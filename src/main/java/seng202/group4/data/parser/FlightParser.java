@@ -11,5 +11,6 @@ public class FlightParser {
     FlightParser(BufferedReader file) {
         this.file = file;
     }
+
 }
 

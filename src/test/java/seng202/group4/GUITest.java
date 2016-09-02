@@ -6,6 +6,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+
 /**
  * Created by jjg64 on 28/08/16.
  */
@@ -20,7 +22,20 @@ public class GUITest extends Application{
         primaryStage.setTitle("Aviation Information Reader");
         primaryStage.setScene(new Scene(root, 600, 775));
         primaryStage.show();
+        test();
+    }
+
+    private void test() throws IOException {
+//        testAirline();
+        testRoute();
+    }
+
+    private void testAirline() throws IOException {
         ValidatorGUITest.testInvalidAirlineFile("testfiles/Airlines/oneDodgyAirline.txt");
+    }
+
+    private void testRoute() throws IOException {
+        ValidatorGUITest.testInvalidRouteFile("testfiles/Routes/oneDodgyRoute.txt");
     }
 
     public static void main(String[] args) {
