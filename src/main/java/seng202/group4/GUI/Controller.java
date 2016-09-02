@@ -211,7 +211,11 @@ public class Controller implements Initializable{
         // initialise data list
         datalist.setItems(items);
         // defaults airport list
+
+        // select airline table on the side bar
         datalist.getSelectionModel().clearAndSelect(0);
+        // show airline table
+        airlineTableID.toFront();
 
         datalist.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends  String> ov, String old_val, String new_val) -> {
             System.out.println("Selected item: " + new_val);
@@ -246,9 +250,6 @@ public class Controller implements Initializable{
 
         airlineTableID.setItems(airlineTData);
 
-        searchAirlines();
-        //fillCountryBox();
-
         // loads default airline list
         try {
             loadDefaultAirline();
@@ -257,6 +258,9 @@ public class Controller implements Initializable{
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
+
+        // listen for airline search queries
+        searchAirlines();
 
         // initialise airport table resources
         apid.setCellValueFactory(new PropertyValueFactory<>("atid"));
@@ -295,7 +299,83 @@ public class Controller implements Initializable{
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
+
+        // listen for route search queries
+        searchRoutes();
+
     }
+
+
+
+
+    public void searchRoutes(){
+        // searching for route
+        FilteredList<routeTable> routeTableFiltered = new FilteredList<>(routeTData, p -> true);
+
+        routeSearch.textProperty().addListener((observable, oldValue, newValue) -> {
+            routeTableFiltered.setPredicate(route -> {
+                // All the columns in route table (rt)
+                String rtAirID = route.getRairline();
+                Integer rtID = route.getRid();
+                String rtSrcAirport = route.getRsource();
+                Integer rtSrcAirportId = route.getRsourceid();
+                String rtDestAirport = route.getRdest();
+                Integer rtDestAirportId = route.getRdestid();
+                String rtCodeshare = route.getRcodeshare();
+                Integer rtStops = route.getRstops();
+                String rtEquipment = route.getRequipment();
+
+                Boolean toggled = false;
+                String lowerCaseFilter = newValue.toLowerCase();
+                if (newValue.isEmpty()) {
+                    return true;                 // If filter text is empty, display all data.
+                }
+
+                if (rtAirID != null && rtAirID.toLowerCase().contains(lowerCaseFilter)){
+                    toggled = true;
+                }
+                if (lowerCaseFilter.matches("[0-9]+") && rtID == Integer.parseInt(lowerCaseFilter)) {
+                    toggled = true;
+                }
+                if (rtSrcAirport != null && rtSrcAirport.toLowerCase().contains(lowerCaseFilter)){
+                    toggled = true;
+                }
+                if (lowerCaseFilter.matches("[0-9]+") && rtSrcAirportId == Integer.parseInt(lowerCaseFilter)) {
+                    toggled = true;
+                }
+                if (rtDestAirport != null && rtDestAirport.toLowerCase().contains(lowerCaseFilter)){
+                    toggled = true;
+                }
+                if (lowerCaseFilter.matches("[0-9]+") && rtDestAirportId == Integer.parseInt(lowerCaseFilter)) {
+                    toggled = true;
+                }
+                if (rtCodeshare != null && rtCodeshare.toLowerCase().contains(lowerCaseFilter)){
+                    toggled = true;
+                }
+                if (lowerCaseFilter.matches("[0-9]+") && rtStops == Integer.parseInt(lowerCaseFilter)) {
+                    toggled = true;
+                }
+                if (rtEquipment != null && rtEquipment.toLowerCase().contains(lowerCaseFilter)){
+                    toggled = true;
+                }
+
+
+            return false;
+            });
+
+        });
+
+        // Wrap the filtered list in a SortedList
+        SortedList<airlineTable> airlineTableSorted = new SortedList<>(airlineTableFiltered);
+
+        // Bind the SortedList comparator to the TableView comparator
+        airlineTableSorted.comparatorProperty().bind(airlineTableID.comparatorProperty());
+
+        // Add sorted (and filtered) data to the table
+        airlineTableID.setItems(airlineTableSorted);
+
+    }
+
 
     public void searchAirlines(){
         // searching for airline
@@ -383,26 +463,7 @@ public class Controller implements Initializable{
                         return true;
                     }
                 }
-//                if(atCountry!=null && !selectedAirlineCountry.equals(" --ALL COUNTRIES-- ")){
-//                    System.out.println(atCountry.toLowerCase() + " " + (selectedAirlineCountry.toLowerCase()));
-//                    if(atCountry.toLowerCase().equals(selectedAirlineCountry.toLowerCase())){
-//                        System.out.println("MATCHES!!");
-//                    }
-//                    //System.out.println(selectedAirlineCountry.toString());
-//                    return true;
-//                }
-
-
-
-//                if (atCountry != null && !airlineCountryFilter.getValue().equals("")){
-//                    System.out.println(airlineCountryFilter.getValue() + " " + atCountry);
-//                    if (airlineCountryFilter.getValue().equals(atCountry)){
-//                        System.out.println("matches " + atCountry);
-//                    }
-//                    return true;
-//                }
-                return false;
-                //return toggled && inactive.isSelected() && !atActive; // Does not match. false
+                return false; // does not match
             });
 
         });
