@@ -7,9 +7,11 @@ import org.junit.Before;
 import org.junit.Test;
 import seng202.group4.data.dataType.Airline;
 import seng202.group4.data.dataType.Airport;
+import seng202.group4.data.dataType.Flight;
 import seng202.group4.data.dataType.Route;
 import seng202.group4.data.parser.AirlineParser;
 import seng202.group4.data.parser.AirportParser;
+import seng202.group4.data.parser.FlightParser;
 import seng202.group4.data.parser.RouteParser;
 import seng202.group4.data.repository.AirlineRepository;
 import seng202.group4.data.repository.AirportRepository;
@@ -175,6 +177,27 @@ public class ParserTest {
         ArrayList<Route> routes = parser.makeRoutes();
         int size = routes.size();
         assertTrue(size == 67663);
+    }
+
+    /* ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ */
+
+    /* Flight Parser tests */
+
+    @Test
+    public void emptyFileFlight() throws IOException {
+        FlightParser parser = new FlightParser((new BufferedReader(new FileReader("testfiles/empty.csv"))));
+        Flight flight = parser.makeFlight();
+        int size = flight.getFlightPositions().size();
+        assertTrue(size == 0);
+    }
+
+
+    @Test
+    public void validFlightSize() throws IOException {
+        FlightParser parser = new FlightParser((new BufferedReader(new FileReader("testfiles/Flights/validFlight.csv"))));
+        Flight flight = parser.makeFlight();
+        int size = flight.getFlightPositions().size();
+        assertTrue(size == 1);
     }
 
 }
