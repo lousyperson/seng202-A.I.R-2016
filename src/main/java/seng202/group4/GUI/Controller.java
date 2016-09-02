@@ -210,8 +210,9 @@ public class Controller implements Initializable{
 
         // initialise data list
         datalist.setItems(items);
-        // defaults airport list
 
+        // setting up view
+        updateAirlineSearch();
         // select airline table on the side bar
         datalist.getSelectionModel().clearAndSelect(0);
         // show airline table
@@ -394,8 +395,9 @@ public class Controller implements Initializable{
                 String atCallsign = airline.getRcallsign();
                 String atCountry = airline.getRcountry();
                 Boolean atActive = airline.getRactive();
-                Boolean toggled = false;
-
+                boolean toggled = false;
+                boolean emptyCountryFilter = airlineCountryFilter.getSelectionModel().getSelectedItem() == null;
+                //System.out.println("um");
                 String selectedAirlineCountry = null;
                 if (airlineCountryFilter.getValue() != null){
                     selectedAirlineCountry= airlineCountryFilter.getValue().toString();
@@ -405,10 +407,14 @@ public class Controller implements Initializable{
                 String lowerCaseFilter = newValue.toLowerCase();
 
                 // Return true if filter matches
-                if (newValue.isEmpty() && !active.isSelected() && !inactive.isSelected() &&
-                        selectedAirlineCountry != null &&
-                        selectedAirlineCountry.equals(" --ALL COUNTRIES-- ")) {
-                    return true;                 // If filter text is empty, display all data.
+                if (newValue.isEmpty() && !active.isSelected() && !inactive.isSelected()) {
+                    if (selectedAirlineCountry != null &&
+                            selectedAirlineCountry.equals(" --ALL COUNTRIES-- ")){
+                        System.out.println("all country selected");
+                        return true;
+                    }
+
+                    //return true;                 // If filter text is empty, display all data.
                 }
 
                 if (lowerCaseFilter.matches("[0-9]+") && atID == Integer.parseInt(lowerCaseFilter)) {
@@ -434,6 +440,9 @@ public class Controller implements Initializable{
                     toggled = true;
                 }
                 if (!active.isSelected() && toggled && !inactive.isSelected()){
+                    if (emptyCountryFilter){
+                        return true;
+                    }
                     if (selectedAirlineCountry != null && selectedAirlineCountry.equals(" --ALL COUNTRIES-- ")) {
                         return true;
 
@@ -445,6 +454,9 @@ public class Controller implements Initializable{
                     //return true;
                 }
                 if (active.isSelected() && atActive && toggled){
+                    if (emptyCountryFilter){
+                        return true;
+                    }
                     if (selectedAirlineCountry != null && selectedAirlineCountry.equals(" --ALL COUNTRIES-- ")) {
                         return true;
 
@@ -456,6 +468,9 @@ public class Controller implements Initializable{
 
                 }
                 if (toggled && inactive.isSelected() && !atActive){
+                    if (emptyCountryFilter){
+                        return true;
+                    }
                     if (selectedAirlineCountry != null && selectedAirlineCountry.equals(" --ALL COUNTRIES-- ")) {
                         return true;
 
