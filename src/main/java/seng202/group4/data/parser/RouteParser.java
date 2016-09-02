@@ -36,6 +36,8 @@ public class RouteParser {
     private void readInt(int i) {
         if (splitLine[i].equals("\\N")) {
             usedInts[i / 2] = null;
+        } else {
+            usedInts[i / 2] = Integer.parseInt(splitLine[i]);
         }
     }
 

@@ -8,27 +8,28 @@ import javafx.beans.property.SimpleStringProperty;
  */
 public class routeTable {
     private SimpleStringProperty rairline;
-    private SimpleIntegerProperty rid;
+    private SimpleStringProperty rid;
     private SimpleStringProperty rsource;
-    private SimpleIntegerProperty rsourceid;
+    private SimpleStringProperty rsourceid;
     private SimpleStringProperty rdest;
-    private SimpleIntegerProperty rdestid;
+    private SimpleStringProperty rdestid;
     private SimpleStringProperty rcodeshare;
-    private SimpleIntegerProperty rstops;
+    private SimpleStringProperty rstops;
     private SimpleStringProperty requipment;
 
-    public routeTable(String airline, Integer id, String source, Integer sourceid, String dest, Integer destid, String codeshare, Integer stops, String equipment){
+    public routeTable(String airline, String id, String source, String sourceid, String dest, String destid, String codeshare, String stops, String equipment){
         this.rairline = new SimpleStringProperty(airline);
-        this.rid = new SimpleIntegerProperty(id);
+        this.rid = new SimpleStringProperty(id);
         this.rsource = new SimpleStringProperty(source);
-        this.rsourceid = new SimpleIntegerProperty(sourceid);
+        this.rsourceid = new SimpleStringProperty(sourceid);
         this.rdest = new SimpleStringProperty(dest);
-        this.rdestid = new SimpleIntegerProperty(destid);
+        this.rdestid = new SimpleStringProperty(destid);
         this.rcodeshare = new SimpleStringProperty(codeshare);
-        this.rstops = new SimpleIntegerProperty(stops);
+        this.rstops = new SimpleStringProperty(stops);
         this.requipment = new SimpleStringProperty(equipment);
 
     }
+
 
     public String getRairline() {
         return rairline.get();
@@ -42,15 +43,15 @@ public class routeTable {
         this.rairline.set(rairline);
     }
 
-    public int getRid() {
+    public String getRid() {
         return rid.get();
     }
 
-    public SimpleIntegerProperty ridProperty() {
+    public SimpleStringProperty ridProperty() {
         return rid;
     }
 
-    public void setRid(int rid) {
+    public void setRid(String rid) {
         this.rid.set(rid);
     }
 
@@ -66,15 +67,15 @@ public class routeTable {
         this.rsource.set(rsource);
     }
 
-    public int getRsourceid() {
+    public String getRsourceid() {
         return rsourceid.get();
     }
 
-    public SimpleIntegerProperty rsourceidProperty() {
+    public SimpleStringProperty rsourceidProperty() {
         return rsourceid;
     }
 
-    public void setRsourceid(int rsourceid) {
+    public void setRsourceid(String rsourceid) {
         this.rsourceid.set(rsourceid);
     }
 
@@ -90,15 +91,15 @@ public class routeTable {
         this.rdest.set(rdest);
     }
 
-    public int getRdestid() {
+    public String getRdestid() {
         return rdestid.get();
     }
 
-    public SimpleIntegerProperty rdestidProperty() {
+    public SimpleStringProperty rdestidProperty() {
         return rdestid;
     }
 
-    public void setRdestid(int rdestid) {
+    public void setRdestid(String rdestid) {
         this.rdestid.set(rdestid);
     }
 
@@ -114,15 +115,15 @@ public class routeTable {
         this.rcodeshare.set(rcodeshare);
     }
 
-    public int getRstops() {
+    public String getRstops() {
         return rstops.get();
     }
 
-    public SimpleIntegerProperty rstopsProperty() {
+    public SimpleStringProperty rstopsProperty() {
         return rstops;
     }
 
-    public void setRstops(int rstops) {
+    public void setRstops(String rstops) {
         this.rstops.set(rstops);
     }
 
@@ -137,6 +138,10 @@ public class routeTable {
     public void setRequipment(String requipment) {
         this.requipment.set(requipment);
     }
+
+
+
+
 
 
 }

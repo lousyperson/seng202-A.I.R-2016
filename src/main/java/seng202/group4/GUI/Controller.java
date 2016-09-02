@@ -316,13 +316,13 @@ public class Controller implements Initializable{
             routeTableFiltered.setPredicate(route -> {
                 // All the columns in route table (rt)
                 String rtAirID = route.getRairline();
-                Integer rtID = route.getRid();
+                String rtID = route.getRid();
                 String rtSrcAirport = route.getRsource();
-                Integer rtSrcAirportId = route.getRsourceid();
+                String rtSrcAirportId = route.getRsourceid();
                 String rtDestAirport = route.getRdest();
-                Integer rtDestAirportId = route.getRdestid();
+                String rtDestAirportId = route.getRdestid();
                 String rtCodeshare = route.getRcodeshare();
-                Integer rtStops = route.getRstops();
+                String rtStops = route.getRstops();
                 String rtEquipment = route.getRequipment();
 
                 Boolean toggled = false;
@@ -334,45 +334,47 @@ public class Controller implements Initializable{
                 if (rtAirID != null && rtAirID.toLowerCase().contains(lowerCaseFilter)){
                     toggled = true;
                 }
-                if (lowerCaseFilter.matches("[0-9]+") && rtID == Integer.parseInt(lowerCaseFilter)) {
+                if (rtID != null && rtID.toLowerCase().contains(lowerCaseFilter)) {
                     toggled = true;
                 }
                 if (rtSrcAirport != null && rtSrcAirport.toLowerCase().contains(lowerCaseFilter)){
                     toggled = true;
                 }
-                if (lowerCaseFilter.matches("[0-9]+") && rtSrcAirportId == Integer.parseInt(lowerCaseFilter)) {
+                if (rtSrcAirportId != null && rtSrcAirportId.toLowerCase().contains(lowerCaseFilter)) {
                     toggled = true;
                 }
                 if (rtDestAirport != null && rtDestAirport.toLowerCase().contains(lowerCaseFilter)){
                     toggled = true;
                 }
-                if (lowerCaseFilter.matches("[0-9]+") && rtDestAirportId == Integer.parseInt(lowerCaseFilter)) {
+                if (rtDestAirportId != null && rtDestAirportId.toLowerCase().contains(lowerCaseFilter)) {
                     toggled = true;
                 }
                 if (rtCodeshare != null && rtCodeshare.toLowerCase().contains(lowerCaseFilter)){
                     toggled = true;
                 }
-                if (lowerCaseFilter.matches("[0-9]+") && rtStops == Integer.parseInt(lowerCaseFilter)) {
+                if (rtStops != null && rtStops.toLowerCase().contains(lowerCaseFilter)) {
                     toggled = true;
                 }
                 if (rtEquipment != null && rtEquipment.toLowerCase().contains(lowerCaseFilter)){
                     toggled = true;
                 }
+                if (toggled == true){
+                    return true;
+                }
 
-
-            return false;
+                return false;
             });
 
         });
 
         // Wrap the filtered list in a SortedList
-        SortedList<airlineTable> airlineTableSorted = new SortedList<>(airlineTableFiltered);
+        SortedList<routeTable> routeTableSorted = new SortedList<>(routeTableFiltered);
 
         // Bind the SortedList comparator to the TableView comparator
-        airlineTableSorted.comparatorProperty().bind(airlineTableID.comparatorProperty());
+        routeTableSorted.comparatorProperty().bind(routeTableID.comparatorProperty());
 
         // Add sorted (and filtered) data to the table
-        airlineTableID.setItems(airlineTableSorted);
+        routeTableID.setItems(routeTableSorted);
 
     }
 
@@ -605,10 +607,10 @@ public class Controller implements Initializable{
             ArrayList<Route> routes = validator.makeroutes();
             for(int i = 0; i < routes.size(); i++) {
                 Route route = routes.get(i);
-                routeTData.add(new routeTable(route.getAirline(), route.getAirlineID(),
-                        route.getSrcAirport(), route.getSrcAirportID(),
-                        route.getDestAirport(), route.getDestAirportID(),
-                        route.getCodeshare(), route.getStops(),
+                routeTData.add(new routeTable(route.getAirline(), String.valueOf(route.getAirlineID()),
+                        route.getSrcAirport(), String.valueOf(route.getSrcAirportID()),
+                        route.getDestAirport(), String.valueOf(route.getDestAirportID()),
+                        route.getCodeshare(), String.valueOf(route.getStops()),
                         route.getEquipment().stream().collect(Collectors.joining(", "))));
             }
         }
@@ -624,10 +626,15 @@ public class Controller implements Initializable{
             ArrayList<Route> routes = validator.makeroutes();
             for(int i = 0; i < routes.size(); i++) {
                 Route route = routes.get(i);
-                routeTData.add(new routeTable(route.getAirline(), route.getAirlineID(),
-                        route.getSrcAirport(), route.getSrcAirportID(),
-                        route.getDestAirport(), route.getDestAirportID(),
-                        route.getCodeshare(), route.getStops(),
+//                System.out.println(route.getAirline() + route.getAirlineID() +
+//                        route.getSrcAirport() + route.getSrcAirportID() +
+//                        route.getDestAirport() + route.getDestAirportID()
+//                );
+
+                routeTData.add(new routeTable(route.getAirline(), String.valueOf(route.getAirlineID()),
+                        route.getSrcAirport(), String.valueOf(route.getSrcAirportID()),
+                        route.getDestAirport(), String.valueOf(route.getDestAirportID()),
+                        route.getCodeshare(), String.valueOf(route.getStops()),
                         route.getEquipment().stream().collect(Collectors.joining(", "))));
             }
         }
