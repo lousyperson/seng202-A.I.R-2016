@@ -146,8 +146,8 @@
                                     <Text layoutX="15.0" layoutY="108.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Filter Options" />
                                     <ComboBox fx:id="routeDepCountryFilter" layoutX="12.0" layoutY="123.0" onAction="#filterCountry" prefHeight="25.0" prefWidth="197.0" promptText="Depature Country" />
                                     <ComboBox fx:id="routeDestCountryFilter" layoutX="12.0" layoutY="168.0" onAction="#filterCountry" prefHeight="25.0" prefWidth="197.0" promptText="Destination Country" />
-                                    <CheckBox fx:id="direct" layoutX="15.0" layoutY="213.0" mnemonicParsing="false" onAction="#selectActiveAirlines" text="Direct" />
-                                    <CheckBox fx:id="indirect" layoutX="111.0" layoutY="213.0" mnemonicParsing="false" onAction="#selectActiveAirlines" text="Indirect" />
+                                    <CheckBox fx:id="direct" layoutX="15.0" layoutY="213.0" mnemonicParsing="false" onAction="#selectDirect" text="Direct" />
+                                    <CheckBox fx:id="indirect" layoutX="111.0" layoutY="213.0" mnemonicParsing="false" onAction="#selectIndirect" text="Indirect" />
                                     <ComboBox fx:id="routeEquipFilter" layoutX="13.0" layoutY="247.0" onAction="#filterCountry" prefHeight="25.0" prefWidth="197.0" promptText="Equipment" />
                                  </children>
                               </AnchorPane>

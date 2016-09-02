@@ -204,7 +204,8 @@ public class Controller implements Initializable{
     private ObservableList<String> items = FXCollections.observableArrayList("Default Airlines", "Default Airports", "Default Routes");
 
     // airline repository
-    private Set<String> countrySet = new HashSet<>();
+    // countrySet holds all the countries that have been uploaded to airline
+    private TreeSet countrySet = new TreeSet();
 
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -328,7 +329,7 @@ public class Controller implements Initializable{
 
                 Boolean toggled = false;
                 String lowerCaseFilter = newValue.toLowerCase();
-                if (newValue.isEmpty()) {
+                if (newValue.isEmpty() && !direct.isSelected() && !indirect.isSelected()) {
                     return true;                 // If filter text is empty, display all data.
                 }
 
@@ -359,7 +360,13 @@ public class Controller implements Initializable{
                 if (rtEquipment != null && rtEquipment.toLowerCase().contains(lowerCaseFilter)){
                     toggled = true;
                 }
-                if (toggled == true){
+                if (toggled && !direct.isSelected() && !indirect.isSelected()){
+                    return true;
+                }
+                if (direct.isSelected() && rtStops != null && rtStops.equals("0") && toggled){
+                    return true;
+                }
+                if (indirect.isSelected() && rtStops != null && !rtStops.equals("0") && toggled){
                     return true;
                 }
 
@@ -410,7 +417,6 @@ public class Controller implements Initializable{
                 if (newValue.isEmpty() && !active.isSelected() && !inactive.isSelected()) {
                     if (selectedAirlineCountry != null &&
                             selectedAirlineCountry.equals(" --ALL COUNTRIES-- ")){
-                        System.out.println("all country selected");
                         return true;
                     }
 
@@ -496,29 +502,19 @@ public class Controller implements Initializable{
 
     }
 
-    public void updateCountryBox(){
-        ArrayList<String> countryArray = new ArrayList<>();
-        for (String country: countrySet) {
-            if(!airlineCountryFilter.getItems().contains(" --ALL COUNTRIES-- ")){
-                airlineCountryFilter.getItems().add(" --ALL COUNTRIES-- ");
-            }
-            if (country != null && !country.equals("") && !airlineCountryFilter.getItems().contains(country)) {
-                airlineCountryFilter.getItems().add(country);
-            }
-        }
-
-        ObservableList<String> countryItems = airlineCountryFilter.getItems();
-        for(String item : countryItems){
-            if(item != null) {
-                countryArray.add(item.toString());
-            }
-        }
+    private void updateCountryBox(){
+        // clear the current combo box
         airlineCountryFilter.getItems().clear();
-        Collections.sort(countryArray);
-        for(String c : countryArray){
-            airlineCountryFilter.getItems().add(c);
+        // if the combo box doesn't have --ALL COUNTRIES-- then add one
+        if(!airlineCountryFilter.getItems().contains(" --ALL COUNTRIES-- ")){
+            airlineCountryFilter.getItems().add(" --ALL COUNTRIES-- ");
         }
 
+        // loop through the current countrySet
+        Iterator itr = countrySet.iterator();
+        while(itr.hasNext()){
+            airlineCountryFilter.getItems().add(itr.next());
+        }
     }
 
     public void updateAirlineSearch(){
@@ -526,6 +522,22 @@ public class Controller implements Initializable{
         airlineSearch.setText(text + " ");
         airlineSearch.setText(text);
 
+    }
+
+    public void updateRouteSearch(){
+        String text = routeSearch.getText();
+        routeSearch.setText(text + " ");
+        routeSearch.setText(text);
+
+    }
+
+
+    public void selectDirect() throws IOException {
+        updateRouteSearch();
+    }
+
+    public void selectIndirect() throws IOException {
+        updateRouteSearch();
     }
 
     public void filterCountry() throws IOException {
@@ -540,48 +552,40 @@ public class Controller implements Initializable{
         updateAirlineSearch();
     }
 
-    public void loadAirline() throws IOException {
+    // Insert the airlines in a given file into the airline table GUI
+    private void insertAirlineTable(File file) throws IOException {
+        AirlineValidator validator = new AirlineValidator(file);
+        ArrayList<Airline> airlines = validator.makeAirlines();
+        for(int i = 0; i < airlines.size(); i++) {
+            Airline airline = airlines.get(i);
+            airlineTData.add(new airlineTable(airline.getID(), airline.getName(),
+                    airline.getAlias(), airline.getIATA(),
+                    airline.getICAO(), airline.getCallsign(),
+                    airline.getCountry(), airline.getActive()));
+            if(airline.getCountry() != null){
+                countrySet.add(airline.getCountry());
+            }
 
+            updateCountryBox();
+        }
+    }
+
+    public void loadAirline() throws IOException {
             Stage stage = new Stage();
             FileChooser fileChooser = new FileChooser();
             fileChooser.setTitle("Open file");
             File file = fileChooser.showOpenDialog(stage);
-            if (file != null) {
+            if (file != null && file.exists()) {
                 System.out.println("file opneedd");
-
-                AirlineValidator validator = new AirlineValidator(file);
-                ArrayList<Airline> airlines = validator.makeAirlines();
-                for(int i = 0; i < airlines.size(); i++) {
-                    Airline airline = airlines.get(i);
-                    airlineTData.add(new airlineTable(airline.getID(), airline.getName(),
-                                     airline.getAlias(), airline.getIATA(),
-                                     airline.getICAO(), airline.getCallsign(),
-                                     airline.getCountry(), airline.getActive()));
-                    countrySet.add(airline.getCountry());
-                    updateCountryBox();
-                }
-
+                insertAirlineTable(file);
             }
     }
 
-    public void loadDefaultAirline() throws IOException, URISyntaxException {
-
+    private void loadDefaultAirline() throws IOException, URISyntaxException {
         File file = new File(getClass().getClassLoader().getResource("airlines.dat").toURI());
-        if (file != null) {
+        if (file.exists()) {
             System.out.println("file opened yeah~");
-
-            AirlineValidator validator = new AirlineValidator(file);
-            ArrayList<Airline> airlines = validator.makeAirlines();
-            for(int i = 0; i < airlines.size(); i++) {
-                Airline airline = airlines.get(i);
-                airlineTData.add(new airlineTable(airline.getID(), airline.getName(),
-                        airline.getAlias(), airline.getIATA(),
-                        airline.getICAO(), airline.getCallsign(),
-                        airline.getCountry(), airline.getActive()));
-                countrySet.add(airline.getCountry());
-                updateCountryBox();
-            }
-
+            insertAirlineTable(file);
         }
     }
 
