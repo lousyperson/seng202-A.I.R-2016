@@ -8,19 +8,19 @@ import java.util.ArrayList;
  */
 public class Route {
     private String airline;
-    private int AirlineID;
+    private Integer AirlineID;
     private String srcAirport;
-    private int srcAirportID;
+    private Integer srcAirportID;
     private String destAirport;
-    private int destAirportID;
+    private Integer destAirportID;
     private String codeshare;
-    private int stops;
+    private Integer stops;
     private double distance;
     private ArrayList<String> equipment = new ArrayList<String>();
 
-    public Route(String airline, int airlineID, String srcAirport, int srcAirportID, String destAirport, int destAirportID, String codeshare, int stops, ArrayList<String> equipment) {
+    public Route(String airline, Integer airlineID, String srcAirport, Integer srcAirportID, String destAirport, Integer destAirportID, String codeshare, Integer stops, ArrayList<String> equipment) {
         this.airline = airline;
-        AirlineID = airlineID;
+        this.AirlineID = airlineID;
         this.srcAirport = srcAirport;
         this.srcAirportID = srcAirportID;
         this.destAirport = destAirport;
@@ -30,7 +30,6 @@ public class Route {
         this.equipment = equipment;
     }
 
-
     public String getAirline() {
         return airline;
     }
@@ -39,12 +38,12 @@ public class Route {
         this.airline = airline;
     }
 
-    public int getAirlineID() {
+    public Integer getAirlineID() {
         return AirlineID;
     }
 
-    public void setAirlineID(int AirlineID) {
-        this.AirlineID = AirlineID;
+    public void setAirlineID(Integer airlineID) {
+        AirlineID = airlineID;
     }
 
     public String getSrcAirport() {
@@ -55,11 +54,11 @@ public class Route {
         this.srcAirport = srcAirport;
     }
 
-    public int getSrcAirportID() {
+    public Integer getSrcAirportID() {
         return srcAirportID;
     }
 
-    public void setSrcAirportID(int srcAirportID) {
+    public void setSrcAirportID(Integer srcAirportID) {
         this.srcAirportID = srcAirportID;
     }
 
@@ -71,11 +70,11 @@ public class Route {
         this.destAirport = destAirport;
     }
 
-    public int getDestAirportID() {
+    public Integer getDestAirportID() {
         return destAirportID;
     }
 
-    public void setDestAirportID(int destAirportID) {
+    public void setDestAirportID(Integer destAirportID) {
         this.destAirportID = destAirportID;
     }
 
@@ -87,20 +86,12 @@ public class Route {
         this.codeshare = codeshare;
     }
 
-    public int getStops() {
+    public Integer getStops() {
         return stops;
     }
 
-    public void setStops(int stops) {
+    public void setStops(Integer stops) {
         this.stops = stops;
-    }
-
-    public double getDistance() {
-        return distance;
-    }
-
-    public void setDistance(double distance) {
-        this.distance = distance;
     }
 
     public ArrayList<String> getEquipment() {
@@ -110,5 +101,4 @@ public class Route {
     public void setEquipment(ArrayList<String> equipment) {
         this.equipment = equipment;
     }
-
 }
