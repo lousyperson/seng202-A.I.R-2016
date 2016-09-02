@@ -314,10 +314,18 @@ public class Controller implements Initializable{
                 Boolean atActive = airline.getRactive();
                 Boolean toggled = false;
 
+                String selectedAirlineCountry = null;
+                if (airlineCountryFilter.getValue() != null){
+                    selectedAirlineCountry= airlineCountryFilter.getValue().toString();
+                }
+
+
                 String lowerCaseFilter = newValue.toLowerCase();
 
                 // Return true if filter matches
-                if (newValue.isEmpty() && !active.isSelected() && !inactive.isSelected()) {
+                if (newValue.isEmpty() && !active.isSelected() && !inactive.isSelected() &&
+                        selectedAirlineCountry != null &&
+                        selectedAirlineCountry.equals(" --ALL COUNTRIES-- ")) {
                     return true;                 // If filter text is empty, display all data.
                 }
 
@@ -344,14 +352,48 @@ public class Controller implements Initializable{
                     toggled = true;
                 }
                 if (!active.isSelected() && toggled && !inactive.isSelected()){
-                    return true;
+                    if (selectedAirlineCountry != null && selectedAirlineCountry.equals(" --ALL COUNTRIES-- ")) {
+                        return true;
+
+                    }
+                    else if(selectedAirlineCountry != null && atCountry != null &&
+                            atCountry.toLowerCase().equals(selectedAirlineCountry.toLowerCase())){
+                        return true;
+                    }
+                    //return true;
                 }
                 if (active.isSelected() && atActive && toggled){
-                    return true;
+                    if (selectedAirlineCountry != null && selectedAirlineCountry.equals(" --ALL COUNTRIES-- ")) {
+                        return true;
+
+                    }
+                    else if(selectedAirlineCountry != null && atCountry != null &&
+                            atCountry.toLowerCase().equals(selectedAirlineCountry.toLowerCase())){
+                        return true;
+                    }
+
                 }
                 if (toggled && inactive.isSelected() && !atActive){
-                    return true;
+                    if (selectedAirlineCountry != null && selectedAirlineCountry.equals(" --ALL COUNTRIES-- ")) {
+                        return true;
+
+                    }
+                    else if(selectedAirlineCountry != null && atCountry != null &&
+                            atCountry.toLowerCase().equals(selectedAirlineCountry.toLowerCase())){
+                        return true;
+                    }
                 }
+//                if(atCountry!=null && !selectedAirlineCountry.equals(" --ALL COUNTRIES-- ")){
+//                    System.out.println(atCountry.toLowerCase() + " " + (selectedAirlineCountry.toLowerCase()));
+//                    if(atCountry.toLowerCase().equals(selectedAirlineCountry.toLowerCase())){
+//                        System.out.println("MATCHES!!");
+//                    }
+//                    //System.out.println(selectedAirlineCountry.toString());
+//                    return true;
+//                }
+
+
+
 //                if (atCountry != null && !airlineCountryFilter.getValue().equals("")){
 //                    System.out.println(airlineCountryFilter.getValue() + " " + atCountry);
 //                    if (airlineCountryFilter.getValue().equals(atCountry)){
@@ -379,10 +421,14 @@ public class Controller implements Initializable{
     public void updateCountryBox(){
         ArrayList<String> countryArray = new ArrayList<>();
         for (String country: countrySet) {
-            if (!airlineCountryFilter.getItems().contains(country)) {
-                airlineCountryFilter.getItems().addAll(country);
+            if(!airlineCountryFilter.getItems().contains(" --ALL COUNTRIES-- ")){
+                airlineCountryFilter.getItems().add(" --ALL COUNTRIES-- ");
+            }
+            if (country != null && !country.equals("") && !airlineCountryFilter.getItems().contains(country)) {
+                airlineCountryFilter.getItems().add(country);
             }
         }
+
         ObservableList<String> countryItems = airlineCountryFilter.getItems();
         for(String item : countryItems){
             if(item != null) {
@@ -394,6 +440,7 @@ public class Controller implements Initializable{
         for(String c : countryArray){
             airlineCountryFilter.getItems().add(c);
         }
+
     }
 
     public void updateAirlineSearch(){
@@ -405,15 +452,6 @@ public class Controller implements Initializable{
 
     public void filterCountry() throws IOException {
         updateAirlineSearch();
-        //airlineSearch.setText(airlineCountryFilter.getValue().toString());
-        for(airlineTable airline : airlineTableID.getItems()){
-            if (airline.getRcountry() != null){
-                System.out.println(airline.getRcountry().toLowerCase());
-            }
-            if(airline.getRcountry() != null && airline.getRcountry().equals(airlineCountryFilter.getValue().toString())){
-                System.out.println(airlineCountryFilter.getValue().toString()+ " matches "+ airline.getRcountry());
-            }
-        }
     }
 
     public void selectActiveAirlines() throws IOException {

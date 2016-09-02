@@ -123,25 +123,17 @@
                            <children>
                           <AnchorPane fx:id="airlinePane" minHeight="0.0" minWidth="0.0" prefHeight="172.0" prefWidth="220.0">
                                  <children>
-                                    <TextField fx:id="airlineSearch" layoutX="12.0" layoutY="42.0" prefHeight="25.0" prefWidth="196.0" promptText="Search Airline List...">
-                                       <font>
-                                          <Font name="System Italic" size="13.0" />
-                                       </font>
-                                    </TextField>
+                                    <TextField fx:id="airlineSearch" layoutX="12.0" layoutY="42.0" prefHeight="25.0" prefWidth="196.0" promptText="Search Airline List..." />
                                     <Text layoutX="14.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Search" />
                                     <Text layoutX="15.0" layoutY="108.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Filter Options" />
                                     <CheckBox fx:id="active" layoutX="12.0" layoutY="124.0" mnemonicParsing="false" onAction="#selectActiveAirlines" text="Active" />
                                     <CheckBox fx:id="inactive" layoutX="122.0" layoutY="125.0" mnemonicParsing="false" onAction="#selectInactiveAirlines" text="Inactive" />
-                                    <ComboBox fx:id="airlineCountryFilter" layoutX="12.0" layoutY="161.0" onAction="#filterCountry" prefHeight="25.0" prefWidth="197.0" promptText="Country" />
+                                    <ComboBox fx:id="airlineCountryFilter" layoutX="12.0" layoutY="161.0" onAction="#filterCountry" prefHeight="25.0" prefWidth="197.0" promptText=" --ALL COUNTRIES--" />
                                  </children>
                               </AnchorPane>
                               <AnchorPane fx:id="airportPane" minHeight="0.0" minWidth="0.0" prefHeight="172.0" prefWidth="220.0" visible="false">
                                  <children>
-                                    <TextField fx:id="airportSearch" layoutX="12.0" layoutY="42.0" prefHeight="25.0" prefWidth="196.0" promptText="Search Airport List...">
-                                       <font>
-                                          <Font name="System Italic" size="13.0" />
-                                       </font>
-                                    </TextField>
+                                    <TextField fx:id="airportSearch" layoutX="12.0" layoutY="42.0" prefHeight="25.0" prefWidth="196.0" promptText="Search Airport List..." />
                                     <Text layoutX="14.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Search" />
                                     <Text layoutX="15.0" layoutY="108.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Filter Options" />
                                     <ComboBox fx:id="airportCountryFilter" layoutX="12.0" layoutY="123.0" onAction="#filterCountry" prefHeight="25.0" prefWidth="197.0" promptText="Country" />
@@ -149,11 +141,7 @@
                               </AnchorPane>
                               <AnchorPane fx:id="routePane" minHeight="0.0" minWidth="0.0" prefHeight="172.0" prefWidth="220.0" visible="false">
                                  <children>
-                                    <TextField fx:id="routeSearch" layoutX="12.0" layoutY="42.0" prefHeight="25.0" prefWidth="196.0" promptText="Search Route List...">
-                                       <font>
-                                          <Font name="System Italic" size="13.0" />
-                                       </font>
-                                    </TextField>
+                                    <TextField fx:id="routeSearch" layoutX="12.0" layoutY="42.0" prefHeight="25.0" prefWidth="196.0" promptText="Search Route List..." />
                                     <Text layoutX="14.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Search" />
                                     <Text layoutX="15.0" layoutY="108.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Filter Options" />
                                     <ComboBox fx:id="routeDepCountryFilter" layoutX="12.0" layoutY="123.0" onAction="#filterCountry" prefHeight="25.0" prefWidth="197.0" promptText="Depature Country" />
