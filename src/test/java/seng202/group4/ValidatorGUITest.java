@@ -26,4 +26,9 @@ public class ValidatorGUITest {
         assert(airlines == null);
     }
 
+    public static void testInvalidRouteFile(String file) throws IOException {
+        RouteValidator parser = new RouteValidator(new File(file));
+        ArrayList<Route> routes = parser.makeroutes();
+        assert(routes == null);
+    }
 }

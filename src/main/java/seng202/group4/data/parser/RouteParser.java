@@ -17,11 +17,10 @@ public class RouteParser {
     private Route thisRoute;
     private String[] splitLine = new String[ITEMS_PER_LINE];
     private String splitBy = "\\s*\\,\\s*";
-    private boolean active;
     private String currentLine;
     private ArrayList<Route> routes = new ArrayList<Route>();
     private boolean[] isInt = {false, true, false, true, false, true, false, true, false};
-    private String nullIntegerValue = "420";    // When a null int is there
+    private String nullIntegerValue = "-420";    // When a null int is there
 
     public RouteParser(BufferedReader file) {
         this.file = file;
