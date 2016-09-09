@@ -12,6 +12,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.web.WebView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import seng202.group4.data.dataType.Airline;
@@ -32,6 +33,10 @@ import java.util.stream.Collectors;
 
 
 public class Controller implements Initializable{
+
+    // Map view
+    @FXML
+    WebView mapView;
 
     // DEFINE TABLES
 
@@ -208,7 +213,7 @@ public class Controller implements Initializable{
     private TreeSet countrySet = new TreeSet();
 
     public void initialize(URL location, ResourceBundle resources) {
-
+        mapView.getEngine().load(getClass().getClassLoader().getResource("map.html").toExternalForm());
         // initialise data list
         datalist.setItems(items);
 
