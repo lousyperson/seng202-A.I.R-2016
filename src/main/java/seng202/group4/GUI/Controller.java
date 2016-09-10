@@ -19,6 +19,7 @@ import seng202.group4.data.dataType.Airline;
 import seng202.group4.data.dataType.Route;
 import seng202.group4.data.parser.validator.AirlineValidator;
 import seng202.group4.data.parser.validator.RouteValidator;
+import seng202.group4.data.repository.AirlineRepository;
 
 
 import java.io.*;
@@ -205,6 +206,7 @@ public class Controller implements Initializable{
     private ObservableList<String> items = FXCollections.observableArrayList("Default Airlines", "Default Airports", "Default Routes");
 
     // airline repository
+    private AirlineRepository airlineRepository = new AirlineRepository();
     // countrySet holds all the countries uploaded to airline
     private TreeSet countrySet = new TreeSet();
 
@@ -628,6 +630,15 @@ public class Controller implements Initializable{
         ArrayList<Airline> airlines = validator.makeAirlines();
         for(int i = 0; i < airlines.size(); i++) {
             Airline airline = airlines.get(i);
+            // if the airline ID already exists in the repository, warn the user
+            if(!airlineRepository.getAirlines().containsKey(airline.getID())){
+                airlineRepository.addAirline(airline);
+            }
+            else{
+                duplicateIDAlert("Please fix the conflict and reupload the file.", airline.getID());
+                break;
+
+            }
             airlineTData.add(new airlineTable(airline.getID(), airline.getName(),
                     airline.getAlias(), airline.getIATA(),
                     airline.getICAO(), airline.getCallsign(),
@@ -737,6 +748,13 @@ public class Controller implements Initializable{
         }
     }
 
+    private void duplicateIDAlert(String message, Integer id) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText("ID: " + id + " already exists in the system.");
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
 
 
 
