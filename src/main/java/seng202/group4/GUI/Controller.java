@@ -1,6 +1,6 @@
 package seng202.group4.GUI;
 
-import javafx.beans.value.ChangeListener;
+
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,15 +17,11 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import seng202.group4.data.dataType.Airline;
 import seng202.group4.data.dataType.Route;
-import seng202.group4.data.parser.AirportParser;
-import seng202.group4.data.parser.RouteParser;
 import seng202.group4.data.parser.validator.AirlineValidator;
 import seng202.group4.data.parser.validator.RouteValidator;
-import seng202.group4.data.repository.AirlineRepository;
 
 
 import java.io.*;
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.*;
@@ -209,8 +205,11 @@ public class Controller implements Initializable{
     private ObservableList<String> items = FXCollections.observableArrayList("Default Airlines", "Default Airports", "Default Routes");
 
     // airline repository
-    // countrySet holds all the countries that have been uploaded to airline
+    // countrySet holds all the countries uploaded to airline
     private TreeSet countrySet = new TreeSet();
+
+    // equipmentSet holds all the equipment uploaded to route
+    private TreeSet equipmentSet = new TreeSet();
 
     public void initialize(URL location, ResourceBundle resources) {
         mapView.getEngine().load(getClass().getClassLoader().getResource("map.html").toExternalForm());
@@ -219,6 +218,7 @@ public class Controller implements Initializable{
 
         // setting up view
         updateAirlineSearch();
+        updateRouteSearch();
         // select airline table on the side bar
         datalist.getSelectionModel().clearAndSelect(0);
         // show airline table
@@ -331,13 +331,30 @@ public class Controller implements Initializable{
                 String rtCodeshare = route.getRcodeshare();
                 String rtStops = route.getRstops();
                 String rtEquipment = route.getRequipment();
+                List<String> rtEquipmentArray = null;
+                Boolean toggled = false; // toggle to see if anything was matched in the search box
 
-                Boolean toggled = false;
-                String lowerCaseFilter = newValue.toLowerCase();
-                if (newValue.isEmpty() && !direct.isSelected() && !indirect.isSelected()) {
-                    return true;                 // If filter text is empty, display all data.
+                // set up for equipment drop down box
+                boolean emptyEquipFilter = routeEquipFilter.getSelectionModel().getSelectedItem() == null;
+
+                // selectedRouteEquip is a string to hold whats selected in the dropdown
+                // set to null unless a dropdown is selected
+                String selectedRouteEquip = null;
+                if (routeEquipFilter.getValue() != null) {
+                    rtEquipmentArray = Arrays.asList(rtEquipment.toLowerCase().split("\\s*,\\s*"));
+                    selectedRouteEquip = routeEquipFilter.getValue().toString();
                 }
 
+                // hold the string that's typed in the search bar in lowercase
+                String lowerCaseFilter = newValue.toLowerCase();
+
+                // The following returns true if the filter matches
+                if (newValue.isEmpty() && !direct.isSelected() && !indirect.isSelected()
+                        && selectedRouteEquip != null && selectedRouteEquip.equals(" --ALL EQUIPMENTS-- ")) {
+                    return true;    // display all data.
+                }
+
+                // Check if the search criteria matches the following columns
                 if (rtAirID != null && rtAirID.toLowerCase().contains(lowerCaseFilter)){
                     toggled = true;
                 }
@@ -365,17 +382,44 @@ public class Controller implements Initializable{
                 if (rtEquipment != null && rtEquipment.toLowerCase().contains(lowerCaseFilter)){
                     toggled = true;
                 }
+
+                // For the following cases, return true if the equipment dropdown is empty, --ALL EQUIPMENTS-- or
+                // matches the equipment in the table
                 if (toggled && !direct.isSelected() && !indirect.isSelected()){
-                    return true;
+                    if (emptyEquipFilter){
+                        return true;
+                    }
+                    if (selectedRouteEquip != null && selectedRouteEquip.equals(" --ALL EQUIPMENTS-- ")) {
+                        return true;
+                    }
+                    else if(selectedRouteEquip != null && rtEquipmentArray.contains(selectedRouteEquip.toLowerCase())){
+                        return true;
+                    }
                 }
                 if (direct.isSelected() && rtStops != null && rtStops.equals("0") && toggled){
-                    return true;
+                    if (emptyEquipFilter){
+                        return true;
+                    }
+                    if (selectedRouteEquip != null && selectedRouteEquip.equals(" --ALL EQUIPMENTS-- ")) {
+                        return true;
+                    }
+                    else if(selectedRouteEquip != null && rtEquipmentArray.contains(selectedRouteEquip.toLowerCase())){
+                        return true;
+                    }
                 }
                 if (indirect.isSelected() && rtStops != null && !rtStops.equals("0") && toggled){
-                    return true;
+                    if (emptyEquipFilter){
+                        return true;
+                    }
+                    if (selectedRouteEquip != null && selectedRouteEquip.equals(" --ALL EQUIPMENTS-- ")) {
+                        return true;
+                    }
+                    else if(selectedRouteEquip != null && rtEquipmentArray.contains(selectedRouteEquip.toLowerCase())){
+                        return true;
+                    }
                 }
 
-                return false;
+                return false;   // does not match
             });
 
         });
@@ -390,6 +434,7 @@ public class Controller implements Initializable{
         routeTableID.setItems(routeTableSorted);
 
     }
+
 
 
     public void searchAirlines(){
@@ -407,31 +452,30 @@ public class Controller implements Initializable{
                 String atCallsign = airline.getRcallsign();
                 String atCountry = airline.getRcountry();
                 Boolean atActive = airline.getRactive();
-                boolean toggled = false;
+                boolean toggled = false;    // toggle to see if anything was matched in the search box
+
+                // set up for country drop down box
                 boolean emptyCountryFilter = airlineCountryFilter.getSelectionModel().getSelectedItem() == null;
-                //System.out.println("um");
+                // selectedAirlineCountry is a string to hold whats selected in the dropdown
+                // set to null unless a dropdown is selected
                 String selectedAirlineCountry = null;
                 if (airlineCountryFilter.getValue() != null){
-                    selectedAirlineCountry= airlineCountryFilter.getValue().toString();
+                    selectedAirlineCountry = airlineCountryFilter.getValue().toString();
                 }
 
-
+                // hold the string that's typed in the search bar in lowercase
                 String lowerCaseFilter = newValue.toLowerCase();
 
-                // Return true if filter matches
-                if (newValue.isEmpty() && !active.isSelected() && !inactive.isSelected()) {
-                    if (selectedAirlineCountry != null &&
-                            selectedAirlineCountry.equals(" --ALL COUNTRIES-- ")){
-                        return true;
-                    }
-
-                    //return true;                 // If filter text is empty, display all data.
+                // The following returns true if the filter matches
+                if (newValue.isEmpty() && !active.isSelected() && !inactive.isSelected()
+                        && selectedAirlineCountry != null && selectedAirlineCountry.equals(" --ALL COUNTRIES-- ")){
+                    return true; // display all data
                 }
 
+                // Check if the search criteria matches the following columns
                 if (lowerCaseFilter.matches("[0-9]+") && atID == Integer.parseInt(lowerCaseFilter)) {
                     toggled = true;
                 }
-
                 if (atName != null && atName.toLowerCase().contains(lowerCaseFilter)){
                     toggled = true;
                 }
@@ -450,19 +494,20 @@ public class Controller implements Initializable{
                 if (atCountry != null && atCountry.toLowerCase().contains(lowerCaseFilter)){
                     toggled = true;
                 }
+
+                // For the following cases, return true if the country dropdown is empty, --ALL COUNTRIES-- or
+                // matches the country in the table
                 if (!active.isSelected() && toggled && !inactive.isSelected()){
                     if (emptyCountryFilter){
                         return true;
                     }
                     if (selectedAirlineCountry != null && selectedAirlineCountry.equals(" --ALL COUNTRIES-- ")) {
                         return true;
-
                     }
                     else if(selectedAirlineCountry != null && atCountry != null &&
                             atCountry.toLowerCase().equals(selectedAirlineCountry.toLowerCase())){
                         return true;
                     }
-                    //return true;
                 }
                 if (active.isSelected() && atActive && toggled){
                     if (emptyCountryFilter){
@@ -476,7 +521,6 @@ public class Controller implements Initializable{
                             atCountry.toLowerCase().equals(selectedAirlineCountry.toLowerCase())){
                         return true;
                     }
-
                 }
                 if (toggled && inactive.isSelected() && !atActive){
                     if (emptyCountryFilter){
@@ -507,6 +551,8 @@ public class Controller implements Initializable{
 
     }
 
+
+
     private void updateCountryBox(){
         // clear the current combo box
         airlineCountryFilter.getItems().clear();
@@ -519,6 +565,21 @@ public class Controller implements Initializable{
         Iterator itr = countrySet.iterator();
         while(itr.hasNext()){
             airlineCountryFilter.getItems().add(itr.next());
+        }
+    }
+
+    private void updateEquipBox(){
+        // clear the current combo box
+        routeEquipFilter.getItems().clear();
+        // if the combo box doesn't have --ALL EQUIPMENTS-- then add one
+        if(!routeEquipFilter.getItems().contains(" --ALL EQUIPMENTS-- ")){
+            routeEquipFilter.getItems().add(" --ALL EQUIPMENTS-- ");
+        }
+
+        // loop through the current countrySet
+        Iterator itr = equipmentSet.iterator();
+        while(itr.hasNext()){
+            routeEquipFilter.getItems().add(itr.next());
         }
     }
 
@@ -549,8 +610,12 @@ public class Controller implements Initializable{
         updateAirlineSearch();
     }
 
+    public void filterEquipment() throws IOException {
+        updateRouteSearch();
+    }
+
     public void selectActiveAirlines() throws IOException {
-        updateAirlineSearch();
+        updateRouteSearch();
     }
 
     public void selectInactiveAirlines() throws IOException {
@@ -616,8 +681,29 @@ public class Controller implements Initializable{
 //            }
 //        }
     }
-
-
+    public void insertRouteTable(File file) throws IOException{
+        RouteValidator validator = new RouteValidator(file);
+        ArrayList<Route> routes = validator.makeroutes();
+        for(int i = 0; i < routes.size(); i++) {
+            Route route = routes.get(i);
+//                System.out.println(route.getAirline() + route.getAirlineID() +
+//                        route.getSrcAirport() + route.getSrcAirportID() +
+//                        route.getDestAirport() + route.getDestAirportID()
+//                );
+            //System.out.println(route.getEquipment());
+            routeTData.add(new routeTable(route.getAirline(), String.valueOf(route.getAirlineID()),
+                    route.getSrcAirport(), String.valueOf(route.getSrcAirportID()),
+                    route.getDestAirport(), String.valueOf(route.getDestAirportID()),
+                    route.getCodeshare(), String.valueOf(route.getStops()),
+                    route.getEquipment().stream().collect(Collectors.joining(", "))));
+            for(String r: route.getEquipment()){
+                if(!r.isEmpty()) {
+                    equipmentSet.add(r);
+                }
+            }
+            updateEquipBox();
+        }
+    }
     public void loadRoute() throws IOException {
 
         Stage stage = new Stage();
@@ -626,41 +712,16 @@ public class Controller implements Initializable{
         File file = fileChooser.showOpenDialog(stage);
         if (file != null) {
             System.out.println("file opneeeedddd");
-
-            RouteValidator validator = new RouteValidator(file);
-            ArrayList<Route> routes = validator.makeroutes();
-            for(int i = 0; i < routes.size(); i++) {
-                Route route = routes.get(i);
-                routeTData.add(new routeTable(route.getAirline(), String.valueOf(route.getAirlineID()),
-                        route.getSrcAirport(), String.valueOf(route.getSrcAirportID()),
-                        route.getDestAirport(), String.valueOf(route.getDestAirportID()),
-                        route.getCodeshare(), String.valueOf(route.getStops()),
-                        route.getEquipment().stream().collect(Collectors.joining(", "))));
-            }
+            insertRouteTable(file);
         }
     }
 
     public void loadDefaultRoute() throws IOException, URISyntaxException {
 
         File file = new File(getClass().getClassLoader().getResource("routes.dat").toURI());
-        if (file != null) {
+        if (file.exists()) {
             System.out.println("file opened oh yeah~");
-
-            RouteValidator validator = new RouteValidator(file);
-            ArrayList<Route> routes = validator.makeroutes();
-            for(int i = 0; i < routes.size(); i++) {
-                Route route = routes.get(i);
-//                System.out.println(route.getAirline() + route.getAirlineID() +
-//                        route.getSrcAirport() + route.getSrcAirportID() +
-//                        route.getDestAirport() + route.getDestAirportID()
-//                );
-
-                routeTData.add(new routeTable(route.getAirline(), String.valueOf(route.getAirlineID()),
-                        route.getSrcAirport(), String.valueOf(route.getSrcAirportID()),
-                        route.getDestAirport(), String.valueOf(route.getDestAirportID()),
-                        route.getCodeshare(), String.valueOf(route.getStops()),
-                        route.getEquipment().stream().collect(Collectors.joining(", "))));
-            }
+            insertRouteTable(file);
         }
     }
 
