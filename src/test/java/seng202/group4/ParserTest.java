@@ -197,7 +197,7 @@ public class ParserTest {
         FlightParser parser = new FlightParser((new BufferedReader(new FileReader("testfiles/Flights/validFlight.csv"))));
         Flight flight = parser.makeFlight();
         int size = flight.getFlightPositions().size();
-        assertTrue(size == 1);
+        assertTrue(size == 31);
     }
 
 }
