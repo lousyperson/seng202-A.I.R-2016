@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ca2aa813-8719-4e3c-a54d-137829d6f1e4" name="Default" comment="Updating branch">
+    <list default="true" id="ca2aa813-8719-4e3c-a54d-137829d6f1e4" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/seng202/group4/data/repository/AirportRepository.java" afterPath="$PROJECT_DIR$/src/main/java/seng202/group4/data/repository/AirportRepository.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
     </list>
     <ignored path="seng202-project.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -26,25 +26,33 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="FlightParser.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/seng202/group4/data/parser/FlightParser.java">
+      <file leaf-file-name="ParserTest.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/java/seng202/group4/ParserTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="756">
-              <caret line="50" column="46" selection-start-line="50" selection-start-column="46" selection-end-line="50" selection-end-column="46" />
+            <state relative-caret-position="486">
+              <caret line="110" column="56" selection-start-line="110" selection-start-column="56" selection-end-line="110" selection-end-column="56" />
               <folding>
                 <element signature="imports" expanded="false" />
-                <element signature="e#717#718#0" expanded="false" />
-                <element signature="e#749#750#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DaylightSavingsTime.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/seng202/group4/data/dataType/DaylightSavingsTime.java">
+      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="5" column="12" selection-start-line="5" selection-start-column="12" selection-end-line="5" selection-end-column="12" />
+            <state relative-caret-position="124">
+              <caret line="20" column="15" selection-start-line="20" selection-start-column="15" selection-end-line="20" selection-end-column="15" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="validAirport.txt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/testfiles/Airports/validAirport.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="145890">
+              <caret line="8105" column="113" selection-start-line="8105" selection-start-column="113" selection-end-line="8105" selection-end-column="113" />
               <folding />
             </state>
           </provider>
@@ -53,56 +61,46 @@
       <file leaf-file-name="AirportParser.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/seng202/group4/data/parser/AirportParser.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="414">
-              <caret line="59" column="20" selection-start-line="59" selection-start-column="20" selection-end-line="59" selection-end-column="20" />
+            <state relative-caret-position="1458">
+              <caret line="87" column="65" selection-start-line="87" selection-start-column="65" selection-end-line="87" selection-end-column="65" />
               <folding>
                 <element signature="imports" expanded="false" />
+                <element signature="e#585#614#0" expanded="false" />
                 <element signature="e#673#682#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FilterTest.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/java/seng202/group4/FilterTest.java">
+      <file leaf-file-name="oneValidAirport.txt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/testfiles/Airports/oneValidAirport.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1962">
-              <caret line="109" column="7" selection-start-line="109" selection-start-column="7" selection-end-line="109" selection-end-column="7" />
+            <state relative-caret-position="0">
+              <caret line="0" column="18" selection-start-line="0" selection-start-column="18" selection-end-line="0" selection-end-column="18" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AirportRepository.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/seng202/group4/data/repository/AirportRepository.java">
+      <file leaf-file-name="App.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/seng202/group4/App.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="432">
-              <caret line="31" column="0" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Flight.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/seng202/group4/data/dataType/Flight.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="10" column="28" selection-start-line="10" selection-start-column="28" selection-end-line="10" selection-end-column="28" />
+            <state relative-caret-position="540">
+              <caret line="42" column="0" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
               <folding>
-                <element signature="e#339#340#0" expanded="false" />
-                <element signature="e#371#372#0" expanded="false" />
-                <element signature="e#446#447#0" expanded="false" />
-                <element signature="e#488#489#0" expanded="false" />
+                <element signature="imports" expanded="false" />
+                <element signature="e#1227#1228#0" expanded="false" />
+                <element signature="e#1255#1256#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="validFlight.csv" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/testfiles/Flights/validFlight.csv">
+      <file leaf-file-name="oneValidAirportWithComma.txt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/testfiles/Airports/oneValidAirportWithComma.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="558">
-              <caret line="31" column="0" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
+            <state relative-caret-position="0">
+              <caret line="0" column="114" selection-start-line="0" selection-start-column="114" selection-end-line="0" selection-end-column="114" />
               <folding />
             </state>
           </provider>
@@ -111,7 +109,7 @@
       <file leaf-file-name="Airport.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/seng202/group4/data/dataType/Airport.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-18">
+            <state relative-caret-position="90">
               <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
               <folding>
                 <element signature="e#1073#1074#0" expanded="false" />
@@ -167,6 +165,52 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="Route.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/seng202/group4/data/dataType/Route.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="576">
+              <caret line="32" column="32" selection-start-line="32" selection-start-column="32" selection-end-line="32" selection-end-column="32" />
+              <folding>
+                <element signature="e#463#471#0" expanded="false" />
+                <element signature="e#1122#1123#0" expanded="false" />
+                <element signature="e#1160#1161#0" expanded="false" />
+                <element signature="e#1197#1198#0" expanded="false" />
+                <element signature="e#1229#1230#0" expanded="false" />
+                <element signature="e#1280#1281#0" expanded="false" />
+                <element signature="e#1317#1318#0" expanded="false" />
+                <element signature="e#1354#1355#0" expanded="false" />
+                <element signature="e#1387#1388#0" expanded="false" />
+                <element signature="e#1439#1440#0" expanded="false" />
+                <element signature="e#1483#1484#0" expanded="false" />
+                <element signature="e#1523#1524#0" expanded="false" />
+                <element signature="e#1558#1559#0" expanded="false" />
+                <element signature="e#1615#1616#0" expanded="false" />
+                <element signature="e#1663#1664#0" expanded="false" />
+                <element signature="e#1701#1702#0" expanded="false" />
+                <element signature="e#1735#1736#0" expanded="false" />
+                <element signature="e#1789#1790#0" expanded="false" />
+                <element signature="e#1835#1836#0" expanded="false" />
+                <element signature="e#1876#1877#0" expanded="false" />
+                <element signature="e#1912#1913#0" expanded="false" />
+                <element signature="e#1971#1972#0" expanded="false" />
+                <element signature="e#2021#2022#0" expanded="false" />
+                <element signature="e#2057#2058#0" expanded="false" />
+                <element signature="e#2089#2090#0" expanded="false" />
+                <element signature="e#2139#2140#0" expanded="false" />
+                <element signature="e#2181#2182#0" expanded="false" />
+                <element signature="e#2214#2215#0" expanded="false" />
+                <element signature="e#2242#2243#0" expanded="false" />
+                <element signature="e#2285#2286#0" expanded="false" />
+                <element signature="e#2319#2320#0" expanded="false" />
+                <element signature="e#2366#2367#0" expanded="false" />
+                <element signature="e#2398#2399#0" expanded="false" />
+                <element signature="e#2459#2460#0" expanded="false" />
+                <element signature="e#2501#2502#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="FlightPosition.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/seng202/group4/data/dataType/FlightPosition.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -198,20 +242,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RouteParser.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/seng202/group4/data/parser/RouteParser.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="396">
-              <caret line="29" column="0" selection-start-line="29" selection-start-column="0" selection-end-line="33" selection-end-column="5" />
-              <folding>
-                <element signature="imports" expanded="false" />
-                <element signature="e#852#853#0" expanded="false" />
-                <element signature="e#884#885#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
     </leaf>
   </component>
   <component name="Git.Settings">
@@ -230,7 +260,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/test/java/seng202/group4/AppTest.java" />
         <option value="$PROJECT_DIR$/testfiles/Routes/oneValidRoute.txt" />
         <option value="$PROJECT_DIR$/testfiles/Routes/oneValidRouteWithEmpty.txt" />
@@ -253,9 +282,9 @@
         <option value="$PROJECT_DIR$/src/main/java/seng202/group4/data/parser/FlightParser.java" />
         <option value="$PROJECT_DIR$/testfiles/Airports/oneValidAirportWithCommaInName.txt" />
         <option value="$PROJECT_DIR$/testfiles/Airports/oneValidAirport.txt" />
-        <option value="$PROJECT_DIR$/src/test/java/seng202/group4/ParserTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/seng202/group4/data/parser/AirportParser.java" />
-        <option value="$PROJECT_DIR$/src/main/java/seng202/group4/data/repository/AirportRepository.java" />
+        <option value="$PROJECT_DIR$/src/test/java/seng202/group4/ParserTest.java" />
+        <option value="$PROJECT_DIR$/pom.xml" />
       </list>
     </option>
   </component>
@@ -307,8 +336,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
       <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
@@ -678,6 +705,8 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -1195,9 +1224,7 @@
       <workItem from="1472780579385" duration="1342000" />
       <workItem from="1472781984575" duration="1470000" />
       <workItem from="1473553257367" duration="1921000" />
-      <workItem from="1473555253469" duration="511000" />
-      <workItem from="1473559116073" duration="635000" />
-      <workItem from="1473559903260" duration="536000" />
+      <workItem from="1473560491743" duration="136000" />
     </task>
     <task id="LOCAL-00001" summary="New junit version">
       <created>1472011458815</created>
@@ -1252,6 +1279,15 @@
     <servers />
   </component>
   <component name="TestHistory">
+    <history-entry file="ParserTest - 2016.09.11 at 12h 43m 08s.xml">
+      <configuration name="ParserTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="ParserTest - 2016.09.11 at 12h 43m 57s.xml">
+      <configuration name="ParserTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="ParserTest - 2016.09.11 at 12h 44m 21s.xml">
+      <configuration name="ParserTest" configurationId="JUnit" />
+    </history-entry>
     <history-entry file="ParserTest - 2016.09.11 at 12h 44m 47s.xml">
       <configuration name="ParserTest" configurationId="JUnit" />
     </history-entry>
@@ -1273,18 +1309,9 @@
     <history-entry file="ParserTest - 2016.09.11 at 12h 52m 51s.xml">
       <configuration name="ParserTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ParserTest - 2016.09.11 at 13h 01m 10s.xml">
-      <configuration name="ParserTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="ParserTest - 2016.09.11 at 13h 01m 47s.xml">
-      <configuration name="ParserTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="ParserTest - 2016.09.11 at 13h 02m 15s.xml">
-      <configuration name="ParserTest" configurationId="JUnit" />
-    </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="13992000" />
+    <option name="totallyTimeSpent" value="12446000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1" y="0" width="1682" height="1025" extended-state="6" />
@@ -1313,7 +1340,7 @@
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32901832" sideWeight="0.48333332" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3263158" sideWeight="0.4875" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32686085" sideWeight="0.4875" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32976446" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -1345,6 +1372,27 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/main/java/seng202/group4/data/parser/RouteParser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#575#582#0" expanded="false" />
+            <element signature="e#852#853#0" expanded="false" />
+            <element signature="e#884#885#0" expanded="false" />
+            <element signature="e#1323#1331#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/seng202/group4/AppTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/seng202/group4/FilterTest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
@@ -1373,8 +1421,10 @@
           <caret line="22" column="1" selection-start-line="22" selection-start-column="1" selection-end-line="22" selection-end-column="1" />
           <folding>
             <element signature="imports" expanded="false" />
+            <element signature="e#575#582#0" expanded="false" />
             <element signature="e#852#853#0" expanded="false" />
             <element signature="e#884#885#0" expanded="false" />
+            <element signature="e#1323#1331#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1479,6 +1529,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1494">
           <caret line="89" column="52" selection-start-line="89" selection-start-column="26" selection-end-line="89" selection-end-column="52" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1493,6 +1544,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="527">
           <caret line="37" column="72" selection-start-line="37" selection-start-column="72" selection-end-line="37" selection-end-column="72" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1519,6 +1571,24 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/seng202/group4/FilterTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2023">
+          <caret line="119" column="9" selection-start-line="0" selection-start-column="0" selection-end-line="122" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/seng202/group4/data/dataType/Flight.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="28" selection-start-line="10" selection-start-column="28" selection-end-line="10" selection-end-column="28" />
+          <folding>
+            <element signature="e#236#237#0" expanded="false" />
+            <element signature="e#278#279#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/testfiles/Routes/validRoute.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1530,6 +1600,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1207">
           <caret line="76" column="0" selection-start-line="76" selection-start-column="0" selection-end-line="76" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1537,6 +1610,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
           <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1544,86 +1618,12 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="216">
           <caret line="18" column="4" selection-start-line="18" selection-start-column="4" selection-end-line="18" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/seng202/group4/GUI/Controller.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="197">
-          <caret line="226" column="144" selection-start-line="226" selection-start-column="144" selection-end-line="226" selection-end-column="144" />
           <folding>
             <element signature="imports" expanded="false" />
+            <element signature="e#680#689#0" expanded="false" />
+            <element signature="e#740#741#0" expanded="false" />
+            <element signature="e#772#773#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="493">
-          <caret line="48" column="26" selection-start-line="48" selection-start-column="26" selection-end-line="48" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/seng202/group4/ValidatorGUITest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="324">
-          <caret line="31" column="5" selection-start-line="31" selection-start-column="5" selection-end-line="31" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/seng202/group4/data/dataType/Route.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="576">
-          <caret line="32" column="32" selection-start-line="32" selection-start-column="32" selection-end-line="32" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/seng202/group4/App.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="540">
-          <caret line="42" column="0" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/testfiles/Airports/oneValidAirport.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="18" selection-start-line="0" selection-start-column="18" selection-end-line="0" selection-end-column="18" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/testfiles/Airports/validAirport.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="145890">
-          <caret line="8105" column="113" selection-start-line="8105" selection-start-column="113" selection-end-line="8105" selection-end-column="113" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/testfiles/Airports/oneValidAirportWithComma.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="114" selection-start-line="0" selection-start-column="114" selection-end-line="0" selection-end-column="114" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/seng202/group4/ParserTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1566">
-          <caret line="110" column="56" selection-start-line="110" selection-start-column="56" selection-end-line="110" selection-end-column="56" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/seng202/group4/data/dataType/DaylightSavingsTime.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="5" column="12" selection-start-line="5" selection-start-column="12" selection-end-line="5" selection-end-column="12" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1633,8 +1633,10 @@
           <caret line="29" column="0" selection-start-line="29" selection-start-column="0" selection-end-line="33" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="false" />
+            <element signature="e#575#582#0" expanded="false" />
             <element signature="e#852#853#0" expanded="false" />
             <element signature="e#884#885#0" expanded="false" />
+            <element signature="e#1323#1331#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1651,56 +1653,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/seng202/group4/FilterTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1962">
-          <caret line="109" column="7" selection-start-line="109" selection-start-column="7" selection-end-line="109" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/seng202/group4/data/dataType/FlightPosition.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="6" column="24" selection-start-line="6" selection-start-column="24" selection-end-line="6" selection-end-column="24" />
-          <folding>
-            <element signature="e#535#536#0" expanded="false" />
-            <element signature="e#560#561#0" expanded="false" />
-            <element signature="e#596#597#0" expanded="false" />
-            <element signature="e#624#625#0" expanded="false" />
-            <element signature="e#655#656#0" expanded="false" />
-            <element signature="e#682#683#0" expanded="false" />
-            <element signature="e#722#723#0" expanded="false" />
-            <element signature="e#754#755#0" expanded="false" />
-            <element signature="e#789#790#0" expanded="false" />
-            <element signature="e#820#821#0" expanded="false" />
-            <element signature="e#868#869#0" expanded="false" />
-            <element signature="e#908#909#0" expanded="false" />
-            <element signature="e#944#945#0" expanded="false" />
-            <element signature="e#976#977#0" expanded="false" />
-            <element signature="e#1026#1027#0" expanded="false" />
-            <element signature="e#1068#1069#0" expanded="false" />
-            <element signature="e#1103#1104#0" expanded="false" />
-            <element signature="e#1134#1135#0" expanded="false" />
-            <element signature="e#1182#1183#0" expanded="false" />
-            <element signature="e#1222#1223#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/seng202/group4/data/dataType/Flight.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="10" column="28" selection-start-line="10" selection-start-column="28" selection-end-line="10" selection-end-column="28" />
-          <folding>
-            <element signature="e#339#340#0" expanded="false" />
-            <element signature="e#371#372#0" expanded="false" />
-            <element signature="e#446#447#0" expanded="false" />
-            <element signature="e#488#489#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/testfiles/Flights/validFlight.csv">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="558">
@@ -1709,9 +1661,29 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/seng202/group4/GUI/Controller.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="197">
+          <caret line="226" column="144" selection-start-line="226" selection-start-column="144" selection-end-line="226" selection-end-column="144" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/seng202/group4/ValidatorGUITest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="324">
+          <caret line="31" column="5" selection-start-line="31" selection-start-column="5" selection-end-line="31" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/seng202/group4/data/dataType/Airport.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-18">
+        <state relative-caret-position="90">
           <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
           <folding>
             <element signature="e#1073#1074#0" expanded="false" />
@@ -1766,21 +1738,141 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/seng202/group4/data/parser/AirportParser.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/seng202/group4/data/dataType/FlightPosition.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="414">
-          <caret line="59" column="20" selection-start-line="59" selection-start-column="20" selection-end-line="59" selection-end-column="20" />
+        <state relative-caret-position="108">
+          <caret line="6" column="24" selection-start-line="6" selection-start-column="24" selection-end-line="6" selection-end-column="24" />
+          <folding>
+            <element signature="e#535#536#0" expanded="false" />
+            <element signature="e#560#561#0" expanded="false" />
+            <element signature="e#596#597#0" expanded="false" />
+            <element signature="e#624#625#0" expanded="false" />
+            <element signature="e#655#656#0" expanded="false" />
+            <element signature="e#682#683#0" expanded="false" />
+            <element signature="e#722#723#0" expanded="false" />
+            <element signature="e#754#755#0" expanded="false" />
+            <element signature="e#789#790#0" expanded="false" />
+            <element signature="e#820#821#0" expanded="false" />
+            <element signature="e#868#869#0" expanded="false" />
+            <element signature="e#908#909#0" expanded="false" />
+            <element signature="e#944#945#0" expanded="false" />
+            <element signature="e#976#977#0" expanded="false" />
+            <element signature="e#1026#1027#0" expanded="false" />
+            <element signature="e#1068#1069#0" expanded="false" />
+            <element signature="e#1103#1104#0" expanded="false" />
+            <element signature="e#1134#1135#0" expanded="false" />
+            <element signature="e#1182#1183#0" expanded="false" />
+            <element signature="e#1222#1223#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/seng202/group4/data/dataType/Route.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="576">
+          <caret line="32" column="32" selection-start-line="32" selection-start-column="32" selection-end-line="32" selection-end-column="32" />
+          <folding>
+            <element signature="e#463#471#0" expanded="false" />
+            <element signature="e#1122#1123#0" expanded="false" />
+            <element signature="e#1160#1161#0" expanded="false" />
+            <element signature="e#1197#1198#0" expanded="false" />
+            <element signature="e#1229#1230#0" expanded="false" />
+            <element signature="e#1280#1281#0" expanded="false" />
+            <element signature="e#1317#1318#0" expanded="false" />
+            <element signature="e#1354#1355#0" expanded="false" />
+            <element signature="e#1387#1388#0" expanded="false" />
+            <element signature="e#1439#1440#0" expanded="false" />
+            <element signature="e#1483#1484#0" expanded="false" />
+            <element signature="e#1523#1524#0" expanded="false" />
+            <element signature="e#1558#1559#0" expanded="false" />
+            <element signature="e#1615#1616#0" expanded="false" />
+            <element signature="e#1663#1664#0" expanded="false" />
+            <element signature="e#1701#1702#0" expanded="false" />
+            <element signature="e#1735#1736#0" expanded="false" />
+            <element signature="e#1789#1790#0" expanded="false" />
+            <element signature="e#1835#1836#0" expanded="false" />
+            <element signature="e#1876#1877#0" expanded="false" />
+            <element signature="e#1912#1913#0" expanded="false" />
+            <element signature="e#1971#1972#0" expanded="false" />
+            <element signature="e#2021#2022#0" expanded="false" />
+            <element signature="e#2057#2058#0" expanded="false" />
+            <element signature="e#2089#2090#0" expanded="false" />
+            <element signature="e#2139#2140#0" expanded="false" />
+            <element signature="e#2181#2182#0" expanded="false" />
+            <element signature="e#2214#2215#0" expanded="false" />
+            <element signature="e#2242#2243#0" expanded="false" />
+            <element signature="e#2285#2286#0" expanded="false" />
+            <element signature="e#2319#2320#0" expanded="false" />
+            <element signature="e#2366#2367#0" expanded="false" />
+            <element signature="e#2398#2399#0" expanded="false" />
+            <element signature="e#2459#2460#0" expanded="false" />
+            <element signature="e#2501#2502#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/seng202/group4/App.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="540">
+          <caret line="42" column="0" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="false" />
+            <element signature="e#1227#1228#0" expanded="false" />
+            <element signature="e#1255#1256#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/testfiles/Airports/oneValidAirport.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="18" selection-start-line="0" selection-start-column="18" selection-end-line="0" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/testfiles/Airports/validAirport.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="145890">
+          <caret line="8105" column="113" selection-start-line="8105" selection-start-column="113" selection-end-line="8105" selection-end-column="113" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/testfiles/Airports/oneValidAirportWithComma.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="114" selection-start-line="0" selection-start-column="114" selection-end-line="0" selection-end-column="114" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/seng202/group4/data/parser/AirportParser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1458">
+          <caret line="87" column="65" selection-start-line="87" selection-start-column="65" selection-end-line="87" selection-end-column="65" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#585#614#0" expanded="false" />
             <element signature="e#673#682#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/seng202/group4/data/repository/AirportRepository.java">
+    <entry file="file://$PROJECT_DIR$/src/test/java/seng202/group4/ParserTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="432">
-          <caret line="31" column="0" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
+        <state relative-caret-position="486">
+          <caret line="110" column="56" selection-start-line="110" selection-start-column="56" selection-end-line="110" selection-end-column="56" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="124">
+          <caret line="20" column="15" selection-start-line="20" selection-start-column="15" selection-end-line="20" selection-end-column="15" />
           <folding />
         </state>
       </provider>
