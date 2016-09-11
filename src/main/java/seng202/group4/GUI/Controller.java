@@ -20,6 +20,7 @@ import seng202.group4.data.dataType.Route;
 import seng202.group4.data.parser.validator.AirlineValidator;
 import seng202.group4.data.parser.validator.RouteValidator;
 import seng202.group4.data.repository.AirlineRepository;
+import seng202.group4.data.repository.RouteRepository;
 
 
 import java.io.*;
@@ -205,8 +206,10 @@ public class Controller implements Initializable{
 
     private ObservableList<String> items = FXCollections.observableArrayList("Default Airlines", "Default Airports", "Default Routes");
 
-    // airline repository
+    // data repositories
     private AirlineRepository airlineRepository = new AirlineRepository();
+    private RouteRepository routeRepository = new RouteRepository();
+
     // countrySet holds all the countries uploaded to airline
     private TreeSet countrySet = new TreeSet();
 
@@ -511,7 +514,7 @@ public class Controller implements Initializable{
                         return true;
                     }
                 }
-                if (active.isSelected() && atActive && toggled){
+                if (toggled && active.isSelected() && atActive){
                     if (emptyCountryFilter){
                         return true;
                     }
@@ -617,14 +620,14 @@ public class Controller implements Initializable{
     }
 
     public void selectActiveAirlines() throws IOException {
-        updateRouteSearch();
+        updateAirlineSearch();
     }
 
     public void selectInactiveAirlines() throws IOException {
         updateAirlineSearch();
     }
 
-    // Insert the airlines in a given file into the airline table GUI
+    // Insert the airlines in a given file into the airline table GUI checking for duplicates
     private void insertAirlineTable(File file) throws IOException {
         AirlineValidator validator = new AirlineValidator(file);
         ArrayList<Airline> airlines = validator.makeAirlines();
@@ -633,12 +636,29 @@ public class Controller implements Initializable{
             // if the airline ID already exists in the repository, warn the user
             if(!airlineRepository.getAirlines().containsKey(airline.getID())){
                 airlineRepository.addAirline(airline);
+                airlineTData.add(new airlineTable(airline.getID(), airline.getName(),
+                        airline.getAlias(), airline.getIATA(),
+                        airline.getICAO(), airline.getCallsign(),
+                        airline.getCountry(), airline.getActive()));
+                if(airline.getCountry() != null){
+                    countrySet.add(airline.getCountry());
+                }
             }
             else{
                 duplicateIDAlert("Please fix the conflict and reupload the file.", airline.getID());
                 break;
-
             }
+            updateCountryBox();
+        }
+    }
+
+    // Insert the airlines in a given file into the airline table GUI
+    private void insertEmptyAirlineTable(File file) throws IOException {
+        AirlineValidator validator = new AirlineValidator(file);
+        ArrayList<Airline> airlines = validator.makeAirlines();
+        for(int i = 0; i < airlines.size(); i++) {
+            Airline airline = airlines.get(i);
+            airlineRepository.addAirline(airline);
             airlineTData.add(new airlineTable(airline.getID(), airline.getName(),
                     airline.getAlias(), airline.getIATA(),
                     airline.getICAO(), airline.getCallsign(),
@@ -646,10 +666,11 @@ public class Controller implements Initializable{
             if(airline.getCountry() != null){
                 countrySet.add(airline.getCountry());
             }
-
-            updateCountryBox();
         }
+        updateCountryBox();
     }
+
+
 
     public void loadAirline() throws IOException {
             Stage stage = new Stage();
@@ -666,7 +687,7 @@ public class Controller implements Initializable{
         File file = new File(getClass().getClassLoader().getResource("airlines.dat").toURI());
         if (file.exists()) {
             System.out.println("file opened yeah~");
-            insertAirlineTable(file);
+            insertEmptyAirlineTable(file);
         }
     }
 
@@ -676,32 +697,42 @@ public class Controller implements Initializable{
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open file");
         File file = fileChooser.showOpenDialog(stage);
-//        if (file != null) {
-//            System.out.println("file opneeeddd");
-//
-//            AirportValidator validator = new AirportValidator(file);
-//            ArrayList<Airport> airports = validator.makeAirports();
-//            for(int i = 0; i < airports.size(); i++) {
-//                Airport airport = airports.get(i);
-//                airportTData.add(new airportTable(airport.getID(), airport.getName(),
-//                        airport.getCity(), airport.getCountry(),
-//                        airport.getIATA(), airport.getICAO(),
-//                        airport.getLatitude(), airport.getLongitude(),
-//                        airport.getAltitude(), airport.getTimezone(),
-//                        airport.getDST(), airport.getTz()));
-//            }
-//        }
     }
+
+    // insert the given routes in a file into route table and checks for duplicates
     public void insertRouteTable(File file) throws IOException{
         RouteValidator validator = new RouteValidator(file);
         ArrayList<Route> routes = validator.makeroutes();
         for(int i = 0; i < routes.size(); i++) {
             Route route = routes.get(i);
-//                System.out.println(route.getAirline() + route.getAirlineID() +
-//                        route.getSrcAirport() + route.getSrcAirportID() +
-//                        route.getDestAirport() + route.getDestAirportID()
-//                );
-            //System.out.println(route.getEquipment());
+            if(diffRoutes(route, routeRepository.getRoutes())) {
+                routeRepository.addRoute(route);
+                routeTData.add(new routeTable(route.getAirline(), String.valueOf(route.getAirlineID()),
+                        route.getSrcAirport(), String.valueOf(route.getSrcAirportID()),
+                        route.getDestAirport(), String.valueOf(route.getDestAirportID()),
+                        route.getCodeshare(), String.valueOf(route.getStops()),
+                        route.getEquipment().stream().collect(Collectors.joining(", "))));
+                for(String r: route.getEquipment()){
+                    if(!r.isEmpty()) {
+                        equipmentSet.add(r);
+                    }
+                }
+            }
+            else{
+                duplicateAlert("The system has read " + i + " route(s) from your file.\nPlease upload a file with different routes.");
+                break;
+            }
+            updateEquipBox();
+        }
+    }
+
+    // insert the given routes in a file into route table that's empty so dont check for duplicates
+    public void insertEmptyRouteTable(File file) throws IOException{
+        RouteValidator validator = new RouteValidator(file);
+        ArrayList<Route> routes = validator.makeroutes();
+        for(int i = 0; i < routes.size(); i++) {
+            Route route = routes.get(i);
+            routeRepository.addRoute(route);
             routeTData.add(new routeTable(route.getAirline(), String.valueOf(route.getAirlineID()),
                     route.getSrcAirport(), String.valueOf(route.getSrcAirportID()),
                     route.getDestAirport(), String.valueOf(route.getDestAirportID()),
@@ -712,9 +743,12 @@ public class Controller implements Initializable{
                     equipmentSet.add(r);
                 }
             }
-            updateEquipBox();
         }
+        updateEquipBox();
+
     }
+
+
     public void loadRoute() throws IOException {
 
         Stage stage = new Stage();
@@ -732,7 +766,7 @@ public class Controller implements Initializable{
         File file = new File(getClass().getClassLoader().getResource("routes.dat").toURI());
         if (file.exists()) {
             System.out.println("file opened oh yeah~");
-            insertRouteTable(file);
+            insertEmptyRouteTable(file);
         }
     }
 
@@ -755,6 +789,31 @@ public class Controller implements Initializable{
         alert.setContentText(message);
         alert.showAndWait();
     }
+
+    private void duplicateAlert(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText("The route already exists in the system.");
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+
+    // Compare routes, return true if the routes are different otherwise false
+    private boolean diffRoutes(Route route, ArrayList<Route> routeArray) {
+        for(Route r: routeArray){
+            if (r.getAirline().equals(route.getAirline()) &&
+                    r.getSrcAirport().equals(route.getSrcAirport()) &&
+                    r.getDestAirport().equals(route.getDestAirport()) &&
+                    r.getCodeshare().equals(route.getCodeshare()) &&
+                    String.valueOf(r.getStops()).equals(String.valueOf(route.getStops())) &&
+                    r.getEquipment().equals(route.getEquipment())) {
+                return false;
+            }
+        }
+        return true;
+    }
+
 
 
 
