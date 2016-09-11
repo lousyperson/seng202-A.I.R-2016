@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ca2aa813-8719-4e3c-a54d-137829d6f1e4" name="Default" comment="">
+    <list default="true" id="ca2aa813-8719-4e3c-a54d-137829d6f1e4" name="Default" comment="Changed maven plugin, hopefully compiler works in git now">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/seng202/group4/data/parser/validator/AirportValidator.java" afterPath="$PROJECT_DIR$/src/main/java/seng202/group4/data/parser/validator/AirportValidator.java" />
     </list>
     <ignored path="seng202-project.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -29,19 +29,17 @@
       <file leaf-file-name="ParserTest.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/java/seng202/group4/ParserTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="486">
+            <state relative-caret-position="1566">
               <caret line="110" column="56" selection-start-line="110" selection-start-column="56" selection-end-line="110" selection-end-column="56" />
-              <folding>
-                <element signature="imports" expanded="false" />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="true">
+      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
+            <state relative-caret-position="630">
               <caret line="35" column="49" selection-start-line="35" selection-start-column="49" selection-end-line="35" selection-end-column="49" />
               <folding />
             </state>
@@ -51,7 +49,7 @@
       <file leaf-file-name="compiler.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/.idea/compiler.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="504">
+            <state relative-caret-position="558">
               <caret line="31" column="10" selection-start-line="31" selection-start-column="10" selection-end-line="31" selection-end-column="10" />
               <folding />
             </state>
@@ -61,20 +59,8 @@
       <file leaf-file-name="Controller.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/seng202/group4/GUI/Controller.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="899">
+            <state relative-caret-position="3636">
               <caret line="226" column="144" selection-start-line="226" selection-start-column="144" selection-end-line="226" selection-end-column="144" />
-              <folding>
-                <element signature="imports" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="validAirport.txt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/testfiles/Airports/validAirport.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="145890">
-              <caret line="8105" column="113" selection-start-line="8105" selection-start-column="113" selection-end-line="8105" selection-end-column="113" />
               <folding />
             </state>
           </provider>
@@ -83,93 +69,64 @@
       <file leaf-file-name="AirportParser.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/seng202/group4/data/parser/AirportParser.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1458">
+            <state relative-caret-position="1456">
               <caret line="87" column="65" selection-start-line="87" selection-start-column="65" selection-end-line="87" selection-end-column="65" />
-              <folding>
-                <element signature="imports" expanded="false" />
-                <element signature="e#585#614#0" expanded="false" />
-                <element signature="e#673#682#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="oneValidAirport.txt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/testfiles/Airports/oneValidAirport.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="18" selection-start-line="0" selection-start-column="18" selection-end-line="0" selection-end-column="18" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="App.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/seng202/group4/App.java">
+      <file leaf-file-name="AirportValidator.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/seng202/group4/data/parser/validator/AirportValidator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="540">
-              <caret line="42" column="0" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
+            <state relative-caret-position="396">
+              <caret line="22" column="34" selection-start-line="22" selection-start-column="34" selection-end-line="22" selection-end-column="34" />
               <folding>
-                <element signature="imports" expanded="false" />
-                <element signature="e#1227#1228#0" expanded="false" />
-                <element signature="e#1255#1256#0" expanded="false" />
+                <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="oneValidAirportWithComma.txt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/testfiles/Airports/oneValidAirportWithComma.txt">
+      <file leaf-file-name="Flight.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/seng202/group4/data/dataType/Flight.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="114" selection-start-line="0" selection-start-column="114" selection-end-line="0" selection-end-column="114" />
+            <state relative-caret-position="180">
+              <caret line="10" column="28" selection-start-line="10" selection-start-column="28" selection-end-line="10" selection-end-column="28" />
+              <folding>
+                <element signature="e#236#237#0" expanded="true" />
+                <element signature="e#278#279#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="FlightValidator.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/seng202/group4/data/parser/validator/FlightValidator.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="90">
+              <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Route.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/seng202/group4/data/dataType/Route.java">
+      <file leaf-file-name="RouteValidator.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/seng202/group4/data/parser/validator/RouteValidator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="576">
-              <caret line="32" column="32" selection-start-line="32" selection-start-column="32" selection-end-line="32" selection-end-column="32" />
-              <folding>
-                <element signature="e#463#471#0" expanded="false" />
-                <element signature="e#1122#1123#0" expanded="false" />
-                <element signature="e#1160#1161#0" expanded="false" />
-                <element signature="e#1197#1198#0" expanded="false" />
-                <element signature="e#1229#1230#0" expanded="false" />
-                <element signature="e#1280#1281#0" expanded="false" />
-                <element signature="e#1317#1318#0" expanded="false" />
-                <element signature="e#1354#1355#0" expanded="false" />
-                <element signature="e#1387#1388#0" expanded="false" />
-                <element signature="e#1439#1440#0" expanded="false" />
-                <element signature="e#1483#1484#0" expanded="false" />
-                <element signature="e#1523#1524#0" expanded="false" />
-                <element signature="e#1558#1559#0" expanded="false" />
-                <element signature="e#1615#1616#0" expanded="false" />
-                <element signature="e#1663#1664#0" expanded="false" />
-                <element signature="e#1701#1702#0" expanded="false" />
-                <element signature="e#1735#1736#0" expanded="false" />
-                <element signature="e#1789#1790#0" expanded="false" />
-                <element signature="e#1835#1836#0" expanded="false" />
-                <element signature="e#1876#1877#0" expanded="false" />
-                <element signature="e#1912#1913#0" expanded="false" />
-                <element signature="e#1971#1972#0" expanded="false" />
-                <element signature="e#2021#2022#0" expanded="false" />
-                <element signature="e#2057#2058#0" expanded="false" />
-                <element signature="e#2089#2090#0" expanded="false" />
-                <element signature="e#2139#2140#0" expanded="false" />
-                <element signature="e#2181#2182#0" expanded="false" />
-                <element signature="e#2214#2215#0" expanded="false" />
-                <element signature="e#2242#2243#0" expanded="false" />
-                <element signature="e#2285#2286#0" expanded="false" />
-                <element signature="e#2319#2320#0" expanded="false" />
-                <element signature="e#2366#2367#0" expanded="false" />
-                <element signature="e#2398#2399#0" expanded="false" />
-                <element signature="e#2459#2460#0" expanded="false" />
-                <element signature="e#2501#2502#0" expanded="false" />
-              </folding>
+            <state relative-caret-position="862">
+              <caret line="76" column="0" selection-start-line="76" selection-start-column="0" selection-end-line="76" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AirlineValidator.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/seng202/group4/data/parser/validator/AirlineValidator.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="412">
+              <caret line="41" column="8" selection-start-line="41" selection-start-column="8" selection-end-line="42" selection-end-column="37" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -218,6 +175,7 @@
         <option value="$PROJECT_DIR$/src/test/java/seng202/group4/ParserTest.java" />
         <option value="$PROJECT_DIR$/.idea/compiler.xml" />
         <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/seng202/group4/data/parser/validator/AirportValidator.java" />
       </list>
     </option>
   </component>
@@ -269,6 +227,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
@@ -639,7 +598,6 @@
         </subPane>
       </pane>
       <pane id="PackagesPane" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -1158,6 +1116,7 @@
       <workItem from="1472781984575" duration="1470000" />
       <workItem from="1473553257367" duration="1921000" />
       <workItem from="1473560491743" duration="1094000" />
+      <workItem from="1473562094965" duration="867000" />
     </task>
     <task id="LOCAL-00001" summary="New junit version">
       <created>1472011458815</created>
@@ -1279,7 +1238,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="13404000" />
+    <option name="totallyTimeSpent" value="14271000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1" y="0" width="1682" height="1025" extended-state="6" />
@@ -1287,13 +1246,11 @@
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32901832" sideWeight="0.48333332" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3296146" sideWeight="0.5125" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3296146" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32686085" sideWeight="0.4875" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -1303,12 +1260,14 @@
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32901832" sideWeight="0.48333332" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32686085" sideWeight="0.4875" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32976446" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -1476,21 +1435,6 @@
       </provider>
     </entry>
     <entry file="jar:///usr/lib/jvm/java-8-oracle/javafx-src.zip!/javafx/fxml/FXMLLoader.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/seng202/group4/data/parser/validator/AirportValidator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/seng202/group4/data/parser/validator/AirlineValidator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1494">
-          <caret line="89" column="52" selection-start-line="89" selection-start-column="26" selection-end-line="89" selection-end-column="52" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/testfiles/Routes/oneValidRoute.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1536,39 +1480,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/seng202/group4/data/dataType/Flight.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="28" selection-start-line="10" selection-start-column="28" selection-end-line="10" selection-end-column="28" />
-          <folding>
-            <element signature="e#236#237#0" expanded="false" />
-            <element signature="e#278#279#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/testfiles/Routes/validRoute.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/seng202/group4/data/parser/validator/RouteValidator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1207">
-          <caret line="76" column="0" selection-start-line="76" selection-start-column="0" selection-end-line="76" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/seng202/group4/data/parser/validator/FlightValidator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1615,7 +1530,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="558">
           <caret line="31" column="0" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1690,28 +1604,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="108">
           <caret line="6" column="24" selection-start-line="6" selection-start-column="24" selection-end-line="6" selection-end-column="24" />
-          <folding>
-            <element signature="e#535#536#0" expanded="false" />
-            <element signature="e#560#561#0" expanded="false" />
-            <element signature="e#596#597#0" expanded="false" />
-            <element signature="e#624#625#0" expanded="false" />
-            <element signature="e#655#656#0" expanded="false" />
-            <element signature="e#682#683#0" expanded="false" />
-            <element signature="e#722#723#0" expanded="false" />
-            <element signature="e#754#755#0" expanded="false" />
-            <element signature="e#789#790#0" expanded="false" />
-            <element signature="e#820#821#0" expanded="false" />
-            <element signature="e#868#869#0" expanded="false" />
-            <element signature="e#908#909#0" expanded="false" />
-            <element signature="e#944#945#0" expanded="false" />
-            <element signature="e#976#977#0" expanded="false" />
-            <element signature="e#1026#1027#0" expanded="false" />
-            <element signature="e#1068#1069#0" expanded="false" />
-            <element signature="e#1103#1104#0" expanded="false" />
-            <element signature="e#1134#1135#0" expanded="false" />
-            <element signature="e#1182#1183#0" expanded="false" />
-            <element signature="e#1222#1223#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1720,41 +1612,7 @@
         <state relative-caret-position="576">
           <caret line="32" column="32" selection-start-line="32" selection-start-column="32" selection-end-line="32" selection-end-column="32" />
           <folding>
-            <element signature="e#463#471#0" expanded="false" />
-            <element signature="e#1122#1123#0" expanded="false" />
-            <element signature="e#1160#1161#0" expanded="false" />
-            <element signature="e#1197#1198#0" expanded="false" />
-            <element signature="e#1229#1230#0" expanded="false" />
-            <element signature="e#1280#1281#0" expanded="false" />
-            <element signature="e#1317#1318#0" expanded="false" />
-            <element signature="e#1354#1355#0" expanded="false" />
-            <element signature="e#1387#1388#0" expanded="false" />
-            <element signature="e#1439#1440#0" expanded="false" />
-            <element signature="e#1483#1484#0" expanded="false" />
-            <element signature="e#1523#1524#0" expanded="false" />
-            <element signature="e#1558#1559#0" expanded="false" />
-            <element signature="e#1615#1616#0" expanded="false" />
-            <element signature="e#1663#1664#0" expanded="false" />
-            <element signature="e#1701#1702#0" expanded="false" />
-            <element signature="e#1735#1736#0" expanded="false" />
-            <element signature="e#1789#1790#0" expanded="false" />
-            <element signature="e#1835#1836#0" expanded="false" />
-            <element signature="e#1876#1877#0" expanded="false" />
-            <element signature="e#1912#1913#0" expanded="false" />
-            <element signature="e#1971#1972#0" expanded="false" />
-            <element signature="e#2021#2022#0" expanded="false" />
-            <element signature="e#2057#2058#0" expanded="false" />
-            <element signature="e#2089#2090#0" expanded="false" />
-            <element signature="e#2139#2140#0" expanded="false" />
-            <element signature="e#2181#2182#0" expanded="false" />
-            <element signature="e#2214#2215#0" expanded="false" />
-            <element signature="e#2242#2243#0" expanded="false" />
-            <element signature="e#2285#2286#0" expanded="false" />
-            <element signature="e#2319#2320#0" expanded="false" />
-            <element signature="e#2366#2367#0" expanded="false" />
-            <element signature="e#2398#2399#0" expanded="false" />
-            <element signature="e#2459#2460#0" expanded="false" />
-            <element signature="e#2501#2502#0" expanded="false" />
+            <element signature="e#1076#1077#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1763,11 +1621,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="540">
           <caret line="42" column="0" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#1227#1228#0" expanded="false" />
-            <element signature="e#1255#1256#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1795,41 +1649,25 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/seng202/group4/data/parser/AirportParser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1458">
-          <caret line="87" column="65" selection-start-line="87" selection-start-column="65" selection-end-line="87" selection-end-column="65" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#585#614#0" expanded="false" />
-            <element signature="e#673#682#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/seng202/group4/ParserTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="486">
+        <state relative-caret-position="1566">
           <caret line="110" column="56" selection-start-line="110" selection-start-column="56" selection-end-line="110" selection-end-column="56" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/seng202/group4/GUI/Controller.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="899">
+        <state relative-caret-position="3636">
           <caret line="226" column="144" selection-start-line="226" selection-start-column="144" selection-end-line="226" selection-end-column="144" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/.idea/compiler.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="504">
+        <state relative-caret-position="558">
           <caret line="31" column="10" selection-start-line="31" selection-start-column="10" selection-end-line="31" selection-end-column="10" />
           <folding />
         </state>
@@ -1837,9 +1675,62 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
+        <state relative-caret-position="630">
           <caret line="35" column="49" selection-start-line="35" selection-start-column="49" selection-end-line="35" selection-end-column="49" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/seng202/group4/data/parser/AirportParser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1456">
+          <caret line="87" column="65" selection-start-line="87" selection-start-column="65" selection-end-line="87" selection-end-column="65" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/seng202/group4/data/parser/validator/FlightValidator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/seng202/group4/data/parser/validator/RouteValidator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="862">
+          <caret line="76" column="0" selection-start-line="76" selection-start-column="0" selection-end-line="76" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/seng202/group4/data/dataType/Flight.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="10" column="28" selection-start-line="10" selection-start-column="28" selection-end-line="10" selection-end-column="28" />
+          <folding>
+            <element signature="e#236#237#0" expanded="true" />
+            <element signature="e#278#279#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/seng202/group4/data/parser/validator/AirlineValidator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="412">
+          <caret line="41" column="8" selection-start-line="41" selection-start-column="8" selection-end-line="42" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/seng202/group4/data/parser/validator/AirportValidator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="396">
+          <caret line="22" column="34" selection-start-line="22" selection-start-column="34" selection-end-line="22" selection-end-column="34" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
