@@ -25,9 +25,20 @@ public class FlightParser {
         this.file = file;
     }
 
+    private void readString(int i) {
+        if (splitLine[i].equals("\\N")) {
+            splitLine[i] = null;
+        }
+    }
 
     private void addFlightPosition() throws IOException {
+        splitLine = currentLine.split(splitBy, ITEMS_PER_LINE);
+        readString(0);  // Type
+        readString(1);  // ID
 
+        thisPosition = new FlightPosition(splitLine[0], splitLine[1], Double.parseDouble(splitLine[2]),
+                Double.parseDouble(splitLine[3]), Double.parseDouble(splitLine[4]));
+        positions.add(thisPosition);
     }
 
     public Flight makeFlight() throws IOException {

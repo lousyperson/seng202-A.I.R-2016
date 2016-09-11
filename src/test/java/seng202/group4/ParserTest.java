@@ -81,7 +81,9 @@ public class ParserTest {
 
     @Test
     public void oneValidAirportSize() throws IOException {
-        assertTrue(true);
+        AirportParser parser = new AirportParser(new BufferedReader(new FileReader("testfiles/Airports/oneValidAirport.txt")));
+        ArrayList<Airport> airports = parser.makeAirports();
+        assertTrue(airports.size() == 1);
 
     }
 
@@ -90,17 +92,25 @@ public class ParserTest {
         assertTrue(true);
     }
 
-//    @Test
-//    public void multipleValidAirportsSize() throws IOException {
-//        AirportParser parser = new AirportParser(new BufferedReader(new FileReader("testfiles/Airports/validAirport.txt")));
-//        ArrayList<Airport> airports = parser.makeAirports();
-//        assertTrue(airports.size() == 8107);
-//    }
+    @Test
+    public void multipleValidAirportsSize() throws IOException {
+        AirportParser parser = new AirportParser(new BufferedReader(new FileReader("testfiles/Airports/validAirport.txt")));
+        ArrayList<Airport> airports = parser.makeAirports();
+        assertTrue(airports.size() == 8106);
+    }
 
     @Test
     public void oneValidAirportWithNullSize() throws IOException {
-        assertTrue(true);
+        AirportParser parser = new AirportParser(new BufferedReader(new FileReader("testfiles/Airports/oneValidAirportWithNull.txt")));
+        ArrayList<Airport> airports = parser.makeAirports();
+        assertTrue(airports.size() == 1);
 
+    }
+
+    @Test public void oneValidAirportWithCommaSize() throws IOException {
+        AirportParser parser = new AirportParser(new BufferedReader(new FileReader("testfiles/Airports/oneValidAirportWithComma.txt")));
+        ArrayList<Airport> airports = parser.makeAirports();
+        assertTrue(airports.size() == 1);
     }
 
     @Test
@@ -197,7 +207,7 @@ public class ParserTest {
         FlightParser parser = new FlightParser((new BufferedReader(new FileReader("testfiles/Flights/validFlight.csv"))));
         Flight flight = parser.makeFlight();
         int size = flight.getFlightPositions().size();
-        assertTrue(size == 1);
+        assertTrue(size == 31);
     }
 
 }
