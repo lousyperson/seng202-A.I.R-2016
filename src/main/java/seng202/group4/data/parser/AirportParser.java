@@ -12,15 +12,15 @@ import java.util.HashMap;
  * Created by jjg64 on 15/08/16.
  */
 public class AirportParser {
-    private final int MAX_ITEMS_PER_LINE = 12;
     private BufferedReader file;
     private Airport thisAirport;
-    private String[] splitLine = new String[MAX_ITEMS_PER_LINE];
-    private String splitBy = ",";
+    private String[] splitLine;
+    private String splitBy = "\\s*\\,\\s*";
     private int ID;
     private String currentLine;
     private HashMap<String, DaylightSavingsTime> DSTs = new HashMap<String, DaylightSavingsTime>();
     private ArrayList<Airport> airports = new ArrayList<Airport>();
+    int index = 0; // Will be used to track the index corresponding to each comma
 
     public AirportParser(BufferedReader file) {
         this.file = file;
@@ -47,17 +47,41 @@ public class AirportParser {
         }
     }
 
+    private String readStringWithCommas() {
+        String name = "";
+        if (splitLine[index].equals("\\N")) {
+            name = null;
+        } else {
+            while (!splitLine[index].endsWith("\"")) {
+                name += splitLine[index] + ", ";
+                index++;
+            }
+            name += splitLine[index];
+            index++;
+            name = name.replaceAll("^\"|\"$", "");  // Removes quotation marks
+        }
+        return name;
+    }
+
     private void addAirport() throws IOException {
-        splitLine = currentLine.split(splitBy, MAX_ITEMS_PER_LINE);
+        splitLine = currentLine.split(splitBy);
+        index = 1;
+
         ID = Integer.parseInt(splitLine[0]);
-        for (int i = 1; i <= 11; i++) {      // Checks indices 1 to 11
+        String name = readStringWithCommas();
+        String city = readStringWithCommas();
+        String country = readStringWithCommas();
+
+        for (int i = index; i < splitLine.length; i++) {   // Reads rest of variables that cannot have commas
             readString(i);
         }
-        thisAirport = new Airport(ID, splitLine[1], splitLine[2],
-                splitLine[3], splitLine[4], splitLine[5],
-                Double.parseDouble(splitLine[6]), Double.parseDouble(splitLine[7]),
-                Double.parseDouble(splitLine[8]), Float.parseFloat(splitLine[9]),
-                DSTs.get(splitLine[10]), splitLine[11]);
+
+        thisAirport = new Airport(ID, name, city,
+                country, splitLine[index], splitLine[index + 1],
+                Double.parseDouble(splitLine[index + 2]), Double.parseDouble(splitLine[index + 3]),
+                Double.parseDouble(splitLine[index + 4]), Float.parseFloat(splitLine[index + 5]),
+                DSTs.get(splitLine[index + 6]), splitLine[index + 7]);
+
         airports.add(thisAirport);
     }
 
@@ -72,4 +96,3 @@ public class AirportParser {
     }
 
 }
-

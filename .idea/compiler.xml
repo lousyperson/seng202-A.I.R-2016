@@ -25,7 +25,7 @@
         <module name="seng202-project" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
+    <bytecodeTargetLevel target="1.8">
       <module name="seng202-project" target="1.8" />
     </bytecodeTargetLevel>
   </component>
