@@ -49,17 +49,13 @@ public class AirportParser {
 
     private String readStringWithCommas() {
         String name = "";
-        if (splitLine[index].equals("\\N")) {
-            name = null;
-        } else {
-            while (!splitLine[index].endsWith("\"")) {
-                name += splitLine[index] + ", ";
-                index++;
-            }
-            name += splitLine[index];
+        while (!splitLine[index].endsWith("\"")) {
+            name += splitLine[index] + ", ";
             index++;
-            name = name.replaceAll("^\"|\"$", "");  // Removes quotation marks
         }
+        name += splitLine[index];
+        index++;
+        name = name.replaceAll("^\"|\"$", "");  // Removes quotation mark
         return name;
     }
 
