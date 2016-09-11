@@ -41,8 +41,8 @@
       <file leaf-file-name="pom.xml" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="162">
-              <caret line="27" column="30" selection-start-line="27" selection-start-column="30" selection-end-line="27" selection-end-column="30" />
+            <state relative-caret-position="306">
+              <caret line="35" column="49" selection-start-line="35" selection-start-column="49" selection-end-line="35" selection-end-column="49" />
               <folding />
             </state>
           </provider>
@@ -1157,7 +1157,7 @@
       <workItem from="1472780579385" duration="1342000" />
       <workItem from="1472781984575" duration="1470000" />
       <workItem from="1473553257367" duration="1921000" />
-      <workItem from="1473560491743" duration="981000" />
+      <workItem from="1473560491743" duration="1094000" />
     </task>
     <task id="LOCAL-00001" summary="New junit version">
       <created>1472011458815</created>
@@ -1236,7 +1236,14 @@
       <option name="project" value="LOCAL" />
       <updated>1473561099362</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Changed maven plugin, hopefully compiler works in git now">
+      <created>1473561487073</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1473561487073</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1272,7 +1279,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="13291000" />
+    <option name="totallyTimeSpent" value="13404000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1" y="0" width="1682" height="1025" extended-state="6" />
@@ -1325,7 +1332,8 @@
     <MESSAGE value="Removed invalid dependency from pom" />
     <MESSAGE value="Fixed compiler error (changed 1.5 to 1.8)" />
     <MESSAGE value="Compiler should work now" />
-    <option name="LAST_COMMIT_MESSAGE" value="Compiler should work now" />
+    <MESSAGE value="Changed maven plugin, hopefully compiler works in git now" />
+    <option name="LAST_COMMIT_MESSAGE" value="Changed maven plugin, hopefully compiler works in git now" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -1829,8 +1837,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="27" column="30" selection-start-line="27" selection-start-column="30" selection-end-line="27" selection-end-column="30" />
+        <state relative-caret-position="306">
+          <caret line="35" column="49" selection-start-line="35" selection-start-column="49" selection-end-line="35" selection-end-column="49" />
           <folding />
         </state>
       </provider>
