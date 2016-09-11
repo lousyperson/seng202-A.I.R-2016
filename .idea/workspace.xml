@@ -2,32 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ca2aa813-8719-4e3c-a54d-137829d6f1e4" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/seng202/group4/App.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/seng202/group4/GUI/Controller.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/seng202/group4/GUI/airlineTable.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/seng202/group4/GUI/airportTable.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/seng202/group4/GUI/routeTable.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/seng202/group4/data/dataType/Airline.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/seng202/group4/data/dataType/Airport.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/seng202/group4/data/dataType/DaylightSavingsTime.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/seng202/group4/data/dataType/Flight.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/seng202/group4/data/dataType/FlightPosition.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/seng202/group4/data/dataType/Route.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/seng202/group4/data/parser/AirlineParser.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/seng202/group4/data/parser/AirportParser.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/seng202/group4/data/parser/FlightParser.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/seng202/group4/data/parser/RouteParser.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/seng202/group4/data/parser/validator/AirlineValidator.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/seng202/group4/data/parser/validator/AirportValidator.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/seng202/group4/data/parser/validator/FlightValidator.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/seng202/group4/data/parser/validator/RouteValidator.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/seng202/group4/data/repository/AirlineRepository.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/seng202/group4/data/repository/AirportRepository.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/seng202/group4/data/repository/FlightRepository.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/seng202/group4/data/repository/Repository.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/seng202/group4/data/repository/RouteRepository.class" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/seng202-project.iml" afterPath="$PROJECT_DIR$/seng202-project.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
     </list>
     <ignored path="seng202-project.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -62,11 +38,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="false">
+      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="15" column="16" selection-start-line="15" selection-start-column="16" selection-end-line="15" selection-end-column="16" />
+            <state relative-caret-position="162">
+              <caret line="27" column="30" selection-start-line="27" selection-start-column="30" selection-end-line="27" selection-end-column="30" />
               <folding />
             </state>
           </provider>
@@ -76,16 +52,16 @@
         <entry file="file://$PROJECT_DIR$/.idea/compiler.xml">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="504">
-              <caret line="28" column="48" selection-start-line="28" selection-start-column="48" selection-end-line="28" selection-end-column="48" />
+              <caret line="31" column="10" selection-start-line="31" selection-start-column="10" selection-end-line="31" selection-end-column="10" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Controller.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Controller.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/seng202/group4/GUI/Controller.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-127">
+            <state relative-caret-position="899">
               <caret line="226" column="144" selection-start-line="226" selection-start-column="144" selection-end-line="226" selection-end-column="144" />
               <folding>
                 <element signature="imports" expanded="false" />
@@ -240,8 +216,8 @@
         <option value="$PROJECT_DIR$/testfiles/Airports/oneValidAirport.txt" />
         <option value="$PROJECT_DIR$/src/main/java/seng202/group4/data/parser/AirportParser.java" />
         <option value="$PROJECT_DIR$/src/test/java/seng202/group4/ParserTest.java" />
-        <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/.idea/compiler.xml" />
+        <option value="$PROJECT_DIR$/pom.xml" />
       </list>
     </option>
   </component>
@@ -1181,7 +1157,7 @@
       <workItem from="1472780579385" duration="1342000" />
       <workItem from="1472781984575" duration="1470000" />
       <workItem from="1473553257367" duration="1921000" />
-      <workItem from="1473560491743" duration="600000" />
+      <workItem from="1473560491743" duration="981000" />
     </task>
     <task id="LOCAL-00001" summary="New junit version">
       <created>1472011458815</created>
@@ -1253,7 +1229,14 @@
       <option name="project" value="LOCAL" />
       <updated>1473560974142</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Compiler should work now">
+      <created>1473561099362</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1473561099362</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1289,7 +1272,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="12910000" />
+    <option name="totallyTimeSpent" value="13291000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1" y="0" width="1682" height="1025" extended-state="6" />
@@ -1341,7 +1324,8 @@
     <MESSAGE value="Updating branch" />
     <MESSAGE value="Removed invalid dependency from pom" />
     <MESSAGE value="Fixed compiler error (changed 1.5 to 1.8)" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed compiler error (changed 1.5 to 1.8)" />
+    <MESSAGE value="Compiler should work now" />
+    <option name="LAST_COMMIT_MESSAGE" value="Compiler should work now" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -1825,29 +1809,29 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
+    <entry file="file://$PROJECT_DIR$/src/main/java/seng202/group4/GUI/Controller.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="15" column="16" selection-start-line="15" selection-start-column="16" selection-end-line="15" selection-end-column="16" />
-          <folding />
+        <state relative-caret-position="899">
+          <caret line="226" column="144" selection-start-line="226" selection-start-column="144" selection-end-line="226" selection-end-column="144" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/.idea/compiler.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="504">
-          <caret line="28" column="48" selection-start-line="28" selection-start-column="48" selection-end-line="28" selection-end-column="48" />
+          <caret line="31" column="10" selection-start-line="31" selection-start-column="10" selection-end-line="31" selection-end-column="10" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/seng202/group4/GUI/Controller.java">
+    <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-127">
-          <caret line="226" column="144" selection-start-line="226" selection-start-column="144" selection-end-line="226" selection-end-column="144" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
+        <state relative-caret-position="162">
+          <caret line="27" column="30" selection-start-line="27" selection-start-column="30" selection-end-line="27" selection-end-column="30" />
+          <folding />
         </state>
       </provider>
     </entry>
