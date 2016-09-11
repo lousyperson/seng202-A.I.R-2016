@@ -16,6 +16,7 @@ public class Airport {
     private float timezone;
     private DaylightSavingsTime DST;
     private String tz;
+    private int routes = 0;
 
     public Airport() {
 
