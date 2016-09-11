@@ -9,7 +9,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * Created by jjg64 on 15/08/16.
+ * @param
+ * @return
+ * @throws
  */
 public class AirlineParser {
     private final int MAX_ITEMS_PER_LINE = 8;
