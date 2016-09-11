@@ -1,6 +1,10 @@
 package seng202.group4.GUI;
 
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleFloatProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
+import seng202.group4.data.dataType.DaylightSavingsTime;
 
 
 /**
@@ -8,30 +12,31 @@ import javafx.beans.property.SimpleStringProperty;
  */
 public class airportTable {
 
-    private SimpleStringProperty atid;
+    private SimpleIntegerProperty atid;
     private SimpleStringProperty atname;
     private SimpleStringProperty atcity;
     private SimpleStringProperty atcountry;
     private SimpleStringProperty atiata;
     private SimpleStringProperty aticao;
-    private SimpleStringProperty atlatitude;
-    private SimpleStringProperty atlongitude;
-    private SimpleStringProperty ataltitude;
-    private SimpleStringProperty attimezone;
+    private SimpleDoubleProperty atlatitude;
+    private SimpleDoubleProperty atlongitude;
+    private SimpleDoubleProperty ataltitude;
+    private SimpleFloatProperty attimezone;
     private SimpleStringProperty atdst;
     private SimpleStringProperty attzdatabase;
 
-    public airportTable(String ttid, String ttname, String ttcity, String ttcountry, String ttiata, String tticao, String ttlatitude, String ttlongitude, String ttaltitude, String tttimezone, String ttdst, String tttzdatabase){
-        this.atid = new SimpleStringProperty(ttid);
+    public airportTable(int ttid, String ttname, String ttcity, String ttcountry, String ttiata, String tticao,
+                        double ttlatitude, double ttlongitude, double ttaltitude, float tttimezone, String ttdst, String tttzdatabase){
+        this.atid = new SimpleIntegerProperty(ttid);
         this.atname = new SimpleStringProperty(ttname);
         this.atcity = new SimpleStringProperty(ttcity);
         this.atcountry = new SimpleStringProperty(ttcountry);
         this.atiata = new SimpleStringProperty(ttiata);
         this.aticao = new SimpleStringProperty(tticao);
-        this.atlatitude = new SimpleStringProperty(ttlatitude);
-        this.atlongitude = new SimpleStringProperty(ttlongitude);
-        this.ataltitude = new SimpleStringProperty(ttaltitude);
-        this.attimezone = new SimpleStringProperty(tttimezone);
+        this.atlatitude = new SimpleDoubleProperty(ttlatitude);
+        this.atlongitude = new SimpleDoubleProperty(ttlongitude);
+        this.ataltitude = new SimpleDoubleProperty(ttaltitude);
+        this.attimezone = new SimpleFloatProperty(tttimezone);
         this.atdst = new SimpleStringProperty(ttdst);
         this.attzdatabase = new SimpleStringProperty(tttzdatabase);
 
@@ -39,15 +44,16 @@ public class airportTable {
 
     }
 
-    public String getAtid() {
+
+    public int getAtid() {
         return atid.get();
     }
 
-    public SimpleStringProperty atidProperty() {
+    public SimpleIntegerProperty atidProperty() {
         return atid;
     }
 
-    public void setAtid(String atid) {
+    public void setAtid(int atid) {
         this.atid.set(atid);
     }
 
@@ -111,51 +117,51 @@ public class airportTable {
         this.aticao.set(aticao);
     }
 
-    public String getAtlatitude() {
+    public double getAtlatitude() {
         return atlatitude.get();
     }
 
-    public SimpleStringProperty atlatitudeProperty() {
+    public SimpleDoubleProperty atlatitudeProperty() {
         return atlatitude;
     }
 
-    public void setAtlatitude(String atlatitude) {
+    public void setAtlatitude(double atlatitude) {
         this.atlatitude.set(atlatitude);
     }
 
-    public String getAtlongitude() {
+    public double getAtlongitude() {
         return atlongitude.get();
     }
 
-    public SimpleStringProperty atlongitudeProperty() {
+    public SimpleDoubleProperty atlongitudeProperty() {
         return atlongitude;
     }
 
-    public void setAtlongitude(String atlongitude) {
+    public void setAtlongitude(double atlongitude) {
         this.atlongitude.set(atlongitude);
     }
 
-    public String getAtaltitude() {
+    public double getAtaltitude() {
         return ataltitude.get();
     }
 
-    public SimpleStringProperty ataltitudeProperty() {
+    public SimpleDoubleProperty ataltitudeProperty() {
         return ataltitude;
     }
 
-    public void setAtaltitude(String ataltitude) {
+    public void setAtaltitude(double ataltitude) {
         this.ataltitude.set(ataltitude);
     }
 
-    public String getAttimezone() {
+    public float getAttimezone() {
         return attimezone.get();
     }
 
-    public SimpleStringProperty attimezoneProperty() {
+    public SimpleFloatProperty attimezoneProperty() {
         return attimezone;
     }
 
-    public void setAttimezone(String attimezone) {
+    public void setAttimezone(float attimezone) {
         this.attimezone.set(attimezone);
     }
 

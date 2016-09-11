@@ -16,8 +16,10 @@ import javafx.scene.web.WebView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import seng202.group4.data.dataType.Airline;
+import seng202.group4.data.dataType.Airport;
 import seng202.group4.data.dataType.Route;
 import seng202.group4.data.parser.validator.AirlineValidator;
+import seng202.group4.data.parser.validator.AirportValidator;
 import seng202.group4.data.parser.validator.RouteValidator;
 import seng202.group4.data.repository.AirlineRepository;
 import seng202.group4.data.repository.RouteRepository;
@@ -210,8 +212,11 @@ public class Controller implements Initializable{
     private AirlineRepository airlineRepository = new AirlineRepository();
     private RouteRepository routeRepository = new RouteRepository();
 
-    // countrySet holds all the countries uploaded to airline
-    private TreeSet countrySet = new TreeSet();
+    // airlineCountrySet holds all the countries uploaded to airline
+    private TreeSet airlineCountrySet = new TreeSet();
+
+    // airportCountrySet holds all the countries uploaded to airport
+    private TreeSet airportCountrySet = new TreeSet();
 
     // equipmentSet holds all the equipment uploaded to route
     private TreeSet equipmentSet = new TreeSet();
@@ -223,6 +228,7 @@ public class Controller implements Initializable{
 
         // setting up view
         updateAirlineSearch();
+        updateAirportSearch();
         updateRouteSearch();
         // select airline table on the side bar
         datalist.getSelectionModel().clearAndSelect(0);
@@ -290,6 +296,16 @@ public class Controller implements Initializable{
 
         airportTableID.setItems(airportTData);
 
+        try {
+            loadDefaultAirports();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+
+        searchAirports();
+
         // initialise route data table resources
         airline.setCellValueFactory(new PropertyValueFactory<>("rairline"));
         airlineID.setCellValueFactory(new PropertyValueFactory<>("rid"));
@@ -318,6 +334,113 @@ public class Controller implements Initializable{
     }
 
 
+    public void searchAirports(){
+        String intPattern = "[-]?[0-9]*[.]?[0-9]+";
+        // searching for airline
+        FilteredList<airportTable> airportTableFiltered = new FilteredList<>(airportTData, p -> true);
+
+        airportSearch.textProperty().addListener((observable, oldValue, newValue) -> {
+            airportTableFiltered.setPredicate(airport -> {
+                // All the columns in airport table (at)
+                int atID = airport.getAtid();
+                String atName = airport.getAtname();
+                String atCity = airport.getAtcity();
+                String atCountry = airport.getAtcountry();
+                String atIATA = airport.getAtiata(); // FAA if the country is USA
+                String atICAO = airport.getAticao();
+                Double atLatitude = airport.getAtlatitude();
+                Double atLongitude = airport.getAtlongitude();
+                Double atAltitude = airport.getAtaltitude();
+                Float atTimezone = airport.getAttimezone();
+                String atDST = airport.getAtdst();
+                String atTz = airport.getAttzdatabase();
+                boolean toggled = false;    // toggle to see if anything was matched in the search box
+
+                // set up for country drop down box
+                boolean emptyCountryFilter = airportCountryFilter.getSelectionModel().getSelectedItem() == null;
+                // selectedAirportCountry is a string to hold whats selected in the dropdown
+                // set to null unless a dropdown is selected
+                String selectedAirportCountry = null;
+                if (airportCountryFilter.getValue() != null){
+                    selectedAirportCountry = airportCountryFilter.getValue().toString();
+                }
+
+                // hold the string that's typed in the search bar in lowercase
+                String lowerCaseFilter = newValue.toLowerCase();
+
+                // The following returns true if the filter matches
+                if (newValue.isEmpty() && selectedAirportCountry != null && selectedAirportCountry.equals(" --ALL COUNTRIES-- ")){
+                    return true; // display all data
+                }
+
+                // Check if the search criteria matches the following columns
+                if (lowerCaseFilter.matches("[0-9]+") && atID == Integer.parseInt(lowerCaseFilter)) {
+                    toggled = true;
+                }
+                if (atName != null && atName.toLowerCase().contains(lowerCaseFilter)){
+                    toggled = true;
+                }
+                if (atCity != null && atCity.toLowerCase().contains(lowerCaseFilter)){
+                    toggled = true;
+                }
+                if (atCountry != null && atCountry.toLowerCase().contains(lowerCaseFilter)){
+                    toggled = true;
+                }
+                if (atIATA != null && atIATA.toLowerCase().contains(lowerCaseFilter)){
+                    toggled = true;
+                }
+                if (atICAO != null &&  atICAO.toLowerCase().contains(lowerCaseFilter)){
+                    toggled = true;
+                }
+                if (lowerCaseFilter.matches(intPattern) && atLatitude == Double.parseDouble(lowerCaseFilter)) { // CAN BE IMPROVED
+                    toggled = true;
+                }
+                if (lowerCaseFilter.matches(intPattern) && atLongitude == Double.parseDouble(lowerCaseFilter)) { // CAN BE IMPROVED
+                    toggled = true;
+                }
+                if (lowerCaseFilter.matches(intPattern) && atAltitude == Double.parseDouble(lowerCaseFilter)) { // CAN BE IMPROVED
+                    toggled = true;
+                }
+                if (lowerCaseFilter.matches(intPattern) && atTimezone == Float.parseFloat(lowerCaseFilter)) {
+                    toggled = true;
+                }
+                if (atDST != null &&  atDST.toLowerCase().contains(lowerCaseFilter)){
+                    toggled = true;
+                }
+                if (atTz != null &&  atTz.toLowerCase().contains(lowerCaseFilter)){
+                    toggled = true;
+                }
+
+
+                // For the following case, return true if the country dropdown is empty, --ALL COUNTRIES-- or
+                // matches the country in the table
+                if (toggled) {
+                    if (emptyCountryFilter){
+                        return true;
+                    }
+                    if (selectedAirportCountry != null && selectedAirportCountry.equals(" --ALL COUNTRIES-- ")) {
+                        return true;
+                    }
+                    else if(selectedAirportCountry != null && atCountry != null &&
+                            atCountry.toLowerCase().equals(selectedAirportCountry.toLowerCase())){
+                        return true;
+                    }
+                }
+                return false;
+            });
+
+        });
+
+        // Wrap the filtered list in a SortedList
+        SortedList<airportTable> airportTableSorted = new SortedList<>(airportTableFiltered);
+
+        // Bind the SortedList comparator to the TableView comparator
+        airportTableSorted.comparatorProperty().bind(airportTableID.comparatorProperty());
+
+        // Add sorted (and filtered) data to the table
+        airportTableID.setItems(airportTableSorted);
+
+    }
 
 
     public void searchRoutes(){
@@ -558,7 +681,7 @@ public class Controller implements Initializable{
 
 
 
-    private void updateCountryBox(){
+    private void updateAirlineCountryBox(){
         // clear the current combo box
         airlineCountryFilter.getItems().clear();
         // if the combo box doesn't have --ALL COUNTRIES-- then add one
@@ -566,12 +689,24 @@ public class Controller implements Initializable{
             airlineCountryFilter.getItems().add(" --ALL COUNTRIES-- ");
         }
 
-        // loop through the current countrySet
-        Iterator itr = countrySet.iterator();
+        // loop through the current airlineCountrySet
+        Iterator itr = airlineCountrySet.iterator();
         while(itr.hasNext()){
             airlineCountryFilter.getItems().add(itr.next());
         }
     }
+
+    private void updateAirportCountryBox() {
+        airportCountryFilter.getItems().clear();
+        if (!airportCountryFilter.getItems().contains(" --ALL COUNTRIES-- ")) {
+            airportCountryFilter.getItems().add(" --ALL COUNTRIES-- ");
+        }
+        Iterator itr = airportCountrySet.iterator();
+        while(itr.hasNext()) {
+            airportCountryFilter.getItems().add(itr.next());
+        }
+    }
+
 
     private void updateEquipBox(){
         // clear the current combo box
@@ -581,7 +716,7 @@ public class Controller implements Initializable{
             routeEquipFilter.getItems().add(" --ALL EQUIPMENTS-- ");
         }
 
-        // loop through the current countrySet
+        // loop through the current airlineCountrySet
         Iterator itr = equipmentSet.iterator();
         while(itr.hasNext()){
             routeEquipFilter.getItems().add(itr.next());
@@ -592,6 +727,13 @@ public class Controller implements Initializable{
         String text = airlineSearch.getText();
         airlineSearch.setText(text + " ");
         airlineSearch.setText(text);
+
+    }
+
+    public void updateAirportSearch(){
+        String text = airportSearch.getText();
+        airportSearch.setText(text + " ");
+        airportSearch.setText(text);
 
     }
 
@@ -611,8 +753,12 @@ public class Controller implements Initializable{
         updateRouteSearch();
     }
 
-    public void filterCountry() throws IOException {
+    public void filterAirlineCountry() throws IOException {
         updateAirlineSearch();
+    }
+
+    public void filterAirportCountry() throws IOException {
+        updateAirportSearch();
     }
 
     public void filterEquipment() throws IOException {
@@ -641,14 +787,14 @@ public class Controller implements Initializable{
                         airline.getICAO(), airline.getCallsign(),
                         airline.getCountry(), airline.getActive()));
                 if(airline.getCountry() != null){
-                    countrySet.add(airline.getCountry());
+                    airlineCountrySet.add(airline.getCountry());
                 }
             }
             else{
                 duplicateIDAlert("Please fix the conflict and reupload the file.", airline.getID());
                 break;
             }
-            updateCountryBox();
+            updateAirlineCountryBox();
         }
     }
 
@@ -664,23 +810,23 @@ public class Controller implements Initializable{
                     airline.getICAO(), airline.getCallsign(),
                     airline.getCountry(), airline.getActive()));
             if(airline.getCountry() != null){
-                countrySet.add(airline.getCountry());
+                airlineCountrySet.add(airline.getCountry());
             }
         }
-        updateCountryBox();
+        updateAirlineCountryBox();
     }
 
 
 
     public void loadAirline() throws IOException {
-            Stage stage = new Stage();
-            FileChooser fileChooser = new FileChooser();
-            fileChooser.setTitle("Open file");
-            File file = fileChooser.showOpenDialog(stage);
-            if (file != null && file.exists()) {
-                System.out.println("file opneedd");
-                insertAirlineTable(file);
-            }
+        Stage stage = new Stage();
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Open file");
+        File file = fileChooser.showOpenDialog(stage);
+        if (file != null && file.exists()) {
+            System.out.println("file opneedd");
+            insertAirlineTable(file);
+        }
     }
 
     private void loadDefaultAirline() throws IOException, URISyntaxException {
@@ -691,12 +837,42 @@ public class Controller implements Initializable{
         }
     }
 
+    private void insertAirportTable(File file) throws IOException {
+        AirportValidator validator = new AirportValidator(file);
+        ArrayList<Airport> airports = validator.makeAirports();
+        for(int i = 0; i < airports.size(); i++) {
+            Airport airport = airports.get(i);
+            airportTData.add(new airportTable(airport.getID(), airport.getName(), airport.getCity(),
+                    airport.getCountry(), airport.getIATA(), airport.getICAO(), airport.getLatitude(),
+                    airport.getLongitude(), airport.getAltitude(), airport.getTimezone(), airport.getDST().toAString(),
+                    airport.getTz()));
+            if(airport.getCountry() != null) {
+                airportCountrySet.add(airport.getCountry());
+            }
+            updateAirportCountryBox();
+        }
+    }
+
+
+
     public void loadAirport() throws IOException {
 
         Stage stage = new Stage();
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open file");
         File file = fileChooser.showOpenDialog(stage);
+        if (file != null && file.exists()) {
+            System.out.println("file opened oh ye bb~");
+            insertAirportTable(file);
+        }
+    }
+
+    private void loadDefaultAirports() throws IOException, URISyntaxException {
+        File file = new File(getClass().getClassLoader().getResource("airports.dat").toURI());
+        if (file.exists()) {
+            System.out.println("ooooooooh yyyyyyyyyyahhhhhh");
+            insertAirportTable(file);
+        }
     }
 
     // insert the given routes in a file into route table and checks for duplicates
