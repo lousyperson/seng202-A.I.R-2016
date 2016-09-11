@@ -30,6 +30,4 @@ public class AirportRepository extends Repository{
         return AirportCountry;
     }
 
-
-
 }
