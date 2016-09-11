@@ -132,7 +132,7 @@
                                 <TableView fx:id="routeTableID" layoutX="230.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" tableMenuButtonVisible="true" GridPane.columnIndex="1" GridPane.columnSpan="6" GridPane.rowSpan="4">
                                     <columns>
                                         <TableColumn fx:id="airline" prefWidth="75.0" text="Airline" />
-                                        <TableColumn fx:id="airlineID" minWidth="0.0" prefWidth="68.0" text="ID" />
+                                        <TableColumn fx:id="airlineID" minWidth="0.0" prefWidth="68.0" text="Airline ID" />
                                         <TableColumn fx:id="source" prefWidth="145.0" text="Source airport" />
                                         <TableColumn fx:id="sourceID" prefWidth="82.0" text="Source airport ID" />
                                         <TableColumn fx:id="dest" prefWidth="72.0" text="Destination airport" />
@@ -159,7 +159,7 @@
                                                 <TextField fx:id="airportSearch" layoutX="12.0" layoutY="42.0" prefHeight="25.0" prefWidth="196.0" promptText="Search Airport List..." />
                                                 <Text layoutX="14.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Search" />
                                                 <Text layoutX="15.0" layoutY="108.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Filter Options" />
-                                                <ComboBox fx:id="airportCountryFilter" layoutX="12.0" layoutY="123.0" onAction="#filterAirportCountry" prefHeight="25.0" prefWidth="197.0" promptText="Country" />
+                                                <ComboBox fx:id="airportCountryFilter" layoutX="12.0" layoutY="123.0" onAction="#filterAirportCountry" prefHeight="25.0" prefWidth="197.0" promptText=" --ALL COUNTRIES--" />
                                             </children>
                                         </AnchorPane>
                                         <AnchorPane fx:id="routePane" minHeight="0.0" minWidth="0.0" prefHeight="172.0" prefWidth="220.0" visible="false">
@@ -167,8 +167,8 @@
                                                 <TextField fx:id="routeSearch" layoutX="12.0" layoutY="42.0" prefHeight="25.0" prefWidth="196.0" promptText="Search Route List..." />
                                                 <Text layoutX="14.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Search" />
                                                 <Text layoutX="15.0" layoutY="108.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Filter Options" />
-                                                <ComboBox fx:id="routeDepCountryFilter" layoutX="13.0" layoutY="201.0" prefHeight="25.0" prefWidth="197.0" promptText="Depature Country" />
-                                                <ComboBox fx:id="routeDestCountryFilter" layoutX="13.0" layoutY="241.0" prefHeight="25.0" prefWidth="197.0" promptText="Destination Country" />
+                                                <ComboBox fx:id="routeDepCountryFilter" layoutX="13.0" layoutY="201.0" onAction="#filterDepCountry" prefHeight="25.0" prefWidth="197.0" promptText=" --DEPART FROM-- " />
+                                                <ComboBox fx:id="routeDestCountryFilter" layoutX="13.0" layoutY="241.0" onAction="#filterDestCountry" prefHeight="25.0" prefWidth="197.0" promptText=" --ARRIVE TO-- " />
                                                 <CheckBox fx:id="direct" layoutX="12.0" layoutY="124.0" mnemonicParsing="false" onAction="#selectDirect" text="Direct" />
                                                 <CheckBox fx:id="indirect" layoutX="122.0" layoutY="124.0" mnemonicParsing="false" onAction="#selectIndirect" text="Indirect" />
                                                 <ComboBox fx:id="routeEquipFilter" layoutX="12.0" layoutY="161.0" onAction="#filterEquipment" prefHeight="25.0" prefWidth="197.0" promptText=" --ALL EQUIPMENTS-- " />

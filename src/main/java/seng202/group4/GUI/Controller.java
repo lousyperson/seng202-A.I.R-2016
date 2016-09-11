@@ -22,6 +22,7 @@ import seng202.group4.data.parser.validator.AirlineValidator;
 import seng202.group4.data.parser.validator.AirportValidator;
 import seng202.group4.data.parser.validator.RouteValidator;
 import seng202.group4.data.repository.AirlineRepository;
+import seng202.group4.data.repository.AirportRepository;
 import seng202.group4.data.repository.RouteRepository;
 
 
@@ -210,13 +211,26 @@ public class Controller implements Initializable{
 
     // data repositories
     private AirlineRepository airlineRepository = new AirlineRepository();
+    private AirportRepository airportRepository = new AirportRepository();
     private RouteRepository routeRepository = new RouteRepository();
+
+    // initial combobox names
+    private String allCountriesTag = " --ALL COUNTRIES-- ";
+    private String allEquipmentsTag = " --ALL EQUIPMENTS-- ";
+    private String departureCountryTag = " --DEPART FROM-- ";
+    private String destinationCountryTag = " --ARRIVE TO-- ";
 
     // airlineCountrySet holds all the countries uploaded to airline
     private TreeSet airlineCountrySet = new TreeSet();
 
     // airportCountrySet holds all the countries uploaded to airport
     private TreeSet airportCountrySet = new TreeSet();
+
+    // depSet holds all the departure country names uploaded to routes
+    private TreeSet depSet = new TreeSet();
+
+    // dest holds all the destination country names uploaded to routes
+    private TreeSet destSet = new TreeSet();
 
     // equipmentSet holds all the equipment uploaded to route
     private TreeSet equipmentSet = new TreeSet();
@@ -279,6 +293,8 @@ public class Controller implements Initializable{
 
         // listen for airline search queries
         searchAirlines();
+
+
 
         // initialise airport table resources
         apid.setCellValueFactory(new PropertyValueFactory<>("atid"));
@@ -369,7 +385,7 @@ public class Controller implements Initializable{
                 String lowerCaseFilter = newValue.toLowerCase();
 
                 // The following returns true if the filter matches
-                if (newValue.isEmpty() && selectedAirportCountry != null && selectedAirportCountry.equals(" --ALL COUNTRIES-- ")){
+                if (newValue.isEmpty() && selectedAirportCountry != null && selectedAirportCountry.equals(allCountriesTag)){
                     return true; // display all data
                 }
 
@@ -418,7 +434,7 @@ public class Controller implements Initializable{
                     if (emptyCountryFilter){
                         return true;
                     }
-                    if (selectedAirportCountry != null && selectedAirportCountry.equals(" --ALL COUNTRIES-- ")) {
+                    if (selectedAirportCountry != null && selectedAirportCountry.equals(allCountriesTag)) {
                         return true;
                     }
                     else if(selectedAirportCountry != null && atCountry != null &&
@@ -478,7 +494,7 @@ public class Controller implements Initializable{
 
                 // The following returns true if the filter matches
                 if (newValue.isEmpty() && !direct.isSelected() && !indirect.isSelected()
-                        && selectedRouteEquip != null && selectedRouteEquip.equals(" --ALL EQUIPMENTS-- ")) {
+                        && selectedRouteEquip != null && selectedRouteEquip.equals(allCountriesTag)) {
                     return true;    // display all data.
                 }
 
@@ -517,7 +533,7 @@ public class Controller implements Initializable{
                     if (emptyEquipFilter){
                         return true;
                     }
-                    if (selectedRouteEquip != null && selectedRouteEquip.equals(" --ALL EQUIPMENTS-- ")) {
+                    if (selectedRouteEquip != null && selectedRouteEquip.equals(allEquipmentsTag)) {
                         return true;
                     }
                     else if(selectedRouteEquip != null && rtEquipmentArray.contains(selectedRouteEquip.toLowerCase())){
@@ -528,7 +544,7 @@ public class Controller implements Initializable{
                     if (emptyEquipFilter){
                         return true;
                     }
-                    if (selectedRouteEquip != null && selectedRouteEquip.equals(" --ALL EQUIPMENTS-- ")) {
+                    if (selectedRouteEquip != null && selectedRouteEquip.equals(allEquipmentsTag)) {
                         return true;
                     }
                     else if(selectedRouteEquip != null && rtEquipmentArray.contains(selectedRouteEquip.toLowerCase())){
@@ -539,7 +555,7 @@ public class Controller implements Initializable{
                     if (emptyEquipFilter){
                         return true;
                     }
-                    if (selectedRouteEquip != null && selectedRouteEquip.equals(" --ALL EQUIPMENTS-- ")) {
+                    if (selectedRouteEquip != null && selectedRouteEquip.equals(allEquipmentsTag)) {
                         return true;
                     }
                     else if(selectedRouteEquip != null && rtEquipmentArray.contains(selectedRouteEquip.toLowerCase())){
@@ -596,7 +612,7 @@ public class Controller implements Initializable{
 
                 // The following returns true if the filter matches
                 if (newValue.isEmpty() && !active.isSelected() && !inactive.isSelected()
-                        && selectedAirlineCountry != null && selectedAirlineCountry.equals(" --ALL COUNTRIES-- ")){
+                        && selectedAirlineCountry != null && selectedAirlineCountry.equals(allCountriesTag)){
                     return true; // display all data
                 }
 
@@ -629,7 +645,7 @@ public class Controller implements Initializable{
                     if (emptyCountryFilter){
                         return true;
                     }
-                    if (selectedAirlineCountry != null && selectedAirlineCountry.equals(" --ALL COUNTRIES-- ")) {
+                    if (selectedAirlineCountry != null && selectedAirlineCountry.equals(allCountriesTag)) {
                         return true;
                     }
                     else if(selectedAirlineCountry != null && atCountry != null &&
@@ -641,7 +657,7 @@ public class Controller implements Initializable{
                     if (emptyCountryFilter){
                         return true;
                     }
-                    if (selectedAirlineCountry != null && selectedAirlineCountry.equals(" --ALL COUNTRIES-- ")) {
+                    if (selectedAirlineCountry != null && selectedAirlineCountry.equals(allCountriesTag)) {
                         return true;
 
                     }
@@ -654,7 +670,7 @@ public class Controller implements Initializable{
                     if (emptyCountryFilter){
                         return true;
                     }
-                    if (selectedAirlineCountry != null && selectedAirlineCountry.equals(" --ALL COUNTRIES-- ")) {
+                    if (selectedAirlineCountry != null && selectedAirlineCountry.equals(allCountriesTag)) {
                         return true;
 
                     }
@@ -685,8 +701,8 @@ public class Controller implements Initializable{
         // clear the current combo box
         airlineCountryFilter.getItems().clear();
         // if the combo box doesn't have --ALL COUNTRIES-- then add one
-        if(!airlineCountryFilter.getItems().contains(" --ALL COUNTRIES-- ")){
-            airlineCountryFilter.getItems().add(" --ALL COUNTRIES-- ");
+        if(!airlineCountryFilter.getItems().contains(allCountriesTag)){
+            airlineCountryFilter.getItems().add(allCountriesTag);
         }
 
         // loop through the current airlineCountrySet
@@ -698,8 +714,8 @@ public class Controller implements Initializable{
 
     private void updateAirportCountryBox() {
         airportCountryFilter.getItems().clear();
-        if (!airportCountryFilter.getItems().contains(" --ALL COUNTRIES-- ")) {
-            airportCountryFilter.getItems().add(" --ALL COUNTRIES-- ");
+        if (!airportCountryFilter.getItems().contains(allCountriesTag)) {
+            airportCountryFilter.getItems().add(allCountriesTag);
         }
         Iterator itr = airportCountrySet.iterator();
         while(itr.hasNext()) {
@@ -708,12 +724,35 @@ public class Controller implements Initializable{
     }
 
 
+    private void updateDepCountryBox() {
+        routeDepCountryFilter.getItems().clear();
+        if (!routeDepCountryFilter.getItems().contains(departureCountryTag)) {
+            routeDepCountryFilter.getItems().add(departureCountryTag);
+        }
+        Iterator itr = depSet.iterator();
+        while(itr.hasNext()) {
+            routeDepCountryFilter.getItems().add(itr.next());
+        }
+    }
+
+    private void updateDestCountryBox() {
+        routeDestCountryFilter.getItems().clear();
+        if (!routeDestCountryFilter.getItems().contains(destinationCountryTag)) {
+            routeDestCountryFilter.getItems().add(destinationCountryTag);
+        }
+        Iterator itr = destSet.iterator();
+        while(itr.hasNext()) {
+            routeDestCountryFilter.getItems().add(itr.next());
+        }
+    }
+
+
     private void updateEquipBox(){
         // clear the current combo box
         routeEquipFilter.getItems().clear();
         // if the combo box doesn't have --ALL EQUIPMENTS-- then add one
-        if(!routeEquipFilter.getItems().contains(" --ALL EQUIPMENTS-- ")){
-            routeEquipFilter.getItems().add(" --ALL EQUIPMENTS-- ");
+        if(!routeEquipFilter.getItems().contains(allEquipmentsTag)){
+            routeEquipFilter.getItems().add(allEquipmentsTag);
         }
 
         // loop through the current airlineCountrySet
@@ -761,6 +800,14 @@ public class Controller implements Initializable{
         updateAirportSearch();
     }
 
+    public void filterDepCountry() throws IOException {
+        updateRouteSearch();
+    }
+
+    public void filterDestCountry() throws IOException {
+        updateRouteSearch();
+    }
+
     public void filterEquipment() throws IOException {
         updateRouteSearch();
     }
@@ -777,6 +824,7 @@ public class Controller implements Initializable{
     private void insertAirlineTable(File file) throws IOException {
         AirlineValidator validator = new AirlineValidator(file);
         ArrayList<Airline> airlines = validator.makeAirlines();
+        validator = null;
         for(int i = 0; i < airlines.size(); i++) {
             Airline airline = airlines.get(i);
             // if the airline ID already exists in the repository, warn the user
@@ -802,6 +850,7 @@ public class Controller implements Initializable{
     private void insertEmptyAirlineTable(File file) throws IOException {
         AirlineValidator validator = new AirlineValidator(file);
         ArrayList<Airline> airlines = validator.makeAirlines();
+        validator = null;
         for(int i = 0; i < airlines.size(); i++) {
             Airline airline = airlines.get(i);
             airlineRepository.addAirline(airline);
@@ -837,11 +886,39 @@ public class Controller implements Initializable{
         }
     }
 
+
+
     private void insertAirportTable(File file) throws IOException {
         AirportValidator validator = new AirportValidator(file);
         ArrayList<Airport> airports = validator.makeAirports();
+        validator = null;
         for(int i = 0; i < airports.size(); i++) {
             Airport airport = airports.get(i);
+            if(!airportRepository.getAirports().containsKey(airport.getID())){
+                airportRepository.addAirport(airport);
+                airportTData.add(new airportTable(airport.getID(), airport.getName(), airport.getCity(),
+                        airport.getCountry(), airport.getIATA(), airport.getICAO(), airport.getLatitude(),
+                        airport.getLongitude(), airport.getAltitude(), airport.getTimezone(), airport.getDST().toAString(),
+                        airport.getTz()));
+                if(airport.getCountry() != null) {
+                    airportCountrySet.add(airport.getCountry());
+                }
+            }
+            else{
+                duplicateIDAlert("Please fix the conflict and reupload the file.", airport.getID());
+                break;
+            }
+            updateAirportCountryBox();
+        }
+    }
+
+    private void insertEmptyAirportTable(File file) throws IOException {
+        AirportValidator validator = new AirportValidator(file);
+        ArrayList<Airport> airports = validator.makeAirports();
+        validator = null;
+        for(int i = 0; i < airports.size(); i++) {
+            Airport airport = airports.get(i);
+            airportRepository.addAirport(airport);
             airportTData.add(new airportTable(airport.getID(), airport.getName(), airport.getCity(),
                     airport.getCountry(), airport.getIATA(), airport.getICAO(), airport.getLatitude(),
                     airport.getLongitude(), airport.getAltitude(), airport.getTimezone(), airport.getDST().toAString(),
@@ -852,7 +929,6 @@ public class Controller implements Initializable{
             updateAirportCountryBox();
         }
     }
-
 
 
     public void loadAirport() throws IOException {
@@ -871,7 +947,8 @@ public class Controller implements Initializable{
         File file = new File(getClass().getClassLoader().getResource("airports.dat").toURI());
         if (file.exists()) {
             System.out.println("ooooooooh yyyyyyyyyyahhhhhh");
-            insertAirportTable(file);
+            insertEmptyAirportTable(file);
+            //System.out.println("size of re" + airportRepository.getAirports().size());
         }
     }
 
@@ -879,6 +956,7 @@ public class Controller implements Initializable{
     public void insertRouteTable(File file) throws IOException{
         RouteValidator validator = new RouteValidator(file);
         ArrayList<Route> routes = validator.makeroutes();
+        validator = null;
         for(int i = 0; i < routes.size(); i++) {
             Route route = routes.get(i);
             if(diffRoutes(route, routeRepository.getRoutes())) {
@@ -888,6 +966,8 @@ public class Controller implements Initializable{
                         route.getDestAirport(), String.valueOf(route.getDestAirportID()),
                         route.getCodeshare(), String.valueOf(route.getStops()),
                         route.getEquipment().stream().collect(Collectors.joining(", "))));
+
+                // loop through the equipments given and add it to the equipmentSet
                 for(String r: route.getEquipment()){
                     if(!r.isEmpty()) {
                         equipmentSet.add(r);
@@ -899,6 +979,7 @@ public class Controller implements Initializable{
                 break;
             }
             updateEquipBox();
+            updateDepCountryBox();
         }
     }
 
@@ -906,6 +987,7 @@ public class Controller implements Initializable{
     public void insertEmptyRouteTable(File file) throws IOException{
         RouteValidator validator = new RouteValidator(file);
         ArrayList<Route> routes = validator.makeroutes();
+        validator = null;
         for(int i = 0; i < routes.size(); i++) {
             Route route = routes.get(i);
             routeRepository.addRoute(route);
@@ -914,6 +996,22 @@ public class Controller implements Initializable{
                     route.getDestAirport(), String.valueOf(route.getDestAirportID()),
                     route.getCodeshare(), String.valueOf(route.getStops()),
                     route.getEquipment().stream().collect(Collectors.joining(", "))));
+
+            // if destination country id is not null then add it to destSet
+            if (route.getDestAirportID() != null){
+                // also check that the airport of that id exists in the repository
+                if(airportRepository.getAirports().get(route.getDestAirportID()) != null) {
+                    destSet.add(airportRepository.getAirports().get(route.getDestAirportID()).getCountry());
+                }
+            }
+            // if departure country id is not null then add it to depSet
+            if (route.getSrcAirportID() != null){
+                // also check that the airport of that id exists in the repository
+                if(airportRepository.getAirports().get(route.getSrcAirportID()) != null) {
+                    depSet.add(airportRepository.getAirports().get(route.getSrcAirportID()).getCountry());
+                }
+            }
+
             for(String r: route.getEquipment()){
                 if(!r.isEmpty()) {
                     equipmentSet.add(r);
@@ -921,6 +1019,8 @@ public class Controller implements Initializable{
             }
         }
         updateEquipBox();
+        updateDepCountryBox();
+        updateDestCountryBox();
 
     }
 
@@ -943,6 +1043,8 @@ public class Controller implements Initializable{
         if (file.exists()) {
             System.out.println("file opened oh yeah~");
             insertEmptyRouteTable(file);
+
+
         }
     }
 
