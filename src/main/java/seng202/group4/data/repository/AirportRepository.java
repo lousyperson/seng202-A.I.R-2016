@@ -2,32 +2,46 @@ package seng202.group4.data.repository;
 
 import seng202.group4.data.dataType.Airport;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by jjg64 on 15/08/16.
  */
 public class AirportRepository extends Repository{
-    private HashMap<Integer, Airport> Airports = new HashMap<Integer, Airport>();
-    private HashMap<String, Set> countryAirports = new HashMap<>();
+    private HashMap<Integer, Airport> Airports = new HashMap<>();
+    private HashMap<String, HashSet> countryAirports = new HashMap<>();
+
+
     public void addAirport(Airport airport) {
         Airports.put(airport.getID(), airport);
+
+        HashSet ids = countryAirports.get(airport.getCountry().toLowerCase());
+        // add airport to the countryAirports to keep track of airports in each country
+        if(ids == null){
+            ids = new HashSet();
+            ids.add(airport.getID());
+        }
+        else{
+            ids.add(airport.getID());
+        }
+        countryAirports.put(airport.getCountry().toLowerCase(), ids);
+
     }
 
     public HashMap<Integer, Airport> getAirports() {
         return Airports;
     }
 
-    public HashMap<String, Set> getCountryAirports(){
+    public HashMap<String, HashSet> getCountryAirports(){
         return countryAirports;
     }
 
-    public void addCountryAirports(String name, Integer id){
-        Set ids = countryAirports.get(name);
-        ids.add(id);
-        countryAirports.put(name, ids);
+    // takes a country and returns all the airports IDs of that country
+    public Set airportIDsOfCountry(String country){
+        if(countryAirports.get(country) == null){
+            return Collections.emptySet();
+        }
+        return countryAirports.get(country);
     }
 
     // finds and returns all airports in a given country

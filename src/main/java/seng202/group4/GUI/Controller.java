@@ -211,7 +211,9 @@ public class Controller implements Initializable{
 
     // data repositories
     private AirlineRepository airlineRepository = new AirlineRepository();
+
     private AirportRepository airportRepository = new AirportRepository();
+
     private RouteRepository routeRepository = new RouteRepository();
 
     // initial combobox names
@@ -390,43 +392,20 @@ public class Controller implements Initializable{
                 }
 
                 // Check if the search criteria matches the following columns
-                if (lowerCaseFilter.matches("[0-9]+") && atID == Integer.parseInt(lowerCaseFilter)) {
+                if ((lowerCaseFilter.matches("[0-9]+") && atID == Integer.parseInt(lowerCaseFilter)) ||
+                        (atName != null && atName.toLowerCase().contains(lowerCaseFilter)) ||
+                        (atCity != null && atCity.toLowerCase().contains(lowerCaseFilter)) ||
+                        (atCountry != null && atCountry.toLowerCase().contains(lowerCaseFilter)) ||
+                        (atIATA != null && atIATA.toLowerCase().contains(lowerCaseFilter)) ||
+                        (atICAO != null &&  atICAO.toLowerCase().contains(lowerCaseFilter)) ||
+                        (lowerCaseFilter.matches(intPattern) && atLatitude == Double.parseDouble(lowerCaseFilter)) || // CAN BE IMPROVED
+                        (lowerCaseFilter.matches(intPattern) && atLongitude == Double.parseDouble(lowerCaseFilter)) || // CAN BE IMPROVED
+                        (lowerCaseFilter.matches(intPattern) && atAltitude == Double.parseDouble(lowerCaseFilter)) || // CAN BE IMPROVED
+                        (lowerCaseFilter.matches(intPattern) && atTimezone == Float.parseFloat(lowerCaseFilter)) ||
+                        (atDST != null &&  atDST.toLowerCase().contains(lowerCaseFilter)) ||
+                        (atTz != null &&  atTz.toLowerCase().contains(lowerCaseFilter))) {
                     toggled = true;
                 }
-                if (atName != null && atName.toLowerCase().contains(lowerCaseFilter)){
-                    toggled = true;
-                }
-                if (atCity != null && atCity.toLowerCase().contains(lowerCaseFilter)){
-                    toggled = true;
-                }
-                if (atCountry != null && atCountry.toLowerCase().contains(lowerCaseFilter)){
-                    toggled = true;
-                }
-                if (atIATA != null && atIATA.toLowerCase().contains(lowerCaseFilter)){
-                    toggled = true;
-                }
-                if (atICAO != null &&  atICAO.toLowerCase().contains(lowerCaseFilter)){
-                    toggled = true;
-                }
-                if (lowerCaseFilter.matches(intPattern) && atLatitude == Double.parseDouble(lowerCaseFilter)) { // CAN BE IMPROVED
-                    toggled = true;
-                }
-                if (lowerCaseFilter.matches(intPattern) && atLongitude == Double.parseDouble(lowerCaseFilter)) { // CAN BE IMPROVED
-                    toggled = true;
-                }
-                if (lowerCaseFilter.matches(intPattern) && atAltitude == Double.parseDouble(lowerCaseFilter)) { // CAN BE IMPROVED
-                    toggled = true;
-                }
-                if (lowerCaseFilter.matches(intPattern) && atTimezone == Float.parseFloat(lowerCaseFilter)) {
-                    toggled = true;
-                }
-                if (atDST != null &&  atDST.toLowerCase().contains(lowerCaseFilter)){
-                    toggled = true;
-                }
-                if (atTz != null &&  atTz.toLowerCase().contains(lowerCaseFilter)){
-                    toggled = true;
-                }
-
 
                 // For the following case, return true if the country dropdown is empty, --ALL COUNTRIES-- or
                 // matches the country in the table
@@ -480,7 +459,6 @@ public class Controller implements Initializable{
 
                 // set up for equipment drop down box
                 boolean emptyEquipFilter = routeEquipFilter.getSelectionModel().getSelectedItem() == null;
-
                 // selectedRouteEquip is a string to hold whats selected in the dropdown
                 // set to null unless a dropdown is selected
                 String selectedRouteEquip = null;
@@ -511,7 +489,6 @@ public class Controller implements Initializable{
                 String lowerCaseFilter = newValue.toLowerCase();
 
                 // The following returns true if the filter matches
-
                 // base case
                 if (newValue.isEmpty() && !direct.isSelected() && !indirect.isSelected()
                         && selectedRouteEquip != null && selectedRouteEquip.equals(allCountriesTag)
@@ -521,83 +498,30 @@ public class Controller implements Initializable{
                 }
 
                 // Check if the search criteria matches the following columns
-                if (rtAirID != null && rtAirID.toLowerCase().contains(lowerCaseFilter)){
-                    toggled = true;
-                }
-                if (rtID != null && rtID.toLowerCase().contains(lowerCaseFilter)) {
-                    toggled = true;
-                }
-                if (rtSrcAirport != null && rtSrcAirport.toLowerCase().contains(lowerCaseFilter)){
-                    toggled = true;
-                }
-                if (rtSrcAirportId != null && rtSrcAirportId.toLowerCase().contains(lowerCaseFilter)) {
-                    toggled = true;
-                }
-                if (rtDestAirport != null && rtDestAirport.toLowerCase().contains(lowerCaseFilter)){
-                    toggled = true;
-                }
-                if (rtDestAirportId != null && rtDestAirportId.toLowerCase().contains(lowerCaseFilter)) {
-                    toggled = true;
-                }
-                if (rtCodeshare != null && rtCodeshare.toLowerCase().contains(lowerCaseFilter)){
-                    toggled = true;
-                }
-                if (rtStops != null && rtStops.toLowerCase().contains(lowerCaseFilter)) {
-                    toggled = true;
-                }
-                if (rtEquipment != null && rtEquipment.toLowerCase().contains(lowerCaseFilter)){
+                if ((rtAirID != null && rtAirID.toLowerCase().contains(lowerCaseFilter) ||
+                        (rtID != null && rtID.toLowerCase().contains(lowerCaseFilter)) ||
+                        (rtSrcAirport != null && rtSrcAirport.toLowerCase().contains(lowerCaseFilter)) ||
+                        (rtSrcAirportId != null && rtSrcAirportId.toLowerCase().contains(lowerCaseFilter)) ||
+                        (rtDestAirport != null && rtDestAirport.toLowerCase().contains(lowerCaseFilter)) ||
+                        (rtDestAirportId != null && rtDestAirportId.toLowerCase().contains(lowerCaseFilter)) ||
+                        (rtCodeshare != null && rtCodeshare.toLowerCase().contains(lowerCaseFilter)) ||
+                        (rtStops != null && rtStops.toLowerCase().contains(lowerCaseFilter)) ||
+                        (rtEquipment != null && rtEquipment.toLowerCase().contains(lowerCaseFilter)))){
                     toggled = true;
                 }
 
                 // For the following cases, return true if the equipment dropdown is empty, --ALL EQUIPMENTS-- or
                 // matches the equipment in the table
-                if (toggled && !direct.isSelected() && !indirect.isSelected()){
-
-                    // empty cases
-                    if (emptyEquipFilter && emptyDepartFilter && emptyDestFilter){
-                        return true;
-                    }
-                    else if (selectedRouteEquip != null && selectedRouteEquip.equals(allEquipmentsTag) &&
-                            selectedDepartCountry != null && selectedDepartCountry.equals(departureCountryTag) &&
-                            selectedDestCountry != null && selectedDestCountry.equals(destinationCountryTag)) {
-                        return true;
-                    }
-
-                    // if only one filter is selected
-                    else if(emptyDepartFilter && selectedDepartCountry.equals(departureCountryTag) &&
-                            emptyDestFilter && selectedDestCountry.equals(destinationCountryTag) &&
-                            selectedRouteEquip != null && rtEquipmentArray.contains(selectedRouteEquip.toLowerCase())){
-                        return true;
-                    }
-//                    else if(emptyDepartFilter && selectedDepartCountry.equals(departureCountryTag) &&
-//                            emptyEquipFilter && selectedRouteEquip.equals(allEquipmentsTag) &&
-//                            selectedDestCountry != null && rtDestAirportId){
-//
-//                    }
-                }
-                if (direct.isSelected() && rtStops != null && rtStops.equals("0") && toggled){
-                    if (emptyEquipFilter){
-                        return true;
-                    }
-                    if (selectedRouteEquip != null && selectedRouteEquip.equals(allEquipmentsTag)) {
-                        return true;
-                    }
-                    else if(selectedRouteEquip != null && rtEquipmentArray.contains(selectedRouteEquip.toLowerCase())){
+                if ((toggled && !direct.isSelected() && !indirect.isSelected()) ||
+                        (direct.isSelected() && rtStops != null && rtStops.equals("0") && toggled) ||
+                        (indirect.isSelected() && rtStops != null && !rtStops.equals("0") && toggled)){
+                    boolean filterChecked = filterEquipDepDest(emptyEquipFilter, emptyDepartFilter, emptyDestFilter,
+                            selectedRouteEquip, selectedDepartCountry, selectedDestCountry, rtEquipmentArray,
+                             rtDestAirportId,  rtSrcAirportId);
+                    if(filterChecked){
                         return true;
                     }
                 }
-                if (indirect.isSelected() && rtStops != null && !rtStops.equals("0") && toggled){
-                    if (emptyEquipFilter){
-                        return true;
-                    }
-                    if (selectedRouteEquip != null && selectedRouteEquip.equals(allEquipmentsTag)) {
-                        return true;
-                    }
-                    else if(selectedRouteEquip != null && rtEquipmentArray.contains(selectedRouteEquip.toLowerCase())){
-                        return true;
-                    }
-                }
-
                 return false;   // does not match
             });
 
@@ -614,6 +538,138 @@ public class Controller implements Initializable{
 
     }
 
+    private boolean filterEquipDepDest(boolean emptyEquipFilter, boolean emptyDepartFilter, boolean emptyDestFilter,
+                                       String selectedRouteEquip, String selectedDepartCountry,
+                                       String selectedDestCountry, List<String> rtEquipmentArray,
+                                       String rtDestAirportId, String rtSrcAirportId){
+        // empty cases when no filters are selected
+        if ((emptyEquipFilter && emptyDepartFilter && emptyDestFilter) || (selectedRouteEquip != null
+                && selectedRouteEquip.equals(allEquipmentsTag) && selectedDepartCountry != null &&
+                selectedDepartCountry.equals(departureCountryTag) && selectedDestCountry != null
+                && selectedDestCountry.equals(destinationCountryTag))){
+            return true;
+        }
+
+        // if only one filter is selected
+        // filter only equipment
+        if(((emptyDepartFilter && emptyDestFilter) || (selectedDepartCountry != null &&
+                selectedDepartCountry.equals(departureCountryTag) && selectedDestCountry != null
+                && selectedDestCountry.equals(destinationCountryTag))) && selectedRouteEquip != null){
+            if(selectedRouteEquip.equals(allEquipmentsTag)){
+                return true;
+            }
+            else if(rtEquipmentArray.contains(selectedRouteEquip.toLowerCase())){
+                return true;
+            }
+        }
+        // filter only destination country
+        else if(((emptyEquipFilter && emptyDepartFilter) || (selectedRouteEquip != null
+                && selectedRouteEquip.equals(allEquipmentsTag) && selectedDepartCountry != null &&
+                selectedDepartCountry.equals(departureCountryTag))) &&
+                selectedDestCountry != null){
+            if(selectedDestCountry.equals(destinationCountryTag)){
+                return true;
+            }
+            else if(!rtDestAirportId.equals("null") &&
+                    airportRepository.airportIDsOfCountry(selectedDestCountry.toLowerCase()).contains(Integer.parseInt(rtDestAirportId))){
+                return true;
+            }
+        }
+        // filter only departure country
+        else if(((emptyEquipFilter && emptyDestFilter) || (selectedRouteEquip != null
+                && selectedRouteEquip.equals(allEquipmentsTag) && selectedDestCountry != null &&
+                selectedDestCountry.equals(destinationCountryTag))) &&
+                selectedDepartCountry != null){
+            if(selectedDepartCountry.equals(departureCountryTag)){
+                return true;
+            }
+            else if(!rtSrcAirportId.equals("null") &&
+                    airportRepository.airportIDsOfCountry(selectedDepartCountry.toLowerCase()).contains(Integer.parseInt(rtSrcAirportId))){
+                return true;
+            }
+        }
+
+        // if two filters are selected
+        // filter equipment and destination country
+        else if((emptyDepartFilter || (selectedDepartCountry != null &&
+                selectedDepartCountry.equals(departureCountryTag))) && selectedDestCountry != null &&
+                selectedRouteEquip != null){
+            if(selectedDestCountry.equals(destinationCountryTag) && selectedRouteEquip.equals(allEquipmentsTag)){
+                return true;
+            }
+            else if(selectedDestCountry.equals(destinationCountryTag) &&
+                    rtEquipmentArray.contains(selectedRouteEquip.toLowerCase())){
+                return true;
+            }
+            else if(selectedRouteEquip.equals(allEquipmentsTag) && !rtDestAirportId.equals("null") &&
+                    airportRepository.airportIDsOfCountry(selectedDestCountry.toLowerCase()).contains(Integer.parseInt(rtDestAirportId))){
+                return true;
+            }
+            else if(rtEquipmentArray.contains(selectedRouteEquip.toLowerCase()) &&
+                    !rtDestAirportId.equals("null") &&
+                    airportRepository.airportIDsOfCountry(selectedDestCountry.toLowerCase()).contains(Integer.parseInt(rtDestAirportId))){
+                return true;
+            }
+        }
+        //filter equipment and departure country
+        else if((emptyDestFilter || (selectedDestCountry != null &&
+                selectedDestCountry.equals(destinationCountryTag))) && selectedDepartCountry != null &&
+                selectedRouteEquip != null){
+            if(selectedDepartCountry.equals(departureCountryTag) && selectedRouteEquip.equals(allEquipmentsTag)){
+                return true;
+            }
+            else if(selectedDepartCountry.equals(departureCountryTag) &&
+                    rtEquipmentArray.contains(selectedRouteEquip.toLowerCase())){
+                return true;
+            }
+            else if(selectedRouteEquip.equals(allEquipmentsTag) && !rtSrcAirportId.equals("null") &&
+                    airportRepository.airportIDsOfCountry(selectedDepartCountry.toLowerCase()).contains(Integer.parseInt(rtSrcAirportId))){
+                return true;
+            }
+            else if(rtEquipmentArray.contains(selectedRouteEquip.toLowerCase()) &&
+                    !rtSrcAirportId.equals("null") &&
+                    airportRepository.airportIDsOfCountry(selectedDepartCountry.toLowerCase()).contains(Integer.parseInt(rtSrcAirportId))){
+                return true;
+            }
+        }
+        //filter departure country and destination country
+        else if((emptyEquipFilter || (selectedRouteEquip != null &&
+                selectedRouteEquip.equals(allEquipmentsTag))) && selectedDepartCountry != null &&
+                selectedDestCountry != null){
+            if(selectedDepartCountry.equals(departureCountryTag) &&
+                    selectedDestCountry.equals(destinationCountryTag)){
+                return true;
+            }
+            else if(selectedDepartCountry.equals(departureCountryTag) && !rtDestAirportId.equals("null") &&
+                    airportRepository.airportIDsOfCountry(selectedDestCountry.toLowerCase()).contains(Integer.parseInt(rtDestAirportId))){
+                return true;
+            }
+            else if(selectedDestCountry.equals(destinationCountryTag) && !rtSrcAirportId.equals("null") &&
+                    airportRepository.airportIDsOfCountry(selectedDepartCountry.toLowerCase()).contains(Integer.parseInt(rtSrcAirportId))){
+                return true;
+            }
+            else if(!rtDestAirportId.equals("null") &&
+                    airportRepository.airportIDsOfCountry(selectedDestCountry.toLowerCase()).contains(Integer.parseInt(rtDestAirportId))
+                    && !rtSrcAirportId.equals("null") &&
+                    airportRepository.airportIDsOfCountry(selectedDepartCountry.toLowerCase()).contains(Integer.parseInt(rtSrcAirportId))){
+                return true;
+            }
+        }
+
+        // if three filters are selected
+        // filter destination/departure country and equipment
+        else if(selectedDepartCountry != null && selectedDestCountry != null && selectedRouteEquip != null){
+            if(!rtDestAirportId.equals("null") &&
+                    airportRepository.airportIDsOfCountry(selectedDestCountry.toLowerCase()).contains(Integer.parseInt(rtDestAirportId))
+                    && !rtSrcAirportId.equals("null") &&
+                    airportRepository.airportIDsOfCountry(selectedDepartCountry.toLowerCase()).contains(Integer.parseInt(rtSrcAirportId))
+                    && rtEquipmentArray.contains(selectedRouteEquip.toLowerCase())){
+                return true;
+            }
+
+        }
+        return false;
+    }
 
 
     public void searchAirlines(){
@@ -652,62 +708,26 @@ public class Controller implements Initializable{
                 }
 
                 // Check if the search criteria matches the following columns
-                if (lowerCaseFilter.matches("[0-9]+") && atID == Integer.parseInt(lowerCaseFilter)) {
-                    toggled = true;
-                }
-                if (atName != null && atName.toLowerCase().contains(lowerCaseFilter)){
-                    toggled = true;
-                }
-                if (atAlias != null && atAlias.toLowerCase().contains(lowerCaseFilter)){
-                    toggled = true;
-                }
-                if (atIATA != null && atIATA.toLowerCase().contains(lowerCaseFilter)){
-                    toggled = true;
-                }
-                if (atICAO != null &&  atICAO.toLowerCase().contains(lowerCaseFilter)){
-                    toggled = true;
-                }
-                if (atCallsign != null && atCallsign.toLowerCase().contains(lowerCaseFilter)){
-                    toggled = true;
-                }
-                if (atCountry != null && atCountry.toLowerCase().contains(lowerCaseFilter)){
+                if ((lowerCaseFilter.matches("[0-9]+") && atID == Integer.parseInt(lowerCaseFilter)) ||
+                        (atName != null && atName.toLowerCase().contains(lowerCaseFilter)) ||
+                        (atAlias != null && atAlias.toLowerCase().contains(lowerCaseFilter)) ||
+                        (atIATA != null && atIATA.toLowerCase().contains(lowerCaseFilter)) ||
+                        (atICAO != null &&  atICAO.toLowerCase().contains(lowerCaseFilter)) ||
+                        (atCallsign != null && atCallsign.toLowerCase().contains(lowerCaseFilter)) ||
+                        (atCountry != null && atCountry.toLowerCase().contains(lowerCaseFilter))) {
                     toggled = true;
                 }
 
                 // For the following cases, return true if the country dropdown is empty, --ALL COUNTRIES-- or
                 // matches the country in the table
-                if (!active.isSelected() && toggled && !inactive.isSelected()){
+                if ((!active.isSelected() && toggled && !inactive.isSelected()) ||
+                        (toggled && active.isSelected() && atActive) ||
+                        (toggled && inactive.isSelected() && !atActive)){
                     if (emptyCountryFilter){
                         return true;
                     }
                     if (selectedAirlineCountry != null && selectedAirlineCountry.equals(allCountriesTag)) {
                         return true;
-                    }
-                    else if(selectedAirlineCountry != null && atCountry != null &&
-                            atCountry.toLowerCase().equals(selectedAirlineCountry.toLowerCase())){
-                        return true;
-                    }
-                }
-                if (toggled && active.isSelected() && atActive){
-                    if (emptyCountryFilter){
-                        return true;
-                    }
-                    if (selectedAirlineCountry != null && selectedAirlineCountry.equals(allCountriesTag)) {
-                        return true;
-
-                    }
-                    else if(selectedAirlineCountry != null && atCountry != null &&
-                            atCountry.toLowerCase().equals(selectedAirlineCountry.toLowerCase())){
-                        return true;
-                    }
-                }
-                if (toggled && inactive.isSelected() && !atActive){
-                    if (emptyCountryFilter){
-                        return true;
-                    }
-                    if (selectedAirlineCountry != null && selectedAirlineCountry.equals(allCountriesTag)) {
-                        return true;
-
                     }
                     else if(selectedAirlineCountry != null && atCountry != null &&
                             atCountry.toLowerCase().equals(selectedAirlineCountry.toLowerCase())){
@@ -931,7 +951,6 @@ public class Controller implements Initializable{
             Airport airport = airports.get(i);
             if(!airportRepository.getAirports().containsKey(airport.getID())){
                 airportRepository.addAirport(airport);
-                airportRepository.addCountryAirports(airport.getName(), airport.getID());
                 airportTData.add(new airportTable(airport.getID(), airport.getName(), airport.getCity(),
                         airport.getCountry(), airport.getIATA(), airport.getICAO(), airport.getLatitude(),
                         airport.getLongitude(), airport.getAltitude(), airport.getTimezone(), airport.getDST().toText(),
@@ -955,7 +974,6 @@ public class Controller implements Initializable{
         for(int i = 0; i < airports.size(); i++) {
             Airport airport = airports.get(i);
             airportRepository.addAirport(airport);
-            airportRepository.addCountryAirports(airport.getName(), airport.getID());
             airportTData.add(new airportTable(airport.getID(), airport.getName(), airport.getCity(),
                     airport.getCountry(), airport.getIATA(), airport.getICAO(), airport.getLatitude(),
                     airport.getLongitude(), airport.getAltitude(), airport.getTimezone(), airport.getDST().toText(),
