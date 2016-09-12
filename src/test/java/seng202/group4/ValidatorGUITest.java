@@ -7,8 +7,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 import seng202.group4.data.dataType.Airline;
+import seng202.group4.data.dataType.Airport;
 import seng202.group4.data.dataType.Route;
 import seng202.group4.data.parser.validator.AirlineValidator;
+import seng202.group4.data.parser.validator.AirportValidator;
 import seng202.group4.data.parser.validator.RouteValidator;
 
 import java.io.File;
@@ -30,5 +32,17 @@ public class ValidatorGUITest {
         RouteValidator parser = new RouteValidator(new File(file));
         ArrayList<Route> routes = parser.makeroutes();
         assert(routes == null);
+    }
+
+    public static void testValidAirportFile(String file) throws IOException {
+        AirportValidator parser = new AirportValidator(new File(file));
+        ArrayList<Airport> airports = parser.makeAirports();
+        assert(airports.size() == 8106);
+    }
+
+    public static void testInvalidAirportFile(String file) throws IOException {
+        AirportValidator parser = new AirportValidator(new File(file));
+        ArrayList<Airport> airports = parser.makeAirports();
+        assert(airports.size() == 0);
     }
 }
