@@ -22,7 +22,7 @@ public enum DaylightSavingsTime {
         return (otherZone == null) ? false : zone.equals(otherZone);
     }
 
-    public String toAString() {
+    public String toText() {
         return this.zone;
     }
 }

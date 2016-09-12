@@ -489,12 +489,34 @@ public class Controller implements Initializable{
                     selectedRouteEquip = routeEquipFilter.getValue().toString();
                 }
 
+                // set up for departure country drop down box
+                boolean emptyDepartFilter = routeDepCountryFilter.getSelectionModel().getSelectedItem() == null;
+                // selectedAirportCountry is a string to hold whats selected in the dropdown
+                // set to null unless a dropdown is selected
+                String selectedDepartCountry = null;
+                if (routeDepCountryFilter.getValue() != null){
+                    selectedDepartCountry = routeDepCountryFilter.getValue().toString();
+                }
+
+                // set up for destination country drop down box
+                boolean emptyDestFilter = routeDestCountryFilter.getSelectionModel().getSelectedItem() == null;
+                // selectedAirportCountry is a string to hold whats selected in the dropdown
+                // set to null unless a dropdown is selected
+                String selectedDestCountry = null;
+                if (routeDestCountryFilter.getValue() != null){
+                    selectedDestCountry = routeDestCountryFilter.getValue().toString();
+                }
+
                 // hold the string that's typed in the search bar in lowercase
                 String lowerCaseFilter = newValue.toLowerCase();
 
                 // The following returns true if the filter matches
+
+                // base case
                 if (newValue.isEmpty() && !direct.isSelected() && !indirect.isSelected()
-                        && selectedRouteEquip != null && selectedRouteEquip.equals(allCountriesTag)) {
+                        && selectedRouteEquip != null && selectedRouteEquip.equals(allCountriesTag)
+                        && selectedDepartCountry.equals(departureCountryTag)
+                        && selectedDestCountry.equals(destinationCountryTag)) {
                     return true;    // display all data.
                 }
 
@@ -530,15 +552,28 @@ public class Controller implements Initializable{
                 // For the following cases, return true if the equipment dropdown is empty, --ALL EQUIPMENTS-- or
                 // matches the equipment in the table
                 if (toggled && !direct.isSelected() && !indirect.isSelected()){
-                    if (emptyEquipFilter){
+
+                    // empty cases
+                    if (emptyEquipFilter && emptyDepartFilter && emptyDestFilter){
                         return true;
                     }
-                    if (selectedRouteEquip != null && selectedRouteEquip.equals(allEquipmentsTag)) {
+                    else if (selectedRouteEquip != null && selectedRouteEquip.equals(allEquipmentsTag) &&
+                            selectedDepartCountry != null && selectedDepartCountry.equals(departureCountryTag) &&
+                            selectedDestCountry != null && selectedDestCountry.equals(destinationCountryTag)) {
                         return true;
                     }
-                    else if(selectedRouteEquip != null && rtEquipmentArray.contains(selectedRouteEquip.toLowerCase())){
+
+                    // if only one filter is selected
+                    else if(emptyDepartFilter && selectedDepartCountry.equals(departureCountryTag) &&
+                            emptyDestFilter && selectedDestCountry.equals(destinationCountryTag) &&
+                            selectedRouteEquip != null && rtEquipmentArray.contains(selectedRouteEquip.toLowerCase())){
                         return true;
                     }
+//                    else if(emptyDepartFilter && selectedDepartCountry.equals(departureCountryTag) &&
+//                            emptyEquipFilter && selectedRouteEquip.equals(allEquipmentsTag) &&
+//                            selectedDestCountry != null && rtDestAirportId){
+//
+//                    }
                 }
                 if (direct.isSelected() && rtStops != null && rtStops.equals("0") && toggled){
                     if (emptyEquipFilter){
@@ -896,9 +931,10 @@ public class Controller implements Initializable{
             Airport airport = airports.get(i);
             if(!airportRepository.getAirports().containsKey(airport.getID())){
                 airportRepository.addAirport(airport);
+                airportRepository.addCountryAirports(airport.getName(), airport.getID());
                 airportTData.add(new airportTable(airport.getID(), airport.getName(), airport.getCity(),
                         airport.getCountry(), airport.getIATA(), airport.getICAO(), airport.getLatitude(),
-                        airport.getLongitude(), airport.getAltitude(), airport.getTimezone(), airport.getDST().toAString(),
+                        airport.getLongitude(), airport.getAltitude(), airport.getTimezone(), airport.getDST().toText(),
                         airport.getTz()));
                 if(airport.getCountry() != null) {
                     airportCountrySet.add(airport.getCountry());
@@ -919,9 +955,10 @@ public class Controller implements Initializable{
         for(int i = 0; i < airports.size(); i++) {
             Airport airport = airports.get(i);
             airportRepository.addAirport(airport);
+            airportRepository.addCountryAirports(airport.getName(), airport.getID());
             airportTData.add(new airportTable(airport.getID(), airport.getName(), airport.getCity(),
                     airport.getCountry(), airport.getIATA(), airport.getICAO(), airport.getLatitude(),
-                    airport.getLongitude(), airport.getAltitude(), airport.getTimezone(), airport.getDST().toAString(),
+                    airport.getLongitude(), airport.getAltitude(), airport.getTimezone(), airport.getDST().toText(),
                     airport.getTz()));
             if(airport.getCountry() != null) {
                 airportCountrySet.add(airport.getCountry());
