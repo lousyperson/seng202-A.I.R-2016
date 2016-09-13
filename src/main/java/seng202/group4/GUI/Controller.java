@@ -876,7 +876,7 @@ public class Controller implements Initializable{
     }
 
     // Insert the airlines in a given file into the airline table GUI checking for duplicates
-    private void insertAirlineTable(File file) throws IOException {
+    private void insertAirlineTable(InputStream file) throws IOException {
         AirlineValidator validator = new AirlineValidator(file);
         ArrayList<Airline> airlines = validator.makeAirlines();
         validator = null;
@@ -902,12 +902,16 @@ public class Controller implements Initializable{
     }
 
     // Insert the airlines in a given file into the airline table GUI
-    private void insertEmptyAirlineTable(File file) throws IOException {
+    private void insertEmptyAirlineTable(InputStream file) throws IOException {
+        System.out.println("start of empty air");
         AirlineValidator validator = new AirlineValidator(file);
+        System.out.println("done valid");
         ArrayList<Airline> airlines = validator.makeAirlines();
         validator = null;
+        System.out.println("size " + airlines.size());
         for(int i = 0; i < airlines.size(); i++) {
             Airline airline = airlines.get(i);
+            System.out.println("call " + airline.getCallsign());
             airlineRepository.addAirline(airline);
             airlineTData.add(new airlineTable(airline.getID(), airline.getName(),
                     airline.getAlias(), airline.getIATA(),
@@ -926,18 +930,24 @@ public class Controller implements Initializable{
         Stage stage = new Stage();
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open file");
-        File file = fileChooser.showOpenDialog(stage);
-        if (file != null && file.exists()) {
+        File in = fileChooser.showOpenDialog(stage);
+        InputStream file = new FileInputStream(in);
+        if (in.exists()) {
             System.out.println("file opneedd");
             insertAirlineTable(file);
         }
     }
 
     private void loadDefaultAirline() throws IOException, URISyntaxException {
-        File file = new File(getClass().getClassLoader().getResource("airlines.dat").toURI());
-        if (file.exists()) {
+        InputStream file = getClass().getResourceAsStream("/airlines.dat");
+        //File file = new File(getClass().getClassLoader().getResource("airlines.dat").toURI());
+        if (file != null) {
             System.out.println("file opened yeah~");
             insertEmptyAirlineTable(file);
+            System.out.println("outta");
+        }
+        else{
+            System.out.println("awww");
         }
     }
 

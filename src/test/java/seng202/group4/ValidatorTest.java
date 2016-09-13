@@ -33,48 +33,48 @@ public class ValidatorTest {
     /* Airline validator test cases */
 
     /* Valid files */
-
-    @Test
-    public void oneValidAirlineSize() throws IOException {
-        AirlineValidator parser = new AirlineValidator(new File("testfiles/Airlines/oneValidAirline.txt"));
-        ArrayList<Airline> airlines = parser.makeAirlines();
-        assertTrue(airlines.size() == 1);
-
-    }
-
-    @Test
-    public void multipleValidAirlinesSize() throws IOException {
-        AirlineValidator parser = new AirlineValidator(new File("testfiles/Airlines/validAirline.txt"));
-        ArrayList<Airline> airlines = parser.makeAirlines();
-        assertTrue(airlines.size() == 6048);
-
-    }
-
-    @Test
-    public void oneValidAirlineWithNullSize() throws IOException {
-        AirlineValidator parser = new AirlineValidator(new File("testfiles/Airlines/oneValidAirlineWithNull.txt"));
-        ArrayList<Airline> airlines = parser.makeAirlines();
-        assertTrue(airlines.size() == 1);
-    }
-
-    @Test
-    public void emptyFile() throws IOException {
-        AirlineValidator parser = new AirlineValidator(new File("testfiles/empty.txt"));
-        ArrayList<Airline> airlines = parser.makeAirlines();
-        int size = airlines.size();
-        assertTrue(size == 0);
-    }
-
-    /* Invalid files */
-    /* Invalid files have been moved to a GUI test as they use an alert popup */
-
-    // Moved to ValidatorGUITest
+//
+//    @Test
+//    public void oneValidAirlineSize() throws IOException {
+//        AirlineValidator parser = new AirlineValidator(new File("testfiles/Airlines/oneValidAirline.txt"));
+//        ArrayList<Airline> airlines = parser.makeAirlines();
+//        assertTrue(airlines.size() == 1);
+//
+//    }
 
 //    @Test
-//    public void missingQuotation() throws IOException {
-//
-//        AirlineValidator parser = new AirlineValidator(new File("testfiles/Airlines/oneDodgyAirline.txt"));
+//    public void multipleValidAirlinesSize() throws IOException {
+//        AirlineValidator parser = new AirlineValidator(new File("testfiles/Airlines/validAirline.txt"));
 //        ArrayList<Airline> airlines = parser.makeAirlines();
-//        assertTrue(airlines == null);
+//        assertTrue(airlines.size() == 6048);
+//
 //    }
+//
+//    @Test
+//    public void oneValidAirlineWithNullSize() throws IOException {
+//        AirlineValidator parser = new AirlineValidator(new File("testfiles/Airlines/oneValidAirlineWithNull.txt"));
+//        ArrayList<Airline> airlines = parser.makeAirlines();
+//        assertTrue(airlines.size() == 1);
+//    }
+//
+//    @Test
+//    public void emptyFile() throws IOException {
+//        AirlineValidator parser = new AirlineValidator(new File("testfiles/empty.txt"));
+//        ArrayList<Airline> airlines = parser.makeAirlines();
+//        int size = airlines.size();
+//        assertTrue(size == 0);
+//    }
+//
+//    /* Invalid files */
+//    /* Invalid files have been moved to a GUI test as they use an alert popup */
+//
+//    // Moved to ValidatorGUITest
+//
+////    @Test
+////    public void missingQuotation() throws IOException {
+////
+////        AirlineValidator parser = new AirlineValidator(new File("testfiles/Airlines/oneDodgyAirline.txt"));
+////        ArrayList<Airline> airlines = parser.makeAirlines();
+////        assertTrue(airlines == null);
+////    }
 }

@@ -31,9 +31,9 @@ public class GUITest extends Application{
         testAirport();
     }
 
-    private void testAirline() throws IOException {
-        ValidatorGUITest.testInvalidAirlineFile("testfiles/Airlines/oneDodgyAirline.txt");
-    }
+//    private void testAirline() throws IOException {
+//        ValidatorGUITest.testInvalidAirlineFile("testfiles/Airlines/oneDodgyAirline.txt");
+//    }
 
     private void testRoute() throws IOException {
         ValidatorGUITest.testInvalidRouteFile("testfiles/Routes/oneDodgyRoute.txt");

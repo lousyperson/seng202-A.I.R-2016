@@ -13,7 +13,7 @@ import java.util.Arrays;
  */
 public class AirlineValidator {
     private final int ITEMS_PER_LINE = 8;
-    private File filepath;
+    private InputStream filepath;
     private BufferedReader file;
     private String[] splitLine = new String[ITEMS_PER_LINE + 1];
     private String splitBy = "\\s*\\,\\s*";
@@ -22,9 +22,10 @@ public class AirlineValidator {
     private Alert alert;
     private boolean hasError = false;
 
-    public AirlineValidator(File filepath) throws FileNotFoundException {
+    public AirlineValidator(InputStream filepath) throws FileNotFoundException {
         this.filepath = filepath;
-        this.file = new BufferedReader(new FileReader(filepath));
+        this.file = new BufferedReader(new InputStreamReader(filepath));
+        System.out.println("yo" + file.toString());
     }
 
     public ArrayList<Airline> makeAirlines() throws IOException {
@@ -35,11 +36,12 @@ public class AirlineValidator {
                 validateLine();
             }
             if (hasError) {
+                System.out.println("ERROR");
                 return null;
             }
         }
 
-        AirlineParser parser = new AirlineParser(new BufferedReader(new FileReader(filepath)));
+        AirlineParser parser = new AirlineParser(new BufferedReader(new InputStreamReader(filepath)));
         return parser.makeAirlines();
     }
 

@@ -22,11 +22,11 @@ import java.util.ArrayList;
  */
 public class ValidatorGUITest {
 
-    public static void testInvalidAirlineFile(String file) throws IOException {
-        AirlineValidator parser = new AirlineValidator(new File(file));
-        ArrayList<Airline> airlines = parser.makeAirlines();
-        assert(airlines == null);
-    }
+//    public static void testInvalidAirlineFile(String file) throws IOException {
+//        AirlineValidator parser = new AirlineValidator(new File(file));
+//        ArrayList<Airline> airlines = parser.makeAirlines();
+//        assert(airlines == null);
+//    }
 
     public static void testInvalidRouteFile(String file) throws IOException {
         RouteValidator parser = new RouteValidator(new File(file));
