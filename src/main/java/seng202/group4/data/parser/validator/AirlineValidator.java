@@ -21,6 +21,7 @@ public class AirlineValidator {
     private int lineNumber = 0;
     private Alert alert;
     private boolean hasError = false;
+    private ArrayList<String> stringArray = new ArrayList<>();
 
     public AirlineValidator(InputStream filepath) throws FileNotFoundException {
         this.filepath = filepath;
@@ -29,23 +30,33 @@ public class AirlineValidator {
     }
 
     public ArrayList<Airline> makeAirlines() throws IOException {
+        System.out.println("in make airlines ");
+
+//        BufferedReader mine = new BufferedReader(new InputStreamReader(filepath));
+//        if (mine.readLine() != null){
+//            System.out.println("send mine: " + mine.readLine());
+//        }
         while ((currentLine = file.readLine()) != null) {
             lineNumber++;
             currentLine = currentLine.trim();
+            //System.out.println(currentLine);
             if (!currentLine.matches("\\w") && !currentLine.equals("")) {
                 validateLine();
+                stringArray.add(currentLine);
             }
             if (hasError) {
                 System.out.println("ERROR");
                 return null;
             }
         }
-
-        AirlineParser parser = new AirlineParser(new BufferedReader(new InputStreamReader(filepath)));
+        // no errors so continue parsing
+        AirlineParser parser = new AirlineParser(stringArray);
+        System.out.println("sent to parser");
         return parser.makeAirlines();
     }
 
     private void validateLine() throws IOException {
+        //System.out.println("in validate");
         splitLine = currentLine.split(splitBy, ITEMS_PER_LINE + 1);
         if (splitLine.length != ITEMS_PER_LINE) {
             makeAlert("Expected " + ITEMS_PER_LINE + " comma separated variables.");
