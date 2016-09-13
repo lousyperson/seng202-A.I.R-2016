@@ -903,15 +903,12 @@ public class Controller implements Initializable{
 
     // Insert the airlines in a given file into the airline table GUI
     private void insertEmptyAirlineTable(InputStream file) throws IOException {
-        System.out.println("start of empty air");
+
         AirlineValidator validator = new AirlineValidator(file);
-        System.out.println("done valid");
         ArrayList<Airline> airlines = validator.makeAirlines();
         validator = null;
-        System.out.println("size " + airlines.size());
         for(int i = 0; i < airlines.size(); i++) {
             Airline airline = airlines.get(i);
-            System.out.println("call " + airline.getCallsign());
             airlineRepository.addAirline(airline);
             airlineTData.add(new airlineTable(airline.getID(), airline.getName(),
                     airline.getAlias(), airline.getIATA(),
@@ -944,10 +941,6 @@ public class Controller implements Initializable{
         if (file != null) {
             System.out.println("file opened yeah~");
             insertEmptyAirlineTable(file);
-            System.out.println("outta");
-        }
-        else{
-            System.out.println("awww");
         }
     }
 

@@ -54,7 +54,6 @@ public class AirlineParser {
     }
 
     public ArrayList<Airline> makeAirlines() throws IOException {
-        System.out.println("parsers make airlines " );
         for(String currentLine: file){
             addAirline(currentLine);
         }

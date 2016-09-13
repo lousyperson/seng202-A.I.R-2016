@@ -24,6 +24,7 @@ public class AirportValidator {
     private boolean hasError = false;
     private Set<String> DSTs = new HashSet<String>();
     int index;
+    private ArrayList<String> stringArray = new ArrayList<>();
 
     private void validateLine() throws IOException {
         makeMap();
@@ -133,13 +134,15 @@ public class AirportValidator {
             currentLine = currentLine.trim();
             if (!currentLine.matches("\\w") && !currentLine.equals("")) {
                 validateLine();
+                stringArray.add(currentLine);
             }
             if (hasError) {
                 return null;
             }
         }
 
-        AirportParser parser = new AirportParser(new BufferedReader(new InputStreamReader(filepath)));
+        // no errors so continue parsing
+        AirportParser parser = new AirportParser(stringArray);
         return parser.makeAirports();
     }
 

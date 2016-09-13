@@ -20,6 +20,7 @@ public class RouteValidator {
     private int lineNumber = 0;
     private Alert alert;
     private boolean hasError = false;
+    private ArrayList<String> stringArray = new ArrayList<>();
 
     public RouteValidator(InputStream filepath) throws FileNotFoundException {
         this.filepath = filepath;
@@ -32,13 +33,14 @@ public class RouteValidator {
             currentLine = currentLine.trim();
             if (!currentLine.matches("\\w") && !currentLine.equals("")) {
                 validateLine();
+                stringArray.add(currentLine);
             }
             if (hasError) {
                 return null;
             }
         }
-
-        RouteParser parser = new RouteParser((new BufferedReader(new InputStreamReader(filepath))));
+        // no errors so continue parsing
+        RouteParser parser = new RouteParser(stringArray);
         return parser.makeRoutes();
     }
 

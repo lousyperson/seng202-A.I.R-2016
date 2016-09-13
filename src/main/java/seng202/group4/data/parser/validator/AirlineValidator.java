@@ -26,16 +26,9 @@ public class AirlineValidator {
     public AirlineValidator(InputStream filepath) throws FileNotFoundException {
         this.filepath = filepath;
         this.file = new BufferedReader(new InputStreamReader(filepath));
-        System.out.println("yo" + file.toString());
     }
 
     public ArrayList<Airline> makeAirlines() throws IOException {
-        System.out.println("in make airlines ");
-
-//        BufferedReader mine = new BufferedReader(new InputStreamReader(filepath));
-//        if (mine.readLine() != null){
-//            System.out.println("send mine: " + mine.readLine());
-//        }
         while ((currentLine = file.readLine()) != null) {
             lineNumber++;
             currentLine = currentLine.trim();
@@ -45,13 +38,11 @@ public class AirlineValidator {
                 stringArray.add(currentLine);
             }
             if (hasError) {
-                System.out.println("ERROR");
                 return null;
             }
         }
         // no errors so continue parsing
         AirlineParser parser = new AirlineParser(stringArray);
-        System.out.println("sent to parser");
         return parser.makeAirlines();
     }
 
