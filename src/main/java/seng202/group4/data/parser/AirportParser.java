@@ -17,7 +17,6 @@ public class AirportParser {
     private String[] splitLine;
     private String splitBy = "\\s*\\,\\s*";
     private int ID;
-    private String currentLine;
     private HashMap<String, DaylightSavingsTime> DSTs = new HashMap<String, DaylightSavingsTime>();
     private ArrayList<Airport> airports = new ArrayList<Airport>();
     int index = 0; // Will be used to track the index corresponding to each comma

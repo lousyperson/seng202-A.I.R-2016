@@ -22,29 +22,29 @@ public class GUITest extends Application{
         primaryStage.setTitle("Aviation Information Reader");
         primaryStage.setScene(new Scene(root, 600, 775));
         primaryStage.show();
-        //test();
+        test();
     }
 
-//    private void test() throws IOException {
-////        testAirline();
-////        testRoute();
-//        testAirport();
-//    }
+    private void test() throws IOException {
+        //testAirline();
+        //testRoute();
+        testAirport();
+    }
 
-//    private void testAirline() throws IOException {
-//        ValidatorGUITest.testInvalidAirlineFile("testfiles/Airlines/oneDodgyAirline.txt");
-//    }
-//
-//    private void testRoute() throws IOException {
-//        ValidatorGUITest.testInvalidRouteFile("testfiles/Routes/oneDodgyRoute.txt");
-//    }
-//
-//    private void testAirport() throws IOException {
-//        ValidatorGUITest.testValidAirportFile("testfiles/Airports/validAirport.txt");
-//        ValidatorGUITest.testInvalidAirportFile("testfiles/Airports/invalidAirport.txt");
-//    }
-//
-//    public static void main(String[] args) {
-//        launch(args);
-//    }
+    private void testAirline() throws IOException {
+        ValidatorGUITest.testInvalidAirlineFile("testfiles/Airlines/oneDodgyAirline.txt");
+    }
+
+    private void testRoute() throws IOException {
+        ValidatorGUITest.testInvalidRouteFile("testfiles/Routes/oneDodgyRoute.txt");
+    }
+
+    private void testAirport() throws IOException {
+        //ValidatorGUITest.testValidAirportFile("testfiles/Airports/validAirport.txt");
+        ValidatorGUITest.testInvalidAirportFile("testfiles/Airports/invalidAirport.txt");
+    }
+
+    public static void main(String[] args) {
+        launch(args);
+    }
 }

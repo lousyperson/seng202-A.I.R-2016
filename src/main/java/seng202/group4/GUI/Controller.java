@@ -352,7 +352,7 @@ public class Controller implements Initializable{
     }
 
 
-    public void searchAirports(){
+    private void searchAirports(){
         String intPattern = "[-]?[0-9]*[.]?[0-9]+";
         // searching for airline
         FilteredList<airportTable> airportTableFiltered = new FilteredList<>(airportTData, p -> true);
@@ -438,7 +438,7 @@ public class Controller implements Initializable{
     }
 
 
-    public void searchRoutes(){
+    private void searchRoutes(){
         // searching for route
         FilteredList<routeTable> routeTableFiltered = new FilteredList<>(routeTData, p -> true);
 
@@ -672,7 +672,7 @@ public class Controller implements Initializable{
     }
 
 
-    public void searchAirlines(){
+    private void searchAirlines(){
         // searching for airline
         FilteredList<airlineTable> airlineTableFiltered = new FilteredList<>(airlineTData, p -> true);
 
@@ -817,21 +817,21 @@ public class Controller implements Initializable{
         }
     }
 
-    public void updateAirlineSearch(){
+    private void updateAirlineSearch(){
         String text = airlineSearch.getText();
         airlineSearch.setText(text + " ");
         airlineSearch.setText(text);
 
     }
 
-    public void updateAirportSearch(){
+    private void updateAirportSearch(){
         String text = airportSearch.getText();
         airportSearch.setText(text + " ");
         airportSearch.setText(text);
 
     }
 
-    public void updateRouteSearch(){
+    private void updateRouteSearch(){
         String text = routeSearch.getText();
         routeSearch.setText(text + " ");
         routeSearch.setText(text);
@@ -1013,7 +1013,7 @@ public class Controller implements Initializable{
     }
 
     // insert the given routes in a file into route table and checks for duplicates
-    public void insertRouteTable(InputStream file) throws IOException{
+    private void insertRouteTable(InputStream file) throws IOException{
         RouteValidator validator = new RouteValidator(file);
         ArrayList<Route> routes = validator.makeroutes();
         validator = null;
@@ -1044,7 +1044,7 @@ public class Controller implements Initializable{
     }
 
     // insert the given routes in a file into route table that's empty so dont check for duplicates
-    public void insertEmptyRouteTable(InputStream file) throws IOException{
+    private void insertEmptyRouteTable(InputStream file) throws IOException{
         RouteValidator validator = new RouteValidator(file);
         ArrayList<Route> routes = validator.makeroutes();
         validator = null;
@@ -1092,13 +1092,13 @@ public class Controller implements Initializable{
         fileChooser.setTitle("Open file");
         File in = fileChooser.showOpenDialog(stage);
         InputStream file = new FileInputStream(in);
-        if (file != null) {
+        if (in.exists()) {
             System.out.println("file opneeeedddd");
             insertRouteTable(file);
         }
     }
 
-    public void loadDefaultRoute() throws IOException, URISyntaxException {
+    private void loadDefaultRoute() throws IOException, URISyntaxException {
         InputStream file = getClass().getResourceAsStream("/routes.dat");
         //File file = new File(getClass().getClassLoader().getResource("routes.dat").toURI());
         if (file != null) {
@@ -1114,9 +1114,9 @@ public class Controller implements Initializable{
         Stage stage = new Stage();
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open file");
-        File file = fileChooser.showOpenDialog(stage);
-        if (file != null) {
-            BufferedReader br = new BufferedReader(new FileReader(file));
+        File in = fileChooser.showOpenDialog(stage);
+        InputStream file = new FileInputStream(in);
+        if (in.exists()) {
             //TODO
         }
     }

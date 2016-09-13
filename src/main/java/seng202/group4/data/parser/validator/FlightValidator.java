@@ -12,7 +12,7 @@ import java.util.ArrayList;
  */
 public class FlightValidator {
     private final int ITEMS_PER_LINE = 5;
-    private File filepath;
+    private InputStream filepath;
     private BufferedReader file;
     private String[] splitLine = new String[ITEMS_PER_LINE + 1];
     private String splitBy = "\\s*\\,\\s*";
@@ -20,10 +20,11 @@ public class FlightValidator {
     private int lineNumber = 0;
     private Alert alert;
     private boolean hasError = false;
+    private ArrayList<String> stringArray = new ArrayList<>();
 
-    public FlightValidator(File filepath) throws FileNotFoundException {
+    public FlightValidator(InputStream filepath) throws FileNotFoundException {
         this.filepath = filepath;
-        this.file = new BufferedReader(new FileReader(filepath));
+        this.file = new BufferedReader(new InputStreamReader(filepath));
     }
 
     public Flight makeFlight() throws IOException {
@@ -32,13 +33,15 @@ public class FlightValidator {
             currentLine = currentLine.trim();
             if (!currentLine.matches("\\w") && !currentLine.equals("")) {
                 validateLine();
+                stringArray.add(currentLine);
             }
             if (hasError) {
                 return null;
             }
         }
 
-        FlightParser parser = new FlightParser(new BufferedReader(new FileReader(filepath)));
+        // no errors so continue parsing
+        FlightParser parser = new FlightParser(stringArray);
         return parser.makeFlight();
     }
 
