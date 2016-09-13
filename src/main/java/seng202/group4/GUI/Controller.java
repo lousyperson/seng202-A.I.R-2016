@@ -953,7 +953,7 @@ public class Controller implements Initializable{
 
 
 
-    private void insertAirportTable(File file) throws IOException {
+    private void insertAirportTable(InputStream file) throws IOException {
         AirportValidator validator = new AirportValidator(file);
         ArrayList<Airport> airports = validator.makeAirports();
         validator = null;
@@ -977,7 +977,7 @@ public class Controller implements Initializable{
         }
     }
 
-    private void insertEmptyAirportTable(File file) throws IOException {
+    private void insertEmptyAirportTable(InputStream file) throws IOException {
         AirportValidator validator = new AirportValidator(file);
         ArrayList<Airport> airports = validator.makeAirports();
         validator = null;
@@ -1001,16 +1001,18 @@ public class Controller implements Initializable{
         Stage stage = new Stage();
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open file");
-        File file = fileChooser.showOpenDialog(stage);
-        if (file != null && file.exists()) {
+        File in = fileChooser.showOpenDialog(stage);
+        InputStream file = new FileInputStream(in);
+        if (in.exists()) {
             System.out.println("file opened oh ye bb~");
             insertAirportTable(file);
         }
     }
 
     private void loadDefaultAirports() throws IOException, URISyntaxException {
-        File file = new File(getClass().getClassLoader().getResource("airports.dat").toURI());
-        if (file.exists()) {
+        InputStream file = getClass().getResourceAsStream("/airports.dat");
+        //File file = new File(getClass().getClassLoader().getResource("airports.dat").toURI());
+        if (file != null) {
             System.out.println("ooooooooh yyyyyyyyyyahhhhhh");
             insertEmptyAirportTable(file);
             //System.out.println("size of re" + airportRepository.getAirports().size());
@@ -1018,7 +1020,7 @@ public class Controller implements Initializable{
     }
 
     // insert the given routes in a file into route table and checks for duplicates
-    public void insertRouteTable(File file) throws IOException{
+    public void insertRouteTable(InputStream file) throws IOException{
         RouteValidator validator = new RouteValidator(file);
         ArrayList<Route> routes = validator.makeroutes();
         validator = null;
@@ -1049,7 +1051,7 @@ public class Controller implements Initializable{
     }
 
     // insert the given routes in a file into route table that's empty so dont check for duplicates
-    public void insertEmptyRouteTable(File file) throws IOException{
+    public void insertEmptyRouteTable(InputStream file) throws IOException{
         RouteValidator validator = new RouteValidator(file);
         ArrayList<Route> routes = validator.makeroutes();
         validator = null;
@@ -1095,7 +1097,8 @@ public class Controller implements Initializable{
         Stage stage = new Stage();
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open file");
-        File file = fileChooser.showOpenDialog(stage);
+        File in = fileChooser.showOpenDialog(stage);
+        InputStream file = new FileInputStream(in);
         if (file != null) {
             System.out.println("file opneeeedddd");
             insertRouteTable(file);
@@ -1103,9 +1106,9 @@ public class Controller implements Initializable{
     }
 
     public void loadDefaultRoute() throws IOException, URISyntaxException {
-
-        File file = new File(getClass().getClassLoader().getResource("routes.dat").toURI());
-        if (file.exists()) {
+        InputStream file = getClass().getResourceAsStream("/routes.dat");
+        //File file = new File(getClass().getClassLoader().getResource("routes.dat").toURI());
+        if (file != null) {
             System.out.println("file opened oh yeah~");
             insertEmptyRouteTable(file);
 

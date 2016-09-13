@@ -28,21 +28,21 @@ public class ValidatorGUITest {
 //        assert(airlines == null);
 //    }
 
-    public static void testInvalidRouteFile(String file) throws IOException {
-        RouteValidator parser = new RouteValidator(new File(file));
-        ArrayList<Route> routes = parser.makeroutes();
-        assert(routes == null);
-    }
-
-    public static void testValidAirportFile(String file) throws IOException {
-        AirportValidator parser = new AirportValidator(new File(file));
-        ArrayList<Airport> airports = parser.makeAirports();
-        assert(airports.size() == 8106);
-    }
-
-    public static void testInvalidAirportFile(String file) throws IOException {
-        AirportValidator parser = new AirportValidator(new File(file));
-        ArrayList<Airport> airports = parser.makeAirports();
-        assert(airports.size() == 0);
-    }
+//    public static void testInvalidRouteFile(String file) throws IOException {
+//        RouteValidator parser = new RouteValidator(new File(file));
+//        ArrayList<Route> routes = parser.makeroutes();
+//        assert(routes == null);
+//    }
+//
+//    public static void testValidAirportFile(String file) throws IOException {
+//        AirportValidator parser = new AirportValidator(new File(file));
+//        ArrayList<Airport> airports = parser.makeAirports();
+//        assert(airports.size() == 8106);
+//    }
+//
+//    public static void testInvalidAirportFile(String file) throws IOException {
+//        AirportValidator parser = new AirportValidator(new File(file));
+//        ArrayList<Airport> airports = parser.makeAirports();
+//        assert(airports.size() == 0);
+//    }
 }

@@ -2,12 +2,10 @@ package seng202.group4.data.parser.validator;
 
 import javafx.scene.control.Alert;
 import seng202.group4.data.dataType.Airport;
-import seng202.group4.data.dataType.DaylightSavingsTime;
 import seng202.group4.data.parser.AirportParser;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -16,7 +14,7 @@ import java.util.Set;
  */
 public class AirportValidator {
     private final int MIN_ITEMS_PER_LINE = 12;
-    private File filepath;
+    private InputStream filepath;
     private BufferedReader file;
     private String[] splitLine;
     private String splitBy = "\\s*\\,\\s*";
@@ -124,9 +122,9 @@ public class AirportValidator {
         return isValid;
     }
 
-    public AirportValidator(File filepath) throws FileNotFoundException {
+    public AirportValidator(InputStream filepath) throws FileNotFoundException {
         this.filepath = filepath;
-        this.file = new BufferedReader(new FileReader(filepath));
+        this.file = new BufferedReader(new InputStreamReader(filepath));
     }
 
     public ArrayList<Airport> makeAirports() throws IOException {
@@ -141,7 +139,7 @@ public class AirportValidator {
             }
         }
 
-        AirportParser parser = new AirportParser(new BufferedReader(new FileReader(filepath)));
+        AirportParser parser = new AirportParser(new BufferedReader(new InputStreamReader(filepath)));
         return parser.makeAirports();
     }
 
