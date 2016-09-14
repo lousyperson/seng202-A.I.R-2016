@@ -26,6 +26,8 @@ import seng202.group4.data.repository.FlightRepository;
 import seng202.group4.data.repository.RouteRepository;
 
 
+import javax.swing.*;
+import javax.swing.text.html.Option;
 import java.io.*;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -1162,16 +1164,45 @@ public class Controller implements Initializable{
         FlightValidator validator = new FlightValidator(file);
         Flight flight = validator.makeFlight();
         validator = null;
-        flightRepository.addFlight(flight);
-        flightItems.add("a new flight");
-        System.out.println("added flight items + " + flightItems.toString());
-        flightList.setItems(flightItems);
-        // loop through array of flight positions
-        for(FlightPosition position: flight.getFlightPositions()){
-            flightTData.add(new flightTable(position.getID(), position.getType(), position.getAltitude(),
-                    position.getLatitude(), position.getLongitude()));
-        }
+        boolean gotName = false;
 
+        while(!gotName){
+            // ask user for flight name
+            TextInputDialog dialog = new TextInputDialog();
+            dialog.setTitle("Name your flight!");
+            dialog.setHeaderText("Please give a name for your flight.");
+            dialog.setContentText("Flight name:");
+            Optional<String> name = dialog.showAndWait();
+            // if they press ok and field is not empty, check if a flight with that name exists
+            if(name.isPresent() && !name.get().trim().isEmpty()) {
+                // if it does not already exist add the flight with that name to the repository
+                if(!flightRepository.getFlights().containsKey(name.get())){
+                    gotName = true;
+                    flightRepository.addFlight(name.get(), flight);
+                    flightItems.add(name.get());
+
+                    // populate flight table
+                    System.out.println("added flight items + " + flightItems.toString());
+                    flightList.setItems(flightItems);
+                    // loop through array of flight positions
+                    for(FlightPosition position: flight.getFlightPositions()){
+                        flightTData.add(new flightTable(position.getID(), position.getType(), position.getAltitude(),
+                                position.getLatitude(), position.getLongitude()));
+                    }
+                }
+                else{
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Oops!");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Please give a different name for your flight " +
+                            "and make sure that it does not already exist in the system.");
+                    alert.showAndWait();
+                }
+            }
+            else if(!name.isPresent()){
+                gotName = true;
+            }
+        }
         // updateSomething();
     }
 
