@@ -25,7 +25,6 @@ import seng202.group4.data.repository.AirlineRepository;
 import seng202.group4.data.repository.AirportRepository;
 import seng202.group4.data.repository.RouteRepository;
 
-
 import java.io.*;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -200,6 +199,12 @@ public class Controller implements Initializable{
     @FXML
     AnchorPane routePane;
 
+    @FXML
+    CheckBox airportAll;
+
+    @FXML
+    CheckBox routeAll;
+
     // create table data
     private ObservableList<airlineTable> airlineTData = FXCollections.observableArrayList();
 
@@ -239,6 +244,7 @@ public class Controller implements Initializable{
 
     public void initialize(URL location, ResourceBundle resources) {
         mapView.getEngine().load(getClass().getClassLoader().getResource("map.html").toExternalForm());
+
         // initialise data list
         datalist.setItems(items);
 
@@ -351,7 +357,23 @@ public class Controller implements Initializable{
 
     }
 
+    public void showAllAirports() {
+        if (mapView.getEngine() != null) {
+            mapView.getEngine().executeScript("showAllAirports();");
+        }
+        if (airportAll.isSelected() == false) {
+            mapView.getEngine().executeScript("hideAllAirports();");
+        }
+    }
 
+    public void showAllRoutes() {
+        if (mapView.getEngine() != null) {
+            mapView.getEngine().executeScript("showAllRoutes();");
+        }
+        if (routeAll.isSelected() == false) {
+            mapView.getEngine().executeScript("hideAllRoutes();");
+        }
+    }
     private void searchAirports(){
         String intPattern = "[-]?[0-9]*[.]?[0-9]+";
         // searching for airline
