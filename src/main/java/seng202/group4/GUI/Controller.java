@@ -15,14 +15,14 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.web.WebView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import seng202.group4.data.dataType.Airline;
-import seng202.group4.data.dataType.Airport;
-import seng202.group4.data.dataType.Route;
+import seng202.group4.data.dataType.*;
 import seng202.group4.data.parser.validator.AirlineValidator;
 import seng202.group4.data.parser.validator.AirportValidator;
+import seng202.group4.data.parser.validator.FlightValidator;
 import seng202.group4.data.parser.validator.RouteValidator;
 import seng202.group4.data.repository.AirlineRepository;
 import seng202.group4.data.repository.AirportRepository;
+import seng202.group4.data.repository.FlightRepository;
 import seng202.group4.data.repository.RouteRepository;
 
 
@@ -200,6 +200,29 @@ public class Controller implements Initializable{
     @FXML
     AnchorPane routePane;
 
+    // Flight table
+    @FXML
+    TableView<flightTable> flightTableID;
+
+    @FXML
+    TableColumn<flightTable, String> flightID;
+
+    @FXML
+    TableColumn<flightTable, String> flightType;
+
+    @FXML
+    TableColumn<flightTable, Integer> flightAltitude;
+
+    @FXML
+    TableColumn<flightTable, Double> flightLatitude;
+
+    @FXML
+    TableColumn<flightTable, Double> flightLongitude;
+
+    @FXML
+    ListView<String> flightList;
+
+
     // create table data
     private ObservableList<airlineTable> airlineTData = FXCollections.observableArrayList();
 
@@ -207,14 +230,18 @@ public class Controller implements Initializable{
 
     private ObservableList<routeTable> routeTData = FXCollections.observableArrayList();
 
+    private ObservableList<flightTable> flightTData = FXCollections.observableArrayList();
+
     private ObservableList<String> items = FXCollections.observableArrayList("Default Airlines", "Default Airports", "Default Routes");
+
+    // testing for flight
+    private ObservableList<String> flightItems = FXCollections.observableArrayList();
 
     // data repositories
     private AirlineRepository airlineRepository = new AirlineRepository();
-
     private AirportRepository airportRepository = new AirportRepository();
-
     private RouteRepository routeRepository = new RouteRepository();
+    private FlightRepository flightRepository = new FlightRepository();
 
     // initial combobox names
     private String allCountriesTag = " --ALL COUNTRIES-- ";
@@ -250,6 +277,15 @@ public class Controller implements Initializable{
         datalist.getSelectionModel().clearAndSelect(0);
         // show airline table
         airlineTableID.toFront();
+
+        // flight list stuff getSelectionModel().selectedItemProperty()
+
+        flightList.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends  String> ov, String old_val, String new_val) -> {
+            System.out.println("Selected item from flight list: " + new_val);
+
+        });
+
+
 
         datalist.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends  String> ov, String old_val, String new_val) -> {
             System.out.println("Selected item: " + new_val);
@@ -348,6 +384,19 @@ public class Controller implements Initializable{
 
         // listen for route search queries
         searchRoutes();
+
+
+        // initialise route data table resources
+        flightID.setCellValueFactory(new PropertyValueFactory<>("fid"));
+        flightType.setCellValueFactory(new PropertyValueFactory<>("ftype"));
+        flightAltitude.setCellValueFactory(new PropertyValueFactory<>("faltitude"));
+        flightLatitude.setCellValueFactory(new PropertyValueFactory<>("flatitude"));
+        flightLongitude.setCellValueFactory(new PropertyValueFactory<>("flongitude"));
+
+        flightTableID.setItems(flightTData);
+
+
+
 
     }
 
@@ -1109,7 +1158,24 @@ public class Controller implements Initializable{
         }
     }
 
-    public void loadFlight() throws FileNotFoundException {
+    private void insertFlightTable(InputStream file) throws IOException {
+        FlightValidator validator = new FlightValidator(file);
+        Flight flight = validator.makeFlight();
+        validator = null;
+        flightRepository.addFlight(flight);
+        flightItems.add("a new flight");
+        System.out.println("added flight items + " + flightItems.toString());
+        flightList.setItems(flightItems);
+        // loop through array of flight positions
+        for(FlightPosition position: flight.getFlightPositions()){
+            flightTData.add(new flightTable(position.getID(), position.getType(), position.getAltitude(),
+                    position.getLatitude(), position.getLongitude()));
+        }
+
+        // updateSomething();
+    }
+
+    public void loadFlight() throws IOException {
 
         Stage stage = new Stage();
         FileChooser fileChooser = new FileChooser();
@@ -1117,7 +1183,8 @@ public class Controller implements Initializable{
         File in = fileChooser.showOpenDialog(stage);
         InputStream file = new FileInputStream(in);
         if (in.exists()) {
-            //TODO
+            System.out.println("oooo yah flights");
+            insertFlightTable(file);
         }
     }
 

@@ -8,5 +8,15 @@ import java.util.ArrayList;
  * Created by jjg64 on 15/08/16.
  */
 public class FlightRepository extends Repository{
-    ArrayList<Flight> Flights = new ArrayList<Flight>();
+    private ArrayList<Flight> flights = new ArrayList<>();
+
+
+    public void addFlight(Flight flight) {
+        flights.add(flight);
+    }
+
+
+    public ArrayList<Flight> getFlights() {
+        return flights;
+    }
 }

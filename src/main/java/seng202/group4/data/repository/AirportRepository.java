@@ -8,12 +8,12 @@ import java.util.*;
  * Created by jjg64 on 15/08/16.
  */
 public class AirportRepository extends Repository{
-    private HashMap<Integer, Airport> Airports = new HashMap<>();
+    private HashMap<Integer, Airport> airports = new HashMap<>();
     private HashMap<String, HashSet> countryAirports = new HashMap<>();
 
 
     public void addAirport(Airport airport) {
-        Airports.put(airport.getID(), airport);
+        airports.put(airport.getID(), airport);
 
         HashSet ids = countryAirports.get(airport.getCountry().toLowerCase());
         // add airport to the countryAirports to keep track of airports in each country
@@ -29,7 +29,7 @@ public class AirportRepository extends Repository{
     }
 
     public HashMap<Integer, Airport> getAirports() {
-        return Airports;
+        return airports;
     }
 
     public HashMap<String, HashSet> getCountryAirports(){
@@ -47,7 +47,7 @@ public class AirportRepository extends Repository{
     // finds and returns all airports in a given country
     public ArrayList<Airport> getCountry(String country) {
         ArrayList<Airport> AirportCountry = new ArrayList<Airport>();
-        for (Airport airport : Airports.values()) {
+        for (Airport airport : airports.values()) {
             if (airport.getCountry().equals(country)) {
                 AirportCountry.add(airport);
             }
