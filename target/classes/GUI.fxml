@@ -207,6 +207,8 @@
                            <children>
                               <TextField layoutX="14.0" layoutY="39.0" text="Filter" />
                               <Text layoutX="14.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Advanced filter stuff" />
+                              <CheckBox fx:id="airportAll" layoutX="14.0" layoutY="75.0" mnemonicParsing="false" onAction="#showAllAirports" text="Airports" />
+                              <CheckBox fx:id="routeAll" layoutX="110.0" layoutY="75.0" mnemonicParsing="false" onAction="#showAllRoutes" text="Routes" />
                            </children>
                         </AnchorPane>
                         <SplitPane dividerPositions="0.5525568181818182" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" GridPane.columnIndex="1" GridPane.columnSpan="6" GridPane.rowSpan="4">

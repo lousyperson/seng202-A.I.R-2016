@@ -3,16 +3,35 @@
  */
 
 var map;
+var markers = [];
+var polylines = [];
+
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: 20, lng: 0},
         zoom: 2
     });
+}
 
-    //showAllAirports();
+function hideAllAirports() {
+    for (var i = 0; i < markers.length; i++) {
+        markers[i].setMap(null);
+    }
+}
 
-    showAllRoutes();
+function hideAllRoutes() {
+    for (var i = 0; i < polylines.length; i++) {
+        polylines[i].setMap(null);
+    }
+}
 
+function addAirport(location) {
+    var marker = new google.maps.Marker({
+        position: location, //{lat: -20, lng: 31.044}
+        map: map,
+        title: 'Hello World!'
+    });
+    markers.push(marker);
 }
 
 // creates and displays markers for all airports
@@ -23,6 +42,7 @@ function showAllAirports()
         map: map,
         title: 'Hello World!'
     });
+    markers.push(marker);
 };
 
 // creates and displays lines for all routes
@@ -40,5 +60,6 @@ function showAllRoutes() {
     });
 
     flightPath.setMap(map);
+    polylines.push(flightPath);
     //flightPath.setMap(null); to make a route invisible
 }

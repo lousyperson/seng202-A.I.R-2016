@@ -194,6 +194,12 @@ public class Controller implements Initializable{
     @FXML
     AnchorPane routePane;
 
+    @FXML
+    CheckBox airportAll;
+
+    @FXML
+    CheckBox routeAll;
+
     // create table data
     private ObservableList<airlineTable> airlineTData = FXCollections.observableArrayList();
 
@@ -312,10 +318,21 @@ public class Controller implements Initializable{
 
     }
 
-    public void displayAllAirports() {
-        // needs to be inside Listener, find out the id of buttons for map view
+    public void showAllAirports() {
         if (mapView.getEngine() != null) {
             mapView.getEngine().executeScript("showAllAirports();");
+        }
+        if (airportAll.isSelected() == false) {
+            mapView.getEngine().executeScript("hideAllAirports();");
+        }
+    }
+
+    public void showAllRoutes() {
+        if (mapView.getEngine() != null) {
+            mapView.getEngine().executeScript("showAllRoutes();");
+        }
+        if (routeAll.isSelected() == false) {
+            mapView.getEngine().executeScript("hideAllRoutes();");
         }
     }
 
