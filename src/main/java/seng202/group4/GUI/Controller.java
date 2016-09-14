@@ -284,6 +284,8 @@ public class Controller implements Initializable{
 
         flightList.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends  String> ov, String old_val, String new_val) -> {
             System.out.println("Selected item from flight list: " + new_val);
+            // clear table and populate it again with what's selected
+            updateFlightTable(new_val.toLowerCase());
 
         });
 
@@ -1176,19 +1178,20 @@ public class Controller implements Initializable{
             // if they press ok and field is not empty, check if a flight with that name exists
             if(name.isPresent() && !name.get().trim().isEmpty()) {
                 // if it does not already exist add the flight with that name to the repository
-                if(!flightRepository.getFlights().containsKey(name.get())){
+                if(!flightRepository.getFlights().containsKey(name.get().toLowerCase())){
                     gotName = true;
-                    flightRepository.addFlight(name.get(), flight);
+                    flightRepository.addFlight(name.get().toLowerCase(), flight);
                     flightItems.add(name.get());
 
-                    // populate flight table
-                    System.out.println("added flight items + " + flightItems.toString());
+                    // update the listView of flight names
                     flightList.setItems(flightItems);
-                    // loop through array of flight positions
-                    for(FlightPosition position: flight.getFlightPositions()){
-                        flightTData.add(new flightTable(position.getID(), position.getType(), position.getAltitude(),
-                                position.getLatitude(), position.getLongitude()));
-                    }
+
+//                    //populate flight table with this flight
+//                    updateFlightTable(name.get());
+
+                    // make the listView select to the newly uploaded flight
+                    flightList.getSelectionModel().selectLast();
+
                 }
                 else{
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -1204,6 +1207,22 @@ public class Controller implements Initializable{
             }
         }
         // updateSomething();
+    }
+
+    // update flight table view given the flight name
+    private void updateFlightTable(String name){
+
+        // access flight repository to get the flight positions array given the name
+        Flight flight = flightRepository.getFlights().get(name);
+        System.out.println("bot to pop " + flight.getFlightPositions().size());
+        // clear the table then populate it with this flight
+        flightTData.clear();
+        // loop through array of flight positions
+        for(FlightPosition position: flight.getFlightPositions()){
+            flightTData.add(new flightTable(position.getID(), position.getType(), position.getAltitude(),
+                    position.getLatitude(), position.getLongitude()));
+        }
+
     }
 
     public void loadFlight() throws IOException {
