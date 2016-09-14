@@ -10,6 +10,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
+ * Checks that the raw input from the user is valid.
  * Created by jjg64 on 25/08/16.
  */
 public class AirportValidator {
@@ -26,6 +27,10 @@ public class AirportValidator {
     int index;
     private ArrayList<String> stringArray = new ArrayList<>();
 
+    /**
+     * Builds the daylight saving time enum and checks that the line meets the minimum number of items per line.
+     * @throws IOException
+     */
     private void validateLine() throws IOException {
         makeMap();
         splitLine = currentLine.split(splitBy);
@@ -36,6 +41,9 @@ public class AirportValidator {
         }
     }
 
+    /**
+     * Makes the Daylight Saving time enum.
+     */
     private void makeMap() {
         DSTs.add("\"E\"");
         DSTs.add("\"A\"");
@@ -46,6 +54,10 @@ public class AirportValidator {
         DSTs.add("\"U\"");
     }
 
+    /**
+     * Checks that the singular line contains data of the expected format.
+     * @throws IOException
+     */
     private void checkLine() throws IOException {
         index = 1;
         try {
@@ -90,6 +102,10 @@ public class AirportValidator {
         }
     }
 
+    /**
+     * Checks that the string with commas is valid.
+     * @return isValid, a boolean, depending on whether on not the string is valid, true if valid, false if not.
+     */
     private boolean checkStringWithCommas() {
         boolean isValid = true;
         if (splitLine[index].startsWith("\"")) {
@@ -106,6 +122,11 @@ public class AirportValidator {
         return isValid;
     }
 
+    /**
+     * Checks to see if the given index is a number.
+     * @param i
+     * @return a boolean, true if it is a number, false if not.
+     */
     private boolean checkNumber(int i) {
         try {
             Double.parseDouble(splitLine[index + i]);
@@ -115,6 +136,11 @@ public class AirportValidator {
         }
     }
 
+    /**
+     * Checks to see if the given index points to a string.
+     * @param i
+     * @return a boolean, true if it points to a string, false if not.
+     */
     private boolean checkString(int i) {
         boolean isValid = true;
         if (!splitLine[index + i].equals("\\N")) {
@@ -123,11 +149,21 @@ public class AirportValidator {
         return isValid;
     }
 
+    /**
+     * Takes the filepath and builds a new buffered reader so that the file can be parsed.
+     * @param filepath
+     * @throws FileNotFoundException
+     */
     public AirportValidator(InputStream filepath) throws FileNotFoundException {
         this.filepath = filepath;
         this.file = new BufferedReader(new InputStreamReader(filepath));
     }
 
+    /**
+     * Makes a list of airports.
+     * @return The list of airports, null otherwise.
+     * @throws IOException
+     */
     public ArrayList<Airport> makeAirports() throws IOException {
         while ((currentLine = file.readLine()) != null) {
             lineNumber++;
@@ -146,6 +182,10 @@ public class AirportValidator {
         return parser.makeAirports();
     }
 
+    /**
+     * Makes an alert in case there is an error in formatting so that the user can alter their raw data.
+     * @param message
+     */
     private void makeAlert(String message) {
         hasError = true;
         alert = new Alert(Alert.AlertType.ERROR);

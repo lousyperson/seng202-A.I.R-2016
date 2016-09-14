@@ -8,6 +8,7 @@ import java.io.*;
 import java.util.ArrayList;
 
 /**
+ * Checks to see if the raw input for the flight is valid.
  * Created by jjg64 on 25/08/16.
  */
 public class FlightValidator {
@@ -22,11 +23,21 @@ public class FlightValidator {
     private boolean hasError = false;
     private ArrayList<String> stringArray = new ArrayList<>();
 
+    /**
+     * Takes the filepath and creates a buffered reader so that the file can be parsed.
+     * @param filepath
+     * @throws FileNotFoundException
+     */
     public FlightValidator(InputStream filepath) throws FileNotFoundException {
         this.filepath = filepath;
         this.file = new BufferedReader(new InputStreamReader(filepath));
     }
 
+    /**
+     * Makes a flight if there are no errors in the code. If no errors exist, it allows the parser to work with the raw data input.
+     * @return If there are no errors, a flight is returned.
+     * @throws IOException
+     */
     public Flight makeFlight() throws IOException {
         while ((currentLine = file.readLine()) != null) {
             lineNumber++;
@@ -45,6 +56,10 @@ public class FlightValidator {
         return parser.makeFlight();
     }
 
+    /**
+     * Checks to see if a single line is valid.
+     * @throws IOException
+     */
     private void validateLine() throws IOException {
         splitLine = currentLine.split(splitBy, ITEMS_PER_LINE + 1);
         if (splitLine.length != ITEMS_PER_LINE) {
@@ -54,6 +69,10 @@ public class FlightValidator {
         }
     }
 
+    /**
+     * Ensures that every individual part of the line is valid.
+     * @throws IOException
+     */
     private void checkLine() throws IOException {
         // Strings do not need to be checked, as quotation marks is no longer a constraint
 
@@ -70,6 +89,11 @@ public class FlightValidator {
 
     }
 
+    /**
+     * Checks that was is pointed o is a string.
+     * @param i
+     * @return if a string, returns true, else, false.
+     */
     private boolean checkString(int i) {
         boolean isValid = true;
         if (splitLine[i].contains(" ")) {
@@ -78,6 +102,11 @@ public class FlightValidator {
         return isValid;
     }
 
+    /**
+     * Checks that the pointed to part of the string is an integer.
+     * @param i
+     * @return true if it as an integer, false otherwise.
+     */
     private boolean checkNumber(int i) {
         try {
             Double.parseDouble(splitLine[i]);
@@ -87,6 +116,10 @@ public class FlightValidator {
         }
     }
 
+    /**
+     * Makes an alert to the user if there is an error in the formatting of the raw data.
+     * @param message
+     */
     private void makeAlert(String message) {
         hasError = true;
         alert = new Alert(Alert.AlertType.ERROR);
