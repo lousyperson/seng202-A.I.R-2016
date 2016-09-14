@@ -200,10 +200,10 @@ public class Controller implements Initializable{
     AnchorPane routePane;
 
     @FXML
-    CheckBox airportAll;
+    CheckBox airportsAll;
 
     @FXML
-    CheckBox routeAll;
+    CheckBox routesAll;
 
     // create table data
     private ObservableList<airlineTable> airlineTData = FXCollections.observableArrayList();
@@ -360,8 +360,14 @@ public class Controller implements Initializable{
     public void showAllAirports() {
         if (mapView.getEngine() != null) {
             mapView.getEngine().executeScript("showAllAirports();");
+            HashMap<Integer, Airport> airports = airportRepository.getAirports();
+            for (Map.Entry<Integer, Airport> entry : airports.entrySet()) {
+                double lat = entry.getValue().getLatitude();
+                double lon = entry.getValue().getLongitude();
+                mapView.getEngine().executeScript("addAirport(" + lat + ", " + lon + ");");
+            }
         }
-        if (airportAll.isSelected() == false) {
+        if (airportsAll.isSelected() == false) {
             mapView.getEngine().executeScript("hideAllAirports();");
         }
     }
@@ -370,7 +376,7 @@ public class Controller implements Initializable{
         if (mapView.getEngine() != null) {
             mapView.getEngine().executeScript("showAllRoutes();");
         }
-        if (routeAll.isSelected() == false) {
+        if (routesAll.isSelected() == false) {
             mapView.getEngine().executeScript("hideAllRoutes();");
         }
     }
