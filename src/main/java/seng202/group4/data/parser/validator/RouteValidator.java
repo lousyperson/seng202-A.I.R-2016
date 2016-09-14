@@ -12,7 +12,7 @@ import java.util.ArrayList;
  */
 public class RouteValidator {
     private final int ITEMS_PER_LINE = 9;
-    private File filepath;
+    private InputStream filepath;
     private BufferedReader file;
     private String[] splitLine = new String[ITEMS_PER_LINE + 1];
     private String splitBy = "\\s*\\,\\s*";
@@ -20,10 +20,11 @@ public class RouteValidator {
     private int lineNumber = 0;
     private Alert alert;
     private boolean hasError = false;
+    private ArrayList<String> stringArray = new ArrayList<>();
 
-    public RouteValidator(File filepath) throws FileNotFoundException {
+    public RouteValidator(InputStream filepath) throws FileNotFoundException {
         this.filepath = filepath;
-        this.file = new BufferedReader(new FileReader(filepath));
+        this.file = new BufferedReader(new InputStreamReader(filepath));
     }
 
     public ArrayList<Route> makeroutes() throws IOException {
@@ -32,13 +33,14 @@ public class RouteValidator {
             currentLine = currentLine.trim();
             if (!currentLine.matches("\\w") && !currentLine.equals("")) {
                 validateLine();
+                stringArray.add(currentLine);
             }
             if (hasError) {
                 return null;
             }
         }
-
-        RouteParser parser = new RouteParser((new BufferedReader(new FileReader(filepath))));
+        // no errors so continue parsing
+        RouteParser parser = new RouteParser(stringArray);
         return parser.makeRoutes();
     }
 

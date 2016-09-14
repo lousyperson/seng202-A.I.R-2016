@@ -11,6 +11,8 @@ public class Airline {
     private String ICAO;
     private String callsign;
     private String country;
+
+
     private boolean active; // Can be active or not active
 
     public Airline(int ID, String name, String alias, String IATA, String ICAO, String callsign, String country, boolean active) {
@@ -23,6 +25,7 @@ public class Airline {
         this.country = country;
         this.active = active;
     }
+
 
     public int getID() {
         return ID;

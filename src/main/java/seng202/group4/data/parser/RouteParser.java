@@ -13,7 +13,7 @@ import java.util.ArrayList;
  */
 public class RouteParser {
     private final int ITEMS_PER_LINE = 9;
-    private BufferedReader file;
+    private ArrayList<String> file;
     private Route thisRoute;
     private String[] splitLine = new String[ITEMS_PER_LINE];
     private String splitBy = "\\s*\\,\\s*";
@@ -23,7 +23,7 @@ public class RouteParser {
 //    private boolean[] isInt = {false, true, false, true, false, true, false, true, false};
 //    private String nullIntegerValue = "-420";    // When a null int is there
 
-    public RouteParser(BufferedReader file) {
+    public RouteParser(ArrayList file) {
         this.file = file;
     }
 
@@ -50,7 +50,7 @@ public class RouteParser {
         return equipment;
     }
 
-    private void addRoute() throws IOException {
+    private void addRoute(String currentLine) throws IOException {
         splitLine = currentLine.split(splitBy, ITEMS_PER_LINE);
         for (int i = 0; i < ITEMS_PER_LINE; i+= 2) {      // Checks even indices 0 to 8 (strings)
             readString(i);
@@ -67,11 +67,8 @@ public class RouteParser {
     }
 
     public ArrayList<Route> makeRoutes() throws IOException {
-        while ((currentLine = file.readLine()) != null) {
-            currentLine = currentLine.trim();
-            if (!currentLine.matches("\\w") && !currentLine.matches("")) {
-                addRoute();
-            }
+        for(String currentLine: file){
+            addRoute(currentLine);
         }
         return routes;
     }

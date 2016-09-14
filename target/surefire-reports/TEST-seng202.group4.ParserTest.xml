@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="1" failures="0" name="seng202.group4.AppTest" time="0.003" errors="0" skipped="0">
+<testsuite tests="22" failures="0" name="seng202.group4.ParserTest" time="0.541" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="/usr/lib/jvm/java-8-oracle/jre/lib/amd64"/>
@@ -59,5 +59,26 @@
     <property name="sun.desktop" value="gnome"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase classname="seng202.group4.AppTest" name="testApp" time="0.001"/>
+  <testcase classname="seng202.group4.ParserTest" name="oneValidAirportSize" time="0"/>
+  <testcase classname="seng202.group4.ParserTest" name="emptyFileFlight" time="0"/>
+  <testcase classname="seng202.group4.ParserTest" name="oneValidAirlineSize" time="0"/>
+  <testcase classname="seng202.group4.ParserTest" name="oneValidRouteContents" time="0"/>
+  <testcase classname="seng202.group4.ParserTest" name="oneValidRouteSize" time="0"/>
+  <testcase classname="seng202.group4.ParserTest" name="multipleValidAirportsSize" time="0.193"/>
+  <testcase classname="seng202.group4.ParserTest" name="validFlightSize" time="0.002"/>
+  <testcase classname="seng202.group4.ParserTest" name="oneValidRouteWithNullContents" time="0"/>
+  <testcase classname="seng202.group4.ParserTest" name="oneValidRouteWithNullSize" time="0.001"/>
+  <testcase classname="seng202.group4.ParserTest" name="oneValidRouteWithMultiEquipmentSize" time="0.001"/>
+  <testcase classname="seng202.group4.ParserTest" name="oneValidAirlineWithNullSize" time="0"/>
+  <testcase classname="seng202.group4.ParserTest" name="multipleValidRoutesSize" time="0.274"/>
+  <testcase classname="seng202.group4.ParserTest" name="emptyFileRoute" time="0.002"/>
+  <testcase classname="seng202.group4.ParserTest" name="oneValidAirlineContents" time="0.002"/>
+  <testcase classname="seng202.group4.ParserTest" name="multipleValidAirlinesSize" time="0.052"/>
+  <testcase classname="seng202.group4.ParserTest" name="oneValidAirportWithNullSize" time="0.003"/>
+  <testcase classname="seng202.group4.ParserTest" name="oneValidRouteWithMultiEquipmentSize2" time="0.002"/>
+  <testcase classname="seng202.group4.ParserTest" name="oneValidAirportContents" time="0"/>
+  <testcase classname="seng202.group4.ParserTest" name="oneValidAirportWithCommaSize" time="0.002"/>
+  <testcase classname="seng202.group4.ParserTest" name="oneValidRouteWithMultiEquipmentContents" time="0"/>
+  <testcase classname="seng202.group4.ParserTest" name="emptyFileAirline" time="0.001"/>
+  <testcase classname="seng202.group4.ParserTest" name="emptyFileAirport" time="0"/>
 </testsuite>
