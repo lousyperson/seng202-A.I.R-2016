@@ -3,6 +3,7 @@
  */
 
 var map;
+var markerCluster;
 var markers = [];
 var polylines = [];
 
@@ -17,6 +18,8 @@ function hideAllAirports() {
     for (var i = 0; i < markers.length; i++) {
         markers[i].setMap(null);
     }
+    markerCluster.setMap(null);
+    markerCluster.repaint();
 }
 
 function hideAllRoutes() {
@@ -29,7 +32,6 @@ function addAirport(late, lone) {
     var marker = new google.maps.Marker({
         position: {lat: late, lng: lone},
         map: map,
-        title: 'Hello World!'
     });
     markers.push(marker);
 }
@@ -43,6 +45,7 @@ function showAllAirports()
         title: 'Hello World!'
     });
     markers.push(marker);
+    markerCluster = new MarkerClusterer(map, markers);
 };
 
 // creates and displays lines for all routes

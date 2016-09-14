@@ -408,13 +408,14 @@ public class Controller implements Initializable{
 
     public void showAllAirports() {
         if (mapView.getEngine() != null) {
-            mapView.getEngine().executeScript("showAllAirports();");
             HashMap<Integer, Airport> airports = airportRepository.getAirports();
             for (Map.Entry<Integer, Airport> entry : airports.entrySet()) {
                 double lat = entry.getValue().getLatitude();
                 double lon = entry.getValue().getLongitude();
+                String name = entry.getValue().getName();
                 mapView.getEngine().executeScript("addAirport(" + lat + ", " + lon + ");");
             }
+            mapView.getEngine().executeScript("showAllAirports();");
         }
         if (airportsAll.isSelected() == false) {
             mapView.getEngine().executeScript("hideAllAirports();");
