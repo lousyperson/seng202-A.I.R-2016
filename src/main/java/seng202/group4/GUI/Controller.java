@@ -20,7 +20,6 @@ import seng202.group4.data.dataType.Route;
 import seng202.group4.data.parser.validator.AirlineValidator;
 import seng202.group4.data.parser.validator.RouteValidator;
 
-
 import java.io.*;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -213,6 +212,7 @@ public class Controller implements Initializable{
 
     public void initialize(URL location, ResourceBundle resources) {
         mapView.getEngine().load(getClass().getClassLoader().getResource("map.html").toExternalForm());
+
         // initialise data list
         datalist.setItems(items);
 
@@ -312,7 +312,12 @@ public class Controller implements Initializable{
 
     }
 
-
+    public void displayAllAirports() {
+        // needs to be inside Listener, find out the id of buttons for map view
+        if (mapView.getEngine() != null) {
+            mapView.getEngine().executeScript("showAllAirports();");
+        }
+    }
 
 
     public void searchRoutes(){
