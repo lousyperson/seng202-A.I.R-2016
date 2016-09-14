@@ -30,7 +30,7 @@ public class App extends Application {
 //        Parent root = FXMLLoader.load(getClass().getResource("GUI.fxml"));
         //Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("../GUI.fxml"));
         primaryStage.setTitle("Aviation Information Reader");
-        primaryStage.setScene(new Scene(root, 600, 775));
+        primaryStage.setScene(new Scene(root, 1280, 775));
 
         primaryStage.show();
     }
