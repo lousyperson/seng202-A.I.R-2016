@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * Created by jjg64 on 15/08/16.
+ * Created by seng202-group-4. Last updated September 12, 2016.
  */
 public class AirlineParser {
     private final int MAX_ITEMS_PER_LINE = 8;
@@ -20,7 +20,7 @@ public class AirlineParser {
     private int ID;
     private boolean active;
     private String currentLine;
-    private ArrayList<Airline> airlines = new ArrayList<Airline>();
+    private ArrayList<Airline> airlines = new ArrayList<>();
 
     public AirlineParser(ArrayList file) {
         this.file = file;

@@ -38,7 +38,7 @@ public class AirlineValidator {
                 stringArray.add(currentLine);
             }
             if (hasError) {
-                return null;
+                return new ArrayList<Airline>();
             }
         }
         // no errors so continue parsing
