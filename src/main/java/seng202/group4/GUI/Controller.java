@@ -32,6 +32,7 @@ import seng202.group4.data.repository.AirportRepository;
 import seng202.group4.data.repository.FlightRepository;
 import seng202.group4.data.repository.RouteRepository;
 
+import com.aquafx_project.AquaFx;
 
 import javax.swing.*;
 import javax.swing.text.html.Option;
@@ -41,9 +42,7 @@ import java.net.URL;
 import java.util.*;
 import java.util.stream.Collectors;
 
-
 public class Controller implements Initializable{
-
     // Map view
     @FXML
     WebView mapView;
@@ -300,8 +299,11 @@ public class Controller implements Initializable{
     private TreeSet equipmentSet = new TreeSet();
 
     public void initialize(URL location, ResourceBundle resources) {
-
-
+        AquaFx.style();
+//        AquaFx.setFireStyle();
+//        AquaFx.setEarthStyle();
+//        AquaFx.setAirStyle();
+        
         flightMap.getEngine().load(getClass().getClassLoader().getResource("map.html").toExternalForm());
         // initialise data list
         datalist.setItems(items);
