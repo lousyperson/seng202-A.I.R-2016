@@ -7,7 +7,7 @@ import javafx.scene.control.Alert;
  */
 public class AlertPopup {
 
-    private void makeError(String header, String message) {
+    public static void makeError(String header, String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");
         alert.setHeaderText(header);
