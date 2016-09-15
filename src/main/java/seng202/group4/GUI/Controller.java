@@ -16,6 +16,7 @@ import javafx.scene.web.WebView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import seng202.group4.data.dataType.*;
+import seng202.group4.data.parser.FlightParser;
 import seng202.group4.data.parser.validator.AirlineValidator;
 import seng202.group4.data.parser.validator.AirportValidator;
 import seng202.group4.data.parser.validator.FlightValidator;
@@ -232,6 +233,7 @@ public class Controller implements Initializable{
     ListView<String> flightList;
 
 
+
     // create table data
     private ObservableList<airlineTable> airlineTData = FXCollections.observableArrayList();
 
@@ -274,7 +276,9 @@ public class Controller implements Initializable{
     private TreeSet equipmentSet = new TreeSet();
 
     public void initialize(URL location, ResourceBundle resources) {
-        mapView.getEngine().load(getClass().getClassLoader().getResource("map.html").toExternalForm());
+
+
+        flightMap.getEngine().load(getClass().getClassLoader().getResource("map.html").toExternalForm());
         // initialise data list
         datalist.setItems(items);
 
@@ -295,6 +299,7 @@ public class Controller implements Initializable{
             if(new_val != null){
                 // clear table and populate it again with what's selected
                 updateFlightTable(new_val.toLowerCase());
+                showFlightPath(new_val.toLowerCase());
             }
 
         });
@@ -521,6 +526,35 @@ public class Controller implements Initializable{
 
     }
 
+    // update map with flight path given the flight name
+    private void showFlightPath(String flightName){
+        //String flightName = "lol";
+
+        if (flightMap.getEngine() != null) {
+            System.out.println("flgihthhhs!!!");
+            flightMap.getEngine().executeScript("deleteFlights();");
+            // get the flight that is selected so we can get the flight name whic is a key to the flight repo
+            // so then we can get flight (info) now we have it yay its called flight
+            Flight flight = flightRepository.getFlights().get(flightName);
+            // flight actually has an array list of positions and positions= array listof FLIGHT POSITISONS
+            // which is another object =.=
+
+            // the first row would be like
+            FlightPosition firstRow = flight.getFlightPositions().get(0);
+
+            // lat long first row
+            double lat = firstRow.getLatitude();
+            double lon = firstRow.getLongitude();
+
+            //System.out.println("goin in " + lat + lon);
+//            flightMap.getEngine().executeScript("addAirport2();");
+            flightMap.getEngine().executeScript("addFlight(" + lat + ", " + lon + ");");
+            System.out.println("i survived");
+            //mapView.getEngine().executeScript("testFunc();");
+            //mapView.getEngine().executeScript("showAllAirports();");
+
+        }
+    }
 
     private void searchRoutes(){
         // searching for route
