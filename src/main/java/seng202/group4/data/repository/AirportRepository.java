@@ -13,18 +13,24 @@ public class AirportRepository extends Repository{
 
 
     public void addAirport(Airport airport) {
-        airports.put(airport.getID(), airport);
+        if (!airports.containsKey(airport.getID())) {
+            airports.put(airport.getID(), airport);
 
-        HashSet ids = countryAirports.get(airport.getCountry().toLowerCase());
-        // add airport to the countryAirports to keep track of airports in each country
-        if(ids == null){
-            ids = new HashSet();
-            ids.add(airport.getID());
+            HashSet ids = countryAirports.get(airport.getCountry().toLowerCase());
+            // add airport to the countryAirports to keep track of airports in each country
+            if(ids == null){
+                ids = new HashSet();
+                ids.add(airport.getID());
+            }
+            else{
+                ids.add(airport.getID());
+            }
+            countryAirports.put(airport.getCountry().toLowerCase(), ids);
+
+        } else {
+            // add error here
+            System.out.println("Error");
         }
-        else{
-            ids.add(airport.getID());
-        }
-        countryAirports.put(airport.getCountry().toLowerCase(), ids);
 
     }
 

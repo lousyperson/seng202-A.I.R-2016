@@ -176,7 +176,7 @@ public class ParserTest {
     }
 
     @Test
-    public void oneValidRouteWithMultiEquipmentSize() throws IOException {
+    public void oneValidRouteWithMultiEquipmentRoutesSize() throws IOException {
         RouteParser parser = new RouteParser(fileArray("testfiles/Routes/oneValidRouteWithMultiEquipment.txt"));
         ArrayList<Route> routes = parser.makeRoutes();
         int size = routes.size();
@@ -184,7 +184,7 @@ public class ParserTest {
     }
 
     @Test
-    public void oneValidRouteWithMultiEquipmentSize2() throws IOException {
+    public void oneValidRouteWithMultiEquipmentSize() throws IOException {
         RouteParser parser = new RouteParser(fileArray("testfiles/Routes/oneValidRouteWithMultiEquipment.txt"));
         ArrayList<Route> routes = parser.makeRoutes();
         int size = routes.get(0).getEquipment().size();
