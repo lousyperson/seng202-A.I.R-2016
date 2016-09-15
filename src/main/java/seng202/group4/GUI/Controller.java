@@ -7,22 +7,18 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
+
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.web.WebView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 import seng202.group4.data.dataType.*;
-import seng202.group4.data.parser.FlightParser;
 import seng202.group4.data.parser.validator.AirlineValidator;
 import seng202.group4.data.parser.validator.AirportValidator;
 import seng202.group4.data.parser.validator.FlightValidator;
@@ -32,10 +28,7 @@ import seng202.group4.data.repository.AirportRepository;
 import seng202.group4.data.repository.FlightRepository;
 import seng202.group4.data.repository.RouteRepository;
 
-import com.aquafx_project.AquaFx;
 
-import javax.swing.*;
-import javax.swing.text.html.Option;
 import java.io.*;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -299,11 +292,6 @@ public class Controller implements Initializable{
     private TreeSet equipmentSet = new TreeSet();
 
     public void initialize(URL location, ResourceBundle resources) {
-        AquaFx.style();
-//        AquaFx.setFireStyle();
-//        AquaFx.setEarthStyle();
-//        AquaFx.setAirStyle();
-        
         flightMap.getEngine().load(getClass().getClassLoader().getResource("map.html").toExternalForm());
         // initialise data list
         datalist.setItems(items);
@@ -488,27 +476,27 @@ public class Controller implements Initializable{
         }
     }
 
+
     private void searchFlightNames(){
-        //String intPattern = "[-]?[0-9]*[.]?[0-9]+";
-        // searching for airline
         FilteredList<flightTable> flightTableFiltered = new FilteredList<>(flightTData, p -> true);
 
+        // listen to whats being typed in the search box
         flightNameSearch.textProperty().addListener((observable, oldValue, newValue) -> {
-            System.out.println(newValue);
             if(!newValue.isEmpty()){
                 //clear the table
                 flightTData.clear();
-                //update the data list if it matches the string
+                // store the names that match
                 ObservableList<String> tempNames = FXCollections.observableArrayList();
-                //ArrayList<String> tempNames = new ArrayList<>();
                 for(String s: flightItems){
                     if(s.toLowerCase().contains(newValue.toLowerCase())){
                         tempNames.add(s);
                     }
                 }
+                // update the flight list with the names that match
                 flightList.setItems(tempNames);
             }
             else{
+                // update flight list with all names
                 flightList.setItems(flightItems);
             }
         });
