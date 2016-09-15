@@ -66,7 +66,6 @@ function repositionMap(flightPath) {
     for (var i = 0; i < flightPath.length; i++) {
         bounds.extend(flightPath[i]);
     }
-    map.setCenter(bounds.getCenter());
     map.fitBounds(bounds);
 }
 

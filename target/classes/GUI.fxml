@@ -131,14 +131,6 @@
                                                 <ComboBox fx:id="airlineCountryFilter" layoutX="12.0" layoutY="161.0" onAction="#filterAirlineCountry" prefHeight="25.0" prefWidth="197.0" promptText=" --ALL COUNTRIES--" />
                                             </children>
                                         </AnchorPane>
-                                        <AnchorPane fx:id="airportPane" minHeight="0.0" minWidth="0.0" prefHeight="172.0" prefWidth="220.0" visible="false">
-                                            <children>
-                                                <TextField fx:id="airportSearch" layoutX="12.0" layoutY="42.0" prefHeight="25.0" prefWidth="196.0" promptText="Search Airport List..." />
-                                                <Text layoutX="14.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Search" />
-                                                <Text layoutX="15.0" layoutY="108.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Filter Options" />
-                                                <ComboBox fx:id="airportCountryFilter" layoutX="12.0" layoutY="123.0" onAction="#filterAirportCountry" prefHeight="25.0" prefWidth="197.0" promptText=" --ALL COUNTRIES--" />
-                                            </children>
-                                        </AnchorPane>
                                         <AnchorPane fx:id="routePane" minHeight="0.0" minWidth="0.0" prefHeight="172.0" prefWidth="220.0" visible="false">
                                             <children>
                                                 <TextField fx:id="routeSearch" layoutX="12.0" layoutY="42.0" prefHeight="25.0" prefWidth="196.0" promptText="Search Route List..." />
@@ -149,6 +141,26 @@
                                                 <CheckBox fx:id="direct" layoutX="12.0" layoutY="124.0" mnemonicParsing="false" onAction="#selectDirect" text="Direct" />
                                                 <CheckBox fx:id="indirect" layoutX="122.0" layoutY="124.0" mnemonicParsing="false" onAction="#selectIndirect" text="Indirect" />
                                                 <ComboBox fx:id="routeEquipFilter" layoutX="12.0" layoutY="161.0" onAction="#filterEquipment" prefHeight="25.0" prefWidth="197.0" promptText=" --ALL EQUIPMENTS-- " />
+                                            </children>
+                                        </AnchorPane>
+                                        <AnchorPane fx:id="airportPane" minHeight="0.0" minWidth="0.0" prefHeight="172.0" prefWidth="220.0" visible="false">
+                                            <children>
+                                                <TextField fx:id="airportSearch" layoutX="12.0" layoutY="42.0" prefHeight="25.0" prefWidth="196.0" promptText="Search Airport List..." />
+                                                <Text layoutX="14.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Search" />
+                                                <Text layoutX="15.0" layoutY="108.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Filter Options" />
+                                                <ComboBox fx:id="airportCountryFilter" layoutX="12.0" layoutY="123.0" onAction="#filterAirportCountry" prefHeight="25.0" prefWidth="197.0" promptText=" --ALL COUNTRIES--" />
+                                    <Text layoutX="15.0" layoutY="178.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Point A" />
+                                    <TextField fx:id="pointALat" layoutX="15.0" layoutY="182.0" prefHeight="25.0" prefWidth="83.0" />
+                                    <TextField fx:id="pointALon" layoutX="121.0" layoutY="182.0" prefHeight="25.0" prefWidth="72.0" />
+                                    <Text layoutX="15.0" layoutY="230.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Point B" />
+                                    <TextField fx:id="pointBLat" layoutX="15.0" layoutY="235.0" prefHeight="25.0" prefWidth="83.0" />
+                                    <TextField fx:id="pointBLon" layoutX="125.0" layoutY="235.0" prefHeight="25.0" prefWidth="72.0" />
+                                    <Text layoutX="15.0" layoutY="279.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Distance:" />
+                                    <TextField fx:id="calcdDistance" layoutX="12.0" layoutY="293.0" prefHeight="25.0" prefWidth="134.0" />
+                                    <Text layoutX="102.0" layoutY="199.0" strokeType="OUTSIDE" strokeWidth="0.0" text="," wrappingWidth="16.6015625" />
+                                    <Text layoutX="102.0" layoutY="252.0" strokeType="OUTSIDE" strokeWidth="0.0" text="," wrappingWidth="16.6015625" />
+                                    <Button fx:id="calc" layoutX="172.0" layoutY="293.0" mnemonicParsing="false" onAction="#calcDistance" text="Calc!" />
+                                    <Text layoutX="149.0" layoutY="310.0" strokeType="OUTSIDE" strokeWidth="0.0" text="km" wrappingWidth="16.30078125" />
                                             </children>
                                         </AnchorPane>
                                     </children>

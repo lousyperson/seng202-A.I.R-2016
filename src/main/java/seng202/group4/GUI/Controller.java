@@ -1,20 +1,26 @@
 package seng202.group4.GUI;
 
 
+import javafx.beans.binding.Bindings;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.web.WebView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 import seng202.group4.data.dataType.*;
 import seng202.group4.data.parser.FlightParser;
 import seng202.group4.data.parser.validator.AirlineValidator;
@@ -173,6 +179,24 @@ public class Controller implements Initializable{
 
     @FXML
     ComboBox airportCountryFilter;
+
+    @FXML
+    TextField pointALat;
+
+    @FXML
+    TextField pointALon;
+
+    @FXML
+    TextField pointBLat;
+
+    @FXML
+    TextField pointBLon;
+
+    @FXML
+    TextField calcdDistance;
+
+    @FXML
+    Button calc;
 
     // route FXML
     @FXML
@@ -378,6 +402,33 @@ public class Controller implements Initializable{
         // listen for airports search queries
         searchAirports();
 
+        airportTableID.setRowFactory(tableView -> {
+            final TableRow<airportTable> row = new TableRow<>();
+            final ContextMenu rowMenu = new ContextMenu();
+            MenuItem addA = new MenuItem("Add to point A");
+            MenuItem addB = new MenuItem("Add to point B");
+            MenuItem removeItem = new MenuItem("Delete");
+            row.setOnMouseClicked(event -> {});
+            addA.setOnAction(event -> {
+                pointALat.setText(Double.toString(row.getItem().getAtlatitude()));
+                pointALon.setText(Double.toString(row.getItem().getAtlongitude()));
+            });
+            addB.setOnAction(event -> {
+                pointBLat.setText(Double.toString(row.getItem().getAtlatitude()));
+                pointBLon.setText(Double.toString(row.getItem().getAtlongitude()));
+            });
+            removeItem.setOnAction(event ->
+                    airportTData.remove(row.getItem())
+            );
+            rowMenu.getItems().addAll(addA, addB, removeItem);
+            row.contextMenuProperty().bind(
+                  Bindings.when(Bindings.isNotNull(row.itemProperty()))
+                    .then(rowMenu)
+                    .otherwise((ContextMenu)null)
+            );
+            return row;
+        });
+
         // initialise route data table resources
         airline.setCellValueFactory(new PropertyValueFactory<>("rairline"));
         airlineID.setCellValueFactory(new PropertyValueFactory<>("rid"));
@@ -411,8 +462,28 @@ public class Controller implements Initializable{
 
         // listen for route search queries
         searchRoutes();
+    }
 
+    public void calcDistance() {
+        if (pointALat.getText() != null && pointALon.getText() != null &&
+                pointBLat.getText() != null && pointBLon.getText() != null) {
+            double lat1 = Double.parseDouble(pointALat.getText());
+            double lat2 = Double.parseDouble(pointBLat.getText());
+            double lon1 = Double.parseDouble(pointALon.getText());
+            double lon2 = Double.parseDouble(pointBLon.getText());
 
+            final int R = 6371; // Radius of the earth in km
+
+            Double latDistance = Math.toRadians(lat2 - lat1);
+            Double lonDistance = Math.toRadians(lon2 - lon1);
+            Double a = Math.sin(latDistance / 2) * Math.sin(latDistance / 2)
+                    + Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2))
+                    * Math.sin(lonDistance / 2) * Math.sin(lonDistance / 2);
+            Double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+            double distance = R * c; // convert to meters
+
+            calcdDistance.setText(Double.toString(distance));
+        }
     }
 
     private void searchFlightNames(){
