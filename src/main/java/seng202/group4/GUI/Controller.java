@@ -41,6 +41,9 @@ public class Controller implements Initializable{
     @FXML
     WebView mapView;
 
+    @FXML
+    WebView flightMap;
+
     // DEFINE TABLES
 
     // Airline Table
@@ -203,6 +206,10 @@ public class Controller implements Initializable{
     AnchorPane routePane;
 
     // Flight table
+
+    @FXML
+    TextField flightNameSearch;
+
     @FXML
     TableView<flightTable> flightTableID;
 
@@ -275,21 +282,24 @@ public class Controller implements Initializable{
         updateAirlineSearch();
         updateAirportSearch();
         updateRouteSearch();
+        updateFlightNameSearch();
         // select airline table on the side bar
         datalist.getSelectionModel().clearAndSelect(0);
         // show airline table
         airlineTableID.toFront();
 
-        // flight list stuff getSelectionModel().selectedItemProperty()
-
+        // listen to whats being selected in the flight list
         flightList.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends  String> ov, String old_val, String new_val) -> {
             System.out.println("Selected item from flight list: " + new_val);
-            // clear table and populate it again with what's selected
-            updateFlightTable(new_val.toLowerCase());
+
+            if(new_val != null){
+                // clear table and populate it again with what's selected
+                updateFlightTable(new_val.toLowerCase());
+            }
 
         });
 
-
+        searchFlightNames();
 
         datalist.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends  String> ov, String old_val, String new_val) -> {
             System.out.println("Selected item: " + new_val);
@@ -336,8 +346,6 @@ public class Controller implements Initializable{
         // listen for airline search queries
         searchAirlines();
 
-
-
         // initialise airport table resources
         apid.setCellValueFactory(new PropertyValueFactory<>("atid"));
         apname.setCellValueFactory(new PropertyValueFactory<>("atname"));
@@ -362,6 +370,7 @@ public class Controller implements Initializable{
             e.printStackTrace();
         }
 
+        // listen for airports search queries
         searchAirports();
 
         // initialise route data table resources
@@ -386,10 +395,6 @@ public class Controller implements Initializable{
             e.printStackTrace();
         }
 
-        // listen for route search queries
-        searchRoutes();
-
-
         // initialise route data table resources
         flightID.setCellValueFactory(new PropertyValueFactory<>("fid"));
         flightType.setCellValueFactory(new PropertyValueFactory<>("ftype"));
@@ -399,11 +404,37 @@ public class Controller implements Initializable{
 
         flightTableID.setItems(flightTData);
 
-
+        // listen for route search queries
+        searchRoutes();
 
 
     }
 
+    private void searchFlightNames(){
+        //String intPattern = "[-]?[0-9]*[.]?[0-9]+";
+        // searching for airline
+        FilteredList<flightTable> flightTableFiltered = new FilteredList<>(flightTData, p -> true);
+
+        flightNameSearch.textProperty().addListener((observable, oldValue, newValue) -> {
+            System.out.println(newValue);
+            if(!newValue.isEmpty()){
+                //clear the table
+                flightTData.clear();
+                //update the data list if it matches the string
+                ObservableList<String> tempNames = FXCollections.observableArrayList();
+                //ArrayList<String> tempNames = new ArrayList<>();
+                for(String s: flightItems){
+                    if(s.toLowerCase().contains(newValue.toLowerCase())){
+                        tempNames.add(s);
+                    }
+                }
+                flightList.setItems(tempNames);
+            }
+            else{
+                flightList.setItems(flightItems);
+            }
+        });
+    }
 
     private void searchAirports(){
         String intPattern = "[-]?[0-9]*[.]?[0-9]+";
@@ -891,6 +922,12 @@ public class Controller implements Initializable{
 
     }
 
+    private void updateFlightNameSearch(){
+        String text = flightNameSearch.getText();
+        flightNameSearch.setText(text + " ");
+        flightNameSearch.setText(text);
+    }
+
 
     public void selectDirect() throws IOException {
         updateRouteSearch();
@@ -1235,7 +1272,6 @@ public class Controller implements Initializable{
 
         // access flight repository to get the flight positions array given the name
         Flight flight = flightRepository.getFlights().get(name);
-        System.out.println("bot to pop " + flight.getFlightPositions().size());
 
         // clear the table then populate it with this flight
         flightTData.clear();

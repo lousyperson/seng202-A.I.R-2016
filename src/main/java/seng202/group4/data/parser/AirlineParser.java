@@ -20,7 +20,7 @@ public class AirlineParser {
     private int ID;
     private boolean active;
     private String currentLine;
-    private ArrayList<Airline> airlines = new ArrayList<Airline>();
+    private ArrayList<Airline> airlines = new ArrayList<>();
 
     public AirlineParser(ArrayList file) {
         this.file = file;
