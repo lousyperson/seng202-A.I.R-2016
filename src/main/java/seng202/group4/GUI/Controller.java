@@ -539,20 +539,18 @@ public class Controller implements Initializable{
             // flight actually has an array list of positions and positions= array listof FLIGHT POSITISONS
             // which is another object =.=
 
-            // the first row would be like
-            FlightPosition firstRow = flight.getFlightPositions().get(0);
+            for (int i = 0; i < flight.getFlightPositions().size(); i++) {
+                // the first row would be like
+                FlightPosition firstRow = flight.getFlightPositions().get(i);
 
-            // lat long first row
-            double lat = firstRow.getLatitude();
-            double lon = firstRow.getLongitude();
+                // lat long first row
+                double lat = firstRow.getLatitude();
+                double lon = firstRow.getLongitude();
 
-            //System.out.println("goin in " + lat + lon);
-//            flightMap.getEngine().executeScript("addAirport2();");
-            flightMap.getEngine().executeScript("addFlight(" + lat + ", " + lon + ");");
+                flightMap.getEngine().executeScript("addFlight(" + lat + ", " + lon + ");");
+            }
+            flightMap.getEngine().executeScript("makePath();");
             System.out.println("i survived");
-            //mapView.getEngine().executeScript("testFunc();");
-            //mapView.getEngine().executeScript("showAllAirports();");
-
         }
     }
 
