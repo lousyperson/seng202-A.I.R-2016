@@ -1215,8 +1215,8 @@ public class Controller implements Initializable{
                         Alert alert = new Alert(Alert.AlertType.INFORMATION);
                         alert.setTitle("Oops!");
                         alert.setHeaderText(null);
-                        alert.setContentText("Please give a different name for your flight " +
-                                "and make sure that it does not already exist in the system.");
+                        alert.setContentText("Please give a different name for your flight \n" +
+                                "and make sure that it does not already exist \n in the system.");
                         alert.showAndWait();
                     }
                 }
