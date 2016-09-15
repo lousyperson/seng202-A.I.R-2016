@@ -12,16 +12,15 @@ import java.util.ArrayList;
  * Created by jjg64 on 15/08/16.
  */
 public class FlightParser {
-    private BufferedReader file;
+    private ArrayList<String> file;
     private final int ITEMS_PER_LINE = 5;
     private FlightPosition thisPosition;
     private String[] splitLine = new String[ITEMS_PER_LINE];
     private String splitBy = "\\s*\\,\\s*";
-    private String currentLine;
-    private ArrayList<FlightPosition> positions = new ArrayList<FlightPosition>();
+    private ArrayList<FlightPosition> positions = new ArrayList<>();
 
 
-    public FlightParser(BufferedReader file) {
+    public FlightParser(ArrayList file) {
         this.file = file;
     }
 
@@ -31,7 +30,7 @@ public class FlightParser {
         }
     }
 
-    private void addFlightPosition() throws IOException {
+    private void addFlightPosition(String currentLine) throws IOException {
         splitLine = currentLine.split(splitBy, ITEMS_PER_LINE);
         readString(0);  // Type
         readString(1);  // ID
@@ -42,11 +41,8 @@ public class FlightParser {
     }
 
     public Flight makeFlight() throws IOException {
-        while ((currentLine = file.readLine()) != null) {
-            currentLine = currentLine.trim();
-            if (!currentLine.matches("\\w") && !currentLine.matches("")) {
-                addFlightPosition();
-            }
+        for(String currentLine: file){
+            addFlightPosition(currentLine);
         }
         Flight flight = new Flight(positions);
         return flight;

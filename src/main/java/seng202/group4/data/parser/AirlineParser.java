@@ -9,13 +9,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * @param
- * @return
- * @throws
+ * Created by seng202-group-4. Last updated September 12, 2016.
  */
 public class AirlineParser {
     private final int MAX_ITEMS_PER_LINE = 8;
-    private BufferedReader file;
+    private ArrayList<String> file;
     private Airline thisAirline;
     private String[] splitLine = new String[MAX_ITEMS_PER_LINE];
     private String splitBy = "\\s*\\,\\s*";
@@ -24,7 +22,7 @@ public class AirlineParser {
     private String currentLine;
     private ArrayList<Airline> airlines = new ArrayList<Airline>();
 
-    public AirlineParser(BufferedReader file) {
+    public AirlineParser(ArrayList file) {
         this.file = file;
     }
 
@@ -37,7 +35,7 @@ public class AirlineParser {
         }
     }
 
-    private void addAirline() throws IOException {
+    private void addAirline(String currentLine) throws IOException {
         splitLine = currentLine.split(splitBy, MAX_ITEMS_PER_LINE);
         ID = Integer.parseInt(splitLine[0]);
         for (int i = 1; i <= 7; i++) {      // Checks indices 1 to 7
@@ -56,12 +54,10 @@ public class AirlineParser {
     }
 
     public ArrayList<Airline> makeAirlines() throws IOException {
-        while ((currentLine = file.readLine()) != null) {
-            currentLine = currentLine.trim();
-            if (!currentLine.matches("\\w") && !currentLine.matches("")) {
-                addAirline();
-            }
+        for(String currentLine: file){
+            addAirline(currentLine);
         }
+
         return airlines;
     }
 

@@ -26,8 +26,8 @@ public class GUITest extends Application{
     }
 
     private void test() throws IOException {
-//        testAirline();
-//        testRoute();
+        //testAirline();
+        //testRoute();
         testAirport();
     }
 
@@ -40,7 +40,7 @@ public class GUITest extends Application{
     }
 
     private void testAirport() throws IOException {
-        ValidatorGUITest.testValidAirportFile("testfiles/Airports/validAirport.txt");
+        //ValidatorGUITest.testValidAirportFile("testfiles/Airports/validAirport.txt");
         ValidatorGUITest.testInvalidAirportFile("testfiles/Airports/invalidAirport.txt");
     }
 

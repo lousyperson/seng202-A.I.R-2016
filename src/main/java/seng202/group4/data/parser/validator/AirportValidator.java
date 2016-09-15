@@ -2,12 +2,10 @@ package seng202.group4.data.parser.validator;
 
 import javafx.scene.control.Alert;
 import seng202.group4.data.dataType.Airport;
-import seng202.group4.data.dataType.DaylightSavingsTime;
 import seng202.group4.data.parser.AirportParser;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -16,7 +14,7 @@ import java.util.Set;
  */
 public class AirportValidator {
     private final int MIN_ITEMS_PER_LINE = 12;
-    private File filepath;
+    private InputStream filepath;
     private BufferedReader file;
     private String[] splitLine;
     private String splitBy = "\\s*\\,\\s*";
@@ -26,6 +24,7 @@ public class AirportValidator {
     private boolean hasError = false;
     private Set<String> DSTs = new HashSet<String>();
     int index;
+    private ArrayList<String> stringArray = new ArrayList<>();
 
     private void validateLine() throws IOException {
         makeMap();
@@ -35,6 +34,24 @@ public class AirportValidator {
         } else {
             checkLine();
         }
+    }
+
+    public ArrayList<Airport> makeAirports() throws IOException {
+        while ((currentLine = file.readLine()) != null) {
+            lineNumber++;
+            currentLine = currentLine.trim();
+            if (!currentLine.matches("\\w") && !currentLine.equals("")) {
+                validateLine();
+                stringArray.add(currentLine);
+            }
+            if (hasError) {
+                return new ArrayList<Airport>();
+            }
+        }
+
+        // no errors so continue parsing
+        AirportParser parser = new AirportParser(stringArray);
+        return parser.makeAirports();
     }
 
     private void makeMap() {
@@ -64,10 +81,10 @@ public class AirportValidator {
         } else if (!checkStringWithCommas()) {
             makeAlert("Airport country must be in quotations");
             return;
-        } else if (!checkString(0) && (splitLine[index].length() == 5 || splitLine[index] == "\\N")) {
+        } else if (!checkString(0) && !(splitLine[index].length() == 5 || splitLine[index].equals("\\N"))) {
             makeAlert("IATA must be letters of length 3 in quotations or \\N");
             return;
-        } else if (!checkString(0) && (splitLine[index + 1].length() == 6 || splitLine[index + 1] == "\\N")) {
+        } else if (!checkString(0) && !(splitLine[index].length() == 6 || splitLine[index].equals("\\N"))) {
             makeAlert("ICAO must be letters of length 4 in quotations");
             return;
         } else if (!checkNumber(2)) {
@@ -124,25 +141,9 @@ public class AirportValidator {
         return isValid;
     }
 
-    public AirportValidator(File filepath) throws FileNotFoundException {
+    public AirportValidator(InputStream filepath) throws FileNotFoundException {
         this.filepath = filepath;
-        this.file = new BufferedReader(new FileReader(filepath));
-    }
-
-    public ArrayList<Airport> makeAirports() throws IOException {
-        while ((currentLine = file.readLine()) != null) {
-            lineNumber++;
-            currentLine = currentLine.trim();
-            if (!currentLine.matches("\\w") && !currentLine.equals("")) {
-                validateLine();
-            }
-            if (hasError) {
-                return null;
-            }
-        }
-
-        AirportParser parser = new AirportParser(new BufferedReader(new FileReader(filepath)));
-        return parser.makeAirports();
+        this.file = new BufferedReader(new InputStreamReader(filepath));
     }
 
     private void makeAlert(String message) {

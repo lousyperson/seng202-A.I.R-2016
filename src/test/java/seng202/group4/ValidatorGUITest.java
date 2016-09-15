@@ -14,6 +14,7 @@ import seng202.group4.data.parser.validator.AirportValidator;
 import seng202.group4.data.parser.validator.RouteValidator;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -23,25 +24,25 @@ import java.util.ArrayList;
 public class ValidatorGUITest {
 
     public static void testInvalidAirlineFile(String file) throws IOException {
-        AirlineValidator parser = new AirlineValidator(new File(file));
+        AirlineValidator parser = new AirlineValidator(new FileInputStream(file));
         ArrayList<Airline> airlines = parser.makeAirlines();
         assert(airlines == null);
     }
 
     public static void testInvalidRouteFile(String file) throws IOException {
-        RouteValidator parser = new RouteValidator(new File(file));
+        RouteValidator parser = new RouteValidator(new FileInputStream(file));
         ArrayList<Route> routes = parser.makeroutes();
         assert(routes == null);
     }
 
     public static void testValidAirportFile(String file) throws IOException {
-        AirportValidator parser = new AirportValidator(new File(file));
+        AirportValidator parser = new AirportValidator(new FileInputStream(file));
         ArrayList<Airport> airports = parser.makeAirports();
         assert(airports.size() == 8106);
     }
 
     public static void testInvalidAirportFile(String file) throws IOException {
-        AirportValidator parser = new AirportValidator(new File(file));
+        AirportValidator parser = new AirportValidator(new FileInputStream(file));
         ArrayList<Airport> airports = parser.makeAirports();
         assert(airports.size() == 0);
     }

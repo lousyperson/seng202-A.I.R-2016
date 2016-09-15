@@ -13,7 +13,7 @@ import java.util.Arrays;
  */
 public class AirlineValidator {
     private final int ITEMS_PER_LINE = 8;
-    private File filepath;
+    private InputStream filepath;
     private BufferedReader file;
     private String[] splitLine = new String[ITEMS_PER_LINE + 1];
     private String splitBy = "\\s*\\,\\s*";
@@ -21,29 +21,33 @@ public class AirlineValidator {
     private int lineNumber = 0;
     private Alert alert;
     private boolean hasError = false;
+    private ArrayList<String> stringArray = new ArrayList<>();
 
-    public AirlineValidator(File filepath) throws FileNotFoundException {
+    public AirlineValidator(InputStream filepath) throws FileNotFoundException {
         this.filepath = filepath;
-        this.file = new BufferedReader(new FileReader(filepath));
+        this.file = new BufferedReader(new InputStreamReader(filepath));
     }
 
     public ArrayList<Airline> makeAirlines() throws IOException {
         while ((currentLine = file.readLine()) != null) {
             lineNumber++;
             currentLine = currentLine.trim();
+            //System.out.println(currentLine);
             if (!currentLine.matches("\\w") && !currentLine.equals("")) {
                 validateLine();
+                stringArray.add(currentLine);
             }
             if (hasError) {
-                return null;
+                return new ArrayList<Airline>();
             }
         }
-
-        AirlineParser parser = new AirlineParser(new BufferedReader(new FileReader(filepath)));
+        // no errors so continue parsing
+        AirlineParser parser = new AirlineParser(stringArray);
         return parser.makeAirlines();
     }
 
     private void validateLine() throws IOException {
+        //System.out.println("in validate");
         splitLine = currentLine.split(splitBy, ITEMS_PER_LINE + 1);
         if (splitLine.length != ITEMS_PER_LINE) {
             makeAlert("Expected " + ITEMS_PER_LINE + " comma separated variables.");

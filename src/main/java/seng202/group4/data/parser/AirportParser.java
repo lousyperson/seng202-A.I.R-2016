@@ -12,17 +12,16 @@ import java.util.HashMap;
  * Created by jjg64 on 15/08/16.
  */
 public class AirportParser {
-    private BufferedReader file;
+    private ArrayList<String> file;
     private Airport thisAirport;
     private String[] splitLine;
     private String splitBy = "\\s*\\,\\s*";
     private int ID;
-    private String currentLine;
     private HashMap<String, DaylightSavingsTime> DSTs = new HashMap<String, DaylightSavingsTime>();
     private ArrayList<Airport> airports = new ArrayList<Airport>();
     int index = 0; // Will be used to track the index corresponding to each comma
 
-    public AirportParser(BufferedReader file) {
+    public AirportParser(ArrayList file) {
         this.file = file;
         makeMap();
     }
@@ -59,7 +58,7 @@ public class AirportParser {
         return name;
     }
 
-    private void addAirport() throws IOException {
+    private void addAirport(String currentLine) throws IOException {
         splitLine = currentLine.split(splitBy);
         index = 1;
 
@@ -82,11 +81,8 @@ public class AirportParser {
     }
 
     public ArrayList<Airport> makeAirports() throws IOException {
-        while ((currentLine = file.readLine()) != null) {
-            currentLine = currentLine.trim();
-            if (!currentLine.matches("\\w") && !currentLine.matches("")) {
-                addAirport();
-            }
+        for(String currentLine: file){
+            addAirport(currentLine);
         }
         return airports;
     }

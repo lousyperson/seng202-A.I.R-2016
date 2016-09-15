@@ -36,7 +36,7 @@ public class ValidatorTest {
 
     @Test
     public void oneValidAirlineSize() throws IOException {
-        AirlineValidator parser = new AirlineValidator(new File("testfiles/Airlines/oneValidAirline.txt"));
+        AirlineValidator parser = new AirlineValidator(new FileInputStream("testfiles/Airlines/oneValidAirline.txt"));
         ArrayList<Airline> airlines = parser.makeAirlines();
         assertTrue(airlines.size() == 1);
 
@@ -44,7 +44,7 @@ public class ValidatorTest {
 
     @Test
     public void multipleValidAirlinesSize() throws IOException {
-        AirlineValidator parser = new AirlineValidator(new File("testfiles/Airlines/validAirline.txt"));
+        AirlineValidator parser = new AirlineValidator(new FileInputStream("testfiles/Airlines/validAirline.txt"));
         ArrayList<Airline> airlines = parser.makeAirlines();
         assertTrue(airlines.size() == 6048);
 
@@ -52,14 +52,14 @@ public class ValidatorTest {
 
     @Test
     public void oneValidAirlineWithNullSize() throws IOException {
-        AirlineValidator parser = new AirlineValidator(new File("testfiles/Airlines/oneValidAirlineWithNull.txt"));
+        AirlineValidator parser = new AirlineValidator(new FileInputStream("testfiles/Airlines/oneValidAirlineWithNull.txt"));
         ArrayList<Airline> airlines = parser.makeAirlines();
         assertTrue(airlines.size() == 1);
     }
 
     @Test
     public void emptyFile() throws IOException {
-        AirlineValidator parser = new AirlineValidator(new File("testfiles/empty.txt"));
+        AirlineValidator parser = new AirlineValidator(new FileInputStream("testfiles/empty.txt"));
         ArrayList<Airline> airlines = parser.makeAirlines();
         int size = airlines.size();
         assertTrue(size == 0);
