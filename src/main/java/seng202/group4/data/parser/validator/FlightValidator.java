@@ -2,6 +2,7 @@ package seng202.group4.data.parser.validator;
 
 import javafx.scene.control.Alert;
 import seng202.group4.data.dataType.Flight;
+import seng202.group4.data.dataType.FlightPosition;
 import seng202.group4.data.parser.FlightParser;
 
 import java.io.*;
@@ -36,7 +37,7 @@ public class FlightValidator {
                 stringArray.add(currentLine);
             }
             if (hasError) {
-                return null;
+                return new Flight(new ArrayList<FlightPosition>());
             }
         }
 

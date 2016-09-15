@@ -36,6 +36,24 @@ public class AirportValidator {
         }
     }
 
+    public ArrayList<Airport> makeAirports() throws IOException {
+        while ((currentLine = file.readLine()) != null) {
+            lineNumber++;
+            currentLine = currentLine.trim();
+            if (!currentLine.matches("\\w") && !currentLine.equals("")) {
+                validateLine();
+                stringArray.add(currentLine);
+            }
+            if (hasError) {
+                return new ArrayList<Airport>();
+            }
+        }
+
+        // no errors so continue parsing
+        AirportParser parser = new AirportParser(stringArray);
+        return parser.makeAirports();
+    }
+
     private void makeMap() {
         DSTs.add("\"E\"");
         DSTs.add("\"A\"");
@@ -63,10 +81,10 @@ public class AirportValidator {
         } else if (!checkStringWithCommas()) {
             makeAlert("Airport country must be in quotations");
             return;
-        } else if (!checkString(0) && (splitLine[index].length() == 5 || splitLine[index] == "\\N")) {
+        } else if (!checkString(0) && !(splitLine[index].length() == 5 || splitLine[index].equals("\\N"))) {
             makeAlert("IATA must be letters of length 3 in quotations or \\N");
             return;
-        } else if (!checkString(0) && (splitLine[index + 1].length() == 6 || splitLine[index + 1] == "\\N")) {
+        } else if (!checkString(0) && !(splitLine[index].length() == 6 || splitLine[index].equals("\\N"))) {
             makeAlert("ICAO must be letters of length 4 in quotations");
             return;
         } else if (!checkNumber(2)) {
@@ -126,24 +144,6 @@ public class AirportValidator {
     public AirportValidator(InputStream filepath) throws FileNotFoundException {
         this.filepath = filepath;
         this.file = new BufferedReader(new InputStreamReader(filepath));
-    }
-
-    public ArrayList<Airport> makeAirports() throws IOException {
-        while ((currentLine = file.readLine()) != null) {
-            lineNumber++;
-            currentLine = currentLine.trim();
-            if (!currentLine.matches("\\w") && !currentLine.equals("")) {
-                validateLine();
-                stringArray.add(currentLine);
-            }
-            if (hasError) {
-                return null;
-            }
-        }
-
-        // no errors so continue parsing
-        AirportParser parser = new AirportParser(stringArray);
-        return parser.makeAirports();
     }
 
     private void makeAlert(String message) {
