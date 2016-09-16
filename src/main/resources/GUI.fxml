@@ -31,44 +31,21 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.group4.GUI.Controller">
     <top>
-        <MenuBar style="-fx-background-color: lightblue;" BorderPane.alignment="CENTER">
+        <MenuBar BorderPane.alignment="CENTER">
             <menus>
                 <Menu mnemonicParsing="false" text="File">
                     <items>
                         <MenuItem mnemonicParsing="false" text="Open" />
-                        <Menu mnemonicParsing="false" text="Import">
-                            <items>
-                                <MenuItem mnemonicParsing="false" onAction="#loadAirline" text="Airline" />
-                                <MenuItem mnemonicParsing="false" onAction="#loadAirport" text="Airport" />
-                                <MenuItem mnemonicParsing="false" onAction="#loadRoute" text="Route" />
-                                <MenuItem mnemonicParsing="false" onAction="#loadFlight" text="Flight" />
-                            </items>
-                        </Menu>
                     </items>
                 </Menu>
-                <Menu mnemonicParsing="false" text="Edit">
-                    <items>
-                        <MenuItem mnemonicParsing="false" text="Delete" />
-                    </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="View">
-                    <items>
-                        <MenuItem mnemonicParsing="false" text="Extend Data Table" />
-                    </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Tools">
-                    <items>
-                        <MenuItem mnemonicParsing="false" text="Graph analysis" />
-                        <MenuItem mnemonicParsing="false" text="Calculate" />
-                        <MenuItem mnemonicParsing="false" text="Rank" />
-                    </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Help">
-                    <items>
-                        <MenuItem mnemonicParsing="false" text="About" />
-                        <MenuItem mnemonicParsing="false" text="Contact us" />
-                    </items>
-                </Menu>
+                  <Menu mnemonicParsing="false" text="Import">
+                      <items>
+                          <MenuItem mnemonicParsing="false" onAction="#loadAirline" text="Airline" />
+                          <MenuItem mnemonicParsing="false" onAction="#loadAirport" text="Airport" />
+                          <MenuItem mnemonicParsing="false" onAction="#loadRoute" text="Route" />
+                          <MenuItem mnemonicParsing="false" onAction="#loadFlight" text="Flight" />
+                      </items>
+                  </Menu>
             </menus>
         </MenuBar>
     </top>
@@ -154,14 +131,6 @@
                                                 <ComboBox fx:id="airlineCountryFilter" layoutX="12.0" layoutY="161.0" onAction="#filterAirlineCountry" prefHeight="25.0" prefWidth="197.0" promptText=" --ALL COUNTRIES--" />
                                             </children>
                                         </AnchorPane>
-                                        <AnchorPane fx:id="airportPane" minHeight="0.0" minWidth="0.0" prefHeight="172.0" prefWidth="220.0" visible="false">
-                                            <children>
-                                                <TextField fx:id="airportSearch" layoutX="12.0" layoutY="42.0" prefHeight="25.0" prefWidth="196.0" promptText="Search Airport List..." />
-                                                <Text layoutX="14.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Search" />
-                                                <Text layoutX="15.0" layoutY="108.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Filter Options" />
-                                                <ComboBox fx:id="airportCountryFilter" layoutX="12.0" layoutY="123.0" onAction="#filterAirportCountry" prefHeight="25.0" prefWidth="197.0" promptText=" --ALL COUNTRIES--" />
-                                            </children>
-                                        </AnchorPane>
                                         <AnchorPane fx:id="routePane" minHeight="0.0" minWidth="0.0" prefHeight="172.0" prefWidth="220.0" visible="false">
                                             <children>
                                                 <TextField fx:id="routeSearch" layoutX="12.0" layoutY="42.0" prefHeight="25.0" prefWidth="196.0" promptText="Search Route List..." />
@@ -172,6 +141,26 @@
                                                 <CheckBox fx:id="direct" layoutX="12.0" layoutY="124.0" mnemonicParsing="false" onAction="#selectDirect" text="Direct" />
                                                 <CheckBox fx:id="indirect" layoutX="122.0" layoutY="124.0" mnemonicParsing="false" onAction="#selectIndirect" text="Indirect" />
                                                 <ComboBox fx:id="routeEquipFilter" layoutX="12.0" layoutY="161.0" onAction="#filterEquipment" prefHeight="25.0" prefWidth="197.0" promptText=" --ALL EQUIPMENTS-- " />
+                                            </children>
+                                        </AnchorPane>
+                                        <AnchorPane fx:id="airportPane" minHeight="0.0" minWidth="0.0" prefHeight="172.0" prefWidth="220.0" visible="false">
+                                            <children>
+                                                <TextField fx:id="airportSearch" layoutX="12.0" layoutY="42.0" prefHeight="25.0" prefWidth="196.0" promptText="Search Airport List..." />
+                                                <Text layoutX="14.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Search" />
+                                                <Text layoutX="15.0" layoutY="108.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Filter Options" />
+                                                <ComboBox fx:id="airportCountryFilter" layoutX="12.0" layoutY="123.0" onAction="#filterAirportCountry" prefHeight="25.0" prefWidth="197.0" promptText=" --ALL COUNTRIES--" />
+                                    <Text layoutX="15.0" layoutY="178.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Point A" />
+                                    <TextField fx:id="pointALat" layoutX="15.0" layoutY="182.0" prefHeight="25.0" prefWidth="83.0" />
+                                    <TextField fx:id="pointALon" layoutX="121.0" layoutY="182.0" prefHeight="25.0" prefWidth="72.0" />
+                                    <Text layoutX="15.0" layoutY="230.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Point B" />
+                                    <TextField fx:id="pointBLat" layoutX="15.0" layoutY="235.0" prefHeight="25.0" prefWidth="83.0" />
+                                    <TextField fx:id="pointBLon" layoutX="125.0" layoutY="235.0" prefHeight="25.0" prefWidth="72.0" />
+                                    <Text layoutX="15.0" layoutY="279.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Distance:" />
+                                    <TextField fx:id="calcdDistance" layoutX="12.0" layoutY="293.0" prefHeight="25.0" prefWidth="134.0" />
+                                    <Text layoutX="102.0" layoutY="199.0" strokeType="OUTSIDE" strokeWidth="0.0" text="," wrappingWidth="16.6015625" />
+                                    <Text layoutX="102.0" layoutY="252.0" strokeType="OUTSIDE" strokeWidth="0.0" text="," wrappingWidth="16.6015625" />
+                                    <Button fx:id="calc" layoutX="172.0" layoutY="293.0" mnemonicParsing="false" onAction="#calcDistance" text="Calc!" />
+                                    <Text layoutX="149.0" layoutY="310.0" strokeType="OUTSIDE" strokeWidth="0.0" text="km" wrappingWidth="16.30078125" />
                                             </children>
                                         </AnchorPane>
                                     </children>
@@ -246,36 +235,23 @@
                <content>
                   <GridPane>
                      <children>
-                        <AnchorPane maxWidth="220.0" minHeight="0.0" minWidth="0.0" prefHeight="706.0" prefWidth="220.0" GridPane.rowIndex="2" GridPane.rowSpan="2">
+                        <AnchorPane maxWidth="220.0" minHeight="0.0" minWidth="0.0" prefHeight="706.0" prefWidth="220.0" GridPane.rowIndex="1" GridPane.rowSpan="2">
                            <children>
-                              <ListView fx:id="flightList" layoutX="10.0" layoutY="34.0" prefHeight="307.0" prefWidth="200.0" />
-                              <Text layoutX="10.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Data Lists" />
+                              <ListView fx:id="flightList" layoutX="10.0" layoutY="38.0" prefHeight="307.0" prefWidth="200.0" />
+                              <Text layoutX="12.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Flight Data Lists" />
                            </children>
                         </AnchorPane>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="172.0" prefWidth="220.0">
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0">
                            <children>
-                              <TextField layoutX="11.0" layoutY="23.0" prefHeight="25.0" prefWidth="196.0" text="Search" />
-                              <Button layoutX="163.0" layoutY="58.0" mnemonicParsing="false" text="Go" />
-                              <MenuButton layoutX="14.0" layoutY="58.0" mnemonicParsing="false" text="Filter based on">
-                                 <items>
-                                    <MenuItem mnemonicParsing="false" text="Action 1" />
-                                    <MenuItem mnemonicParsing="false" text="Action 2" />
-                                    <CheckMenuItem mnemonicParsing="false" text="Unspecified Action" />
-                                 </items>
-                              </MenuButton>
+                              <TextField fx:id="flightNameSearch" layoutX="12.0" layoutY="42.0" prefHeight="25.0" prefWidth="196.0" promptText="Search Flight Data List..." />
+                              <Text layoutX="14.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Search" />
                            </children>
                         </AnchorPane>
-                        <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
-                           <children>
-                              <TextField layoutX="14.0" layoutY="39.0" text="Filter" />
-                              <Text layoutX="14.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Advanced filter stuff" />
-                           </children>
-                        </AnchorPane>
-                        <SplitPane dividerPositions="0.5525568181818182" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" GridPane.columnIndex="1" GridPane.columnSpan="6" GridPane.rowSpan="4">
-                           <items>
-                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                        <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="317.0" prefWidth="221.0" GridPane.columnIndex="1" GridPane.columnSpan="6" GridPane.rowSpan="4">
+                          <items>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                                  <children>
-                                    <WebView fx:id="mapView1" layoutX="85.0" layoutY="42.0" prefHeight="385.0" prefWidth="802.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    <WebView fx:id="flightMap" prefHeight="348.0" prefWidth="802.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
                               <TableView fx:id="flightTableID" prefHeight="248.0" prefWidth="699.0">
@@ -287,7 +263,7 @@
                                     <TableColumn fx:id="flightLongitude" minWidth="100.0" prefWidth="200.0" sortable="false" text="Longitude" />
                                  </columns>
                               </TableView>
-                           </items>
+                          </items>
                         </SplitPane>
                      </children>
                      <columnConstraints>
@@ -300,10 +276,10 @@
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                      </columnConstraints>
                      <rowConstraints>
-                        <RowConstraints maxHeight="100.0" minHeight="0.0" prefHeight="145.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="255.0" minHeight="0.0" prefHeight="221.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="160.79576110839844" minHeight="0.0" prefHeight="160.79576110839844" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="320.0" minHeight="0.0" prefHeight="238.96124267578125" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="346.417236328125" minHeight="20.0" prefHeight="167.41021728515625" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="242.85211181640625" minHeight="10.0" prefHeight="140.58978271484375" vgrow="SOMETIMES" />
                      </rowConstraints>
                   </GridPane>
                </content>
