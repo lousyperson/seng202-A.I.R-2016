@@ -242,6 +242,12 @@ public class Controller implements Initializable{
     // equipmentSet holds all the equipment uploaded to route
     private TreeSet equipmentSet = new TreeSet();
 
+
+    /**
+     * Where the program starts, initializes things like listeners and starts running the GUI.
+     * @param location
+     * @param resources
+     */
     public void initialize(URL location, ResourceBundle resources) {
         mapView.getEngine().load(getClass().getClassLoader().getResource("map.html").toExternalForm());
 
@@ -357,6 +363,9 @@ public class Controller implements Initializable{
 
     }
 
+    /**
+     * Shows the airports in the map.
+     */
     public void showAllAirports() {
         if (mapView.getEngine() != null) {
             mapView.getEngine().executeScript("showAllAirports();");
@@ -372,6 +381,9 @@ public class Controller implements Initializable{
         }
     }
 
+    /**
+     * shows the routes in the map
+     */
     public void showAllRoutes() {
         if (mapView.getEngine() != null) {
             mapView.getEngine().executeScript("showAllRoutes();");
@@ -380,6 +392,11 @@ public class Controller implements Initializable{
             mapView.getEngine().executeScript("hideAllRoutes();");
         }
     }
+
+    /**
+     * Searches through the airports, is always listening once anything is entered into the search bar, thus searches
+     * as the search terms are entered and is constantly updating.
+     */
     private void searchAirports(){
         String intPattern = "[-]?[0-9]*[.]?[0-9]+";
         // searching for airline
@@ -465,7 +482,10 @@ public class Controller implements Initializable{
 
     }
 
-
+    /**
+     * Searches through the routes, is always listening once anything is entered into the search bar, thus searches
+     * as the search terms are entered and is constantly updating.
+     */
     private void searchRoutes(){
         // searching for route
         FilteredList<routeTable> routeTableFiltered = new FilteredList<>(routeTData, p -> true);
@@ -566,6 +586,19 @@ public class Controller implements Initializable{
 
     }
 
+    /**
+     * Filters through the equipment of the given routes and returns the routes with only the specified equipment.
+     * @param emptyEquipFilter
+     * @param emptyDepartFilter
+     * @param emptyDestFilter
+     * @param selectedRouteEquip
+     * @param selectedDepartCountry
+     * @param selectedDestCountry
+     * @param rtEquipmentArray
+     * @param rtDestAirportId
+     * @param rtSrcAirportId
+     * @return
+     */
     private boolean filterEquipDepDest(boolean emptyEquipFilter, boolean emptyDepartFilter, boolean emptyDestFilter,
                                        String selectedRouteEquip, String selectedDepartCountry,
                                        String selectedDestCountry, List<String> rtEquipmentArray,
@@ -700,6 +733,10 @@ public class Controller implements Initializable{
     }
 
 
+    /**
+     * Searches through the airlines, is always listening once anything is entered into the search bar, thus searches
+     * as the search terms are entered and is constantly updating.
+     */
     private void searchAirlines(){
         // searching for airline
         FilteredList<airlineTable> airlineTableFiltered = new FilteredList<>(airlineTData, p -> true);
@@ -866,11 +903,18 @@ public class Controller implements Initializable{
 
     }
 
-
+    /**
+     * Allows for the user to select an option for the filter, in this case, direct flights.
+     * @throws IOException
+     */
     public void selectDirect() throws IOException {
         updateRouteSearch();
     }
 
+    /**
+     * Allows for the user to select an option for the filter, in this case, direct flights.
+     * @throws IOException
+     */
     public void selectIndirect() throws IOException {
         updateRouteSearch();
     }
