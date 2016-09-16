@@ -248,7 +248,24 @@ public class Controller implements Initializable{
     @FXML
     ListView<String> flightList;
 
+    @FXML
+    TabPane tabPane;
 
+    @FXML
+    Tab dataTab;
+
+    @FXML
+    Tab flightTab;
+
+    @FXML
+    Tab mapTab;
+
+
+
+    private String airlineLabel = "Airlines";
+    private String airportLabel = "Airport";
+    private String routeLabel = "Routes";
+    
 
     // create table data
     private ObservableList<airlineTable> airlineTData = FXCollections.observableArrayList();
@@ -259,7 +276,7 @@ public class Controller implements Initializable{
 
     private ObservableList<flightTable> flightTData = FXCollections.observableArrayList();
 
-    private ObservableList<String> items = FXCollections.observableArrayList("Default Airlines", "Default Airports", "Default Routes");
+    private ObservableList<String> items = FXCollections.observableArrayList(airlineLabel, airportLabel, routeLabel);
 
     // testing for flight
     private ObservableList<String> flightItems = FXCollections.observableArrayList();
@@ -301,7 +318,7 @@ public class Controller implements Initializable{
         updateAirportSearch();
         updateRouteSearch();
         updateFlightNameSearch();
-        // select airline table on the side bar
+        // select first data type (airline) on the side bar
         datalist.getSelectionModel().clearAndSelect(0);
         // show airline table
         airlineTableID.toFront();
@@ -322,17 +339,17 @@ public class Controller implements Initializable{
 
         datalist.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends  String> ov, String old_val, String new_val) -> {
             System.out.println("Selected item: " + new_val);
-            if (new_val.equals("Default Airlines")) {
+            if (new_val.equals(airlineLabel)) {
                 airlineTableID.toFront();
                 airlinePane.setVisible(true);
                 airportPane.setVisible(false);
                 routePane.setVisible(false);
-            } else if (new_val.equals("Default Airports")) {
+            } else if (new_val.equals(airportLabel)) {
                 airportTableID.toFront();
                 airlinePane.setVisible(false);
                 airportPane.setVisible(true);
                 routePane.setVisible(false);
-            } else if (new_val.equals("Default Routes")) {
+            } else if (new_val.equals(routeLabel)) {
                 routeTableID.toFront();
                 airlinePane.setVisible(false);
                 airportPane.setVisible(false);
@@ -1119,6 +1136,7 @@ public class Controller implements Initializable{
         InputStream file = new FileInputStream(in);
         if (in.exists()) {
             System.out.println("file opneedd");
+            goToDataTab(airlineLabel);
             insertAirlineTable(file);
         }
     }
@@ -1191,6 +1209,7 @@ public class Controller implements Initializable{
         InputStream file = new FileInputStream(in);
         if (in.exists()) {
             System.out.println("file opened oh ye bb~");
+            goToDataTab(airportLabel);
             insertAirportTable(file);
         }
     }
@@ -1293,6 +1312,7 @@ public class Controller implements Initializable{
         InputStream file = new FileInputStream(in);
         if (in.exists()) {
             System.out.println("file opneeeedddd");
+            goToDataTab(routeLabel);
             insertRouteTable(file);
         }
     }
@@ -1385,8 +1405,20 @@ public class Controller implements Initializable{
         InputStream file = new FileInputStream(in);
         if (in.exists()) {
             System.out.println("oooo yah flights");
+            // change tab to flight tab if its not on it already
+            if(!tabPane.getSelectionModel().equals(flightTab)){
+                tabPane.getSelectionModel().select(flightTab);
+            }
             insertFlightTable(file);
         }
+    }
+
+    // change tab to data tab if its not on it already and switch the selection tab to the given name
+    private void goToDataTab(String name){
+        if(!tabPane.getSelectionModel().equals(dataTab)){
+            tabPane.getSelectionModel().select(dataTab);
+        }
+        datalist.getSelectionModel().select(name);
     }
 
     private void duplicateIDAlert(String message, Integer id) {
