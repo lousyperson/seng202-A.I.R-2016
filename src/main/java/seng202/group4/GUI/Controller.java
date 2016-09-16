@@ -308,6 +308,11 @@ public class Controller implements Initializable{
     // equipmentSet holds all the equipment uploaded to route
     private TreeSet equipmentSet = new TreeSet();
 
+    /**
+     * Where the program starts, initializes things like listeners and starts running the GUI.
+     * @param location
+     * @param resources
+     */
     public void initialize(URL location, ResourceBundle resources) {
         flightMap.getEngine().load(getClass().getClassLoader().getResource("map.html").toExternalForm());
         // initialise data list
@@ -471,6 +476,9 @@ public class Controller implements Initializable{
         searchRoutes();
     }
 
+    /**
+     * Calculates the distance between two coordinates on the map.
+     */
     public void calcDistance() {
         if (pointALat.getText() != null && pointALon.getText() != null &&
                 pointBLat.getText() != null && pointBLon.getText() != null) {
@@ -493,7 +501,9 @@ public class Controller implements Initializable{
         }
     }
 
-
+    /**
+     * Searches through the names of the flights so that the user is able to find a select flight from the list.
+     */
     private void searchFlightNames(){
         FilteredList<flightTable> flightTableFiltered = new FilteredList<>(flightTData, p -> true);
 
@@ -519,6 +529,9 @@ public class Controller implements Initializable{
         });
     }
 
+    /**
+     * Searches through the airports in the table dependent on a specific search entry by the user.
+     */
     private void searchAirports(){
         String intPattern = "[-]?[0-9]*[.]?[0-9]+";
         // searching for airline
@@ -1038,39 +1051,75 @@ public class Controller implements Initializable{
         flightNameSearch.setText(text);
     }
 
-
+    /**
+     * Allows the user to select the direct flight filter option.
+     * @throws IOException
+     */
     public void selectDirect() throws IOException {
         updateRouteSearch();
     }
 
+    /**Allows the user to select the indirect flight filter option.
+     *
+     * @throws IOException
+     */
     public void selectIndirect() throws IOException {
         updateRouteSearch();
     }
 
+    /**
+     * Filters the list of airlines by country, leaving only airlines from the selected county.
+     * @throws IOException
+     */
     public void filterAirlineCountry() throws IOException {
         updateAirlineSearch();
     }
 
+    /**
+     * Filters the list of airports by country, leaving only airportd from the selected county.
+
+     * @throws IOException
+     */
     public void filterAirportCountry() throws IOException {
         updateAirportSearch();
     }
 
+    /**
+     * Filters by departure country, only showing routes departing from the selected country.
+     * @throws IOException
+     */
     public void filterDepCountry() throws IOException {
         updateRouteSearch();
     }
 
+    /**
+     * Filters by destination country, only showing routes that arrive in the selected country.
+     * @throws IOException
+     */
     public void filterDestCountry() throws IOException {
         updateRouteSearch();
     }
 
+    /**
+     * Filters by the equipment in a route, only showing routes that utilize that equipemt.
+     * @throws IOException
+     */
     public void filterEquipment() throws IOException {
         updateRouteSearch();
     }
 
+    /**
+     * Filters by whether or not the airline is active, only showing active airlines.
+     * @throws IOException
+     */
     public void selectActiveAirlines() throws IOException {
         updateAirlineSearch();
     }
 
+    /**
+     * Filters by whether or not the airline is active, only showing inactive airlines.
+     * @throws IOException
+     */
     public void selectInactiveAirlines() throws IOException {
         updateAirlineSearch();
     }
@@ -1127,7 +1176,10 @@ public class Controller implements Initializable{
     }
 
 
-
+    /**
+     * Loads the whole list of airlines into the airline data table.
+     * @throws IOException
+     */
     public void loadAirline() throws IOException {
         Stage stage = new Stage();
         FileChooser fileChooser = new FileChooser();
@@ -1199,7 +1251,10 @@ public class Controller implements Initializable{
 
     }
 
-
+    /**
+     *Loads the selected airline data file into the airline data table.
+     * @throws IOException
+     */
     public void loadAirport() throws IOException {
 
         Stage stage = new Stage();
@@ -1302,7 +1357,10 @@ public class Controller implements Initializable{
 
     }
 
-
+    /**
+     * Loads the list of flight routes into the route data table from a data file.
+     * @throws IOException
+     */
     public void loadRoute() throws IOException {
 
         Stage stage = new Stage();
@@ -1396,6 +1454,10 @@ public class Controller implements Initializable{
 
     }
 
+    /**
+     * Loads a singular piece of flight data to allow the user to analyse a singular flight.
+     * @throws IOException
+     */
     public void loadFlight() throws IOException {
 
         Stage stage = new Stage();
