@@ -8,11 +8,14 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.web.WebView;
@@ -315,6 +318,7 @@ public class Controller implements Initializable{
      */
     public void initialize(URL location, ResourceBundle resources) {
         flightMap.getEngine().load(getClass().getClassLoader().getResource("map.html").toExternalForm());
+
         // initialise data list
         datalist.setItems(items);
 
@@ -387,6 +391,35 @@ public class Controller implements Initializable{
         // listen for airline search queries
         searchAirlines();
 
+        airlineTableID.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+
+        airlineTableID.setRowFactory(tableView -> {
+            final TableRow<airlineTable> row = new TableRow<>();
+            final ContextMenu rowMenu = new ContextMenu();
+            MenuItem removeItem = new MenuItem("Delete");
+            row.setOnMouseClicked(event -> {});
+            removeItem.setOnAction(event -> {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Confirmation Dialog");
+                alert.setHeaderText("Look, a Confirmation Dialog!");
+                alert.setContentText("Confirm delete the row(s)?\nWarning: You cannot undo the action.\n");
+
+                Optional<ButtonType> result = alert.showAndWait();
+                if (result.get() == ButtonType.OK){
+                    ObservableList<airlineTable> selectedItems = airlineTableID.getSelectionModel().getSelectedItems();
+                    airlineTData.removeAll(selectedItems);
+                    airlineTableID.getSelectionModel().clearSelection();
+                }
+            });
+            rowMenu.getItems().addAll(removeItem);
+            row.contextMenuProperty().bind(
+                    Bindings.when(Bindings.isNotNull(row.itemProperty()))
+                            .then(rowMenu)
+                            .otherwise((ContextMenu)null)
+            );
+            return row;
+        });
+
         // initialise airport table resources
         apid.setCellValueFactory(new PropertyValueFactory<>("atid"));
         apname.setCellValueFactory(new PropertyValueFactory<>("atname"));
@@ -414,6 +447,8 @@ public class Controller implements Initializable{
         // listen for airports search queries
         searchAirports();
 
+        airportTableID.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+
         airportTableID.setRowFactory(tableView -> {
             final TableRow<airportTable> row = new TableRow<>();
             final ContextMenu rowMenu = new ContextMenu();
@@ -429,9 +464,19 @@ public class Controller implements Initializable{
                 pointBLat.setText(Double.toString(row.getItem().getAtlatitude()));
                 pointBLon.setText(Double.toString(row.getItem().getAtlongitude()));
             });
-            removeItem.setOnAction(event ->
-                    airportTData.remove(row.getItem())
-            );
+            removeItem.setOnAction(event -> {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Confirmation Dialog");
+                alert.setHeaderText("Look, a Confirmation Dialog!");
+                alert.setContentText("Confirm delete the row(s)?\nWarning: You cannot undo the action.\n");
+
+                Optional<ButtonType> result = alert.showAndWait();
+                if (result.get() == ButtonType.OK){
+                    ObservableList<airportTable> selectedItems = airportTableID.getSelectionModel().getSelectedItems();
+                    airportTData.removeAll(selectedItems);
+                    airportTableID.getSelectionModel().clearSelection();
+                }
+            });
             rowMenu.getItems().addAll(addA, addB, removeItem);
             row.contextMenuProperty().bind(
                   Bindings.when(Bindings.isNotNull(row.itemProperty()))
@@ -462,6 +507,35 @@ public class Controller implements Initializable{
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
+
+        routeTableID.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+
+        routeTableID.setRowFactory(tableView -> {
+            final TableRow<routeTable> row = new TableRow<>();
+            final ContextMenu rowMenu = new ContextMenu();
+            MenuItem removeItem = new MenuItem("Delete");
+            row.setOnMouseClicked(event -> {});
+            removeItem.setOnAction(event -> {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Confirmation Dialog");
+                alert.setHeaderText("Look, a Confirmation Dialog!");
+                alert.setContentText("Confirm delete the row(s)?\nWarning: You cannot undo the action.\n");
+
+                Optional<ButtonType> result = alert.showAndWait();
+                if (result.get() == ButtonType.OK){
+                    ObservableList<routeTable> selectedItems = routeTableID.getSelectionModel().getSelectedItems();
+                    routeTData.removeAll(selectedItems);
+                    routeTableID.getSelectionModel().clearSelection();
+                }
+            });
+            rowMenu.getItems().addAll(removeItem);
+            row.contextMenuProperty().bind(
+                    Bindings.when(Bindings.isNotNull(row.itemProperty()))
+                            .then(rowMenu)
+                            .otherwise((ContextMenu)null)
+            );
+            return row;
+        });
 
         // initialise route data table resources
         flightID.setCellValueFactory(new PropertyValueFactory<>("fid"));
@@ -878,6 +952,20 @@ public class Controller implements Initializable{
         return false;
     }
 
+
+    private void deleteRows(){
+        ObservableList<airlineTable> airlinesSelected, allAirlines;
+//        allAirlines = airlineTableID.getItems();
+        airlinesSelected = airlineTableID.getSelectionModel().getSelectedItems();
+//        airlineTData.removeAll(airlinesSelected.get(0));
+        System.out.println("selected stuff + " + airlinesSelected.get(0));
+
+//
+//        List items =  new ArrayList (airlineTableID.getSelectionModel().getSelectedItems());
+//        System.out.println("selected stuff + " + items);
+//        airportTData.removeAll(items);
+//        airlineTableID.getSelectionModel().clearSelection();
+    }
 
     private void searchAirlines(){
         // searching for airline

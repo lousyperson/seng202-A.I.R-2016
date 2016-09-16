@@ -55,4 +55,13 @@ public class AirportRepository extends Repository{
         return AirportCountry;
     }
 
+    // finds the country of an airport given IATA
+    public String findCountry(String id) {
+        for (Airport airport : airports.values()) {
+            if (airport.getIATA().equals(id)) {
+                return airport.getCountry();
+            }
+        }
+        return null;
+    }
 }
