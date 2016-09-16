@@ -8,28 +8,34 @@ import java.util.*;
  * Created by jjg64 on 15/08/16.
  */
 public class AirportRepository extends Repository{
-    private HashMap<Integer, Airport> Airports = new HashMap<>();
+    private HashMap<Integer, Airport> airports = new HashMap<>();
     private HashMap<String, HashSet> countryAirports = new HashMap<>();
 
 
     public void addAirport(Airport airport) {
-        Airports.put(airport.getID(), airport);
+        if (!airports.containsKey(airport.getID())) {
+            airports.put(airport.getID(), airport);
 
-        HashSet ids = countryAirports.get(airport.getCountry().toLowerCase());
-        // add airport to the countryAirports to keep track of airports in each country
-        if(ids == null){
-            ids = new HashSet();
-            ids.add(airport.getID());
+            HashSet ids = countryAirports.get(airport.getCountry().toLowerCase());
+            // add airport to the countryAirports to keep track of airports in each country
+            if(ids == null){
+                ids = new HashSet();
+                ids.add(airport.getID());
+            }
+            else{
+                ids.add(airport.getID());
+            }
+            countryAirports.put(airport.getCountry().toLowerCase(), ids);
+
+        } else {
+            // add error here
+            System.out.println("Error");
         }
-        else{
-            ids.add(airport.getID());
-        }
-        countryAirports.put(airport.getCountry().toLowerCase(), ids);
 
     }
 
     public HashMap<Integer, Airport> getAirports() {
-        return Airports;
+        return airports;
     }
 
     public HashMap<String, HashSet> getCountryAirports(){
@@ -47,7 +53,7 @@ public class AirportRepository extends Repository{
     // finds and returns all airports in a given country
     public ArrayList<Airport> getCountry(String country) {
         ArrayList<Airport> AirportCountry = new ArrayList<Airport>();
-        for (Airport airport : Airports.values()) {
+        for (Airport airport : airports.values()) {
             if (airport.getCountry().equals(country)) {
                 AirportCountry.add(airport);
             }

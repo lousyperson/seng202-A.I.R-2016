@@ -36,7 +36,7 @@ public class RouteValidator {
                 stringArray.add(currentLine);
             }
             if (hasError) {
-                return null;
+                return new ArrayList<Route>();
             }
         }
         // no errors so continue parsing

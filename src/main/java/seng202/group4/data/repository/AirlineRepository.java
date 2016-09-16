@@ -10,15 +10,20 @@ import java.util.HashMap;
  */
 public class AirlineRepository extends Repository {
 
-    private HashMap<Integer, Airline> Airlines = new HashMap<Integer, Airline>();
+    private HashMap<Integer, Airline> airlines = new HashMap<Integer, Airline>();
 
     public void addAirline(Airline airline) {
-        Airlines.put(airline.getID(), airline);
+        if (!airlines.containsKey(airline.getID())) {
+            airlines.put(airline.getID(), airline);
+        } else {
+            // Add something here
+            System.out.println("Error");
+        }
     }
 
 
     public HashMap<Integer, Airline> getAirlines() {
-        return Airlines;
+        return airlines;
     }
 
 
@@ -26,7 +31,7 @@ public class AirlineRepository extends Repository {
     //given a country, finds all airlines based in that country
     public ArrayList<Airline> getCountry(String country) {
         ArrayList<Airline> AirlineCountry = new ArrayList<Airline>();
-        for (Airline airline : Airlines.values()) {
+        for (Airline airline : airlines.values()) {
             if (airline.getCountry().equals(country)) {
                 AirlineCountry.add(airline);
             }
@@ -37,7 +42,7 @@ public class AirlineRepository extends Repository {
     //finds all the active (operating) airlines
     public ArrayList<Airline> getActive() {
         ArrayList<Airline> ActiveAirlines = new ArrayList<Airline>();
-        for (Airline airline : Airlines.values()) {
+        for (Airline airline : airlines.values()) {
             if (airline.getActive() == true) {
                 ActiveAirlines.add(airline);
             }
@@ -48,7 +53,7 @@ public class AirlineRepository extends Repository {
     //finds all inactive (no longer operating) airlines
     public ArrayList<Airline> getInActive() {
         ArrayList<Airline> InActiveAirlines = new ArrayList<Airline>();
-        for (Airline airline : Airlines.values()) {
+        for (Airline airline : airlines.values()) {
             if (airline.getActive() == false) {
                 InActiveAirlines.add(airline);
             }

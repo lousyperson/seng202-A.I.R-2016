@@ -41,9 +41,30 @@ public class AirportValidator {
         }
     }
 
+<<<<<<< HEAD
     /**
      * Makes the Daylight Saving time enum.
      */
+=======
+    public ArrayList<Airport> makeAirports() throws IOException {
+        while ((currentLine = file.readLine()) != null) {
+            lineNumber++;
+            currentLine = currentLine.trim();
+            if (!currentLine.matches("\\w") && !currentLine.equals("")) {
+                validateLine();
+                stringArray.add(currentLine);
+            }
+            if (hasError) {
+                return new ArrayList<Airport>();
+            }
+        }
+
+        // no errors so continue parsing
+        AirportParser parser = new AirportParser(stringArray);
+        return parser.makeAirports();
+    }
+
+>>>>>>> cd71ee9bc1b23d43e6f666b8aecc670be18fc607
     private void makeMap() {
         DSTs.add("\"E\"");
         DSTs.add("\"A\"");
@@ -75,10 +96,10 @@ public class AirportValidator {
         } else if (!checkStringWithCommas()) {
             makeAlert("Airport country must be in quotations");
             return;
-        } else if (!checkString(0) && (splitLine[index].length() == 5 || splitLine[index] == "\\N")) {
+        } else if (!checkString(0) && !(splitLine[index].length() == 5 || splitLine[index].equals("\\N"))) {
             makeAlert("IATA must be letters of length 3 in quotations or \\N");
             return;
-        } else if (!checkString(0) && (splitLine[index + 1].length() == 6 || splitLine[index + 1] == "\\N")) {
+        } else if (!checkString(0) && !(splitLine[index].length() == 6 || splitLine[index].equals("\\N"))) {
             makeAlert("ICAO must be letters of length 4 in quotations");
             return;
         } else if (!checkNumber(2)) {
@@ -159,6 +180,7 @@ public class AirportValidator {
         this.file = new BufferedReader(new InputStreamReader(filepath));
     }
 
+<<<<<<< HEAD
     /**
      * Makes a list of airports.
      * @return The list of airports, null otherwise.
@@ -186,6 +208,8 @@ public class AirportValidator {
      * Makes an alert in case there is an error in formatting so that the user can alter their raw data.
      * @param message
      */
+=======
+>>>>>>> cd71ee9bc1b23d43e6f666b8aecc670be18fc607
     private void makeAlert(String message) {
         hasError = true;
         alert = new Alert(Alert.AlertType.ERROR);
