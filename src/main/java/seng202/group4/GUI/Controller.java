@@ -424,6 +424,9 @@ public class Controller implements Initializable {
                 Optional<ButtonType> result = alert.showAndWait();
                 if (result.get() == ButtonType.OK) {
                     ObservableList<airlineTable> selectedItems = airlineTableID.getSelectionModel().getSelectedItems();
+                    for (airlineTable airline : selectedItems) {
+                        Repository.airlineRepository.getAirlines().remove(airline.getRid());
+                    }
                     airlineTData.removeAll(selectedItems);
                     airlineTableID.getSelectionModel().clearSelection();
                 }
@@ -491,6 +494,9 @@ public class Controller implements Initializable {
                 Optional<ButtonType> result = alert.showAndWait();
                 if (result.get() == ButtonType.OK) {
                     ObservableList<airportTable> selectedItems = airportTableID.getSelectionModel().getSelectedItems();
+                    for (airportTable airport : selectedItems) {
+                        Repository.airportRepository.getAirports().remove(airport.getAtid());
+                    }
                     airportTData.removeAll(selectedItems);
                     airportTableID.getSelectionModel().clearSelection();
                 }
@@ -1284,8 +1290,8 @@ public class Controller implements Initializable {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open file");
         File in = fileChooser.showOpenDialog(stage);
-        InputStream file = new FileInputStream(in);
         if (in.exists()) {
+            InputStream file = new FileInputStream(in);
             System.out.println("file opneedd");
             goToDataTab(airlineLabel);
             insertAirlineTable(file);
@@ -1376,8 +1382,8 @@ public class Controller implements Initializable {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open file");
         File in = fileChooser.showOpenDialog(stage);
-        InputStream file = new FileInputStream(in);
         if (in.exists()) {
+            InputStream file = new FileInputStream(in);
             System.out.println("file opened oh ye bb~");
             goToDataTab(airportLabel);
             insertAirportTable(file);
@@ -1500,8 +1506,8 @@ public class Controller implements Initializable {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open file");
         File in = fileChooser.showOpenDialog(stage);
-        InputStream file = new FileInputStream(in);
         if (in.exists()) {
+            InputStream file = new FileInputStream(in);
             System.out.println("file opneeeedddd");
             goToDataTab(routeLabel);
             insertRouteTable(file);
@@ -1624,8 +1630,8 @@ public class Controller implements Initializable {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open file");
         File in = fileChooser.showOpenDialog(stage);
-        InputStream file = new FileInputStream(in);
         if (in.exists()) {
+            InputStream file = new FileInputStream(in);
             System.out.println("oooo yah flights");
             // change tab to flight tab if its not on it already
             if(!tabPane.getSelectionModel().equals(flightTab)){
