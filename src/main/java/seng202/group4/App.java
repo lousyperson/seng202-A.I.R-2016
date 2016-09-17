@@ -25,8 +25,9 @@ public class App extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        FXMLLoader loader = new FXMLLoader();
-        Parent root = loader.load(getClass().getClassLoader().getResource("GUI.fxml").openStream());
+        FXMLLoader fxml = new FXMLLoader();
+        fxml.setLocation(getClass().getClassLoader().getResource("GUI.fxml"));
+        Parent root = fxml.load();
 //        Parent root = FXMLLoader.load(getClass().getResource("GUI.fxml"));
         //Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("../GUI.fxml"));
         primaryStage.setTitle("Aviation Information Reader");
