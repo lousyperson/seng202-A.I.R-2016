@@ -15,6 +15,28 @@ function initMap() {
     });
 }
 
+//function panToMap(middle) {
+//    map = new google.maps.Map(document.getElementById('map'), {
+//        center: middle,
+//        zoom: 3
+//    });
+//}
+
+
+function off() {
+    // map.panTo(lastValidCenter)
+    map.setOptions({
+        draggable: false
+    });
+}
+
+function on() {
+    // map.panTo(lastValidCenter);
+    map.setOptions({
+        draggable: true
+    });
+}
+
 function hideFlights() {
     for (var i = 0; i < markers.length; i++) {
         markers[i].setMap(null);
@@ -94,6 +116,7 @@ function showAllAirports()
     });
     markers.push(marker);
     markerCluster = new MarkerClusterer(map, markers);
+
 };
 
 // creates and displays lines for all routes
@@ -110,7 +133,3 @@ function showAllRoutes() {
         strokeWeight: 1
     });
 
-    flightPath.setMap(map);
-    polylines.push(flightPath);
-    //flightPath.setMap(null); to make a route invisible
-}

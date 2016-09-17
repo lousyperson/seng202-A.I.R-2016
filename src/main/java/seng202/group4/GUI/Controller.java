@@ -8,11 +8,17 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.web.WebView;
@@ -27,11 +33,16 @@ import seng202.group4.data.repository.AirlineRepository;
 import seng202.group4.data.repository.AirportRepository;
 import seng202.group4.data.repository.FlightRepository;
 import seng202.group4.data.repository.RouteRepository;
+import seng202.group4.data.repository.Repository;
 
+
+import java.awt.*;
+import java.awt.event.InputEvent;
 import java.io.*;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.*;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class Controller implements Initializable{
@@ -247,12 +258,29 @@ public class Controller implements Initializable{
     @FXML
     ListView<String> flightList;
 
+    @FXML
+    TabPane tabPane;
 
     @FXML
     CheckBox airportsAll;
+    @FXML
+    Tab dataTab;
 
     @FXML
     CheckBox routesAll;
+
+    @FXML
+    Tab flightTab;
+
+    @FXML
+    Tab mapTab;
+
+
+
+    private String airlineLabel = "Airlines";
+    private String airportLabel = "Airport";
+    private String routeLabel = "Routes";
+    
 
     // create table data
     private ObservableList<airlineTable> airlineTData = FXCollections.observableArrayList();
@@ -263,16 +291,10 @@ public class Controller implements Initializable{
 
     private ObservableList<flightTable> flightTData = FXCollections.observableArrayList();
 
-    private ObservableList<String> items = FXCollections.observableArrayList("Default Airlines", "Default Airports", "Default Routes");
+    private ObservableList<String> items = FXCollections.observableArrayList(airlineLabel, airportLabel, routeLabel);
 
     // testing for flight
     private ObservableList<String> flightItems = FXCollections.observableArrayList();
-
-    // data repositories
-    private AirlineRepository airlineRepository = new AirlineRepository();
-    private AirportRepository airportRepository = new AirportRepository();
-    private RouteRepository routeRepository = new RouteRepository();
-    private FlightRepository flightRepository = new FlightRepository();
 
     // initial combobox names
     private String allCountriesTag = " --ALL COUNTRIES-- ";
@@ -295,9 +317,27 @@ public class Controller implements Initializable{
     // equipmentSet holds all the equipment uploaded to route
     private TreeSet equipmentSet = new TreeSet();
 
+    /**
+     * Where the program starts, initializes things like listeners and starts running the GUI.
+     * @param location
+     * @param resources
+     */
     public void initialize(URL location, ResourceBundle resources) {
         flightMap.getEngine().load(getClass().getClassLoader().getResource("map.html").toExternalForm());
         mapView.getEngine().load(getClass().getClassLoader().getResource("map.html").toExternalForm());
+
+
+        flightMap.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                flightMap.getEngine().executeScript("off();");
+                System.out.println("off");            }
+        });        flightMap.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                flightMap.getEngine().executeScript("on();");
+                System.out.println("on");            }
+        });
 
         // initialise data list
         datalist.setItems(items);
@@ -307,7 +347,7 @@ public class Controller implements Initializable{
         updateAirportSearch();
         updateRouteSearch();
         updateFlightNameSearch();
-        // select airline table on the side bar
+        // select first data type (airline) on the side bar
         datalist.getSelectionModel().clearAndSelect(0);
         // show airline table
         airlineTableID.toFront();
@@ -328,17 +368,17 @@ public class Controller implements Initializable{
 
         datalist.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends  String> ov, String old_val, String new_val) -> {
             System.out.println("Selected item: " + new_val);
-            if (new_val.equals("Default Airlines")) {
+            if (new_val.equals(airlineLabel)) {
                 airlineTableID.toFront();
                 airlinePane.setVisible(true);
                 airportPane.setVisible(false);
                 routePane.setVisible(false);
-            } else if (new_val.equals("Default Airports")) {
+            } else if (new_val.equals(airportLabel)) {
                 airportTableID.toFront();
                 airlinePane.setVisible(false);
                 airportPane.setVisible(true);
                 routePane.setVisible(false);
-            } else if (new_val.equals("Default Routes")) {
+            } else if (new_val.equals(routeLabel)) {
                 routeTableID.toFront();
                 airlinePane.setVisible(false);
                 airportPane.setVisible(false);
@@ -371,6 +411,35 @@ public class Controller implements Initializable{
         // listen for airline search queries
         searchAirlines();
 
+        airlineTableID.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+
+        airlineTableID.setRowFactory(tableView -> {
+            final TableRow<airlineTable> row = new TableRow<>();
+            final ContextMenu rowMenu = new ContextMenu();
+            MenuItem removeItem = new MenuItem("Delete");
+            row.setOnMouseClicked(event -> {});
+            removeItem.setOnAction(event -> {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Confirmation Dialog");
+                alert.setHeaderText("Look, a Confirmation Dialog!");
+                alert.setContentText("Confirm delete the row(s)?\nWarning: You cannot undo the action.\n");
+
+                Optional<ButtonType> result = alert.showAndWait();
+                if (result.get() == ButtonType.OK){
+                    ObservableList<airlineTable> selectedItems = airlineTableID.getSelectionModel().getSelectedItems();
+                    airlineTData.removeAll(selectedItems);
+                    airlineTableID.getSelectionModel().clearSelection();
+                }
+            });
+            rowMenu.getItems().addAll(removeItem);
+            row.contextMenuProperty().bind(
+                    Bindings.when(Bindings.isNotNull(row.itemProperty()))
+                            .then(rowMenu)
+                            .otherwise((ContextMenu)null)
+            );
+            return row;
+        });
+
         // initialise airport table resources
         apid.setCellValueFactory(new PropertyValueFactory<>("atid"));
         apname.setCellValueFactory(new PropertyValueFactory<>("atname"));
@@ -398,6 +467,8 @@ public class Controller implements Initializable{
         // listen for airports search queries
         searchAirports();
 
+        airportTableID.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+
         airportTableID.setRowFactory(tableView -> {
             final TableRow<airportTable> row = new TableRow<>();
             final ContextMenu rowMenu = new ContextMenu();
@@ -413,9 +484,19 @@ public class Controller implements Initializable{
                 pointBLat.setText(Double.toString(row.getItem().getAtlatitude()));
                 pointBLon.setText(Double.toString(row.getItem().getAtlongitude()));
             });
-            removeItem.setOnAction(event ->
-                    airportTData.remove(row.getItem())
-            );
+            removeItem.setOnAction(event -> {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Confirmation Dialog");
+                alert.setHeaderText("Look, a Confirmation Dialog!");
+                alert.setContentText("Confirm delete the row(s)?\nWarning: You cannot undo the action.\n");
+
+                Optional<ButtonType> result = alert.showAndWait();
+                if (result.get() == ButtonType.OK){
+                    ObservableList<airportTable> selectedItems = airportTableID.getSelectionModel().getSelectedItems();
+                    airportTData.removeAll(selectedItems);
+                    airportTableID.getSelectionModel().clearSelection();
+                }
+            });
             rowMenu.getItems().addAll(addA, addB, removeItem);
             row.contextMenuProperty().bind(
                   Bindings.when(Bindings.isNotNull(row.itemProperty()))
@@ -447,6 +528,35 @@ public class Controller implements Initializable{
             e.printStackTrace();
         }
 
+        routeTableID.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+
+        routeTableID.setRowFactory(tableView -> {
+            final TableRow<routeTable> row = new TableRow<>();
+            final ContextMenu rowMenu = new ContextMenu();
+            MenuItem removeItem = new MenuItem("Delete");
+            row.setOnMouseClicked(event -> {});
+            removeItem.setOnAction(event -> {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Confirmation Dialog");
+                alert.setHeaderText("Look, a Confirmation Dialog!");
+                alert.setContentText("Confirm delete the row(s)?\nWarning: You cannot undo the action.\n");
+
+                Optional<ButtonType> result = alert.showAndWait();
+                if (result.get() == ButtonType.OK){
+                    ObservableList<routeTable> selectedItems = routeTableID.getSelectionModel().getSelectedItems();
+                    routeTData.removeAll(selectedItems);
+                    routeTableID.getSelectionModel().clearSelection();
+                }
+            });
+            rowMenu.getItems().addAll(removeItem);
+            row.contextMenuProperty().bind(
+                    Bindings.when(Bindings.isNotNull(row.itemProperty()))
+                            .then(rowMenu)
+                            .otherwise((ContextMenu)null)
+            );
+            return row;
+        });
+
         // initialise route data table resources
         flightID.setCellValueFactory(new PropertyValueFactory<>("fid"));
         flightType.setCellValueFactory(new PropertyValueFactory<>("ftype"));
@@ -460,6 +570,9 @@ public class Controller implements Initializable{
         searchRoutes();
     }
 
+    /**
+     * Calculates the distance between two coordinates on the map.
+     */
     public void calcDistance() {
         if (pointALat.getText() != null && pointALon.getText() != null &&
                 pointBLat.getText() != null && pointBLon.getText() != null) {
@@ -498,6 +611,9 @@ public class Controller implements Initializable{
         }
     }
 
+    /**
+     * Searches through the names of the flights so that the user is able to find a select flight from the list.
+     */
     private void searchFlightNames(){
         FilteredList<flightTable> flightTableFiltered = new FilteredList<>(flightTData, p -> true);
 
@@ -531,6 +647,9 @@ public class Controller implements Initializable{
             mapView.getEngine().executeScript("hideAllRoutes();");
         }
     }
+    /**
+     * Searches through the airports in the table dependent on a specific search entry by the user.
+     */
     private void searchAirports(){
         String intPattern = "[-]?[0-9]*[.]?[0-9]+";
         // searching for airline
@@ -625,7 +744,7 @@ public class Controller implements Initializable{
             flightMap.getEngine().executeScript("deleteFlights();");
             // get the flight that is selected so we can get the flight name whic is a key to the flight repo
             // so then we can get flight (info) now we have it yay its called flight
-            Flight flight = flightRepository.getFlights().get(flightName);
+            Flight flight = Repository.flightRepository.getFlights().get(flightName);
             // flight actually has an array list of positions and positions= array listof FLIGHT POSITISONS
             // which is another object =.=
 
@@ -777,7 +896,7 @@ public class Controller implements Initializable{
                 return true;
             }
             else if(!rtDestAirportId.equals("null") &&
-                    airportRepository.airportIDsOfCountry(selectedDestCountry.toLowerCase()).contains(Integer.parseInt(rtDestAirportId))){
+                    Repository.airportRepository.airportIDsOfCountry(selectedDestCountry.toLowerCase()).contains(Integer.parseInt(rtDestAirportId))){
                 return true;
             }
         }
@@ -790,7 +909,7 @@ public class Controller implements Initializable{
                 return true;
             }
             else if(!rtSrcAirportId.equals("null") &&
-                    airportRepository.airportIDsOfCountry(selectedDepartCountry.toLowerCase()).contains(Integer.parseInt(rtSrcAirportId))){
+                    Repository.airportRepository.airportIDsOfCountry(selectedDepartCountry.toLowerCase()).contains(Integer.parseInt(rtSrcAirportId))){
                 return true;
             }
         }
@@ -808,12 +927,12 @@ public class Controller implements Initializable{
                 return true;
             }
             else if(selectedRouteEquip.equals(allEquipmentsTag) && !rtDestAirportId.equals("null") &&
-                    airportRepository.airportIDsOfCountry(selectedDestCountry.toLowerCase()).contains(Integer.parseInt(rtDestAirportId))){
+                    Repository.airportRepository.airportIDsOfCountry(selectedDestCountry.toLowerCase()).contains(Integer.parseInt(rtDestAirportId))){
                 return true;
             }
             else if(rtEquipmentArray.contains(selectedRouteEquip.toLowerCase()) &&
                     !rtDestAirportId.equals("null") &&
-                    airportRepository.airportIDsOfCountry(selectedDestCountry.toLowerCase()).contains(Integer.parseInt(rtDestAirportId))){
+                    Repository.airportRepository.airportIDsOfCountry(selectedDestCountry.toLowerCase()).contains(Integer.parseInt(rtDestAirportId))){
                 return true;
             }
         }
@@ -829,12 +948,12 @@ public class Controller implements Initializable{
                 return true;
             }
             else if(selectedRouteEquip.equals(allEquipmentsTag) && !rtSrcAirportId.equals("null") &&
-                    airportRepository.airportIDsOfCountry(selectedDepartCountry.toLowerCase()).contains(Integer.parseInt(rtSrcAirportId))){
+                    Repository.airportRepository.airportIDsOfCountry(selectedDepartCountry.toLowerCase()).contains(Integer.parseInt(rtSrcAirportId))){
                 return true;
             }
             else if(rtEquipmentArray.contains(selectedRouteEquip.toLowerCase()) &&
                     !rtSrcAirportId.equals("null") &&
-                    airportRepository.airportIDsOfCountry(selectedDepartCountry.toLowerCase()).contains(Integer.parseInt(rtSrcAirportId))){
+                    Repository.airportRepository.airportIDsOfCountry(selectedDepartCountry.toLowerCase()).contains(Integer.parseInt(rtSrcAirportId))){
                 return true;
             }
         }
@@ -847,17 +966,17 @@ public class Controller implements Initializable{
                 return true;
             }
             else if(selectedDepartCountry.equals(departureCountryTag) && !rtDestAirportId.equals("null") &&
-                    airportRepository.airportIDsOfCountry(selectedDestCountry.toLowerCase()).contains(Integer.parseInt(rtDestAirportId))){
+                    Repository.airportRepository.airportIDsOfCountry(selectedDestCountry.toLowerCase()).contains(Integer.parseInt(rtDestAirportId))){
                 return true;
             }
             else if(selectedDestCountry.equals(destinationCountryTag) && !rtSrcAirportId.equals("null") &&
-                    airportRepository.airportIDsOfCountry(selectedDepartCountry.toLowerCase()).contains(Integer.parseInt(rtSrcAirportId))){
+                    Repository.airportRepository.airportIDsOfCountry(selectedDepartCountry.toLowerCase()).contains(Integer.parseInt(rtSrcAirportId))){
                 return true;
             }
             else if(!rtDestAirportId.equals("null") &&
-                    airportRepository.airportIDsOfCountry(selectedDestCountry.toLowerCase()).contains(Integer.parseInt(rtDestAirportId))
+                    Repository.airportRepository.airportIDsOfCountry(selectedDestCountry.toLowerCase()).contains(Integer.parseInt(rtDestAirportId))
                     && !rtSrcAirportId.equals("null") &&
-                    airportRepository.airportIDsOfCountry(selectedDepartCountry.toLowerCase()).contains(Integer.parseInt(rtSrcAirportId))){
+                    Repository.airportRepository.airportIDsOfCountry(selectedDepartCountry.toLowerCase()).contains(Integer.parseInt(rtSrcAirportId))){
                 return true;
             }
         }
@@ -866,9 +985,9 @@ public class Controller implements Initializable{
         // filter destination/departure country and equipment
         else if(selectedDepartCountry != null && selectedDestCountry != null && selectedRouteEquip != null){
             if(!rtDestAirportId.equals("null") &&
-                    airportRepository.airportIDsOfCountry(selectedDestCountry.toLowerCase()).contains(Integer.parseInt(rtDestAirportId))
+                    Repository.airportRepository.airportIDsOfCountry(selectedDestCountry.toLowerCase()).contains(Integer.parseInt(rtDestAirportId))
                     && !rtSrcAirportId.equals("null") &&
-                    airportRepository.airportIDsOfCountry(selectedDepartCountry.toLowerCase()).contains(Integer.parseInt(rtSrcAirportId))
+                    Repository.airportRepository.airportIDsOfCountry(selectedDepartCountry.toLowerCase()).contains(Integer.parseInt(rtSrcAirportId))
                     && rtEquipmentArray.contains(selectedRouteEquip.toLowerCase())){
                 return true;
             }
@@ -877,6 +996,20 @@ public class Controller implements Initializable{
         return false;
     }
 
+
+    private void deleteRows(){
+        ObservableList<airlineTable> airlinesSelected, allAirlines;
+//        allAirlines = airlineTableID.getItems();
+        airlinesSelected = airlineTableID.getSelectionModel().getSelectedItems();
+//        airlineTData.removeAll(airlinesSelected.get(0));
+        System.out.println("selected stuff + " + airlinesSelected.get(0));
+
+//
+//        List items =  new ArrayList (airlineTableID.getSelectionModel().getSelectedItems());
+//        System.out.println("selected stuff + " + items);
+//        airportTData.removeAll(items);
+//        airlineTableID.getSelectionModel().clearSelection();
+    }
 
     private void searchAirlines(){
         // searching for airline
@@ -1050,39 +1183,75 @@ public class Controller implements Initializable{
         flightNameSearch.setText(text);
     }
 
-
+    /**
+     * Allows the user to select the direct flight filter option.
+     * @throws IOException
+     */
     public void selectDirect() throws IOException {
         updateRouteSearch();
     }
 
+    /**Allows the user to select the indirect flight filter option.
+     *
+     * @throws IOException
+     */
     public void selectIndirect() throws IOException {
         updateRouteSearch();
     }
 
+    /**
+     * Filters the list of airlines by country, leaving only airlines from the selected county.
+     * @throws IOException
+     */
     public void filterAirlineCountry() throws IOException {
         updateAirlineSearch();
     }
 
+    /**
+     * Filters the list of airports by country, leaving only airportd from the selected county.
+
+     * @throws IOException
+     */
     public void filterAirportCountry() throws IOException {
         updateAirportSearch();
     }
 
+    /**
+     * Filters by departure country, only showing routes departing from the selected country.
+     * @throws IOException
+     */
     public void filterDepCountry() throws IOException {
         updateRouteSearch();
     }
 
+    /**
+     * Filters by destination country, only showing routes that arrive in the selected country.
+     * @throws IOException
+     */
     public void filterDestCountry() throws IOException {
         updateRouteSearch();
     }
 
+    /**
+     * Filters by the equipment in a route, only showing routes that utilize that equipemt.
+     * @throws IOException
+     */
     public void filterEquipment() throws IOException {
         updateRouteSearch();
     }
 
+    /**
+     * Filters by whether or not the airline is active, only showing active airlines.
+     * @throws IOException
+     */
     public void selectActiveAirlines() throws IOException {
         updateAirlineSearch();
     }
 
+    /**
+     * Filters by whether or not the airline is active, only showing inactive airlines.
+     * @throws IOException
+     */
     public void selectInactiveAirlines() throws IOException {
         updateAirlineSearch();
     }
@@ -1096,8 +1265,8 @@ public class Controller implements Initializable{
             for(int i = 0; i < airlines.size(); i++) {
                 Airline airline = airlines.get(i);
                 // if the airline ID already exists in the repository, warn the user
-                if(!airlineRepository.getAirlines().containsKey(airline.getID())){
-                    airlineRepository.addAirline(airline);
+                if(!Repository.airlineRepository.getAirlines().containsKey(airline.getID())){
+                    Repository.airlineRepository.addAirline(airline);
                     airlineTData.add(new airlineTable(airline.getID(), airline.getName(),
                             airline.getAlias(), airline.getIATA(),
                             airline.getICAO(), airline.getCallsign(),
@@ -1124,7 +1293,7 @@ public class Controller implements Initializable{
         if(airlines != null){
             for(int i = 0; i < airlines.size(); i++) {
                 Airline airline = airlines.get(i);
-                airlineRepository.addAirline(airline);
+                Repository.airlineRepository.addAirline(airline);
                 airlineTData.add(new airlineTable(airline.getID(), airline.getName(),
                         airline.getAlias(), airline.getIATA(),
                         airline.getICAO(), airline.getCallsign(),
@@ -1139,7 +1308,10 @@ public class Controller implements Initializable{
     }
 
 
-
+    /**
+     * Loads the whole list of airlines into the airline data table.
+     * @throws IOException
+     */
     public void loadAirline() throws IOException {
         Stage stage = new Stage();
         FileChooser fileChooser = new FileChooser();
@@ -1148,6 +1320,7 @@ public class Controller implements Initializable{
         InputStream file = new FileInputStream(in);
         if (in.exists()) {
             System.out.println("file opneedd");
+            goToDataTab(airlineLabel);
             insertAirlineTable(file);
         }
     }
@@ -1170,8 +1343,8 @@ public class Controller implements Initializable{
         if(airports != null){
             for(int i = 0; i < airports.size(); i++) {
                 Airport airport = airports.get(i);
-                if(!airportRepository.getAirports().containsKey(airport.getID())){
-                    airportRepository.addAirport(airport);
+                if(!Repository.airportRepository.getAirports().containsKey(airport.getID())){
+                    Repository.airportRepository.addAirport(airport);
                     airportTData.add(new airportTable(airport.getID(), airport.getName(), airport.getCity(),
                             airport.getCountry(), airport.getIATA(), airport.getICAO(), airport.getLatitude(),
                             airport.getLongitude(), airport.getAltitude(), airport.getTimezone(), airport.getDST().toText(),
@@ -1196,7 +1369,7 @@ public class Controller implements Initializable{
         if(airports != null){
             for(int i = 0; i < airports.size(); i++) {
                 Airport airport = airports.get(i);
-                airportRepository.addAirport(airport);
+                Repository.airportRepository.addAirport(airport);
                 airportTData.add(new airportTable(airport.getID(), airport.getName(), airport.getCity(),
                         airport.getCountry(), airport.getIATA(), airport.getICAO(), airport.getLatitude(),
                         airport.getLongitude(), airport.getAltitude(), airport.getTimezone(), airport.getDST().toText(),
@@ -1210,7 +1383,10 @@ public class Controller implements Initializable{
 
     }
 
-
+    /**
+     *Loads the selected airline data file into the airline data table.
+     * @throws IOException
+     */
     public void loadAirport() throws IOException {
 
         Stage stage = new Stage();
@@ -1220,6 +1396,7 @@ public class Controller implements Initializable{
         InputStream file = new FileInputStream(in);
         if (in.exists()) {
             System.out.println("file opened oh ye bb~");
+            goToDataTab(airportLabel);
             insertAirportTable(file);
         }
     }
@@ -1230,7 +1407,7 @@ public class Controller implements Initializable{
         if (file != null) {
             System.out.println("ooooooooh yyyyyyyyyyahhhhhh");
             insertEmptyAirportTable(file);
-            //System.out.println("size of re" + airportRepository.getAirports().size());
+            //System.out.println("size of re" + Repository.airportRepository.getAirports().size());
         }
     }
 
@@ -1242,8 +1419,8 @@ public class Controller implements Initializable{
         if(routes != null){
             for(int i = 0; i < routes.size(); i++) {
                 Route route = routes.get(i);
-                if(diffRoutes(route, routeRepository.getRoutes())) {
-                    routeRepository.addRoute(route);
+                if(diffRoutes(route, Repository.routeRepository.getRoutes())) {
+                    Repository.routeRepository.addRoute(route);
                     routeTData.add(new routeTable(route.getAirline(), String.valueOf(route.getAirlineID()),
                             route.getSrcAirport(), String.valueOf(route.getSrcAirportID()),
                             route.getDestAirport(), String.valueOf(route.getDestAirportID()),
@@ -1276,7 +1453,7 @@ public class Controller implements Initializable{
         if(routes != null){
             for(int i = 0; i < routes.size(); i++) {
                 Route route = routes.get(i);
-                routeRepository.addRoute(route);
+                Repository.routeRepository.addRoute(route);
                 routeTData.add(new routeTable(route.getAirline(), String.valueOf(route.getAirlineID()),
                         route.getSrcAirport(), String.valueOf(route.getSrcAirportID()),
                         route.getDestAirport(), String.valueOf(route.getDestAirportID()),
@@ -1286,15 +1463,15 @@ public class Controller implements Initializable{
                 // if destination country id is not null then add it to destSet
                 if (route.getDestAirportID() != null){
                     // also check that the airport of that id exists in the repository
-                    if(airportRepository.getAirports().get(route.getDestAirportID()) != null) {
-                        destSet.add(airportRepository.getAirports().get(route.getDestAirportID()).getCountry());
+                    if(Repository.airportRepository.getAirports().get(route.getDestAirportID()) != null) {
+                        destSet.add(Repository.airportRepository.getAirports().get(route.getDestAirportID()).getCountry());
                     }
                 }
                 // if departure country id is not null then add it to depSet
                 if (route.getSrcAirportID() != null){
                     // also check that the airport of that id exists in the repository
-                    if(airportRepository.getAirports().get(route.getSrcAirportID()) != null) {
-                        depSet.add(airportRepository.getAirports().get(route.getSrcAirportID()).getCountry());
+                    if(Repository.airportRepository.getAirports().get(route.getSrcAirportID()) != null) {
+                        depSet.add(Repository.airportRepository.getAirports().get(route.getSrcAirportID()).getCountry());
                     }
                 }
 
@@ -1312,7 +1489,10 @@ public class Controller implements Initializable{
 
     }
 
-
+    /**
+     * Loads the list of flight routes into the route data table from a data file.
+     * @throws IOException
+     */
     public void loadRoute() throws IOException {
 
         Stage stage = new Stage();
@@ -1322,6 +1502,7 @@ public class Controller implements Initializable{
         InputStream file = new FileInputStream(in);
         if (in.exists()) {
             System.out.println("file opneeeedddd");
+            goToDataTab(routeLabel);
             insertRouteTable(file);
         }
     }
@@ -1354,9 +1535,9 @@ public class Controller implements Initializable{
                 // if they press ok and field is not empty, check if a flight with that name exists
                 if(name.isPresent() && !name.get().trim().isEmpty()) {
                     // if it does not already exist add the flight with that name to the repository
-                    if(!flightRepository.getFlights().containsKey(name.get().toLowerCase())){
+                    if(!Repository.flightRepository.getFlights().containsKey(name.get().toLowerCase())){
                         gotName = true;
-                        flightRepository.addFlight(name.get().toLowerCase(), flight);
+                        Repository.flightRepository.addFlight(name.get().toLowerCase(), flight);
                         flightItems.add(name.get());
 
                         // update the listView of flight names
@@ -1393,7 +1574,7 @@ public class Controller implements Initializable{
     private void updateFlightTable(String name){
 
         // access flight repository to get the flight positions array given the name
-        Flight flight = flightRepository.getFlights().get(name);
+        Flight flight = Repository.flightRepository.getFlights().get(name);
 
         // clear the table then populate it with this flight
         flightTData.clear();
@@ -1405,6 +1586,10 @@ public class Controller implements Initializable{
 
     }
 
+    /**
+     * Loads a singular piece of flight data to allow the user to analyse a singular flight.
+     * @throws IOException
+     */
     public void loadFlight() throws IOException {
 
         Stage stage = new Stage();
@@ -1414,8 +1599,20 @@ public class Controller implements Initializable{
         InputStream file = new FileInputStream(in);
         if (in.exists()) {
             System.out.println("oooo yah flights");
+            // change tab to flight tab if its not on it already
+            if(!tabPane.getSelectionModel().equals(flightTab)){
+                tabPane.getSelectionModel().select(flightTab);
+            }
             insertFlightTable(file);
         }
+    }
+
+    // change tab to data tab if its not on it already and switch the selection tab to the given name
+    private void goToDataTab(String name){
+        if(!tabPane.getSelectionModel().equals(dataTab)){
+            tabPane.getSelectionModel().select(dataTab);
+        }
+        datalist.getSelectionModel().select(name);
     }
 
     private void duplicateIDAlert(String message, Integer id) {

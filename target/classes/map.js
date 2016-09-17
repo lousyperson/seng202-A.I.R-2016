@@ -47,6 +47,21 @@ function addAirport(late, lone) {
 //    });
 //}
 
+
+function off() {
+    // map.panTo(lastValidCenter)
+    map.setOptions({
+        draggable: false
+    });
+}
+
+function on() {
+    // map.panTo(lastValidCenter);
+    map.setOptions({
+        draggable: true
+    });
+}
+
 function hideFlights() {
     for (var i = 0; i < markers.length; i++) {
         markers[i].setMap(null);
@@ -111,8 +126,10 @@ function showAllAirports()
     });
     markers.push(marker);
     markerCluster = new MarkerClusterer(map, markers);
+
 };
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 // creates and displays lines for all routes
 function showAllRoutes() {
@@ -133,4 +150,7 @@ function showAllRoutes() {
     //flightPath.setMap(null); to make a route invisible
 }
 =======
+>>>>>>> phase2
+=======
+
 >>>>>>> phase2

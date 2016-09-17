@@ -2,13 +2,14 @@ package seng202.group4.data.repository;
 
 import seng202.group4.data.dataType.Airline;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
  * Created by jjg64 on 15/08/16.
  */
-public class AirlineRepository extends Repository {
+public class AirlineRepository implements Serializable {
 
     private HashMap<Integer, Airline> airlines = new HashMap<Integer, Airline>();
 

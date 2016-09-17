@@ -50,9 +50,9 @@
         </MenuBar>
     </top>
     <center>
-        <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+        <TabPane fx:id="tabPane" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
             <tabs>
-                <Tab text="Data View">
+                <Tab fx:id="dataTab" text="Data View">
                     <content>
                         <GridPane>
                             <columnConstraints>
@@ -66,16 +66,16 @@
                                 <ColumnConstraints />
                             </columnConstraints>
                             <rowConstraints>
-                                <RowConstraints maxHeight="80.0" minHeight="0.0" prefHeight="80.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="255.0" minHeight="0.0" prefHeight="221.0" vgrow="SOMETIMES" />
-                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                <RowConstraints maxHeight="178.72744750976562" minHeight="0.0" prefHeight="144.9090118408203" vgrow="SOMETIMES" />
+                                <RowConstraints maxHeight="381.0910339355469" minHeight="0.0" prefHeight="311.0909881591797" vgrow="SOMETIMES" />
+                                <RowConstraints maxHeight="223.90969848632812" minHeight="10.0" prefHeight="145.63629150390625" vgrow="SOMETIMES" />
+                                <RowConstraints maxHeight="170.54595947265625" minHeight="10.0" prefHeight="103.18206787109375" vgrow="SOMETIMES" />
                             </rowConstraints>
                             <children>
-                                <AnchorPane maxWidth="220.0" minHeight="0.0" minWidth="0.0" prefHeight="706.0" prefWidth="220.0" GridPane.rowIndex="2" GridPane.rowSpan="2">
+                                <AnchorPane maxWidth="220.0" minHeight="0.0" minWidth="0.0" prefHeight="152.0" prefWidth="220.0">
                                     <children>
-                                        <ListView fx:id="datalist" layoutX="10.0" layoutY="34.0" prefHeight="307.0" prefWidth="200.0" />
-                                        <Text layoutX="10.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Data Lists" />
+                                        <ListView fx:id="datalist" layoutX="10.0" layoutY="36.0" prefHeight="99.0" prefWidth="200.0" />
+                                        <Text layoutX="14.0" layoutY="24.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select a data type:" />
                                     </children>
                                 </AnchorPane>
                                 <TableView fx:id="airlineTableID" prefHeight="200.0" prefWidth="200.0" tableMenuButtonVisible="true" GridPane.columnIndex="1" GridPane.columnSpan="6" GridPane.rowSpan="4">
@@ -119,7 +119,7 @@
                                         <TableColumn fx:id="equipment" prefWidth="100.0" text="Equipment" />
                                     </columns>
                                 </TableView>
-                                <StackPane fx:id="searchPanes" prefHeight="150.0" prefWidth="200.0" GridPane.rowSpan="2">
+                                <StackPane fx:id="searchPanes" prefHeight="150.0" prefWidth="200.0" GridPane.rowIndex="1" GridPane.rowSpan="2">
                                     <children>
                                         <AnchorPane fx:id="airlinePane" minHeight="0.0" minWidth="0.0" prefHeight="172.0" prefWidth="220.0">
                                             <children>
@@ -149,18 +149,18 @@
                                                 <Text layoutX="14.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Search" />
                                                 <Text layoutX="15.0" layoutY="108.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Filter Options" />
                                                 <ComboBox fx:id="airportCountryFilter" layoutX="12.0" layoutY="123.0" onAction="#filterAirportCountry" prefHeight="25.0" prefWidth="197.0" promptText=" --ALL COUNTRIES--" />
-                                    <Text layoutX="15.0" layoutY="178.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Point A" />
-                                    <TextField fx:id="pointALat" layoutX="15.0" layoutY="182.0" prefHeight="25.0" prefWidth="83.0" />
-                                    <TextField fx:id="pointALon" layoutX="121.0" layoutY="182.0" prefHeight="25.0" prefWidth="72.0" />
-                                    <Text layoutX="15.0" layoutY="230.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Point B" />
-                                    <TextField fx:id="pointBLat" layoutX="15.0" layoutY="235.0" prefHeight="25.0" prefWidth="83.0" />
-                                    <TextField fx:id="pointBLon" layoutX="125.0" layoutY="235.0" prefHeight="25.0" prefWidth="72.0" />
-                                    <Text layoutX="15.0" layoutY="279.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Distance:" />
-                                    <TextField fx:id="calcdDistance" layoutX="12.0" layoutY="293.0" prefHeight="25.0" prefWidth="134.0" />
-                                    <Text layoutX="102.0" layoutY="199.0" strokeType="OUTSIDE" strokeWidth="0.0" text="," wrappingWidth="16.6015625" />
-                                    <Text layoutX="102.0" layoutY="252.0" strokeType="OUTSIDE" strokeWidth="0.0" text="," wrappingWidth="16.6015625" />
-                                    <Button fx:id="calc" layoutX="172.0" layoutY="293.0" mnemonicParsing="false" onAction="#calcDistance" text="Calc!" />
-                                    <Text layoutX="149.0" layoutY="310.0" strokeType="OUTSIDE" strokeWidth="0.0" text="km" wrappingWidth="16.30078125" />
+                                    <Text layoutX="19.0" layoutY="252.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Point A" />
+                                    <TextField fx:id="pointALat" layoutX="19.0" layoutY="256.0" prefHeight="25.0" prefWidth="83.0" />
+                                    <TextField fx:id="pointALon" layoutX="125.0" layoutY="256.0" prefHeight="25.0" prefWidth="72.0" />
+                                    <Text layoutX="19.0" layoutY="304.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Point B" />
+                                    <TextField fx:id="pointBLat" layoutX="19.0" layoutY="309.0" prefHeight="25.0" prefWidth="83.0" />
+                                    <TextField fx:id="pointBLon" layoutX="129.0" layoutY="309.0" prefHeight="25.0" prefWidth="72.0" />
+                                    <Text layoutX="19.0" layoutY="362.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Distance:" />
+                                    <TextField fx:id="calcdDistance" layoutX="19.0" layoutY="368.0" prefHeight="25.0" prefWidth="134.0" />
+                                    <Text layoutX="108.0" layoutY="336.0" strokeType="OUTSIDE" strokeWidth="0.0" text="," wrappingWidth="16.6015625" />
+                                    <Text layoutX="107.0" layoutY="282.0" strokeType="OUTSIDE" strokeWidth="0.0" text="," wrappingWidth="16.6015625" />
+                                    <Button fx:id="calc" layoutX="48.0" layoutY="413.0" mnemonicParsing="false" onAction="#calcDistance" text="Calculate Distance" />
+                                    <Text layoutX="163.0" layoutY="386.0" strokeType="OUTSIDE" strokeWidth="0.0" text="km" wrappingWidth="35.30078125" />
                                             </children>
                                         </AnchorPane>
                                     </children>
@@ -169,7 +169,61 @@
                         </GridPane>
                     </content>
                 </Tab>
-                <Tab text="Map View">
+            <Tab fx:id="flightTab" text="Flight View">
+               <content>
+                  <GridPane>
+                     <children>
+                        <AnchorPane maxWidth="220.0" minHeight="0.0" minWidth="0.0" prefHeight="706.0" prefWidth="220.0" GridPane.rowIndex="1" GridPane.rowSpan="2">
+                           <children>
+                              <ListView fx:id="flightList" layoutX="10.0" layoutY="38.0" prefHeight="307.0" prefWidth="200.0" />
+                              <Text layoutX="12.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Flight Data Lists" />
+                              <Button alignment="TOP_CENTER" contentDisplay="CENTER" layoutX="37.0" layoutY="366.0" mnemonicParsing="false" onAction="#loadFlight" prefHeight="25.0" prefWidth="146.0" text="Import Flight" />
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                           <children>
+                              <TextField fx:id="flightNameSearch" layoutX="12.0" layoutY="42.0" prefHeight="25.0" prefWidth="196.0" promptText="Search Flight Data List..." />
+                              <Text layoutX="14.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Search" />
+                           </children>
+                        </AnchorPane>
+                        <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="317.0" prefWidth="221.0" GridPane.columnIndex="1" GridPane.columnSpan="6" GridPane.rowSpan="4">
+                          <items>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                                 <children>
+                                    <WebView fx:id="flightMap" prefHeight="348.0" prefWidth="802.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                 </children>
+                              </AnchorPane>
+                              <TableView fx:id="flightTableID" prefHeight="248.0" prefWidth="699.0">
+                                 <columns>
+                                    <TableColumn fx:id="flightID" minWidth="100.0" prefWidth="100.0" sortable="false" text="ID" />
+                                    <TableColumn fx:id="flightType" minWidth="100.0" prefWidth="100.0" sortable="false" text="Type" />
+                                    <TableColumn fx:id="flightAltitude" minWidth="100.0" prefWidth="100.0" sortable="false" text="Altitude" />
+                                    <TableColumn fx:id="flightLatitude" minWidth="100.0" prefWidth="200.0" sortable="false" text="Latitude" />
+                                    <TableColumn fx:id="flightLongitude" minWidth="100.0" prefWidth="200.0" sortable="false" text="Longitude" />
+                                 </columns>
+                              </TableView>
+                          </items>
+                        </SplitPane>
+                     </children>
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="220.0" minWidth="10.0" prefWidth="220.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="311.0" minWidth="10.0" prefWidth="218.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="266.0" minWidth="10.0" prefWidth="168.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints maxHeight="160.79576110839844" minHeight="0.0" prefHeight="160.79576110839844" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="320.0" minHeight="0.0" prefHeight="238.96124267578125" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="346.417236328125" minHeight="20.0" prefHeight="167.41021728515625" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="242.85211181640625" minHeight="10.0" prefHeight="140.58978271484375" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                  </GridPane>
+               </content>
+            </Tab>
+                <Tab fx:id="mapTab" disable="true" text="Map View">
                     <content>
                         <GridPane>
                             <children>
@@ -233,59 +287,6 @@
                         </GridPane>
                     </content>
                 </Tab>
-            <Tab text="Flight View">
-               <content>
-                  <GridPane>
-                     <children>
-                        <AnchorPane maxWidth="220.0" minHeight="0.0" minWidth="0.0" prefHeight="706.0" prefWidth="220.0" GridPane.rowIndex="1" GridPane.rowSpan="2">
-                           <children>
-                              <ListView fx:id="flightList" layoutX="10.0" layoutY="38.0" prefHeight="307.0" prefWidth="200.0" />
-                              <Text layoutX="12.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Flight Data Lists" />
-                           </children>
-                        </AnchorPane>
-                        <AnchorPane prefHeight="200.0" prefWidth="200.0">
-                           <children>
-                              <TextField fx:id="flightNameSearch" layoutX="12.0" layoutY="42.0" prefHeight="25.0" prefWidth="196.0" promptText="Search Flight Data List..." />
-                              <Text layoutX="14.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Search" />
-                           </children>
-                        </AnchorPane>
-                        <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="317.0" prefWidth="221.0" GridPane.columnIndex="1" GridPane.columnSpan="6" GridPane.rowSpan="4">
-                          <items>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
-                                 <children>
-                                    <WebView fx:id="flightMap" prefHeight="348.0" prefWidth="802.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                 </children>
-                              </AnchorPane>
-                              <TableView fx:id="flightTableID" prefHeight="248.0" prefWidth="699.0">
-                                 <columns>
-                                    <TableColumn fx:id="flightID" minWidth="100.0" prefWidth="100.0" sortable="false" text="ID" />
-                                    <TableColumn fx:id="flightType" minWidth="100.0" prefWidth="100.0" sortable="false" text="Type" />
-                                    <TableColumn fx:id="flightAltitude" minWidth="100.0" prefWidth="100.0" sortable="false" text="Altitude" />
-                                    <TableColumn fx:id="flightLatitude" minWidth="100.0" prefWidth="200.0" sortable="false" text="Latitude" />
-                                    <TableColumn fx:id="flightLongitude" minWidth="100.0" prefWidth="200.0" sortable="false" text="Longitude" />
-                                 </columns>
-                              </TableView>
-                          </items>
-                        </SplitPane>
-                     </children>
-                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="220.0" minWidth="10.0" prefWidth="220.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="311.0" minWidth="10.0" prefWidth="218.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="266.0" minWidth="10.0" prefWidth="168.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                     </columnConstraints>
-                     <rowConstraints>
-                        <RowConstraints maxHeight="160.79576110839844" minHeight="0.0" prefHeight="160.79576110839844" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="320.0" minHeight="0.0" prefHeight="238.96124267578125" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="346.417236328125" minHeight="20.0" prefHeight="167.41021728515625" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="242.85211181640625" minHeight="10.0" prefHeight="140.58978271484375" vgrow="SOMETIMES" />
-                     </rowConstraints>
-                  </GridPane>
-               </content>
-            </Tab>
             </tabs>
         </TabPane>
     </center>

@@ -48,7 +48,7 @@ public class FlightValidator {
                 stringArray.add(currentLine);
             }
             if (hasError) {
-                return new Flight(new ArrayList<FlightPosition>());
+                return null;
             }
         }
 

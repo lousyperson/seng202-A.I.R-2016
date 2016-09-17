@@ -7,13 +7,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import seng202.group4.data.repository.*;
 
 /**
  * Hello world!
  *
  */
 public class App extends Application {
-
 
     // create data list
     ObservableList<String> items = FXCollections.observableArrayList("Default Airlines", "Default Airports", "Default Routes");
@@ -33,6 +33,8 @@ public class App extends Application {
 
 
     public static void main(String[] args) {
+        Repository.initRepository();
         launch(args);
+        Repository.serialize();
     }
 }
