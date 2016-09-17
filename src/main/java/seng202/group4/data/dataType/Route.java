@@ -5,6 +5,8 @@ import java.util.ArrayList;
 
 
 /**
+ * The route class creates the route object using the information for the route and allows for the construction of the
+ * route table.
  * Created by jjg64 on 15/08/16.
  */
 public class Route implements Serializable {
@@ -19,6 +21,18 @@ public class Route implements Serializable {
     private double distance;
     private ArrayList<String> equipment = new ArrayList<String>();
 
+    /**
+     * Initializes the variables for the route class.
+     * @param airline
+     * @param airlineID
+     * @param srcAirport
+     * @param srcAirportID
+     * @param destAirport
+     * @param destAirportID
+     * @param codeshare
+     * @param stops
+     * @param equipment
+     */
     public Route(String airline, Integer airlineID, String srcAirport, Integer srcAirportID, String destAirport, Integer destAirportID, String codeshare, Integer stops, ArrayList<String> equipment) {
         this.airline = airline;
         this.AirlineID = airlineID;

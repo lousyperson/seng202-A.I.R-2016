@@ -10,6 +10,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
+ * Ensures that the airport data from the file is valid by reading and checking to ensure it meets formatting
+ * expectations.
  * Created by jjg64 on 25/08/16.
  */
 public class AirportValidator {
@@ -36,6 +38,11 @@ public class AirportValidator {
         }
     }
 
+    /**
+     * Makes a list of airports, by making the airports and checking that each is a valid airport along the way.
+     * @return
+     * @throws IOException
+     */
     public ArrayList<Airport> makeAirports() throws IOException {
         while ((currentLine = file.readLine()) != null) {
             lineNumber++;
@@ -141,6 +148,11 @@ public class AirportValidator {
         return isValid;
     }
 
+    /**
+     * Builds the reader so that each line can be read and an airport bult for that line.
+     * @param filepath
+     * @throws FileNotFoundException
+     */
     public AirportValidator(InputStream filepath) throws FileNotFoundException {
         this.filepath = filepath;
         this.file = new BufferedReader(new InputStreamReader(filepath));
