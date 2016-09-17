@@ -70,10 +70,10 @@
                                 <ColumnConstraints />
                             </columnConstraints>
                             <rowConstraints>
-                                <RowConstraints maxHeight="178.72744750976562" minHeight="0.0" prefHeight="144.9090118408203" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="381.0910339355469" minHeight="0.0" prefHeight="311.0909881591797" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="223.90969848632812" minHeight="10.0" prefHeight="145.63629150390625" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="170.54595947265625" minHeight="10.0" prefHeight="103.18206787109375" vgrow="SOMETIMES" />
+                                <RowConstraints maxHeight="178.72744750976562" minHeight="0.0" prefHeight="137.0878143310547" vgrow="SOMETIMES" />
+                                <RowConstraints maxHeight="467.6553955078125" minHeight="0.0" prefHeight="442.296875" vgrow="SOMETIMES" />
+                                <RowConstraints maxHeight="223.90969848632812" minHeight="0.0" prefHeight="50.703125" vgrow="SOMETIMES" />
+                                <RowConstraints maxHeight="250.4117431640625" minHeight="10.0" prefHeight="75.81793212890625" vgrow="SOMETIMES" />
                             </rowConstraints>
                             <children>
                                 <AnchorPane maxWidth="220.0" minHeight="0.0" minWidth="0.0" prefHeight="152.0" prefWidth="220.0">
@@ -123,7 +123,7 @@
                                         <TableColumn fx:id="equipment" prefWidth="100.0" text="Equipment" />
                                     </columns>
                                 </TableView>
-                                <StackPane fx:id="searchPanes" prefHeight="150.0" prefWidth="200.0" GridPane.rowIndex="1" GridPane.rowSpan="2">
+                                <StackPane fx:id="searchPanes" prefHeight="354.0" prefWidth="220.0" GridPane.rowIndex="1">
                                     <children>
                                         <AnchorPane fx:id="airlinePane" minHeight="0.0" minWidth="0.0" prefHeight="172.0" prefWidth="220.0">
                                             <children>
@@ -147,24 +147,22 @@
                                                 <ComboBox fx:id="routeEquipFilter" layoutX="12.0" layoutY="161.0" onAction="#filterEquipment" prefHeight="25.0" prefWidth="197.0" promptText=" --ALL EQUIPMENTS-- " />
                                             </children>
                                         </AnchorPane>
-                                        <AnchorPane fx:id="airportPane" minHeight="0.0" minWidth="0.0" prefHeight="172.0" prefWidth="220.0" visible="false">
+                                        <AnchorPane fx:id="airportPane" minHeight="0.0" minWidth="0.0" prefHeight="269.0" prefWidth="220.0" visible="false">
                                             <children>
                                                 <TextField fx:id="airportSearch" layoutX="12.0" layoutY="42.0" prefHeight="25.0" prefWidth="196.0" promptText="Search Airport List..." />
                                                 <Text layoutX="14.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Search" />
                                                 <Text layoutX="15.0" layoutY="108.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Filter Options" />
                                                 <ComboBox fx:id="airportCountryFilter" layoutX="12.0" layoutY="123.0" onAction="#filterAirportCountry" prefHeight="25.0" prefWidth="197.0" promptText=" --ALL COUNTRIES--" />
-                                    <Text layoutX="19.0" layoutY="252.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Point A" />
-                                    <TextField fx:id="pointALat" layoutX="19.0" layoutY="256.0" prefHeight="25.0" prefWidth="83.0" />
-                                    <TextField fx:id="pointALon" layoutX="125.0" layoutY="256.0" prefHeight="25.0" prefWidth="72.0" />
-                                    <Text layoutX="19.0" layoutY="304.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Point B" />
-                                    <TextField fx:id="pointBLat" layoutX="19.0" layoutY="309.0" prefHeight="25.0" prefWidth="83.0" />
-                                    <TextField fx:id="pointBLon" layoutX="129.0" layoutY="309.0" prefHeight="25.0" prefWidth="72.0" />
-                                    <Text layoutX="19.0" layoutY="362.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Distance:" />
-                                    <TextField fx:id="calcdDistance" layoutX="19.0" layoutY="368.0" prefHeight="25.0" prefWidth="134.0" />
-                                    <Text layoutX="108.0" layoutY="336.0" strokeType="OUTSIDE" strokeWidth="0.0" text="," wrappingWidth="16.6015625" />
-                                    <Text layoutX="107.0" layoutY="282.0" strokeType="OUTSIDE" strokeWidth="0.0" text="," wrappingWidth="16.6015625" />
-                                    <Button fx:id="calc" layoutX="48.0" layoutY="413.0" mnemonicParsing="false" onAction="#calcDistance" text="Calculate Distance" />
-                                    <Text layoutX="163.0" layoutY="386.0" strokeType="OUTSIDE" strokeWidth="0.0" text="km" wrappingWidth="35.30078125" />
+                                    <Text layoutX="24.0" layoutY="241.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Airport A" />
+                                    <TextField fx:id="airportA" editable="false" layoutX="24.0" layoutY="245.0" prefHeight="27.0" prefWidth="133.0" />
+                                    <Text layoutX="24.0" layoutY="293.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Airport B" />
+                                    <TextField fx:id="airportB" editable="false" layoutX="24.0" layoutY="298.0" prefHeight="27.0" prefWidth="133.0" />
+                                    <Text layoutX="24.0" layoutY="345.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Distance:" />
+                                    <TextField fx:id="calcdDistance" editable="false" layoutX="24.0" layoutY="351.0" prefHeight="25.0" prefWidth="134.0" />
+                                    <Button fx:id="calc" layoutX="25.0" layoutY="391.0" mnemonicParsing="false" onAction="#calcDistance" text="Calculate Distance" />
+                                    <Text layoutX="168.0" layoutY="369.0" strokeType="OUTSIDE" strokeWidth="0.0" text="km" wrappingWidth="35.30078125" />
+                                    <Text layoutX="24.0" layoutY="192.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Right-click on an airport to" />
+                                    <Text layoutX="37.0" layoutY="210.0" strokeType="OUTSIDE" strokeWidth="0.0" text=" add as Airport A or B." />
                                             </children>
                                         </AnchorPane>
                                     </children>

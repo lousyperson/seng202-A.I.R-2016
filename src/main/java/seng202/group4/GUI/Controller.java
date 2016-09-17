@@ -60,6 +60,11 @@ public class Controller implements Initializable {
     @FXML
     Accordion accord;
 
+    @FXML
+    TextField airportA;
+
+    @FXML
+    TextField airportB;
 
     // DEFINE TABLES
 
@@ -190,17 +195,7 @@ public class Controller implements Initializable {
     @FXML
     ComboBox airportCountryFilter;
 
-    @FXML
-    TextField pointALat;
 
-    @FXML
-    TextField pointALon;
-
-    @FXML
-    TextField pointBLat;
-
-    @FXML
-    TextField pointBLon;
 
     @FXML
     TextField calcdDistance;
@@ -277,6 +272,12 @@ public class Controller implements Initializable {
 
     @FXML
     Tab mapTab;
+
+
+    private Double pointALat;
+    private Double pointALon;
+    private Double pointBLat;
+    private Double pointBLon;
 
 
     private String airlineLabel = "Airlines";
@@ -487,12 +488,18 @@ public class Controller implements Initializable {
             row.setOnMouseClicked(event -> {
             });
             addA.setOnAction(event -> {
-                pointALat.setText(Double.toString(row.getItem().getAtlatitude()));
-                pointALon.setText(Double.toString(row.getItem().getAtlongitude()));
+                airportA.setText(row.getItem().getAtname());
+//                pointALat.setText(Double.toString(row.getItem().getAtlatitude()));
+//                pointALon.setText(Double.toString(row.getItem().getAtlongitude()));
+                pointALat = row.getItem().getAtlatitude();
+                pointALon = row.getItem().getAtlongitude();
             });
             addB.setOnAction(event -> {
-                pointBLat.setText(Double.toString(row.getItem().getAtlatitude()));
-                pointBLon.setText(Double.toString(row.getItem().getAtlongitude()));
+                airportB.setText(row.getItem().getAtname());
+//                pointBLat.setText(Double.toString(row.getItem().getAtlatitude()));
+//                pointBLon.setText(Double.toString(row.getItem().getAtlongitude()));
+                pointBLat = row.getItem().getAtlatitude();
+                pointBLon = row.getItem().getAtlongitude();
             });
             removeItem.setOnAction(event -> {
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -591,24 +598,23 @@ public class Controller implements Initializable {
      * Calculates the distance between two coordinates on the map.
      */
     public void calcDistance() {
-        if (pointALat.getText() != null && pointALon.getText() != null &&
-                pointBLat.getText() != null && pointBLon.getText() != null) {
-            double lat1 = Double.parseDouble(pointALat.getText());
-            double lat2 = Double.parseDouble(pointBLat.getText());
-            double lon1 = Double.parseDouble(pointALon.getText());
-            double lon2 = Double.parseDouble(pointBLon.getText());
+        if (pointALat != null && pointALon != null &&
+                pointBLat != null && pointBLon != null) {
+//            double lat1 = Double.parseDouble(pointALat.getText());
+//            double lat2 = Double.parseDouble(pointBLat.getText());
+//            double lon1 = Double.parseDouble(pointALon.getText());
+//            double lon2 = Double.parseDouble(pointBLon.getText());
 
             final int R = 6371; // Radius of the earth in km
 
-            Double latDistance = Math.toRadians(lat2 - lat1);
-            Double lonDistance = Math.toRadians(lon2 - lon1);
+            Double latDistance = Math.toRadians(pointBLat - pointALat);
+            Double lonDistance = Math.toRadians(pointBLon - pointALon);
             Double a = Math.sin(latDistance / 2) * Math.sin(latDistance / 2)
-                    + Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2))
+                    + Math.cos(Math.toRadians(pointALat)) * Math.cos(Math.toRadians(pointBLat))
                     * Math.sin(lonDistance / 2) * Math.sin(lonDistance / 2);
             Double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
             double distance = R * c; // convert to meters
-
-            calcdDistance.setText(Double.toString(distance));
+            calcdDistance.setText(String.format("%.2f", distance));
         }
     }
 
