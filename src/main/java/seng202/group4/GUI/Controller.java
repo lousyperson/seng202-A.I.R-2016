@@ -45,7 +45,7 @@ import java.util.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Controller implements Initializable{
+public class Controller implements Initializable {
     // Map view
     @FXML
     WebView mapView;
@@ -271,11 +271,10 @@ public class Controller implements Initializable{
     Tab mapTab;
 
 
-
     private String airlineLabel = "Airlines";
     private String airportLabel = "Airport";
     private String routeLabel = "Routes";
-    
+
 
     // create table data
     private ObservableList<airlineTable> airlineTData = FXCollections.observableArrayList();
@@ -314,6 +313,7 @@ public class Controller implements Initializable{
 
     /**
      * Where the program starts, initializes things like listeners and starts running the GUI.
+     *
      * @param location
      * @param resources
      */
@@ -324,12 +324,15 @@ public class Controller implements Initializable{
             @Override
             public void handle(MouseEvent mouseEvent) {
                 flightMap.getEngine().executeScript("off();");
-                System.out.println("off");            }
-        });        flightMap.setOnMouseEntered(new EventHandler<MouseEvent>() {
+                System.out.println("off");
+            }
+        });
+        flightMap.setOnMouseEntered(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 flightMap.getEngine().executeScript("on();");
-                System.out.println("on");            }
+                System.out.println("on");
+            }
         });
 
         // initialise data list
@@ -346,10 +349,10 @@ public class Controller implements Initializable{
         airlineTableID.toFront();
 
         // listen to whats being selected in the flight list
-        flightList.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends  String> ov, String old_val, String new_val) -> {
+        flightList.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends String> ov, String old_val, String new_val) -> {
             System.out.println("Selected item from flight list: " + new_val);
 
-            if(new_val != null){
+            if (new_val != null) {
                 // clear table and populate it again with what's selected
                 updateFlightTable(new_val.toLowerCase());
                 showFlightPath(new_val.toLowerCase());
@@ -359,7 +362,7 @@ public class Controller implements Initializable{
 
         searchFlightNames();
 
-        datalist.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends  String> ov, String old_val, String new_val) -> {
+        datalist.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends String> ov, String old_val, String new_val) -> {
             System.out.println("Selected item: " + new_val);
             if (new_val.equals(airlineLabel)) {
                 airlineTableID.toFront();
@@ -410,7 +413,8 @@ public class Controller implements Initializable{
             final TableRow<airlineTable> row = new TableRow<>();
             final ContextMenu rowMenu = new ContextMenu();
             MenuItem removeItem = new MenuItem("Delete");
-            row.setOnMouseClicked(event -> {});
+            row.setOnMouseClicked(event -> {
+            });
             removeItem.setOnAction(event -> {
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setTitle("Confirmation Dialog");
@@ -418,7 +422,7 @@ public class Controller implements Initializable{
                 alert.setContentText("Confirm delete the row(s)?\nWarning: You cannot undo the action.\n");
 
                 Optional<ButtonType> result = alert.showAndWait();
-                if (result.get() == ButtonType.OK){
+                if (result.get() == ButtonType.OK) {
                     ObservableList<airlineTable> selectedItems = airlineTableID.getSelectionModel().getSelectedItems();
                     airlineTData.removeAll(selectedItems);
                     airlineTableID.getSelectionModel().clearSelection();
@@ -428,7 +432,7 @@ public class Controller implements Initializable{
             row.contextMenuProperty().bind(
                     Bindings.when(Bindings.isNotNull(row.itemProperty()))
                             .then(rowMenu)
-                            .otherwise((ContextMenu)null)
+                            .otherwise((ContextMenu) null)
             );
             return row;
         });
@@ -468,7 +472,8 @@ public class Controller implements Initializable{
             MenuItem addA = new MenuItem("Add to point A");
             MenuItem addB = new MenuItem("Add to point B");
             MenuItem removeItem = new MenuItem("Delete");
-            row.setOnMouseClicked(event -> {});
+            row.setOnMouseClicked(event -> {
+            });
             addA.setOnAction(event -> {
                 pointALat.setText(Double.toString(row.getItem().getAtlatitude()));
                 pointALon.setText(Double.toString(row.getItem().getAtlongitude()));
@@ -484,7 +489,7 @@ public class Controller implements Initializable{
                 alert.setContentText("Confirm delete the row(s)?\nWarning: You cannot undo the action.\n");
 
                 Optional<ButtonType> result = alert.showAndWait();
-                if (result.get() == ButtonType.OK){
+                if (result.get() == ButtonType.OK) {
                     ObservableList<airportTable> selectedItems = airportTableID.getSelectionModel().getSelectedItems();
                     airportTData.removeAll(selectedItems);
                     airportTableID.getSelectionModel().clearSelection();
@@ -492,9 +497,9 @@ public class Controller implements Initializable{
             });
             rowMenu.getItems().addAll(addA, addB, removeItem);
             row.contextMenuProperty().bind(
-                  Bindings.when(Bindings.isNotNull(row.itemProperty()))
-                    .then(rowMenu)
-                    .otherwise((ContextMenu)null)
+                    Bindings.when(Bindings.isNotNull(row.itemProperty()))
+                            .then(rowMenu)
+                            .otherwise((ContextMenu) null)
             );
             return row;
         });
@@ -527,7 +532,8 @@ public class Controller implements Initializable{
             final TableRow<routeTable> row = new TableRow<>();
             final ContextMenu rowMenu = new ContextMenu();
             MenuItem removeItem = new MenuItem("Delete");
-            row.setOnMouseClicked(event -> {});
+            row.setOnMouseClicked(event -> {
+            });
             removeItem.setOnAction(event -> {
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setTitle("Confirmation Dialog");
@@ -535,7 +541,7 @@ public class Controller implements Initializable{
                 alert.setContentText("Confirm delete the row(s)?\nWarning: You cannot undo the action.\n");
 
                 Optional<ButtonType> result = alert.showAndWait();
-                if (result.get() == ButtonType.OK){
+                if (result.get() == ButtonType.OK) {
                     ObservableList<routeTable> selectedItems = routeTableID.getSelectionModel().getSelectedItems();
                     routeTData.removeAll(selectedItems);
                     routeTableID.getSelectionModel().clearSelection();
@@ -545,7 +551,7 @@ public class Controller implements Initializable{
             row.contextMenuProperty().bind(
                     Bindings.when(Bindings.isNotNull(row.itemProperty()))
                             .then(rowMenu)
-                            .otherwise((ContextMenu)null)
+                            .otherwise((ContextMenu) null)
             );
             return row;
         });
@@ -591,25 +597,24 @@ public class Controller implements Initializable{
     /**
      * Searches through the names of the flights so that the user is able to find a select flight from the list.
      */
-    private void searchFlightNames(){
+    private void searchFlightNames() {
         FilteredList<flightTable> flightTableFiltered = new FilteredList<>(flightTData, p -> true);
 
         // listen to whats being typed in the search box
         flightNameSearch.textProperty().addListener((observable, oldValue, newValue) -> {
-            if(!newValue.isEmpty()){
+            if (!newValue.isEmpty()) {
                 //clear the table
                 flightTData.clear();
                 // store the names that match
                 ObservableList<String> tempNames = FXCollections.observableArrayList();
-                for(String s: flightItems){
-                    if(s.toLowerCase().contains(newValue.toLowerCase())){
+                for (String s : flightItems) {
+                    if (s.toLowerCase().contains(newValue.toLowerCase())) {
                         tempNames.add(s);
                     }
                 }
                 // update the flight list with the names that match
                 flightList.setItems(tempNames);
-            }
-            else{
+            } else {
                 // update flight list with all names
                 flightList.setItems(flightItems);
             }
@@ -619,7 +624,7 @@ public class Controller implements Initializable{
     /**
      * Searches through the airports in the table dependent on a specific search entry by the user.
      */
-    private void searchAirports(){
+    private void searchAirports() {
         String intPattern = "[-]?[0-9]*[.]?[0-9]+";
         // searching for airline
         FilteredList<airportTable> airportTableFiltered = new FilteredList<>(airportTData, p -> true);
@@ -646,7 +651,7 @@ public class Controller implements Initializable{
                 // selectedAirportCountry is a string to hold whats selected in the dropdown
                 // set to null unless a dropdown is selected
                 String selectedAirportCountry = null;
-                if (airportCountryFilter.getValue() != null){
+                if (airportCountryFilter.getValue() != null) {
                     selectedAirportCountry = airportCountryFilter.getValue().toString();
                 }
 
@@ -654,7 +659,7 @@ public class Controller implements Initializable{
                 String lowerCaseFilter = newValue.toLowerCase();
 
                 // The following returns true if the filter matches
-                if (newValue.isEmpty() && selectedAirportCountry != null && selectedAirportCountry.equals(allCountriesTag)){
+                if (newValue.isEmpty() && selectedAirportCountry != null && selectedAirportCountry.equals(allCountriesTag)) {
                     return true; // display all data
                 }
 
@@ -664,27 +669,26 @@ public class Controller implements Initializable{
                         (atCity != null && atCity.toLowerCase().contains(lowerCaseFilter)) ||
                         (atCountry != null && atCountry.toLowerCase().contains(lowerCaseFilter)) ||
                         (atIATA != null && atIATA.toLowerCase().contains(lowerCaseFilter)) ||
-                        (atICAO != null &&  atICAO.toLowerCase().contains(lowerCaseFilter)) ||
+                        (atICAO != null && atICAO.toLowerCase().contains(lowerCaseFilter)) ||
                         (lowerCaseFilter.matches(intPattern) && atLatitude == Double.parseDouble(lowerCaseFilter)) || // CAN BE IMPROVED
                         (lowerCaseFilter.matches(intPattern) && atLongitude == Double.parseDouble(lowerCaseFilter)) || // CAN BE IMPROVED
                         (lowerCaseFilter.matches(intPattern) && atAltitude == Double.parseDouble(lowerCaseFilter)) || // CAN BE IMPROVED
                         (lowerCaseFilter.matches(intPattern) && atTimezone == Float.parseFloat(lowerCaseFilter)) ||
-                        (atDST != null &&  atDST.toLowerCase().contains(lowerCaseFilter)) ||
-                        (atTz != null &&  atTz.toLowerCase().contains(lowerCaseFilter))) {
+                        (atDST != null && atDST.toLowerCase().contains(lowerCaseFilter)) ||
+                        (atTz != null && atTz.toLowerCase().contains(lowerCaseFilter))) {
                     toggled = true;
                 }
 
                 // For the following case, return true if the country dropdown is empty, --ALL COUNTRIES-- or
                 // matches the country in the table
                 if (toggled) {
-                    if (emptyCountryFilter){
+                    if (emptyCountryFilter) {
                         return true;
                     }
                     if (selectedAirportCountry != null && selectedAirportCountry.equals(allCountriesTag)) {
                         return true;
-                    }
-                    else if(selectedAirportCountry != null && atCountry != null &&
-                            atCountry.toLowerCase().equals(selectedAirportCountry.toLowerCase())){
+                    } else if (selectedAirportCountry != null && atCountry != null &&
+                            atCountry.toLowerCase().equals(selectedAirportCountry.toLowerCase())) {
                         return true;
                     }
                 }
@@ -705,7 +709,7 @@ public class Controller implements Initializable{
     }
 
     // update map with flight path given the flight name
-    private void showFlightPath(String flightName){
+    private void showFlightPath(String flightName) {
         //String flightName = "lol";
 
         if (flightMap.getEngine() != null) {
@@ -732,7 +736,7 @@ public class Controller implements Initializable{
         }
     }
 
-    private void searchRoutes(){
+    private void searchRoutes() {
         // searching for route
         FilteredList<routeTable> routeTableFiltered = new FilteredList<>(routeTData, p -> true);
 
@@ -766,7 +770,7 @@ public class Controller implements Initializable{
                 // selectedAirportCountry is a string to hold whats selected in the dropdown
                 // set to null unless a dropdown is selected
                 String selectedDepartCountry = null;
-                if (routeDepCountryFilter.getValue() != null){
+                if (routeDepCountryFilter.getValue() != null) {
                     selectedDepartCountry = routeDepCountryFilter.getValue().toString();
                 }
 
@@ -775,7 +779,7 @@ public class Controller implements Initializable{
                 // selectedAirportCountry is a string to hold whats selected in the dropdown
                 // set to null unless a dropdown is selected
                 String selectedDestCountry = null;
-                if (routeDestCountryFilter.getValue() != null){
+                if (routeDestCountryFilter.getValue() != null) {
                     selectedDestCountry = routeDestCountryFilter.getValue().toString();
                 }
 
@@ -800,7 +804,7 @@ public class Controller implements Initializable{
                         (rtDestAirportId != null && rtDestAirportId.toLowerCase().contains(lowerCaseFilter)) ||
                         (rtCodeshare != null && rtCodeshare.toLowerCase().contains(lowerCaseFilter)) ||
                         (rtStops != null && rtStops.toLowerCase().contains(lowerCaseFilter)) ||
-                        (rtEquipment != null && rtEquipment.toLowerCase().contains(lowerCaseFilter)))){
+                        (rtEquipment != null && rtEquipment.toLowerCase().contains(lowerCaseFilter)))) {
                     toggled = true;
                 }
 
@@ -808,11 +812,11 @@ public class Controller implements Initializable{
                 // matches the equipment in the table
                 if ((toggled && !direct.isSelected() && !indirect.isSelected()) ||
                         (direct.isSelected() && rtStops != null && rtStops.equals("0") && toggled) ||
-                        (indirect.isSelected() && rtStops != null && !rtStops.equals("0") && toggled)){
+                        (indirect.isSelected() && rtStops != null && !rtStops.equals("0") && toggled)) {
                     boolean filterChecked = filterEquipDepDest(emptyEquipFilter, emptyDepartFilter, emptyDestFilter,
                             selectedRouteEquip, selectedDepartCountry, selectedDestCountry, rtEquipmentArray,
-                             rtDestAirportId,  rtSrcAirportId);
-                    if(filterChecked){
+                            rtDestAirportId, rtSrcAirportId);
+                    if (filterChecked) {
                         return true;
                     }
                 }
@@ -835,129 +839,117 @@ public class Controller implements Initializable{
     private boolean filterEquipDepDest(boolean emptyEquipFilter, boolean emptyDepartFilter, boolean emptyDestFilter,
                                        String selectedRouteEquip, String selectedDepartCountry,
                                        String selectedDestCountry, List<String> rtEquipmentArray,
-                                       String rtDestAirportId, String rtSrcAirportId){
+                                       String rtDestAirportId, String rtSrcAirportId) {
         // empty cases when no filters are selected
         if ((emptyEquipFilter && emptyDepartFilter && emptyDestFilter) || (selectedRouteEquip != null
                 && selectedRouteEquip.equals(allEquipmentsTag) && selectedDepartCountry != null &&
                 selectedDepartCountry.equals(departureCountryTag) && selectedDestCountry != null
-                && selectedDestCountry.equals(destinationCountryTag))){
+                && selectedDestCountry.equals(destinationCountryTag))) {
             return true;
         }
 
         // if only one filter is selected
         // filter only equipment
-        if(((emptyDepartFilter && emptyDestFilter) || (selectedDepartCountry != null &&
+        if (((emptyDepartFilter && emptyDestFilter) || (selectedDepartCountry != null &&
                 selectedDepartCountry.equals(departureCountryTag) && selectedDestCountry != null
-                && selectedDestCountry.equals(destinationCountryTag))) && selectedRouteEquip != null){
-            if(selectedRouteEquip.equals(allEquipmentsTag)){
+                && selectedDestCountry.equals(destinationCountryTag))) && selectedRouteEquip != null) {
+            if (selectedRouteEquip.equals(allEquipmentsTag)) {
                 return true;
-            }
-            else if(rtEquipmentArray.contains(selectedRouteEquip.toLowerCase())){
+            } else if (rtEquipmentArray.contains(selectedRouteEquip.toLowerCase())) {
                 return true;
             }
         }
         // filter only destination country
-        else if(((emptyEquipFilter && emptyDepartFilter) || (selectedRouteEquip != null
+        else if (((emptyEquipFilter && emptyDepartFilter) || (selectedRouteEquip != null
                 && selectedRouteEquip.equals(allEquipmentsTag) && selectedDepartCountry != null &&
                 selectedDepartCountry.equals(departureCountryTag))) &&
-                selectedDestCountry != null){
-            if(selectedDestCountry.equals(destinationCountryTag)){
+                selectedDestCountry != null) {
+            if (selectedDestCountry.equals(destinationCountryTag)) {
                 return true;
-            }
-            else if(!rtDestAirportId.equals("null") &&
-                    Repository.airportRepository.airportIDsOfCountry(selectedDestCountry.toLowerCase()).contains(Integer.parseInt(rtDestAirportId))){
+            } else if (!rtDestAirportId.equals("null") &&
+                    Repository.airportRepository.airportIDsOfCountry(selectedDestCountry.toLowerCase()).contains(Integer.parseInt(rtDestAirportId))) {
                 return true;
             }
         }
         // filter only departure country
-        else if(((emptyEquipFilter && emptyDestFilter) || (selectedRouteEquip != null
+        else if (((emptyEquipFilter && emptyDestFilter) || (selectedRouteEquip != null
                 && selectedRouteEquip.equals(allEquipmentsTag) && selectedDestCountry != null &&
                 selectedDestCountry.equals(destinationCountryTag))) &&
-                selectedDepartCountry != null){
-            if(selectedDepartCountry.equals(departureCountryTag)){
+                selectedDepartCountry != null) {
+            if (selectedDepartCountry.equals(departureCountryTag)) {
                 return true;
-            }
-            else if(!rtSrcAirportId.equals("null") &&
-                    Repository.airportRepository.airportIDsOfCountry(selectedDepartCountry.toLowerCase()).contains(Integer.parseInt(rtSrcAirportId))){
+            } else if (!rtSrcAirportId.equals("null") &&
+                    Repository.airportRepository.airportIDsOfCountry(selectedDepartCountry.toLowerCase()).contains(Integer.parseInt(rtSrcAirportId))) {
                 return true;
             }
         }
 
         // if two filters are selected
         // filter equipment and destination country
-        else if((emptyDepartFilter || (selectedDepartCountry != null &&
+        else if ((emptyDepartFilter || (selectedDepartCountry != null &&
                 selectedDepartCountry.equals(departureCountryTag))) && selectedDestCountry != null &&
-                selectedRouteEquip != null){
-            if(selectedDestCountry.equals(destinationCountryTag) && selectedRouteEquip.equals(allEquipmentsTag)){
+                selectedRouteEquip != null) {
+            if (selectedDestCountry.equals(destinationCountryTag) && selectedRouteEquip.equals(allEquipmentsTag)) {
                 return true;
-            }
-            else if(selectedDestCountry.equals(destinationCountryTag) &&
-                    rtEquipmentArray.contains(selectedRouteEquip.toLowerCase())){
+            } else if (selectedDestCountry.equals(destinationCountryTag) &&
+                    rtEquipmentArray.contains(selectedRouteEquip.toLowerCase())) {
                 return true;
-            }
-            else if(selectedRouteEquip.equals(allEquipmentsTag) && !rtDestAirportId.equals("null") &&
-                    Repository.airportRepository.airportIDsOfCountry(selectedDestCountry.toLowerCase()).contains(Integer.parseInt(rtDestAirportId))){
+            } else if (selectedRouteEquip.equals(allEquipmentsTag) && !rtDestAirportId.equals("null") &&
+                    Repository.airportRepository.airportIDsOfCountry(selectedDestCountry.toLowerCase()).contains(Integer.parseInt(rtDestAirportId))) {
                 return true;
-            }
-            else if(rtEquipmentArray.contains(selectedRouteEquip.toLowerCase()) &&
+            } else if (rtEquipmentArray.contains(selectedRouteEquip.toLowerCase()) &&
                     !rtDestAirportId.equals("null") &&
-                    Repository.airportRepository.airportIDsOfCountry(selectedDestCountry.toLowerCase()).contains(Integer.parseInt(rtDestAirportId))){
+                    Repository.airportRepository.airportIDsOfCountry(selectedDestCountry.toLowerCase()).contains(Integer.parseInt(rtDestAirportId))) {
                 return true;
             }
         }
         //filter equipment and departure country
-        else if((emptyDestFilter || (selectedDestCountry != null &&
+        else if ((emptyDestFilter || (selectedDestCountry != null &&
                 selectedDestCountry.equals(destinationCountryTag))) && selectedDepartCountry != null &&
-                selectedRouteEquip != null){
-            if(selectedDepartCountry.equals(departureCountryTag) && selectedRouteEquip.equals(allEquipmentsTag)){
+                selectedRouteEquip != null) {
+            if (selectedDepartCountry.equals(departureCountryTag) && selectedRouteEquip.equals(allEquipmentsTag)) {
                 return true;
-            }
-            else if(selectedDepartCountry.equals(departureCountryTag) &&
-                    rtEquipmentArray.contains(selectedRouteEquip.toLowerCase())){
+            } else if (selectedDepartCountry.equals(departureCountryTag) &&
+                    rtEquipmentArray.contains(selectedRouteEquip.toLowerCase())) {
                 return true;
-            }
-            else if(selectedRouteEquip.equals(allEquipmentsTag) && !rtSrcAirportId.equals("null") &&
-                    Repository.airportRepository.airportIDsOfCountry(selectedDepartCountry.toLowerCase()).contains(Integer.parseInt(rtSrcAirportId))){
+            } else if (selectedRouteEquip.equals(allEquipmentsTag) && !rtSrcAirportId.equals("null") &&
+                    Repository.airportRepository.airportIDsOfCountry(selectedDepartCountry.toLowerCase()).contains(Integer.parseInt(rtSrcAirportId))) {
                 return true;
-            }
-            else if(rtEquipmentArray.contains(selectedRouteEquip.toLowerCase()) &&
+            } else if (rtEquipmentArray.contains(selectedRouteEquip.toLowerCase()) &&
                     !rtSrcAirportId.equals("null") &&
-                    Repository.airportRepository.airportIDsOfCountry(selectedDepartCountry.toLowerCase()).contains(Integer.parseInt(rtSrcAirportId))){
+                    Repository.airportRepository.airportIDsOfCountry(selectedDepartCountry.toLowerCase()).contains(Integer.parseInt(rtSrcAirportId))) {
                 return true;
             }
         }
         //filter departure country and destination country
-        else if((emptyEquipFilter || (selectedRouteEquip != null &&
+        else if ((emptyEquipFilter || (selectedRouteEquip != null &&
                 selectedRouteEquip.equals(allEquipmentsTag))) && selectedDepartCountry != null &&
-                selectedDestCountry != null){
-            if(selectedDepartCountry.equals(departureCountryTag) &&
-                    selectedDestCountry.equals(destinationCountryTag)){
+                selectedDestCountry != null) {
+            if (selectedDepartCountry.equals(departureCountryTag) &&
+                    selectedDestCountry.equals(destinationCountryTag)) {
                 return true;
-            }
-            else if(selectedDepartCountry.equals(departureCountryTag) && !rtDestAirportId.equals("null") &&
-                    Repository.airportRepository.airportIDsOfCountry(selectedDestCountry.toLowerCase()).contains(Integer.parseInt(rtDestAirportId))){
+            } else if (selectedDepartCountry.equals(departureCountryTag) && !rtDestAirportId.equals("null") &&
+                    Repository.airportRepository.airportIDsOfCountry(selectedDestCountry.toLowerCase()).contains(Integer.parseInt(rtDestAirportId))) {
                 return true;
-            }
-            else if(selectedDestCountry.equals(destinationCountryTag) && !rtSrcAirportId.equals("null") &&
-                    Repository.airportRepository.airportIDsOfCountry(selectedDepartCountry.toLowerCase()).contains(Integer.parseInt(rtSrcAirportId))){
+            } else if (selectedDestCountry.equals(destinationCountryTag) && !rtSrcAirportId.equals("null") &&
+                    Repository.airportRepository.airportIDsOfCountry(selectedDepartCountry.toLowerCase()).contains(Integer.parseInt(rtSrcAirportId))) {
                 return true;
-            }
-            else if(!rtDestAirportId.equals("null") &&
+            } else if (!rtDestAirportId.equals("null") &&
                     Repository.airportRepository.airportIDsOfCountry(selectedDestCountry.toLowerCase()).contains(Integer.parseInt(rtDestAirportId))
                     && !rtSrcAirportId.equals("null") &&
-                    Repository.airportRepository.airportIDsOfCountry(selectedDepartCountry.toLowerCase()).contains(Integer.parseInt(rtSrcAirportId))){
+                    Repository.airportRepository.airportIDsOfCountry(selectedDepartCountry.toLowerCase()).contains(Integer.parseInt(rtSrcAirportId))) {
                 return true;
             }
         }
 
         // if three filters are selected
         // filter destination/departure country and equipment
-        else if(selectedDepartCountry != null && selectedDestCountry != null && selectedRouteEquip != null){
-            if(!rtDestAirportId.equals("null") &&
+        else if (selectedDepartCountry != null && selectedDestCountry != null && selectedRouteEquip != null) {
+            if (!rtDestAirportId.equals("null") &&
                     Repository.airportRepository.airportIDsOfCountry(selectedDestCountry.toLowerCase()).contains(Integer.parseInt(rtDestAirportId))
                     && !rtSrcAirportId.equals("null") &&
                     Repository.airportRepository.airportIDsOfCountry(selectedDepartCountry.toLowerCase()).contains(Integer.parseInt(rtSrcAirportId))
-                    && rtEquipmentArray.contains(selectedRouteEquip.toLowerCase())){
+                    && rtEquipmentArray.contains(selectedRouteEquip.toLowerCase())) {
                 return true;
             }
 
@@ -966,7 +958,7 @@ public class Controller implements Initializable{
     }
 
 
-    private void deleteRows(){
+    private void deleteRows() {
         ObservableList<airlineTable> airlinesSelected, allAirlines;
 //        allAirlines = airlineTableID.getItems();
         airlinesSelected = airlineTableID.getSelectionModel().getSelectedItems();
@@ -980,7 +972,7 @@ public class Controller implements Initializable{
 //        airlineTableID.getSelectionModel().clearSelection();
     }
 
-    private void searchAirlines(){
+    private void searchAirlines() {
         // searching for airline
         FilteredList<airlineTable> airlineTableFiltered = new FilteredList<>(airlineTData, p -> true);
 
@@ -1002,7 +994,7 @@ public class Controller implements Initializable{
                 // selectedAirlineCountry is a string to hold whats selected in the dropdown
                 // set to null unless a dropdown is selected
                 String selectedAirlineCountry = null;
-                if (airlineCountryFilter.getValue() != null){
+                if (airlineCountryFilter.getValue() != null) {
                     selectedAirlineCountry = airlineCountryFilter.getValue().toString();
                 }
 
@@ -1011,7 +1003,7 @@ public class Controller implements Initializable{
 
                 // The following returns true if the filter matches
                 if (newValue.isEmpty() && !active.isSelected() && !inactive.isSelected()
-                        && selectedAirlineCountry != null && selectedAirlineCountry.equals(allCountriesTag)){
+                        && selectedAirlineCountry != null && selectedAirlineCountry.equals(allCountriesTag)) {
                     return true; // display all data
                 }
 
@@ -1020,7 +1012,7 @@ public class Controller implements Initializable{
                         (atName != null && atName.toLowerCase().contains(lowerCaseFilter)) ||
                         (atAlias != null && atAlias.toLowerCase().contains(lowerCaseFilter)) ||
                         (atIATA != null && atIATA.toLowerCase().contains(lowerCaseFilter)) ||
-                        (atICAO != null &&  atICAO.toLowerCase().contains(lowerCaseFilter)) ||
+                        (atICAO != null && atICAO.toLowerCase().contains(lowerCaseFilter)) ||
                         (atCallsign != null && atCallsign.toLowerCase().contains(lowerCaseFilter)) ||
                         (atCountry != null && atCountry.toLowerCase().contains(lowerCaseFilter))) {
                     toggled = true;
@@ -1030,15 +1022,14 @@ public class Controller implements Initializable{
                 // matches the country in the table
                 if ((!active.isSelected() && toggled && !inactive.isSelected()) ||
                         (toggled && active.isSelected() && atActive) ||
-                        (toggled && inactive.isSelected() && !atActive)){
-                    if (emptyCountryFilter){
+                        (toggled && inactive.isSelected() && !atActive)) {
+                    if (emptyCountryFilter) {
                         return true;
                     }
                     if (selectedAirlineCountry != null && selectedAirlineCountry.equals(allCountriesTag)) {
                         return true;
-                    }
-                    else if(selectedAirlineCountry != null && atCountry != null &&
-                            atCountry.toLowerCase().equals(selectedAirlineCountry.toLowerCase())){
+                    } else if (selectedAirlineCountry != null && atCountry != null &&
+                            atCountry.toLowerCase().equals(selectedAirlineCountry.toLowerCase())) {
                         return true;
                     }
                 }
@@ -1059,18 +1050,17 @@ public class Controller implements Initializable{
     }
 
 
-
-    private void updateAirlineCountryBox(){
+    private void updateAirlineCountryBox() {
         // clear the current combo box
         airlineCountryFilter.getItems().clear();
         // if the combo box doesn't have --ALL COUNTRIES-- then add one
-        if(!airlineCountryFilter.getItems().contains(allCountriesTag)){
+        if (!airlineCountryFilter.getItems().contains(allCountriesTag)) {
             airlineCountryFilter.getItems().add(allCountriesTag);
         }
 
         // loop through the current airlineCountrySet
         Iterator itr = airlineCountrySet.iterator();
-        while(itr.hasNext()){
+        while (itr.hasNext()) {
             airlineCountryFilter.getItems().add(itr.next());
         }
     }
@@ -1081,7 +1071,7 @@ public class Controller implements Initializable{
             airportCountryFilter.getItems().add(allCountriesTag);
         }
         Iterator itr = airportCountrySet.iterator();
-        while(itr.hasNext()) {
+        while (itr.hasNext()) {
             airportCountryFilter.getItems().add(itr.next());
         }
     }
@@ -1093,7 +1083,7 @@ public class Controller implements Initializable{
             routeDepCountryFilter.getItems().add(departureCountryTag);
         }
         Iterator itr = depSet.iterator();
-        while(itr.hasNext()) {
+        while (itr.hasNext()) {
             routeDepCountryFilter.getItems().add(itr.next());
         }
     }
@@ -1104,49 +1094,49 @@ public class Controller implements Initializable{
             routeDestCountryFilter.getItems().add(destinationCountryTag);
         }
         Iterator itr = destSet.iterator();
-        while(itr.hasNext()) {
+        while (itr.hasNext()) {
             routeDestCountryFilter.getItems().add(itr.next());
         }
     }
 
 
-    private void updateEquipBox(){
+    private void updateEquipBox() {
         // clear the current combo box
         routeEquipFilter.getItems().clear();
         // if the combo box doesn't have --ALL EQUIPMENTS-- then add one
-        if(!routeEquipFilter.getItems().contains(allEquipmentsTag)){
+        if (!routeEquipFilter.getItems().contains(allEquipmentsTag)) {
             routeEquipFilter.getItems().add(allEquipmentsTag);
         }
 
         // loop through the current airlineCountrySet
         Iterator itr = equipmentSet.iterator();
-        while(itr.hasNext()){
+        while (itr.hasNext()) {
             routeEquipFilter.getItems().add(itr.next());
         }
     }
 
-    private void updateAirlineSearch(){
+    private void updateAirlineSearch() {
         String text = airlineSearch.getText();
         airlineSearch.setText(text + " ");
         airlineSearch.setText(text);
 
     }
 
-    private void updateAirportSearch(){
+    private void updateAirportSearch() {
         String text = airportSearch.getText();
         airportSearch.setText(text + " ");
         airportSearch.setText(text);
 
     }
 
-    private void updateRouteSearch(){
+    private void updateRouteSearch() {
         String text = routeSearch.getText();
         routeSearch.setText(text + " ");
         routeSearch.setText(text);
 
     }
 
-    private void updateFlightNameSearch(){
+    private void updateFlightNameSearch() {
         String text = flightNameSearch.getText();
         flightNameSearch.setText(text + " ");
         flightNameSearch.setText(text);
@@ -1154,13 +1144,15 @@ public class Controller implements Initializable{
 
     /**
      * Allows the user to select the direct flight filter option.
+     *
      * @throws IOException
      */
     public void selectDirect() throws IOException {
         updateRouteSearch();
     }
 
-    /**Allows the user to select the indirect flight filter option.
+    /**
+     * Allows the user to select the indirect flight filter option.
      *
      * @throws IOException
      */
@@ -1170,6 +1162,7 @@ public class Controller implements Initializable{
 
     /**
      * Filters the list of airlines by country, leaving only airlines from the selected county.
+     *
      * @throws IOException
      */
     public void filterAirlineCountry() throws IOException {
@@ -1178,7 +1171,7 @@ public class Controller implements Initializable{
 
     /**
      * Filters the list of airports by country, leaving only airportd from the selected county.
-
+     *
      * @throws IOException
      */
     public void filterAirportCountry() throws IOException {
@@ -1187,6 +1180,7 @@ public class Controller implements Initializable{
 
     /**
      * Filters by departure country, only showing routes departing from the selected country.
+     *
      * @throws IOException
      */
     public void filterDepCountry() throws IOException {
@@ -1195,6 +1189,7 @@ public class Controller implements Initializable{
 
     /**
      * Filters by destination country, only showing routes that arrive in the selected country.
+     *
      * @throws IOException
      */
     public void filterDestCountry() throws IOException {
@@ -1203,6 +1198,7 @@ public class Controller implements Initializable{
 
     /**
      * Filters by the equipment in a route, only showing routes that utilize that equipemt.
+     *
      * @throws IOException
      */
     public void filterEquipment() throws IOException {
@@ -1211,6 +1207,7 @@ public class Controller implements Initializable{
 
     /**
      * Filters by whether or not the airline is active, only showing active airlines.
+     *
      * @throws IOException
      */
     public void selectActiveAirlines() throws IOException {
@@ -1219,6 +1216,7 @@ public class Controller implements Initializable{
 
     /**
      * Filters by whether or not the airline is active, only showing inactive airlines.
+     *
      * @throws IOException
      */
     public void selectInactiveAirlines() throws IOException {
@@ -1230,21 +1228,20 @@ public class Controller implements Initializable{
         AirlineValidator validator = new AirlineValidator(file);
         ArrayList<Airline> airlines = validator.makeAirlines();
         validator = null;
-        if(airlines != null){
-            for(int i = 0; i < airlines.size(); i++) {
+        if (airlines != null) {
+            for (int i = 0; i < airlines.size(); i++) {
                 Airline airline = airlines.get(i);
                 // if the airline ID already exists in the repository, warn the user
-                if(!Repository.airlineRepository.getAirlines().containsKey(airline.getID())){
+                if (!Repository.airlineRepository.getAirlines().containsKey(airline.getID())) {
                     Repository.airlineRepository.addAirline(airline);
                     airlineTData.add(new airlineTable(airline.getID(), airline.getName(),
                             airline.getAlias(), airline.getIATA(),
                             airline.getICAO(), airline.getCallsign(),
                             airline.getCountry(), airline.getActive()));
-                    if(airline.getCountry() != null){
+                    if (airline.getCountry() != null) {
                         airlineCountrySet.add(airline.getCountry());
                     }
-                }
-                else{
+                } else {
                     duplicateIDAlert("Please fix the conflict and reupload the file.", airline.getID());
                     break;
                 }
@@ -1259,15 +1256,15 @@ public class Controller implements Initializable{
         AirlineValidator validator = new AirlineValidator(file);
         ArrayList<Airline> airlines = validator.makeAirlines();
         validator = null;
-        if(airlines != null){
-            for(int i = 0; i < airlines.size(); i++) {
+        if (airlines != null) {
+            for (int i = 0; i < airlines.size(); i++) {
                 Airline airline = airlines.get(i);
                 Repository.airlineRepository.addAirline(airline);
                 airlineTData.add(new airlineTable(airline.getID(), airline.getName(),
                         airline.getAlias(), airline.getIATA(),
                         airline.getICAO(), airline.getCallsign(),
                         airline.getCountry(), airline.getActive()));
-                if(airline.getCountry() != null){
+                if (airline.getCountry() != null) {
                     airlineCountrySet.add(airline.getCountry());
                 }
             }
@@ -1279,6 +1276,7 @@ public class Controller implements Initializable{
 
     /**
      * Loads the whole list of airlines into the airline data table.
+     *
      * @throws IOException
      */
     public void loadAirline() throws IOException {
@@ -1295,34 +1293,49 @@ public class Controller implements Initializable{
     }
 
     private void loadDefaultAirline() throws IOException, URISyntaxException {
-        InputStream file = getClass().getResourceAsStream("/airlines.dat");
-        //File file = new File(getClass().getClassLoader().getResource("airlines.dat").toURI());
-        if (file != null) {
-            System.out.println("file opened yeah~");
-            insertEmptyAirlineTable(file);
+        if (Repository.airlineRepository.getAirlines().size() > 0) {
+            loadSerializedAirline();
+        } else {
+            InputStream file = getClass().getResourceAsStream("/airlines.dat");
+            //File file = new File(getClass().getClassLoader().getResource("airlines.dat").toURI());
+            if (file != null) {
+                System.out.println("file opened yeah~");
+                insertEmptyAirlineTable(file);
+            }
         }
     }
 
-
+    private void loadSerializedAirline() {
+        Collection<Airline> airlines = Repository.airlineRepository.getAirlines().values();
+        for (Airline airline : airlines) {
+            airlineTData.add(new airlineTable(airline.getID(), airline.getName(),
+                    airline.getAlias(), airline.getIATA(),
+                    airline.getICAO(), airline.getCallsign(),
+                    airline.getCountry(), airline.getActive()));
+            if (airline.getCountry() != null) {
+                airlineCountrySet.add(airline.getCountry());
+            }
+        }
+        updateAirlineCountryBox();
+    }
 
     private void insertAirportTable(InputStream file) throws IOException {
         AirportValidator validator = new AirportValidator(file);
         ArrayList<Airport> airports = validator.makeAirports();
         validator = null;
-        if(airports != null){
-            for(int i = 0; i < airports.size(); i++) {
+        if (airports != null) {
+            for (int i = 0; i < airports.size(); i++) {
                 Airport airport = airports.get(i);
-                if(!Repository.airportRepository.getAirports().containsKey(airport.getID())){
+                if (!Repository.airportRepository.getAirports().containsKey(airport.getID())) {
                     Repository.airportRepository.addAirport(airport);
                     airportTData.add(new airportTable(airport.getID(), airport.getName(), airport.getCity(),
                             airport.getCountry(), airport.getIATA(), airport.getICAO(), airport.getLatitude(),
                             airport.getLongitude(), airport.getAltitude(), airport.getTimezone(), airport.getDST().toText(),
                             airport.getTz()));
-                    if(airport.getCountry() != null) {
+                    if (airport.getCountry() != null) {
                         airportCountrySet.add(airport.getCountry());
                     }
-                }
-                else{
+                } else {
                     duplicateIDAlert("Please fix the conflict and reupload the file.", airport.getID());
                     break;
                 }
@@ -1335,15 +1348,15 @@ public class Controller implements Initializable{
         AirportValidator validator = new AirportValidator(file);
         ArrayList<Airport> airports = validator.makeAirports();
         validator = null;
-        if(airports != null){
-            for(int i = 0; i < airports.size(); i++) {
+        if (airports != null) {
+            for (int i = 0; i < airports.size(); i++) {
                 Airport airport = airports.get(i);
                 Repository.airportRepository.addAirport(airport);
                 airportTData.add(new airportTable(airport.getID(), airport.getName(), airport.getCity(),
                         airport.getCountry(), airport.getIATA(), airport.getICAO(), airport.getLatitude(),
                         airport.getLongitude(), airport.getAltitude(), airport.getTimezone(), airport.getDST().toText(),
                         airport.getTz()));
-                if(airport.getCountry() != null) {
+                if (airport.getCountry() != null) {
                     airportCountrySet.add(airport.getCountry());
                 }
                 updateAirportCountryBox();
@@ -1353,7 +1366,8 @@ public class Controller implements Initializable{
     }
 
     /**
-     *Loads the selected airline data file into the airline data table.
+     * Loads the selected airline data file into the airline data table.
+     *
      * @throws IOException
      */
     public void loadAirport() throws IOException {
@@ -1371,24 +1385,42 @@ public class Controller implements Initializable{
     }
 
     private void loadDefaultAirports() throws IOException, URISyntaxException {
-        InputStream file = getClass().getResourceAsStream("/airports.dat");
-        //File file = new File(getClass().getClassLoader().getResource("airports.dat").toURI());
-        if (file != null) {
-            System.out.println("ooooooooh yyyyyyyyyyahhhhhh");
-            insertEmptyAirportTable(file);
-            //System.out.println("size of re" + Repository.airportRepository.getAirports().size());
+        if (Repository.airportRepository.getAirports().size() > 0) {
+            loadSerializedAirport();
+        } else {
+            InputStream file = getClass().getResourceAsStream("/airports.dat");
+            //File file = new File(getClass().getClassLoader().getResource("airports.dat").toURI());
+            if (file != null) {
+                System.out.println("ooooooooh yyyyyyyyyyahhhhhh");
+                insertEmptyAirportTable(file);
+                //System.out.println("size of re" + Repository.airportRepository.getAirports().size());
+            }
+        }
+    }
+
+    private void loadSerializedAirport() {
+        Collection<Airport> airports = Repository.airportRepository.getAirports().values();
+        for (Airport airport : airports) {
+            airportTData.add(new airportTable(airport.getID(), airport.getName(), airport.getCity(),
+                    airport.getCountry(), airport.getIATA(), airport.getICAO(), airport.getLatitude(),
+                    airport.getLongitude(), airport.getAltitude(), airport.getTimezone(), airport.getDST().toText(),
+                    airport.getTz()));
+            if (airport.getCountry() != null) {
+                airportCountrySet.add(airport.getCountry());
+            }
+            updateAirportCountryBox();
         }
     }
 
     // insert the given routes in a file into route table and checks for duplicates
-    private void insertRouteTable(InputStream file) throws IOException{
+    private void insertRouteTable(InputStream file) throws IOException {
         RouteValidator validator = new RouteValidator(file);
         ArrayList<Route> routes = validator.makeroutes();
         validator = null;
-        if(routes != null){
-            for(int i = 0; i < routes.size(); i++) {
+        if (routes != null) {
+            for (int i = 0; i < routes.size(); i++) {
                 Route route = routes.get(i);
-                if(diffRoutes(route, Repository.routeRepository.getRoutes())) {
+                if (diffRoutes(route, Repository.routeRepository.getRoutes())) {
                     Repository.routeRepository.addRoute(route);
                     routeTData.add(new routeTable(route.getAirline(), String.valueOf(route.getAirlineID()),
                             route.getSrcAirport(), String.valueOf(route.getSrcAirportID()),
@@ -1397,13 +1429,12 @@ public class Controller implements Initializable{
                             route.getEquipment().stream().collect(Collectors.joining(", "))));
 
                     // loop through the equipments given and add it to the equipmentSet
-                    for(String r: route.getEquipment()){
-                        if(!r.isEmpty()) {
+                    for (String r : route.getEquipment()) {
+                        if (!r.isEmpty()) {
                             equipmentSet.add(r);
                         }
                     }
-                }
-                else{
+                } else {
                     duplicateAlert("The system has read " + i + " route(s) from your file.\nPlease upload a file with different routes.");
                     break;
                 }
@@ -1415,12 +1446,12 @@ public class Controller implements Initializable{
     }
 
     // insert the given routes in a file into route table that's empty so dont check for duplicates
-    private void insertEmptyRouteTable(InputStream file) throws IOException{
+    private void insertEmptyRouteTable(InputStream file) throws IOException {
         RouteValidator validator = new RouteValidator(file);
         ArrayList<Route> routes = validator.makeroutes();
         validator = null;
-        if(routes != null){
-            for(int i = 0; i < routes.size(); i++) {
+        if (routes != null) {
+            for (int i = 0; i < routes.size(); i++) {
                 Route route = routes.get(i);
                 Repository.routeRepository.addRoute(route);
                 routeTData.add(new routeTable(route.getAirline(), String.valueOf(route.getAirlineID()),
@@ -1430,22 +1461,22 @@ public class Controller implements Initializable{
                         route.getEquipment().stream().collect(Collectors.joining(", "))));
 
                 // if destination country id is not null then add it to destSet
-                if (route.getDestAirportID() != null){
+                if (route.getDestAirportID() != null) {
                     // also check that the airport of that id exists in the repository
-                    if(Repository.airportRepository.getAirports().get(route.getDestAirportID()) != null) {
+                    if (Repository.airportRepository.getAirports().get(route.getDestAirportID()) != null) {
                         destSet.add(Repository.airportRepository.getAirports().get(route.getDestAirportID()).getCountry());
                     }
                 }
                 // if departure country id is not null then add it to depSet
-                if (route.getSrcAirportID() != null){
+                if (route.getSrcAirportID() != null) {
                     // also check that the airport of that id exists in the repository
-                    if(Repository.airportRepository.getAirports().get(route.getSrcAirportID()) != null) {
+                    if (Repository.airportRepository.getAirports().get(route.getSrcAirportID()) != null) {
                         depSet.add(Repository.airportRepository.getAirports().get(route.getSrcAirportID()).getCountry());
                     }
                 }
 
-                for(String r: route.getEquipment()){
-                    if(!r.isEmpty()) {
+                for (String r : route.getEquipment()) {
+                    if (!r.isEmpty()) {
                         equipmentSet.add(r);
                     }
                 }
@@ -1460,6 +1491,7 @@ public class Controller implements Initializable{
 
     /**
      * Loads the list of flight routes into the route data table from a data file.
+     *
      * @throws IOException
      */
     public void loadRoute() throws IOException {
@@ -1477,15 +1509,42 @@ public class Controller implements Initializable{
     }
 
     private void loadDefaultRoute() throws IOException, URISyntaxException {
-        InputStream file = getClass().getResourceAsStream("/routes.dat");
-        //File file = new File(getClass().getClassLoader().getResource("routes.dat").toURI());
-        if (file != null) {
-            System.out.println("file opened oh yeah~");
-            insertEmptyRouteTable(file);
+        if (Repository.routeRepository.getRoutes().size() > 0) {
+            loadSerializedRoute();
+        } else {
+            InputStream file = getClass().getResourceAsStream("/routes.dat");
+            //File file = new File(getClass().getClassLoader().getResource("routes.dat").toURI());
+            if (file != null) {
+                System.out.println("file opened oh yeah~");
+                insertEmptyRouteTable(file);
 
 
+
+            }
         }
     }
+
+    private void loadSerializedRoute() {
+        ArrayList<Route> routes = Repository.routeRepository.getRoutes();
+        for (int i = 0; i < routes.size(); i++) {
+            Route route = routes.get(i);
+            routeTData.add(new routeTable(route.getAirline(), String.valueOf(route.getAirlineID()),
+                    route.getSrcAirport(), String.valueOf(route.getSrcAirportID()),
+                    route.getDestAirport(), String.valueOf(route.getDestAirportID()),
+                    route.getCodeshare(), String.valueOf(route.getStops()),
+                    route.getEquipment().stream().collect(Collectors.joining(", "))));
+
+            // loop through the equipments given and add it to the equipmentSet
+            for (String r : route.getEquipment()) {
+                if (!r.isEmpty()) {
+                    equipmentSet.add(r);
+                }
+            }
+        }
+        updateEquipBox();
+        updateDepCountryBox();
+    }
+
 
     private void insertFlightTable(InputStream file) throws IOException {
         FlightValidator validator = new FlightValidator(file);
