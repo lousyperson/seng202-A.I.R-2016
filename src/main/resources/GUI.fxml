@@ -35,7 +35,13 @@
             <menus>
                 <Menu mnemonicParsing="false" text="File">
                     <items>
-                        <MenuItem mnemonicParsing="false" text="Open" />
+                  <Menu mnemonicParsing="false" text="Default Data">
+                    <items>
+                      <MenuItem mnemonicParsing="false" onAction="#defaultAirlines" text="Airline" />
+                        <MenuItem mnemonicParsing="false" onAction="#defaultAirports" text="Airport" />
+                        <MenuItem mnemonicParsing="false" onAction="#defaultRoutes" text="Route" />
+                    </items>
+                  </Menu>
                     </items>
                 </Menu>
                   <Menu mnemonicParsing="false" text="Import">

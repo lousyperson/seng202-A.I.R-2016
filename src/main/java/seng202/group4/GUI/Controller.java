@@ -1694,4 +1694,24 @@ public class Controller implements Initializable {
         return true;
     }
 
+    @FXML
+    private void defaultAirlines() throws IOException, URISyntaxException {
+//        Repository.airlineRepository = new AirlineRepository();
+//        loadDefaultAirline();
+//        airlineTableID.setItems(airlineTData);
+    }
+
+    @FXML
+    private void defaultAirports() throws IOException, URISyntaxException {
+//        Repository.airportRepository = new AirportRepository();
+//        airportTableID.setItems(airportTData);
+    }
+
+    @FXML
+    private void defaultRoutes() throws IOException, URISyntaxException {
+//        Repository.routeRepository = new RouteRepository();
+//        loadDefaultRoute();
+//        routeTableID.setItems(routeTData);
+    }
+
 }
