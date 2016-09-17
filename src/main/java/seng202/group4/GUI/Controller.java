@@ -16,6 +16,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
+import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -51,231 +52,246 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class Controller implements Initializable {
+
+    @FXML
+    private MenuBarController menuBarController;
     // Map view
     @FXML
-    WebView mapView;
+    private WebView mapView;
 
     @FXML
-    WebView flightMap;
+    private WebView flightMap;
 
     @FXML
-    TitledPane instructions;
+    private TitledPane instructions;
 
     @FXML
-    Accordion accord;
+    private Accordion accord;
 
     @FXML
-    TextField airportA;
+    private TextField airportA;
 
     @FXML
-    TextField airportB;
+    private TextField airportB;
 
     // DEFINE TABLES
 
     // Airline Table
     @FXML
-    TableView<airlineTable> airlineTableID;
+    private TableView<airlineTable> airlineTableID;
 
     @FXML
-    TableColumn<airlineTable, String> aid;
+    private TableColumn<airlineTable, String> aid;
 
     @FXML
-    TableColumn<airlineTable, String> aname;
+    private TableColumn<airlineTable, String> aname;
 
     @FXML
-    TableColumn<airlineTable, String> aalias;
+    private TableColumn<airlineTable, String> aalias;
 
     @FXML
-    TableColumn<airlineTable, String> aiata;
+    private TableColumn<airlineTable, String> aiata;
 
     @FXML
-    TableColumn<airlineTable, String> aicao;
+    private TableColumn<airlineTable, String> aicao;
 
     @FXML
-    TableColumn<airlineTable, String> acallsign;
+    private TableColumn<airlineTable, String> acallsign;
 
     @FXML
-    TableColumn<airlineTable, String> acountry;
+    private TableColumn<airlineTable, String> acountry;
 
     @FXML
-    TableColumn<airlineTable, String> aactive;
+    private TableColumn<airlineTable, String> aactive;
 
     // Airport Table
     @FXML
-    TableView<airportTable> airportTableID;
+    private TableView<airportTable> airportTableID;
 
     @FXML
-    TableColumn<airportTable, String> apid;
+    private TableColumn<airportTable, String> apid;
 
     @FXML
-    TableColumn<airportTable, String> apname;
+    private TableColumn<airportTable, String> apname;
 
     @FXML
-    TableColumn<airportTable, String> apcity;
+    private TableColumn<airportTable, String> apcity;
 
     @FXML
-    TableColumn<airportTable, String> apcountry;
+    private TableColumn<airportTable, String> apcountry;
 
     @FXML
-    TableColumn<airportTable, String> apiata;
+    private TableColumn<airportTable, String> apiata;
 
     @FXML
-    TableColumn<airportTable, String> apicao;
+    private TableColumn<airportTable, String> apicao;
 
     @FXML
-    TableColumn<airportTable, String> aplat;
+    private TableColumn<airportTable, String> aplat;
 
     @FXML
-    TableColumn<airportTable, String> aplong;
+    private TableColumn<airportTable, String> aplong;
 
     @FXML
-    TableColumn<airportTable, String> apalt;
+    private TableColumn<airportTable, String> apalt;
 
     @FXML
-    TableColumn<airportTable, String> aptimezone;
+    private TableColumn<airportTable, String> aptimezone;
 
     @FXML
-    TableColumn<airportTable, String> apdst;
+    private TableColumn<airportTable, String> apdst;
 
     @FXML
-    TableColumn<airportTable, String> aptz;
+    private TableColumn<airportTable, String> aptz;
 
     // Route table
 
     @FXML
-    TableView<routeTable> routeTableID;
+    private TableView<routeTable> routeTableID;
 
     @FXML
-    TableColumn<routeTable, String> airline;
+    private TableColumn<routeTable, String> airline;
 
     @FXML
-    TableColumn<routeTable, Integer> airlineID;
+    private TableColumn<routeTable, Integer> airlineID;
 
     @FXML
-    TableColumn<routeTable, String> source;
+    private TableColumn<routeTable, String> source;
 
     @FXML
-    TableColumn<routeTable, Integer> sourceID;
+    private TableColumn<routeTable, Integer> sourceID;
 
     @FXML
-    TableColumn<routeTable, String> dest;
+    private TableColumn<routeTable, String> dest;
 
     @FXML
-    TableColumn<routeTable, Integer> destID;
+    private TableColumn<routeTable, Integer> destID;
 
     @FXML
-    TableColumn<routeTable, String> codeshare;
+    private TableColumn<routeTable, String> codeshare;
 
     @FXML
-    TableColumn<routeTable, Integer> stops;
+    private TableColumn<routeTable, Integer> stops;
 
     @FXML
-    TableColumn<routeTable, String> equipment;
+    private TableColumn<routeTable, String> equipment;
 
+
+    public ListView<String> getDatalist() {
+        return datalist;
+    }
 
     // data list
     @FXML
-    ListView<String> datalist;
+    private ListView<String> datalist;
 
     // search field
     @FXML
-    TextField airlineSearch;
+    private TextField airlineSearch;
 
     // airlines inactive and active check boxes
     @FXML
-    CheckBox active;
+    private CheckBox active;
 
     @FXML
-    CheckBox inactive;
+    private CheckBox inactive;
 
     // airline country filter
     @FXML
-    ComboBox airlineCountryFilter;
+    private ComboBox airlineCountryFilter;
 
     // airport FXML
     @FXML
-    TextField airportSearch;
+    private TextField airportSearch;
 
     @FXML
-    ComboBox airportCountryFilter;
+    private ComboBox airportCountryFilter;
 
 
 
     @FXML
-    TextField calcdDistance;
+    private TextField calcdDistance;
 
     @FXML
-    Button calc;
+    private Button calc;
 
     // route FXML
     @FXML
-    TextField routeSearch;
+    private TextField routeSearch;
 
     @FXML
-    ComboBox routeDepCountryFilter;
+    private ComboBox routeDepCountryFilter;
 
     @FXML
-    ComboBox routeDestCountryFilter;
+    private ComboBox routeDestCountryFilter;
 
     @FXML
-    CheckBox direct;
+    private CheckBox direct;
 
     @FXML
-    CheckBox indirect;
+    private CheckBox indirect;
 
     @FXML
-    ComboBox routeEquipFilter;
+    private ComboBox routeEquipFilter;
 
     // StackPane for search
     @FXML
-    StackPane searchPanes;
+    private StackPane searchPanes;
 
     @FXML
-    AnchorPane airlinePane;
+    private AnchorPane airlinePane;
 
     @FXML
-    AnchorPane airportPane;
+    private AnchorPane airportPane;
 
     @FXML
-    AnchorPane routePane;
+    private AnchorPane routePane;
 
     // Flight table
 
     @FXML
-    TextField flightNameSearch;
+    private TextField flightNameSearch;
 
     @FXML
-    TableView<flightTable> flightTableID;
+    private TableView<flightTable> flightTableID;
 
     @FXML
-    TableColumn<flightTable, String> flightID;
+    private TableColumn<flightTable, String> flightID;
 
     @FXML
-    TableColumn<flightTable, String> flightType;
+    private TableColumn<flightTable, String> flightType;
 
     @FXML
-    TableColumn<flightTable, Integer> flightAltitude;
+    private TableColumn<flightTable, Integer> flightAltitude;
 
     @FXML
-    TableColumn<flightTable, Double> flightLatitude;
+    private TableColumn<flightTable, Double> flightLatitude;
 
     @FXML
-    TableColumn<flightTable, Double> flightLongitude;
+    private TableColumn<flightTable, Double> flightLongitude;
 
     @FXML
-    ListView<String> flightList;
+    private ListView<String> flightList;
+
+    public TabPane getTabPane() {
+        return tabPane;
+    }
 
     @FXML
-    TabPane tabPane;
+    private TabPane tabPane;
+
+    public Tab getDataTab() {
+        return dataTab;
+    }
 
     @FXML
-    Tab dataTab;
+    private Tab dataTab;
 
     @FXML
-    Tab flightTab;
+    private Tab flightTab;
 
     @FXML
-    Tab mapTab;
+    private Tab mapTab;
 
 
     private Double pointALat;
@@ -283,6 +299,18 @@ public class Controller implements Initializable {
     private Double pointBLat;
     private Double pointBLon;
 
+
+    public String getAirlineLabel() {
+        return airlineLabel;
+    }
+
+    public String getAirportLabel() {
+        return airportLabel;
+    }
+
+    public String getRouteLabel() {
+        return routeLabel;
+    }
 
     private String airlineLabel = "Airlines";
     private String airportLabel = "Airport";
@@ -331,7 +359,10 @@ public class Controller implements Initializable {
      * @param resources
      */
     public void initialize(URL location, ResourceBundle resources) {
+        menuBarController.setMainController(this);
         flightMap.getEngine().load(getClass().getClassLoader().getResource("map.html").toExternalForm());
+
+        // initially expand the map instructions on the side bar
         accord.setExpandedPane(instructions);
 //
 //        flightMap.setOnMouseExited(new EventHandler<MouseEvent>() {
@@ -1165,29 +1196,29 @@ public class Controller implements Initializable {
         flightNameSearch.setText(text + " ");
         flightNameSearch.setText(text);
     }
-
-    /**
-     * Shows Aviation Information Reader's help page
-     */
-    public void getHelp(){
-        System.out.println("help");
-        try{
-            FXMLLoader fxml = new FXMLLoader();
-            fxml.setLocation(getClass().getClassLoader().getResource("help.fxml"));
-            Parent root = fxml.load();
-            //Parent root = FXMLLoader.load(getClass().getResource("help.fxml"));
-            Stage stage = new Stage();
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.setResizable(false);
-            stage.setTitle("Aviation Information Reader Help");
-            stage.setScene(new Scene(root, 600, 400));
-            stage.show();
-        }
-        catch(IOException e){
-            e.printStackTrace();
-        }
-
-    }
+//
+//    /**
+//     * Shows Aviation Information Reader's help page
+//     */
+//    public void getHelp(){
+//        System.out.println("help");
+//        try{
+//            FXMLLoader fxml = new FXMLLoader();
+//            fxml.setLocation(getClass().getClassLoader().getResource("help.fxml"));
+//            Parent root = fxml.load();
+//            //Parent root = FXMLLoader.load(getClass().getResource("help.fxml"));
+//            Stage stage = new Stage();
+//            stage.initModality(Modality.APPLICATION_MODAL);
+//            stage.setResizable(false);
+//            stage.setTitle("Aviation Information Reader Help");
+//            stage.setScene(new Scene(root, 600, 400));
+//            stage.show();
+//        }
+//        catch(IOException e){
+//            e.printStackTrace();
+//        }
+//
+//    }
 
 
     /**
@@ -1271,8 +1302,12 @@ public class Controller implements Initializable {
         updateAirlineSearch();
     }
 
-    // Insert the airlines in a given file into the airline table GUI checking for duplicates
-    private void insertAirlineTable(InputStream file) throws IOException {
+    /**Insert the airlines in a given file into the airline table GUI checking for duplicates
+     *
+     * @param file
+     * @throws IOException
+     */
+    public void insertAirlineTable(InputStream file) throws IOException {
         AirlineValidator validator = new AirlineValidator(file);
         ArrayList<Airline> airlines = validator.makeAirlines();
         validator = null;
@@ -1321,6 +1356,24 @@ public class Controller implements Initializable {
 
     }
 
+//
+//    /**
+//     * Allows the user to load airline data from a file
+//     *
+//     * @throws IOException
+//     */
+//    public void loadAirline() throws IOException {
+//        Stage stage = new Stage();
+//        FileChooser fileChooser = new FileChooser();
+//        fileChooser.setTitle("Open file");
+//        File in = fileChooser.showOpenDialog(stage);
+//        if (in.exists()) {
+//            InputStream file = new FileInputStream(in);
+//            System.out.println("file opneedd");
+//            goToDataTab(airlineLabel);
+//            insertAirlineTable(file);
+//        }
+//    }
 
     /**
      * Allows the user to load airline data from a file
@@ -1328,16 +1381,7 @@ public class Controller implements Initializable {
      * @throws IOException
      */
     public void loadAirline() throws IOException {
-        Stage stage = new Stage();
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Open file");
-        File in = fileChooser.showOpenDialog(stage);
-        if (in.exists()) {
-            InputStream file = new FileInputStream(in);
-            System.out.println("file opneedd");
-            goToDataTab(airlineLabel);
-            insertAirlineTable(file);
-        }
+        menuBarController.loadAirline();
     }
 
     private void loadDefaultAirline() throws IOException, URISyntaxException {
@@ -1367,7 +1411,12 @@ public class Controller implements Initializable {
         updateAirlineCountryBox();
     }
 
-    private void insertAirportTable(InputStream file) throws IOException {
+    /**Insert the airports in a given file into the airport table GUI checking for duplicates
+     *
+     * @param file
+     * @throws IOException
+     */
+    public void insertAirportTable(InputStream file) throws IOException {
         AirportValidator validator = new AirportValidator(file);
         ArrayList<Airport> airports = validator.makeAirports();
         validator = null;
@@ -1414,6 +1463,25 @@ public class Controller implements Initializable {
 
     }
 
+//    /**
+//     * Allows the user to load airport data from a file
+//     *
+//     * @throws IOException
+//     */
+//    public void loadAirport() throws IOException {
+//
+//        Stage stage = new Stage();
+//        FileChooser fileChooser = new FileChooser();
+//        fileChooser.setTitle("Open file");
+//        File in = fileChooser.showOpenDialog(stage);
+//        if (in.exists()) {
+//            InputStream file = new FileInputStream(in);
+//            System.out.println("file opened oh ye bb~");
+//            goToDataTab(airportLabel);
+//            insertAirportTable(file);
+//        }
+//    }
+
     /**
      * Allows the user to load airport data from a file
      *
@@ -1421,16 +1489,7 @@ public class Controller implements Initializable {
      */
     public void loadAirport() throws IOException {
 
-        Stage stage = new Stage();
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Open file");
-        File in = fileChooser.showOpenDialog(stage);
-        if (in.exists()) {
-            InputStream file = new FileInputStream(in);
-            System.out.println("file opened oh ye bb~");
-            goToDataTab(airportLabel);
-            insertAirportTable(file);
-        }
+        menuBarController.loadAirport();
     }
 
     private void loadDefaultAirports() throws IOException, URISyntaxException {
@@ -1461,8 +1520,12 @@ public class Controller implements Initializable {
         }
     }
 
-    // insert the given routes in a file into route table and checks for duplicates
-    private void insertRouteTable(InputStream file) throws IOException {
+    /**Insert the routes in a given file into the route table GUI checking for duplicates
+     *
+     * @param file
+     * @throws IOException
+     */
+    public void insertRouteTable(InputStream file) throws IOException {
         RouteValidator validator = new RouteValidator(file);
         ArrayList<Route> routes = validator.makeroutes();
         validator = null;
@@ -1538,23 +1601,32 @@ public class Controller implements Initializable {
 
     }
 
+//    /**
+//     * Allows the user to load route data from a file
+//     *
+//     * @throws IOException
+//     */
+//    public void loadRoute() throws IOException {
+//
+//        Stage stage = new Stage();
+//        FileChooser fileChooser = new FileChooser();
+//        fileChooser.setTitle("Open file");
+//        File in = fileChooser.showOpenDialog(stage);
+//        if (in.exists()) {
+//            InputStream file = new FileInputStream(in);
+//            System.out.println("file opneeeedddd");
+//            goToDataTab(routeLabel);
+//            insertRouteTable(file);
+//        }
+//    }
+
     /**
      * Allows the user to load route data from a file
      *
      * @throws IOException
      */
     public void loadRoute() throws IOException {
-
-        Stage stage = new Stage();
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Open file");
-        File in = fileChooser.showOpenDialog(stage);
-        if (in.exists()) {
-            InputStream file = new FileInputStream(in);
-            System.out.println("file opneeeedddd");
-            goToDataTab(routeLabel);
-            insertRouteTable(file);
-        }
+        menuBarController.loadRoute();
     }
 
     private void loadDefaultRoute() throws IOException, URISyntaxException {
@@ -1603,8 +1675,12 @@ public class Controller implements Initializable {
         }
     }
 
-
-    private void insertFlightTable(InputStream file) throws IOException {
+    /**Insert the flight in a given file into the flight table
+     *
+     * @param file
+     * @throws IOException
+     */
+    public void insertFlightTable(InputStream file) throws IOException {
         FlightValidator validator = new FlightValidator(file);
         Flight flight = validator.makeFlight();
         validator = null;
@@ -1672,34 +1748,42 @@ public class Controller implements Initializable {
 
     }
 
+//    /**
+//     * Allows the user to load a flight from a file
+//     * @throws IOException
+//     */
+//    public void loadFlight() throws IOException {
+//
+//        Stage stage = new Stage();
+//        FileChooser fileChooser = new FileChooser();
+//        fileChooser.setTitle("Open file");
+//        File in = fileChooser.showOpenDialog(stage);
+//        if (in.exists()) {
+//            InputStream file = new FileInputStream(in);
+//            System.out.println("oooo yah flights");
+//            // change tab to flight tab if its not on it already
+//            if(!tabPane.getSelectionModel().equals(flightTab)){
+//                tabPane.getSelectionModel().select(flightTab);
+//            }
+//            insertFlightTable(file);
+//        }
+//    }
+
     /**
      * Allows the user to load a flight from a file
      * @throws IOException
      */
     public void loadFlight() throws IOException {
-
-        Stage stage = new Stage();
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Open file");
-        File in = fileChooser.showOpenDialog(stage);
-        if (in.exists()) {
-            InputStream file = new FileInputStream(in);
-            System.out.println("oooo yah flights");
-            // change tab to flight tab if its not on it already
-            if(!tabPane.getSelectionModel().equals(flightTab)){
-                tabPane.getSelectionModel().select(flightTab);
-            }
-            insertFlightTable(file);
-        }
+        menuBarController.loadFlight();
     }
 
-    // change tab to data tab if its not on it already and switch the selection tab to the given name
-    private void goToDataTab(String name){
-        if(!tabPane.getSelectionModel().equals(dataTab)){
-            tabPane.getSelectionModel().select(dataTab);
-        }
-        datalist.getSelectionModel().select(name);
-    }
+//    // change tab to data tab if its not on it already and switch the selection tab to the given name
+//    private void goToDataTab(String name){
+//        if(!tabPane.getSelectionModel().equals(dataTab)){
+//            tabPane.getSelectionModel().select(dataTab);
+//        }
+//        datalist.getSelectionModel().select(name);
+//    }
 
     private void duplicateIDAlert(String message, Integer id) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -1752,5 +1836,15 @@ public class Controller implements Initializable {
 //        loadDefaultRoute();
 //        routeTableID.setItems(routeTData);
     }
+
+
+    public MenuBarController getMenuBarController() {
+        return menuBarController;
+    }
+
+    public Tab getFlightTab() {
+        return flightTab;
+    }
+
 
 }
