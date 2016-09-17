@@ -1,9 +1,11 @@
 package seng202.group4.data.dataType;
 
+import java.io.Serializable;
+
 /**
  * Created by jjg64 on 2/09/16.
  */
-public class FlightPosition {
+public class FlightPosition implements Serializable {
     private String type;
     private String ID;
     private double altitude;

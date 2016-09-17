@@ -561,6 +561,7 @@ public class Controller implements Initializable {
             );
             return row;
         });
+        ;
 
         // initialise route data table resources
         flightID.setCellValueFactory(new PropertyValueFactory<>("fid"));
@@ -570,6 +571,8 @@ public class Controller implements Initializable {
         flightLongitude.setCellValueFactory(new PropertyValueFactory<>("flongitude"));
 
         flightTableID.setItems(flightTData);
+
+        loadDefaultFlight();
 
         // listen for route search queries
         searchRoutes();
@@ -1345,8 +1348,9 @@ public class Controller implements Initializable {
                     duplicateIDAlert("Please fix the conflict and reupload the file.", airport.getID());
                     break;
                 }
-                updateAirportCountryBox();
+
             }
+            updateAirportCountryBox();
         }
     }
 
@@ -1551,6 +1555,15 @@ public class Controller implements Initializable {
         updateDepCountryBox();
     }
 
+    private void loadDefaultFlight() {
+        if (Repository.flightRepository.getFlights().size() > 0) {
+            for (String name : Repository.flightRepository.getFlights().keySet()) {
+                flightItems.add(name);
+                flightList.setItems(flightItems);
+            }
+        }
+    }
+
 
     private void insertFlightTable(InputStream file) throws IOException {
         FlightValidator validator = new FlightValidator(file);
@@ -1680,8 +1693,5 @@ public class Controller implements Initializable {
         }
         return true;
     }
-
-
-
 
 }
