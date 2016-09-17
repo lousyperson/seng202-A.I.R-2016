@@ -2,6 +2,7 @@ package seng202.group4.data.repository;
 
 import seng202.group4.data.dataType.Route;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.TreeSet;
@@ -9,7 +10,7 @@ import java.util.TreeSet;
 /**
  * Created by jjg64 on 15/08/16.
  */
-public class RouteRepository {
+public class RouteRepository implements Serializable {
     //private HashMap<Integer, Route> Routes = new HashMap<Integer, Route>();
     private ArrayList<Route> routes = new ArrayList<>();
     //private TreeSet Routes = new TreeSet<>();

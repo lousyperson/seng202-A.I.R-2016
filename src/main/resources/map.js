@@ -22,6 +22,21 @@ function initMap() {
 //    });
 //}
 
+
+function off() {
+    // map.panTo(lastValidCenter)
+    map.setOptions({
+        draggable: false
+    });
+}
+
+function on() {
+    // map.panTo(lastValidCenter);
+    map.setOptions({
+        draggable: true
+    });
+}
+
 function hideFlights() {
     for (var i = 0; i < markers.length; i++) {
         markers[i].setMap(null);
@@ -79,5 +94,7 @@ function showAllAirports()
     });
     markers.push(marker);
     markerCluster = new MarkerClusterer(map, markers);
+
 };
+
 

@@ -2,12 +2,13 @@ package seng202.group4.data.repository;
 
 import seng202.group4.data.dataType.Airport;
 
+import java.io.Serializable;
 import java.util.*;
 
 /**
  * Created by jjg64 on 15/08/16.
  */
-public class AirportRepository extends Repository{
+public class AirportRepository implements Serializable {
     private HashMap<Integer, Airport> airports = new HashMap<>();
     private HashMap<String, HashSet> countryAirports = new HashMap<>();
 
