@@ -10,7 +10,10 @@ import javafx.collections.transformation.SortedList;
 
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
@@ -24,6 +27,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import javafx.scene.web.WebView;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import seng202.group4.data.dataType.*;
 import seng202.group4.data.parser.validator.AirlineValidator;
@@ -1161,6 +1165,30 @@ public class Controller implements Initializable {
         flightNameSearch.setText(text + " ");
         flightNameSearch.setText(text);
     }
+
+    /**
+     * Shows Aviation Information Reader's help page
+     */
+    public void getHelp(){
+        System.out.println("help");
+        try{
+            FXMLLoader fxml = new FXMLLoader();
+            fxml.setLocation(getClass().getClassLoader().getResource("help.fxml"));
+            Parent root = fxml.load();
+            //Parent root = FXMLLoader.load(getClass().getResource("help.fxml"));
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setResizable(false);
+            stage.setTitle("Aviation Information Reader Help");
+            stage.setScene(new Scene(root, 600, 400));
+            stage.show();
+        }
+        catch(IOException e){
+            e.printStackTrace();
+        }
+
+    }
+
 
     /**
      * Allows the user to select the direct flight filter option.

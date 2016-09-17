@@ -33,6 +33,14 @@
             <menus>
                 <Menu mnemonicParsing="false" text="File">
                     <items>
+                        <Menu mnemonicParsing="false" text="Import">
+                            <items>
+                                <MenuItem mnemonicParsing="false" onAction="#loadAirline" text="Airline" />
+                                <MenuItem mnemonicParsing="false" onAction="#loadAirport" text="Airport" />
+                                <MenuItem mnemonicParsing="false" onAction="#loadRoute" text="Route" />
+                                <MenuItem mnemonicParsing="false" onAction="#loadFlight" text="Flight" />
+                            </items>
+                        </Menu>
                   <Menu mnemonicParsing="false" text="Default Data">
                     <items>
                       <MenuItem mnemonicParsing="false" onAction="#defaultAirlines" text="Airline" />
@@ -42,14 +50,11 @@
                   </Menu>
                     </items>
                 </Menu>
-                  <Menu mnemonicParsing="false" text="Import">
-                      <items>
-                          <MenuItem mnemonicParsing="false" onAction="#loadAirline" text="Airline" />
-                          <MenuItem mnemonicParsing="false" onAction="#loadAirport" text="Airport" />
-                          <MenuItem mnemonicParsing="false" onAction="#loadRoute" text="Route" />
-                          <MenuItem mnemonicParsing="false" onAction="#loadFlight" text="Flight" />
-                      </items>
-                  </Menu>
+            <Menu mnemonicParsing="false" text="Help">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#getHelp" text="A.I.R. Help" />
+               </items>
+            </Menu>
             </menus>
         </MenuBar>
     </top>
@@ -73,6 +78,7 @@
                                 <RowConstraints maxHeight="178.72744750976562" minHeight="0.0" prefHeight="137.0878143310547" vgrow="SOMETIMES" />
                                 <RowConstraints maxHeight="467.6553955078125" minHeight="0.0" prefHeight="442.296875" vgrow="SOMETIMES" />
                                 <RowConstraints maxHeight="250.4117431640625" minHeight="10.0" prefHeight="75.81793212890625" vgrow="SOMETIMES" />
+                        <RowConstraints />
                             </rowConstraints>
                             <children>
                                 <AnchorPane maxWidth="220.0" minHeight="0.0" minWidth="0.0" prefHeight="152.0" prefWidth="220.0">
