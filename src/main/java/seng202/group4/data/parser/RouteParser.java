@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
+ * Reads and parses through the route data from the input file.
  * Created by jjg64 on 15/08/16.
  */
 public class RouteParser {
@@ -23,6 +24,10 @@ public class RouteParser {
 //    private boolean[] isInt = {false, true, false, true, false, true, false, true, false};
 //    private String nullIntegerValue = "-420";    // When a null int is there
 
+    /**
+     * Initializes the route parser variables.
+     * @param file
+     */
     public RouteParser(ArrayList file) {
         this.file = file;
     }
@@ -66,6 +71,11 @@ public class RouteParser {
         routes.add(thisRoute);
     }
 
+    /**
+     * Makes the singular routes and adds them to the list of routes
+     * @return routes
+     * @throws IOException
+     */
     public ArrayList<Route> makeRoutes() throws IOException {
         for(String currentLine: file){
             addRoute(currentLine);

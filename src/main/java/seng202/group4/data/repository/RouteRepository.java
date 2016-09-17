@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.TreeSet;
 
 /**
+ * Allows for the serialization and searching/filtering of routes.
  * Created by jjg64 on 15/08/16.
  */
 public class RouteRepository implements Serializable {
@@ -23,6 +24,11 @@ public class RouteRepository implements Serializable {
     }
 
 
+    /**
+     * Given a destination location, returns routes that leave the given location.
+     * @param location
+     * @return departureLocations
+     */
     //given destination location returns the routes corresponding to this location
     public ArrayList<Route> getDepartureLocation(String location) {
         ArrayList<Route> departureLocations = new ArrayList<>();
@@ -34,7 +40,11 @@ public class RouteRepository implements Serializable {
         return departureLocations;
     }
 
-
+    /**
+     * Given a location, returns the routes that arrive at the given location.
+     * @param location
+     * @return
+     */
     //given a location, gets the routes that offer this destination
     public ArrayList<Route> getDestinationLocation(String location) {
         ArrayList<Route> destinationLocations = new ArrayList<Route>();
@@ -46,6 +56,10 @@ public class RouteRepository implements Serializable {
         return destinationLocations;
     }
 
+    /**
+     * Finds all direct routes.
+     * @return nonStopRoutes
+     */
     //finds all direct routes
     public ArrayList<Route> getDirect() {
         ArrayList<Route> nonStopRoutes = new ArrayList<Route>();
@@ -57,7 +71,10 @@ public class RouteRepository implements Serializable {
         return nonStopRoutes;
     }
 
-
+    /**
+     * Finds all indirecct routes.
+     * @return stopRoutes
+     */
     // finds all indirect routes
     public ArrayList<Route> getInDirect() {
         ArrayList<Route> stopRoutes = new ArrayList<Route>();
@@ -69,7 +86,11 @@ public class RouteRepository implements Serializable {
         return stopRoutes;
     }
 
-
+    /**
+     * Finds and returns all routes that utilise the user specified equipment.
+     * @param equipment
+     * @return
+     */
     // finds and returns all routes that utilise the given equipment
     public ArrayList<Route> getEquipment(String equipment) {
         ArrayList<Route> equipmentRoute = new ArrayList<Route>();

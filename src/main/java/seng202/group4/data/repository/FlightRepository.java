@@ -7,18 +7,28 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
+ * Allows the for the serialization off flights.
  * Created by jjg64 on 15/08/16.
  */
 public class FlightRepository implements Serializable {
     //private ArrayList<Flight> flights = new ArrayList<>();
     private HashMap<String, Flight> flights = new HashMap<>();
 
+    /**
+     * Adds a flight to the list of flights.
+     * @param name
+     * @param flight
+     */
     public void addFlight(String name, Flight flight) {
         //flights.add(flight);
         flights.put(name, flight);
     }
 
 
+    /**
+     * Gets a list of all the flights.
+     * @return flights
+     */
     public HashMap<String, Flight> getFlights() {
         return flights;
     }

@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
+ * Reads through the flight data from the given file.
  * Created by jjg64 on 15/08/16.
  */
 public class FlightParser {
@@ -19,7 +20,10 @@ public class FlightParser {
     private String splitBy = "\\s*\\,\\s*";
     private ArrayList<FlightPosition> positions = new ArrayList<>();
 
-
+    /**
+     * Initializes the FlightParser variables.
+     * @param file
+     */
     public FlightParser(ArrayList file) {
         this.file = file;
     }
@@ -40,6 +44,11 @@ public class FlightParser {
         positions.add(thisPosition);
     }
 
+    /**
+     * Makes a singular flight from the current line in the flight data.
+     * @return
+     * @throws IOException
+     */
     public Flight makeFlight() throws IOException {
         for(String currentLine: file){
             addFlightPosition(currentLine);
