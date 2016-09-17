@@ -21,6 +21,7 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.text.Text;
 import javafx.scene.web.WebView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -52,6 +53,9 @@ public class Controller implements Initializable {
 
     @FXML
     WebView flightMap;
+
+
+
 
     // DEFINE TABLES
 
@@ -320,20 +324,21 @@ public class Controller implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         flightMap.getEngine().load(getClass().getClassLoader().getResource("map.html").toExternalForm());
 
-        flightMap.setOnMouseExited(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                flightMap.getEngine().executeScript("off();");
-                System.out.println("off");
-            }
-        });
-        flightMap.setOnMouseEntered(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                flightMap.getEngine().executeScript("on();");
-                System.out.println("on");
-            }
-        });
+//
+//        flightMap.setOnMouseExited(new EventHandler<MouseEvent>() {
+//            @Override
+//            public void handle(MouseEvent mouseEvent) {
+//                flightMap.getEngine().executeScript("off();");
+//                System.out.println("off");
+//            }
+//        });
+//        flightMap.setOnMouseEntered(new EventHandler<MouseEvent>() {
+//            @Override
+//            public void handle(MouseEvent mouseEvent) {
+//                flightMap.getEngine().executeScript("on();");
+//                System.out.println("on");
+//            }
+//        });
 
         // initialise data list
         datalist.setItems(items);
