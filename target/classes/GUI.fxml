@@ -84,7 +84,7 @@
                                 </AnchorPane>
                                 <TableView fx:id="airlineTableID" prefHeight="200.0" prefWidth="200.0" tableMenuButtonVisible="true" GridPane.columnIndex="1" GridPane.columnSpan="6" GridPane.rowSpan="4">
                                     <columns>
-                                        <TableColumn fx:id="aid" minWidth="0.0" prefWidth="68.0" text="ID" />
+                                        <TableColumn fx:id="aid" minWidth="0.0" prefWidth="68.0" text="Airline ID" />
                                         <TableColumn fx:id="aname" minWidth="100.0" prefWidth="240.0" text="Name" />
                                         <TableColumn fx:id="aalias" prefWidth="82.0" text="Alias" visible="false" />
                                         <TableColumn fx:id="aiata" prefWidth="72.0" text="IATA" visible="false" />

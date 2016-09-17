@@ -655,7 +655,7 @@ public class Controller implements Initializable {
 
         airportSearch.textProperty().addListener((observable, oldValue, newValue) -> {
             airportTableFiltered.setPredicate(airport -> {
-                // All the columns in airport table (at)
+                // Columns in airport table (at)
                 int atID = airport.getAtid();
                 String atName = airport.getAtname();
                 String atCity = airport.getAtcity();
@@ -666,8 +666,6 @@ public class Controller implements Initializable {
                 Double atLongitude = airport.getAtlongitude();
                 Double atAltitude = airport.getAtaltitude();
                 Float atTimezone = airport.getAttimezone();
-                String atDST = airport.getAtdst();
-                String atTz = airport.getAttzdatabase();
                 boolean toggled = false;    // toggle to see if anything was matched in the search box
 
                 // set up for country drop down box
@@ -697,9 +695,7 @@ public class Controller implements Initializable {
                         (lowerCaseFilter.matches(intPattern) && atLatitude == Double.parseDouble(lowerCaseFilter)) || // CAN BE IMPROVED
                         (lowerCaseFilter.matches(intPattern) && atLongitude == Double.parseDouble(lowerCaseFilter)) || // CAN BE IMPROVED
                         (lowerCaseFilter.matches(intPattern) && atAltitude == Double.parseDouble(lowerCaseFilter)) || // CAN BE IMPROVED
-                        (lowerCaseFilter.matches(intPattern) && atTimezone == Float.parseFloat(lowerCaseFilter)) ||
-                        (atDST != null && atDST.toLowerCase().contains(lowerCaseFilter)) ||
-                        (atTz != null && atTz.toLowerCase().contains(lowerCaseFilter))) {
+                        (lowerCaseFilter.matches(intPattern) && atTimezone == Float.parseFloat(lowerCaseFilter))) {
                     toggled = true;
                 }
 
@@ -766,7 +762,7 @@ public class Controller implements Initializable {
 
         routeSearch.textProperty().addListener((observable, oldValue, newValue) -> {
             routeTableFiltered.setPredicate(route -> {
-                // All the columns in route table (rt)
+                // Some columns in route table (rt)
                 String rtAirID = route.getRairline();
                 String rtID = route.getRid();
                 String rtSrcAirport = route.getRsource();
@@ -1002,7 +998,7 @@ public class Controller implements Initializable {
 
         airlineSearch.textProperty().addListener((observable, oldValue, newValue) -> {
             airlineTableFiltered.setPredicate(airline -> {
-                // All the columns in airline table (at)
+                // Some columns in airline table (at)
                 Integer atID = airline.getRid();
                 String atName = airline.getRname();
                 String atAlias = airline.getRalias();
