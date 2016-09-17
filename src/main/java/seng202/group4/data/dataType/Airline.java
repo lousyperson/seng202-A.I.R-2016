@@ -1,9 +1,11 @@
 package seng202.group4.data.dataType;
 
+import java.io.Serializable;
+
 /**
  * Created by jjg64 on 15/08/16.
  */
-public class Airline {
+public class Airline implements Serializable {
     private int ID;
     private String name;
     private String alias;

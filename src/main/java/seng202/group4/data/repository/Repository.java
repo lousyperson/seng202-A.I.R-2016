@@ -1,9 +1,8 @@
 package seng202.group4.data.repository;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
+import seng202.group4.data.dataType.Airline;
+
+import java.io.*;
 
 /**
  * Created by jjg64 on 15/08/16.
@@ -15,30 +14,64 @@ public class Repository implements Serializable {
     public static FlightRepository flightRepository;
 
     public static void initRepository() {
-        airlineRepository = new AirlineRepository();
-        airportRepository = new AirportRepository();
-        routeRepository = new RouteRepository();
-        flightRepository = new FlightRepository();
+        deserialize();
+        if (airlineRepository == null) {
+            airlineRepository = new AirlineRepository();
+        }
+        if (airportRepository == null) {
+            airportRepository = new AirportRepository();
+        }
+        if (routeRepository == null) {
+            routeRepository = new RouteRepository();
+        }
+        if (flightRepository == null) {
+            flightRepository = new FlightRepository();
+        }
     }
 
     public static void serialize() {
-//        serializeObject(airlineRepository, "airline");
-//        serializeObject(airportRepository, "airport");
-//        serializeObject(routeRepository, "route");
-//        serializeObject(flightRepository, "flight");
+        serializeObject(airlineRepository, "airline");
+        serializeObject(airportRepository, "airport");
+        serializeObject(routeRepository, "route");
+        serializeObject(flightRepository, "flight");
     }
 
-    protected static void serializeObject(Object object, String type) {
+    private static void serializeObject(Object object, String type) {
         try {
-            FileOutputStream fileOut =
-                    new FileOutputStream("/tmp/employee.ser");
+            FileOutputStream fileOut = new FileOutputStream("src/main/resources/" + type + "s.ser");
             ObjectOutputStream out = new ObjectOutputStream(fileOut);
             out.writeObject(object);
             out.close();
             fileOut.close();
-            System.out.printf("Serialized data is saved in /tmp/employee.ser");
+            System.out.println("Serialized data is saved in " + type + "s.ser");
         }catch(IOException i) {
             i.printStackTrace();
+        }
+    }
+
+    public static void deserialize() {
+        airlineRepository = (AirlineRepository) deserializeObject("airline");
+        airportRepository = (AirportRepository) deserializeObject("airport");
+        routeRepository = (RouteRepository) deserializeObject("route");
+        flightRepository = (FlightRepository) deserializeObject("flight");
+    }
+
+    private static Object deserializeObject(String type) {
+        try {
+            Object repository;
+            FileInputStream fileIn = new FileInputStream("src/main/resources/" + type + "s.ser");
+            ObjectInputStream in = new ObjectInputStream(fileIn);
+            repository = in.readObject();
+            in.close();
+            fileIn.close();
+            return repository;
+        }catch(IOException i) {
+            i.printStackTrace();
+            return null;
+        }catch(ClassNotFoundException c) {
+            System.out.println(type + " class not found");
+            c.printStackTrace();
+            return null;
         }
     }
 }

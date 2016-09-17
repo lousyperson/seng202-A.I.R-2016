@@ -1,12 +1,13 @@
 package seng202.group4.data.dataType;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 
 /**
  * Created by jjg64 on 15/08/16.
  */
-public class Route {
+public class Route implements Serializable {
     private String airline;
     private Integer AirlineID;
     private String srcAirport;
