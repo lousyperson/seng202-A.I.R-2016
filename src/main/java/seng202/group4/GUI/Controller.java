@@ -623,7 +623,7 @@ public class Controller implements Initializable {
     }
 
     /**
-     * Searches through the names of the flights so that the user is able to find a select flight from the list.
+     * Searches through the names of the flights so that the user is able to find and select flight from the list.
      */
     private void searchFlightNames() {
         FilteredList<flightTable> flightTableFiltered = new FilteredList<>(flightTData, p -> true);
@@ -1218,7 +1218,7 @@ public class Controller implements Initializable {
     }
 
     /**
-     * Filters the list of airports by country, leaving only airportd from the selected county.
+     * Filters the list of airports by country, leaving only airports from the selected county.
      *
      * @throws IOException
      */
@@ -1245,7 +1245,7 @@ public class Controller implements Initializable {
     }
 
     /**
-     * Filters by the equipment in a route, only showing routes that utilize that equipemt.
+     * Filters by the equipment in a route, only showing routes that utilize that equipment.
      *
      * @throws IOException
      */
@@ -1323,7 +1323,7 @@ public class Controller implements Initializable {
 
 
     /**
-     * Loads the whole list of airlines into the airline data table.
+     * Allows the user to load airline data from a file
      *
      * @throws IOException
      */
@@ -1415,7 +1415,7 @@ public class Controller implements Initializable {
     }
 
     /**
-     * Loads the selected airline data file into the airline data table.
+     * Allows the user to load airport data from a file
      *
      * @throws IOException
      */
@@ -1539,7 +1539,7 @@ public class Controller implements Initializable {
     }
 
     /**
-     * Loads the list of flight routes into the route data table from a data file.
+     * Allows the user to load route data from a file
      *
      * @throws IOException
      */
@@ -1673,7 +1673,7 @@ public class Controller implements Initializable {
     }
 
     /**
-     * Loads a singular piece of flight data to allow the user to analyse a singular flight.
+     * Allows the user to load a flight from a file
      * @throws IOException
      */
     public void loadFlight() throws IOException {
