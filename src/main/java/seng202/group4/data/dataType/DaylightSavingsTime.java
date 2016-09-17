@@ -1,6 +1,7 @@
 package seng202.group4.data.dataType;
 
 /**
+ * An enum for Daylight Savings Time to allow for easy access to the timing in different countries and areas.
  * Created by jjg64 on 18/08/16.
  */
 public enum DaylightSavingsTime {

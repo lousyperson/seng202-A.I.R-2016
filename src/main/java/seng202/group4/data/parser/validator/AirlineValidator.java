@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
+ * The AirlineValidator class ensures that the information parsed into the program by the data file meets the
+ * expected formatting criteria to ensure there are no representational issues.
  * Created by jjg64 on 25/08/16.
  */
 public class AirlineValidator {
@@ -28,6 +30,12 @@ public class AirlineValidator {
         this.file = new BufferedReader(new InputStreamReader(filepath));
     }
 
+    /**
+     * Produces a list of airlines by checking each airline one by one from the data file and ensuring it is a valid
+     * airline.
+     * @return
+     * @throws IOException
+     */
     public ArrayList<Airline> makeAirlines() throws IOException {
         while ((currentLine = file.readLine()) != null) {
             lineNumber++;

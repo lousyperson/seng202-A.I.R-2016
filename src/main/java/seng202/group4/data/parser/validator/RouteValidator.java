@@ -27,6 +27,12 @@ public class RouteValidator {
         this.file = new BufferedReader(new InputStreamReader(filepath));
     }
 
+    /**
+     * Creates the routes from the given data file to check if they are of the correct format. Calls validateLine to
+     * ensure that the format is correct.
+     * @return
+     * @throws IOException
+     */
     public ArrayList<Route> makeroutes() throws IOException {
         while ((currentLine = file.readLine()) != null) {
             lineNumber++;
