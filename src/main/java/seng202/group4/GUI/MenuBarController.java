@@ -27,11 +27,12 @@ public class MenuBarController{
     private Tab dataTab;
     private ListView<String> datalist;
 
-
-
-
     private Controller mainController;
 
+    /**
+     * Sets the main controller and retrieves private variables from the main controller
+     * @param controller
+     */
     public void setMainController(Controller controller){
         this.mainController = controller;
         this.flightTab = mainController.getFlightTab();
@@ -43,7 +44,10 @@ public class MenuBarController{
         this.datalist = mainController.getDatalist();
     }
 
-
+    /**
+     * Getter for the main controller
+     * @return
+     */
     public Controller getMainController(){
         return mainController;
     }

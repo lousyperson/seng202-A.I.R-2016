@@ -359,26 +359,15 @@ public class Controller implements Initializable {
      * @param resources
      */
     public void initialize(URL location, ResourceBundle resources) {
+
+        // Passing MainController to MenuBarController
         menuBarController.setMainController(this);
+
+        // Load the flight map
         flightMap.getEngine().load(getClass().getClassLoader().getResource("map.html").toExternalForm());
 
         // initially expand the map instructions on the side bar
         accord.setExpandedPane(instructions);
-//
-//        flightMap.setOnMouseExited(new EventHandler<MouseEvent>() {
-//            @Override
-//            public void handle(MouseEvent mouseEvent) {
-//                flightMap.getEngine().executeScript("off();");
-//                System.out.println("off");
-//            }
-//        });
-//        flightMap.setOnMouseEntered(new EventHandler<MouseEvent>() {
-//            @Override
-//            public void handle(MouseEvent mouseEvent) {
-//                flightMap.getEngine().executeScript("on();");
-//                System.out.println("on");
-//            }
-//        });
 
         // initialise data list
         datalist.setItems(items);
@@ -524,15 +513,11 @@ public class Controller implements Initializable {
             });
             addA.setOnAction(event -> {
                 airportA.setText(row.getItem().getAtname());
-//                pointALat.setText(Double.toString(row.getItem().getAtlatitude()));
-//                pointALon.setText(Double.toString(row.getItem().getAtlongitude()));
                 pointALat = row.getItem().getAtlatitude();
                 pointALon = row.getItem().getAtlongitude();
             });
             addB.setOnAction(event -> {
                 airportB.setText(row.getItem().getAtname());
-//                pointBLat.setText(Double.toString(row.getItem().getAtlatitude()));
-//                pointBLon.setText(Double.toString(row.getItem().getAtlongitude()));
                 pointBLat = row.getItem().getAtlatitude();
                 pointBLon = row.getItem().getAtlongitude();
             });
@@ -635,11 +620,6 @@ public class Controller implements Initializable {
     public void calcDistance() {
         if (pointALat != null && pointALon != null &&
                 pointBLat != null && pointBLon != null) {
-//            double lat1 = Double.parseDouble(pointALat.getText());
-//            double lat2 = Double.parseDouble(pointBLat.getText());
-//            double lon1 = Double.parseDouble(pointALon.getText());
-//            double lon2 = Double.parseDouble(pointBLon.getText());
-
             final int R = 6371; // Radius of the earth in km
 
             Double latDistance = Math.toRadians(pointBLat - pointALat);
@@ -648,6 +628,7 @@ public class Controller implements Initializable {
                     + Math.cos(Math.toRadians(pointALat)) * Math.cos(Math.toRadians(pointBLat))
                     * Math.sin(lonDistance / 2) * Math.sin(lonDistance / 2);
             Double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
             double distance = R * c; // convert to meters
             calcdDistance.setText(String.format("%.2f", distance));
         }
@@ -657,8 +638,6 @@ public class Controller implements Initializable {
      * Searches through the names of the flights so that the user is able to find and select flight from the list.
      */
     private void searchFlightNames() {
-        FilteredList<flightTable> flightTableFiltered = new FilteredList<>(flightTData, p -> true);
-
         // listen to whats being typed in the search box
         flightNameSearch.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.isEmpty()) {
@@ -1013,19 +992,6 @@ public class Controller implements Initializable {
     }
 
 
-    private void deleteRows() {
-        ObservableList<airlineTable> airlinesSelected, allAirlines;
-//        allAirlines = airlineTableID.getItems();
-        airlinesSelected = airlineTableID.getSelectionModel().getSelectedItems();
-//        airlineTData.removeAll(airlinesSelected.get(0));
-        System.out.println("selected stuff + " + airlinesSelected.get(0));
-
-//
-//        List items =  new ArrayList (airlineTableID.getSelectionModel().getSelectedItems());
-//        System.out.println("selected stuff + " + items);
-//        airportTData.removeAll(items);
-//        airlineTableID.getSelectionModel().clearSelection();
-    }
 
     private void searchAirlines() {
         // searching for airline
@@ -1196,29 +1162,6 @@ public class Controller implements Initializable {
         flightNameSearch.setText(text + " ");
         flightNameSearch.setText(text);
     }
-//
-//    /**
-//     * Shows Aviation Information Reader's help page
-//     */
-//    public void getHelp(){
-//        System.out.println("help");
-//        try{
-//            FXMLLoader fxml = new FXMLLoader();
-//            fxml.setLocation(getClass().getClassLoader().getResource("help.fxml"));
-//            Parent root = fxml.load();
-//            //Parent root = FXMLLoader.load(getClass().getResource("help.fxml"));
-//            Stage stage = new Stage();
-//            stage.initModality(Modality.APPLICATION_MODAL);
-//            stage.setResizable(false);
-//            stage.setTitle("Aviation Information Reader Help");
-//            stage.setScene(new Scene(root, 600, 400));
-//            stage.show();
-//        }
-//        catch(IOException e){
-//            e.printStackTrace();
-//        }
-//
-//    }
 
 
     /**
@@ -1356,24 +1299,6 @@ public class Controller implements Initializable {
 
     }
 
-//
-//    /**
-//     * Allows the user to load airline data from a file
-//     *
-//     * @throws IOException
-//     */
-//    public void loadAirline() throws IOException {
-//        Stage stage = new Stage();
-//        FileChooser fileChooser = new FileChooser();
-//        fileChooser.setTitle("Open file");
-//        File in = fileChooser.showOpenDialog(stage);
-//        if (in.exists()) {
-//            InputStream file = new FileInputStream(in);
-//            System.out.println("file opneedd");
-//            goToDataTab(airlineLabel);
-//            insertAirlineTable(file);
-//        }
-//    }
 
     /**
      * Allows the user to load airline data from a file
@@ -1463,24 +1388,6 @@ public class Controller implements Initializable {
 
     }
 
-//    /**
-//     * Allows the user to load airport data from a file
-//     *
-//     * @throws IOException
-//     */
-//    public void loadAirport() throws IOException {
-//
-//        Stage stage = new Stage();
-//        FileChooser fileChooser = new FileChooser();
-//        fileChooser.setTitle("Open file");
-//        File in = fileChooser.showOpenDialog(stage);
-//        if (in.exists()) {
-//            InputStream file = new FileInputStream(in);
-//            System.out.println("file opened oh ye bb~");
-//            goToDataTab(airportLabel);
-//            insertAirportTable(file);
-//        }
-//    }
 
     /**
      * Allows the user to load airport data from a file
@@ -1601,24 +1508,6 @@ public class Controller implements Initializable {
 
     }
 
-//    /**
-//     * Allows the user to load route data from a file
-//     *
-//     * @throws IOException
-//     */
-//    public void loadRoute() throws IOException {
-//
-//        Stage stage = new Stage();
-//        FileChooser fileChooser = new FileChooser();
-//        fileChooser.setTitle("Open file");
-//        File in = fileChooser.showOpenDialog(stage);
-//        if (in.exists()) {
-//            InputStream file = new FileInputStream(in);
-//            System.out.println("file opneeeedddd");
-//            goToDataTab(routeLabel);
-//            insertRouteTable(file);
-//        }
-//    }
 
     /**
      * Allows the user to load route data from a file
@@ -1634,13 +1523,9 @@ public class Controller implements Initializable {
             loadSerializedRoute();
         } else {
             InputStream file = getClass().getResourceAsStream("/routes.dat");
-            //File file = new File(getClass().getClassLoader().getResource("routes.dat").toURI());
             if (file != null) {
                 System.out.println("file opened oh yeah~");
                 insertEmptyRouteTable(file);
-
-
-
             }
         }
     }
@@ -1705,9 +1590,6 @@ public class Controller implements Initializable {
                         // update the listView of flight names
                         flightList.setItems(flightItems);
 
-//                    //populate flight table with this flight
-//                    updateFlightTable(name.get());
-
                         // make the listView select to the newly uploaded flight which is
                         // listened to already so it will populate the table
                         flightList.getSelectionModel().selectLast();
@@ -1728,8 +1610,6 @@ public class Controller implements Initializable {
             }
 
         }
-
-        // updateSomething();
     }
 
     // update flight table view given the flight name
@@ -1748,26 +1628,6 @@ public class Controller implements Initializable {
 
     }
 
-//    /**
-//     * Allows the user to load a flight from a file
-//     * @throws IOException
-//     */
-//    public void loadFlight() throws IOException {
-//
-//        Stage stage = new Stage();
-//        FileChooser fileChooser = new FileChooser();
-//        fileChooser.setTitle("Open file");
-//        File in = fileChooser.showOpenDialog(stage);
-//        if (in.exists()) {
-//            InputStream file = new FileInputStream(in);
-//            System.out.println("oooo yah flights");
-//            // change tab to flight tab if its not on it already
-//            if(!tabPane.getSelectionModel().equals(flightTab)){
-//                tabPane.getSelectionModel().select(flightTab);
-//            }
-//            insertFlightTable(file);
-//        }
-//    }
 
     /**
      * Allows the user to load a flight from a file
@@ -1777,13 +1637,6 @@ public class Controller implements Initializable {
         menuBarController.loadFlight();
     }
 
-//    // change tab to data tab if its not on it already and switch the selection tab to the given name
-//    private void goToDataTab(String name){
-//        if(!tabPane.getSelectionModel().equals(dataTab)){
-//            tabPane.getSelectionModel().select(dataTab);
-//        }
-//        datalist.getSelectionModel().select(name);
-//    }
 
     private void duplicateIDAlert(String message, Integer id) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -1817,25 +1670,6 @@ public class Controller implements Initializable {
         return true;
     }
 
-    @FXML
-    private void defaultAirlines() throws IOException, URISyntaxException {
-//        Repository.airlineRepository = new AirlineRepository();
-//        loadDefaultAirline();
-//        airlineTableID.setItems(airlineTData);
-    }
-
-    @FXML
-    private void defaultAirports() throws IOException, URISyntaxException {
-//        Repository.airportRepository = new AirportRepository();
-//        airportTableID.setItems(airportTData);
-    }
-
-    @FXML
-    private void defaultRoutes() throws IOException, URISyntaxException {
-//        Repository.routeRepository = new RouteRepository();
-//        loadDefaultRoute();
-//        routeTableID.setItems(routeTData);
-    }
 
 
     public MenuBarController getMenuBarController() {
