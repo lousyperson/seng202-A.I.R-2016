@@ -72,7 +72,6 @@
                             <rowConstraints>
                                 <RowConstraints maxHeight="178.72744750976562" minHeight="0.0" prefHeight="137.0878143310547" vgrow="SOMETIMES" />
                                 <RowConstraints maxHeight="467.6553955078125" minHeight="0.0" prefHeight="442.296875" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="223.90969848632812" minHeight="0.0" prefHeight="50.703125" vgrow="SOMETIMES" />
                                 <RowConstraints maxHeight="250.4117431640625" minHeight="10.0" prefHeight="75.81793212890625" vgrow="SOMETIMES" />
                             </rowConstraints>
                             <children>
@@ -123,7 +122,7 @@
                                         <TableColumn fx:id="equipment" prefWidth="100.0" text="Equipment" />
                                     </columns>
                                 </TableView>
-                                <StackPane fx:id="searchPanes" prefHeight="354.0" prefWidth="220.0" GridPane.rowIndex="1">
+                                <StackPane fx:id="searchPanes" prefHeight="354.0" prefWidth="220.0" GridPane.rowIndex="1" GridPane.rowSpan="2">
                                     <children>
                                         <AnchorPane fx:id="airlinePane" minHeight="0.0" minWidth="0.0" prefHeight="172.0" prefWidth="220.0">
                                             <children>
@@ -133,6 +132,7 @@
                                                 <CheckBox fx:id="active" layoutX="12.0" layoutY="124.0" mnemonicParsing="false" onAction="#selectActiveAirlines" text="Active" />
                                                 <CheckBox fx:id="inactive" layoutX="122.0" layoutY="125.0" mnemonicParsing="false" onAction="#selectInactiveAirlines" text="Inactive" />
                                                 <ComboBox fx:id="airlineCountryFilter" layoutX="12.0" layoutY="161.0" onAction="#filterAirlineCountry" prefHeight="25.0" prefWidth="197.0" promptText=" --ALL COUNTRIES--" />
+                                    <Button alignment="TOP_CENTER" contentDisplay="CENTER" layoutX="37.0" layoutY="470.0" mnemonicParsing="false" onAction="#loadAirline" prefHeight="25.0" prefWidth="146.0" text="Import Airline" />
                                             </children>
                                         </AnchorPane>
                                         <AnchorPane fx:id="routePane" minHeight="0.0" minWidth="0.0" prefHeight="172.0" prefWidth="220.0" visible="false">
@@ -145,6 +145,7 @@
                                                 <CheckBox fx:id="direct" layoutX="12.0" layoutY="124.0" mnemonicParsing="false" onAction="#selectDirect" text="Direct" />
                                                 <CheckBox fx:id="indirect" layoutX="122.0" layoutY="124.0" mnemonicParsing="false" onAction="#selectIndirect" text="Indirect" />
                                                 <ComboBox fx:id="routeEquipFilter" layoutX="12.0" layoutY="161.0" onAction="#filterEquipment" prefHeight="25.0" prefWidth="197.0" promptText=" --ALL EQUIPMENTS-- " />
+                                    <Button alignment="TOP_CENTER" contentDisplay="CENTER" layoutX="37.0" layoutY="470.0" mnemonicParsing="false" onAction="#loadRoute" prefHeight="25.0" prefWidth="146.0" text="Import Route" />
                                             </children>
                                         </AnchorPane>
                                         <AnchorPane fx:id="airportPane" minHeight="0.0" minWidth="0.0" prefHeight="269.0" prefWidth="220.0" visible="false">
@@ -163,6 +164,7 @@
                                     <Text layoutX="168.0" layoutY="369.0" strokeType="OUTSIDE" strokeWidth="0.0" text="km" wrappingWidth="35.30078125" />
                                     <Text layoutX="24.0" layoutY="192.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Right-click on an airport to" />
                                     <Text layoutX="37.0" layoutY="210.0" strokeType="OUTSIDE" strokeWidth="0.0" text=" add as Airport A or B." />
+                                    <Button alignment="TOP_CENTER" contentDisplay="CENTER" layoutX="37.0" layoutY="470.0" mnemonicParsing="false" onAction="#loadAirport" prefHeight="25.0" prefWidth="146.0" text="Import Airport" />
                                             </children>
                                         </AnchorPane>
                                     </children>
