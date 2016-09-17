@@ -21,6 +21,7 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.text.Text;
 import javafx.scene.web.WebView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -52,6 +53,13 @@ public class Controller implements Initializable {
 
     @FXML
     WebView flightMap;
+
+    @FXML
+    TitledPane instructions;
+
+    @FXML
+    Accordion accord;
+
 
     // DEFINE TABLES
 
@@ -319,21 +327,22 @@ public class Controller implements Initializable {
      */
     public void initialize(URL location, ResourceBundle resources) {
         flightMap.getEngine().load(getClass().getClassLoader().getResource("map.html").toExternalForm());
-
-        flightMap.setOnMouseExited(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                flightMap.getEngine().executeScript("off();");
-                System.out.println("off");
-            }
-        });
-        flightMap.setOnMouseEntered(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                flightMap.getEngine().executeScript("on();");
-                System.out.println("on");
-            }
-        });
+        accord.setExpandedPane(instructions);
+//
+//        flightMap.setOnMouseExited(new EventHandler<MouseEvent>() {
+//            @Override
+//            public void handle(MouseEvent mouseEvent) {
+//                flightMap.getEngine().executeScript("off();");
+//                System.out.println("off");
+//            }
+//        });
+//        flightMap.setOnMouseEntered(new EventHandler<MouseEvent>() {
+//            @Override
+//            public void handle(MouseEvent mouseEvent) {
+//                flightMap.getEngine().executeScript("on();");
+//                System.out.println("on");
+//            }
+//        });
 
         // initialise data list
         datalist.setItems(items);
@@ -424,6 +433,9 @@ public class Controller implements Initializable {
                 Optional<ButtonType> result = alert.showAndWait();
                 if (result.get() == ButtonType.OK) {
                     ObservableList<airlineTable> selectedItems = airlineTableID.getSelectionModel().getSelectedItems();
+                    for (airlineTable airline : selectedItems) {
+                        Repository.airlineRepository.getAirlines().remove(airline.getRid());
+                    }
                     airlineTData.removeAll(selectedItems);
                     airlineTableID.getSelectionModel().clearSelection();
                 }
@@ -491,6 +503,9 @@ public class Controller implements Initializable {
                 Optional<ButtonType> result = alert.showAndWait();
                 if (result.get() == ButtonType.OK) {
                     ObservableList<airportTable> selectedItems = airportTableID.getSelectionModel().getSelectedItems();
+                    for (airportTable airport : selectedItems) {
+                        Repository.airportRepository.getAirports().remove(airport.getAtid());
+                    }
                     airportTData.removeAll(selectedItems);
                     airportTableID.getSelectionModel().clearSelection();
                 }
@@ -555,6 +570,7 @@ public class Controller implements Initializable {
             );
             return row;
         });
+        ;
 
         // initialise route data table resources
         flightID.setCellValueFactory(new PropertyValueFactory<>("fid"));
@@ -564,6 +580,8 @@ public class Controller implements Initializable {
         flightLongitude.setCellValueFactory(new PropertyValueFactory<>("flongitude"));
 
         flightTableID.setItems(flightTData);
+
+        loadDefaultFlight();
 
         // listen for route search queries
         searchRoutes();
@@ -1284,8 +1302,8 @@ public class Controller implements Initializable {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open file");
         File in = fileChooser.showOpenDialog(stage);
-        InputStream file = new FileInputStream(in);
         if (in.exists()) {
+            InputStream file = new FileInputStream(in);
             System.out.println("file opneedd");
             goToDataTab(airlineLabel);
             insertAirlineTable(file);
@@ -1339,8 +1357,9 @@ public class Controller implements Initializable {
                     duplicateIDAlert("Please fix the conflict and reupload the file.", airport.getID());
                     break;
                 }
-                updateAirportCountryBox();
+
             }
+            updateAirportCountryBox();
         }
     }
 
@@ -1376,8 +1395,8 @@ public class Controller implements Initializable {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open file");
         File in = fileChooser.showOpenDialog(stage);
-        InputStream file = new FileInputStream(in);
         if (in.exists()) {
+            InputStream file = new FileInputStream(in);
             System.out.println("file opened oh ye bb~");
             goToDataTab(airportLabel);
             insertAirportTable(file);
@@ -1500,8 +1519,8 @@ public class Controller implements Initializable {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open file");
         File in = fileChooser.showOpenDialog(stage);
-        InputStream file = new FileInputStream(in);
         if (in.exists()) {
+            InputStream file = new FileInputStream(in);
             System.out.println("file opneeeedddd");
             goToDataTab(routeLabel);
             insertRouteTable(file);
@@ -1543,6 +1562,15 @@ public class Controller implements Initializable {
         }
         updateEquipBox();
         updateDepCountryBox();
+    }
+
+    private void loadDefaultFlight() {
+        if (Repository.flightRepository.getFlights().size() > 0) {
+            for (String name : Repository.flightRepository.getFlights().keySet()) {
+                flightItems.add(name);
+                flightList.setItems(flightItems);
+            }
+        }
     }
 
 
@@ -1624,8 +1652,8 @@ public class Controller implements Initializable {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open file");
         File in = fileChooser.showOpenDialog(stage);
-        InputStream file = new FileInputStream(in);
         if (in.exists()) {
+            InputStream file = new FileInputStream(in);
             System.out.println("oooo yah flights");
             // change tab to flight tab if its not on it already
             if(!tabPane.getSelectionModel().equals(flightTab)){
@@ -1675,7 +1703,24 @@ public class Controller implements Initializable {
         return true;
     }
 
+    @FXML
+    private void defaultAirlines() throws IOException, URISyntaxException {
+//        Repository.airlineRepository = new AirlineRepository();
+//        loadDefaultAirline();
+//        airlineTableID.setItems(airlineTData);
+    }
 
+    @FXML
+    private void defaultAirports() throws IOException, URISyntaxException {
+//        Repository.airportRepository = new AirportRepository();
+//        airportTableID.setItems(airportTData);
+    }
 
+    @FXML
+    private void defaultRoutes() throws IOException, URISyntaxException {
+//        Repository.routeRepository = new RouteRepository();
+//        loadDefaultRoute();
+//        routeTableID.setItems(routeTData);
+    }
 
 }

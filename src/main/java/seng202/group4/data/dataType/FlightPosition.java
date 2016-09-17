@@ -1,10 +1,12 @@
 package seng202.group4.data.dataType;
 
+import java.io.Serializable;
+
 /**
  * The FlightPosition class gets the information from the specific row in the flight table which the flight exists in.
  * Created by jjg64 on 2/09/16.
  */
-public class FlightPosition {
+public class FlightPosition implements Serializable {
     private String type;
     private String ID;
     private double altitude;
