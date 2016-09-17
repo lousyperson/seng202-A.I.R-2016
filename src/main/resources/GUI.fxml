@@ -177,9 +177,9 @@
                <content>
                   <GridPane>
                      <children>
-                        <Accordion>
+                        <Accordion fx:id="accord">
                           <panes>
-                            <TitledPane animated="false" text="Map Instructions">
+                            <TitledPane fx:id="instructions" animated="false" text="Map Instructions">
                               <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                        <children>

@@ -54,7 +54,11 @@ public class Controller implements Initializable {
     @FXML
     WebView flightMap;
 
+    @FXML
+    TitledPane instructions;
 
+    @FXML
+    Accordion accord;
 
 
     // DEFINE TABLES
@@ -323,7 +327,7 @@ public class Controller implements Initializable {
      */
     public void initialize(URL location, ResourceBundle resources) {
         flightMap.getEngine().load(getClass().getClassLoader().getResource("map.html").toExternalForm());
-
+        accord.setExpandedPane(instructions);
 //
 //        flightMap.setOnMouseExited(new EventHandler<MouseEvent>() {
 //            @Override
