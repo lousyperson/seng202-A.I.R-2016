@@ -6,13 +6,17 @@ import java.io.Serializable;
 import java.util.*;
 
 /**
+ * Allows for the serialization and searching/filtering of airports.
  * Created by jjg64 on 15/08/16.
  */
 public class AirportRepository implements Serializable {
     private HashMap<Integer, Airport> airports = new HashMap<>();
     private HashMap<String, HashSet> countryAirports = new HashMap<>();
 
-
+    /**
+     * Adds an airport to the list of airports.
+     * @param airport
+     */
     public void addAirport(Airport airport) {
         airports.put(airport.getID(), airport);
 
@@ -29,14 +33,27 @@ public class AirportRepository implements Serializable {
 
     }
 
+    /**
+     * Gets a list of all the airports.
+     * @return airports
+     */
     public HashMap<Integer, Airport> getAirports() {
         return airports;
     }
 
+    /**
+     * Gets the list of airports in a country.
+     * @returncountryAirports
+     */
     public HashMap<String, HashSet> getCountryAirports(){
         return countryAirports;
     }
 
+    /**
+     * Takes a country and returns all the airport identification numbers of that country.
+     * @param country
+     * @return
+     */
     // takes a country and returns all the airports IDs of that country
     public Set airportIDsOfCountry(String country){
         if(countryAirports.get(country) == null){
@@ -45,6 +62,11 @@ public class AirportRepository implements Serializable {
         return countryAirports.get(country);
     }
 
+    /**
+     * Finds and returns all airports in a given country.
+     * @param country
+     * @return
+     */
     // finds and returns all airports in a given country
     public ArrayList<Airport> getCountry(String country) {
         ArrayList<Airport> AirportCountry = new ArrayList<Airport>();
@@ -56,6 +78,11 @@ public class AirportRepository implements Serializable {
         return AirportCountry;
     }
 
+    /**
+     * Finds the country of an airport with a given IATA.
+     * @param id
+     * @return
+     */
     // finds the country of an airport given IATA
     public String findCountry(String id) {
         for (Airport airport : airports.values()) {

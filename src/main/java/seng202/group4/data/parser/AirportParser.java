@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
+ * Reads through the airport data in the given file.
  * Created by jjg64 on 15/08/16.
  */
 public class AirportParser {
@@ -21,6 +22,10 @@ public class AirportParser {
     private ArrayList<Airport> airports = new ArrayList<Airport>();
     int index = 0; // Will be used to track the index corresponding to each comma
 
+    /**
+     * Sets up the file to be parsed through.
+     * @param file
+     */
     public AirportParser(ArrayList file) {
         this.file = file;
         makeMap();
@@ -80,6 +85,11 @@ public class AirportParser {
         airports.add(thisAirport);
     }
 
+    /**
+     * Builds the singular airport from the current line in the data and adds it to the list of airports.
+     * @return
+     * @throws IOException
+     */
     public ArrayList<Airport> makeAirports() throws IOException {
         for(String currentLine: file){
             addAirport(currentLine);

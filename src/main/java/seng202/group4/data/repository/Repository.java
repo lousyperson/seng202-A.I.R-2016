@@ -5,6 +5,7 @@ import seng202.group4.data.dataType.Airline;
 import java.io.*;
 
 /**
+ * Connects all of the data type repositories together allowing for simplified serialization.
  * Created by jjg64 on 15/08/16.
  */
 public class Repository implements Serializable {
@@ -13,6 +14,9 @@ public class Repository implements Serializable {
     public static RouteRepository routeRepository;
     public static FlightRepository flightRepository;
 
+    /**
+     * Initializes the repository variables.
+     */
     public static void initRepository() {
         deserialize();
         if (airlineRepository == null) {
@@ -29,6 +33,9 @@ public class Repository implements Serializable {
         }
     }
 
+    /**
+     * Serializes the objects.
+     */
     public static void serialize() {
         serializeObject(airlineRepository, "airline");
         serializeObject(airportRepository, "airport");
@@ -49,6 +56,9 @@ public class Repository implements Serializable {
         }
     }
 
+    /**
+     * Deserializes the objects.
+     */
     public static void deserialize() {
         airlineRepository = (AirlineRepository) deserializeObject("airline");
         airportRepository = (AirportRepository) deserializeObject("airport");
