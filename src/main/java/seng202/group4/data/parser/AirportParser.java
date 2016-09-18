@@ -46,7 +46,7 @@ public class AirportParser {
             splitLine[i] = null;
         } else {
             // Remove quotation marks
-            splitLine[i] = splitLine[i].replaceAll("^\"|\"$", "");
+            splitLine[i] = splitLine[i].replaceAll("^\"|\"$", "");      // Remove quotation marks
         }
     }
 
@@ -59,6 +59,7 @@ public class AirportParser {
         name += splitLine[index];
         index++;
         name = name.replaceAll("^\"|\"$", "");  // Removes quotation mark
+        name = name.replaceAll("\\\\", "");     // Removes \\
         return name;
     }
 

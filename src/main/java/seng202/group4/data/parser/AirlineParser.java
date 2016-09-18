@@ -36,6 +36,7 @@ public class AirlineParser {
             splitLine[i] = null;
         } else {
             splitLine[i] = splitLine[i].replaceAll("^\"|\"$", "");      // Remove quotation marks
+            splitLine[i] = splitLine[i].replace("\\\\", "");            // Remove \\
         }
     }
 

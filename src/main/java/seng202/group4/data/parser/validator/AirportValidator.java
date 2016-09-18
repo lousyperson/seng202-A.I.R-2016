@@ -93,14 +93,14 @@ public class AirportValidator {
         } else if (!checkString(0) && !(splitLine[index].length() == 6 || splitLine[index].equals("\\N"))) {
             makeAlert("ICAO must be letters of length 4 in quotations");
             return;
-        } else if (!checkNumber(2)) {
-            makeAlert("Latitude must be a number");
+        } else if (!checkNumber(2, -90, 90)) {
+            makeAlert("Latitude must be a number in degrees");
             return;
-        } else if (!checkNumber(3)) {
-            makeAlert("Longitude must be a number");
+        } else if (!checkNumber(3, -180, 180)) {
+            makeAlert("Longitude must be a number in degrees");
             return;
         } else if (!checkNumber(4)) {
-            makeAlert("Altitude must be a number");
+            makeAlert("Altitude must be a number in feet");
             return;
         } else if (!checkNumber(5)) {
             makeAlert("Timezone must be a number");
@@ -128,6 +128,19 @@ public class AirportValidator {
             isValid  = false;
         }
         return isValid;
+    }
+
+    private boolean checkNumber(int i, int lowerBound, int upperBound) {
+        try {
+            Double number = Double.parseDouble(splitLine[index + i]);
+            if (number >= lowerBound && number <= upperBound) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 
     private boolean checkNumber(int i) {

@@ -70,13 +70,13 @@ public class FlightValidator {
         // Strings do not need to be checked, as quotation marks is no longer a constraint
 
         if (!checkNumber(2)) {
-            makeAlert("Altitude must be a number.");
+            makeAlert("Altitude must be a number in feet");
             return;
-        } else if (!checkNumber(3)) {
-            makeAlert("Longitude must be a number.");
+        } else if (!checkNumber(3, -180, 180)) {
+            makeAlert("Longitude must be a number in degrees");
             return;
-        } else if (!checkNumber(4)) {
-            makeAlert("Latitude must be a number.");
+        } else if (!checkNumber(4, -90, 90)) {
+            makeAlert("Latitude must be a number in degrees");
             return;
         }
 
@@ -88,6 +88,19 @@ public class FlightValidator {
             isValid = false;
         }
         return isValid;
+    }
+
+    private boolean checkNumber(int i, int lowerBound, int upperBound) {
+        try {
+            Double number = Double.parseDouble(splitLine[i]);
+            if (number >= lowerBound && number <= upperBound) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 
     private boolean checkNumber(int i) {
