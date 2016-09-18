@@ -104,7 +104,7 @@ public class RouteValidator {
         alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");
         alert.setHeaderText("There is an error in your file on line " + lineNumber);
-        alert.setContentText(message + "\nNo routes were added.\nPlease go to help drop down for file formatting help.");
+        alert.setContentText(message + "\n\nNo routes were added.\n\nPlease go to help drop down for file formatting help.");
         alert.showAndWait();
     }
 }

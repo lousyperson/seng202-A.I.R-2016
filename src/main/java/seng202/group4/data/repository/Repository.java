@@ -3,6 +3,7 @@ package seng202.group4.data.repository;
 import seng202.group4.data.dataType.Airline;
 
 import java.io.*;
+import java.util.HashMap;
 
 /**
  * Connects all of the data type repositories together allowing for simplified serialization.
@@ -42,11 +43,11 @@ public class Repository implements Serializable {
         serializeObject(flightRepository, "flight");
     }
 
-    private static void serializeObject(Object object, String type) {
+    protected static void serializeObject(Repository repository, String type) {
         try {
-            FileOutputStream fileOut = new FileOutputStream("src/main/resources/" + type + "s.ser");
+            FileOutputStream fileOut = new FileOutputStream(type + "s.ser");
             ObjectOutputStream out = new ObjectOutputStream(fileOut);
-            out.writeObject(object);
+            out.writeObject(repository);
             out.close();
             fileOut.close();
             System.out.println("Serialized data is saved in " + type + "s.ser");
@@ -59,18 +60,28 @@ public class Repository implements Serializable {
      * Deserializes the objects.
      */
     public static void deserialize() {
+        checkSerFile(airlineRepository, "airline");
+        checkSerFile(airportRepository, "airport");
+        checkSerFile(routeRepository, "route");
+        checkSerFile(flightRepository, "flight");
         airlineRepository = (AirlineRepository) deserializeObject("airline");
         airportRepository = (AirportRepository) deserializeObject("airport");
         routeRepository = (RouteRepository) deserializeObject("route");
         flightRepository = (FlightRepository) deserializeObject("flight");
     }
 
-    private static Object deserializeObject(String type) {
+    private static void checkSerFile(Repository repository, String type) {
+        if (!new File(type + "s.ser").exists()) {
+            serializeObject(repository, type);
+        }
+    }
+
+    protected static Repository deserializeObject(String type) {
         try {
-            Object repository;
-            FileInputStream fileIn = new FileInputStream("src/main/resources/" + type + "s.ser");
+            Repository repository;
+            FileInputStream fileIn = new FileInputStream(type + "s.ser");
             ObjectInputStream in = new ObjectInputStream(fileIn);
-            repository = in.readObject();
+            repository = (Repository) in.readObject();
             in.close();
             fileIn.close();
             return repository;

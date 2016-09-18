@@ -10,7 +10,7 @@ import java.util.TreeSet;
 /**
  * Allows for the serialization and searching/filtering of routes.
  */
-public class RouteRepository implements Serializable {
+public class RouteRepository extends Repository implements Serializable {
     //private HashMap<Integer, Route> Routes = new HashMap<Integer, Route>();
     private ArrayList<Route> routes = new ArrayList<>();
     //private TreeSet Routes = new TreeSet<>();

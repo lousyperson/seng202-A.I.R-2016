@@ -9,7 +9,7 @@ import java.util.HashMap;
 /**
  * Allows for the serialization and searching/filtering of airlines.
  */
-public class AirlineRepository implements Serializable {
+public class AirlineRepository extends Repository implements Serializable {
 
     private HashMap<Integer, Airline> airlines = new HashMap<Integer, Airline>();
 

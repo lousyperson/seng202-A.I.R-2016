@@ -9,7 +9,7 @@ import java.util.HashMap;
 /**
  * Allows the for the serialization off flights.
  */
-public class FlightRepository implements Serializable {
+public class FlightRepository extends Repository implements Serializable {
     //private ArrayList<Flight> flights = new ArrayList<>();
     private HashMap<String, Flight> flights = new HashMap<>();
 
