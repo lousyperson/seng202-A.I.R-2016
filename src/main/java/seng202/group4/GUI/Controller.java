@@ -1512,6 +1512,21 @@ public class Controller implements Initializable {
                             route.getCodeshare(), String.valueOf(route.getStops()),
                             route.getEquipment().stream().collect(Collectors.joining(", "))));
 
+                    // if destination country id is not null then add it to destSet
+                    if (route.getDestAirportID() != null) {
+                        // also check that the airport of that id exists in the repository
+                        if (Repository.airportRepository.getAirports().get(route.getDestAirportID()) != null) {
+                            destSet.add(Repository.airportRepository.getAirports().get(route.getDestAirportID()).getCountry());
+                        }
+                    }
+                    // if departure country id is not null then add it to depSet
+                    if (route.getSrcAirportID() != null) {
+                        // also check that the airport of that id exists in the repository
+                        if (Repository.airportRepository.getAirports().get(route.getSrcAirportID()) != null) {
+                            depSet.add(Repository.airportRepository.getAirports().get(route.getSrcAirportID()).getCountry());
+                        }
+                    }
+
                     // loop through the equipments given and add it to the equipmentSet
                     for (String r : route.getEquipment()) {
                         if (!r.isEmpty()) {
@@ -1524,6 +1539,7 @@ public class Controller implements Initializable {
                 }
                 updateEquipBox();
                 updateDepCountryBox();
+                updateDestCountryBox();
             }
         }
 
@@ -1608,6 +1624,21 @@ public class Controller implements Initializable {
                     route.getCodeshare(), String.valueOf(route.getStops()),
                     route.getEquipment().stream().collect(Collectors.joining(", "))));
 
+            // if destination country id is not null then add it to destSet
+            if (route.getDestAirportID() != null) {
+                // also check that the airport of that id exists in the repository
+                if (Repository.airportRepository.getAirports().get(route.getDestAirportID()) != null) {
+                    destSet.add(Repository.airportRepository.getAirports().get(route.getDestAirportID()).getCountry());
+                }
+            }
+            // if departure country id is not null then add it to depSet
+            if (route.getSrcAirportID() != null) {
+                // also check that the airport of that id exists in the repository
+                if (Repository.airportRepository.getAirports().get(route.getSrcAirportID()) != null) {
+                    depSet.add(Repository.airportRepository.getAirports().get(route.getSrcAirportID()).getCountry());
+                }
+            }
+
             // loop through the equipments given and add it to the equipmentSet
             for (String r : route.getEquipment()) {
                 if (!r.isEmpty()) {
@@ -1617,6 +1648,7 @@ public class Controller implements Initializable {
         }
         updateEquipBox();
         updateDepCountryBox();
+        updateDestCountryBox();
     }
 
     private void loadDefaultFlight() {
