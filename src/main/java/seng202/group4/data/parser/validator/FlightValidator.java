@@ -72,11 +72,11 @@ public class FlightValidator {
         if (!checkNumber(2)) {
             makeAlert("Altitude must be a number in feet");
             return;
-        } else if (!checkNumber(3, -180, 180)) {
-            makeAlert("Longitude must be a number in degrees");
-            return;
-        } else if (!checkNumber(4, -90, 90)) {
+        } else if (!checkNumber(3, -90 , 90)) {
             makeAlert("Latitude must be a number in degrees");
+            return;
+        } else if (!checkNumber(4, -180, 180)) {
+            makeAlert("Longitude must be a number in degrees");
             return;
         }
 
