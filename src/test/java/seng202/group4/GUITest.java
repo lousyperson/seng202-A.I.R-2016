@@ -9,10 +9,16 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 /**
+ * JUnit tests for the GUI as much as possible.
  * Created by jjg64 on 28/08/16.
  */
 public class GUITest extends Application{
 
+    /**
+     * Initializes everything for the GUITest class.
+     * @param primaryStage a stage parameter
+     * @throws Exception throws an exception
+     */
     @Override
     public void start(Stage primaryStage) throws Exception{
         FXMLLoader loader = new FXMLLoader();
@@ -44,6 +50,10 @@ public class GUITest extends Application{
         ValidatorGUITest.testInvalidAirportFile("testfiles/Airports/invalidAirport.txt");
     }
 
+    /**
+     * The main class
+     * @param args a String argument parameter
+     */
     public static void main(String[] args) {
         launch(args);
     }
