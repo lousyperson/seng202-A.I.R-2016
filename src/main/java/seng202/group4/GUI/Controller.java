@@ -580,16 +580,29 @@ public class Controller implements Initializable {
             row.setOnMouseClicked(event -> {
             });
             removeItem.setOnAction(event -> {
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                alert.setTitle("Confirmation Dialog");
-                alert.setHeaderText("Are you sure you want to delete?");
-                alert.setContentText("Pressing OK will delete the row(s).\nWARNING: The action cannot be undone.\n");
-                Optional<ButtonType> result = alert.showAndWait();
-                if (result.get() == ButtonType.OK) {
-                    ObservableList<routeTable> selectedItems = routeTableID.getSelectionModel().getSelectedItems();
-                    routeTData.removeAll(selectedItems);
-                    routeTableID.getSelectionModel().clearSelection();
+                if (routeTableID.getSelectionModel().getSelectedItems().size() > 5000) {
+                    Alert warning = new Alert(Alert.AlertType.WARNING);
+                    warning.setTitle("Warning Dialog");
+                    warning.setHeaderText("Cannot delete more than 5000 lines at a time.");
+                    warning.setContentText("You selected " + routeTableID.getSelectionModel().getSelectedItems().size() + " lines.");
+
+                    warning.showAndWait();
+
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                    alert.setTitle("Confirmation Dialog");
+                    alert.setHeaderText("Are you sure you want to delete?");
+                    alert.setContentText("Pressing OK will delete the row(s).\nWARNING: The action cannot be undone.\n");
+
+                    Optional<ButtonType> result = alert.showAndWait();
+                    if (result.get() == ButtonType.OK) {
+                        ObservableList<routeTable> selectedItems = routeTableID.getSelectionModel().getSelectedItems();
+
+                        routeTData.removeAll(selectedItems);
+                        routeTableID.getSelectionModel().clearSelection();
+                    }
                 }
+
             });
             rowMenu.getItems().addAll(removeItem);
             row.contextMenuProperty().bind(
