@@ -623,12 +623,12 @@ public class Controller implements Initializable {
 
         flightTableID.setItems(flightTData);
 
-        flightTableID.setRowFactory(tableView -> {
-            final TableRow<flightTable> row = new TableRow<>();
-            final ContextMenu rowMenu = new ContextMenu();
+        flightList.setCellFactory(listView -> {
+            final ListCell<String> cell = new ListCell<>();
+            final ContextMenu contextMenu = new ContextMenu();
             MenuItem removeItem = new MenuItem("Delete");
-            row.setOnMouseClicked(event -> {
-            });
+
+            cell.setOnMouseClicked(event -> {});
             removeItem.setOnAction(event -> {
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setTitle("Confirmation Dialog");
@@ -637,21 +637,28 @@ public class Controller implements Initializable {
 
                 Optional<ButtonType> result = alert.showAndWait();
                 if (result.get() == ButtonType.OK) {
-                    ObservableList<flightTable> selectedItems = flightTableID.getSelectionModel().getSelectedItems();
-                    for (flightTable flight : selectedItems) {
-                        Repository.flightRepository.getFlights().remove(flight.getFid());
+                    Repository.flightRepository.getFlights().remove(cell.getItem());
+                    flightList.getItems().remove(cell.getItem());
+                    if (cell.getItem() != null) {
+                        updateFlightTable(cell.getItem());
+                    } else {
+                        flightMap.getEngine().executeScript("initMap();");
                     }
-                    flightTData.removeAll(selectedItems);
-                    flightTableID.getSelectionModel().clearSelection();
+
                 }
             });
-            rowMenu.getItems().addAll(removeItem);
-            row.contextMenuProperty().bind(
-                    Bindings.when(Bindings.isNotNull(row.itemProperty()))
-                            .then(rowMenu)
-                            .otherwise((ContextMenu) null)
-            );
-            return row;
+            contextMenu.getItems().addAll(removeItem);
+
+            cell.textProperty().bind(cell.itemProperty());
+
+            cell.emptyProperty().addListener((obs, wasEmpty, isNowEmpty) -> {
+                if (isNowEmpty) {
+                    cell.setContextMenu(null);
+                } else {
+                    cell.setContextMenu(contextMenu);
+                }
+            });
+            return cell;
         });
         
         loadDefaultFlight();
