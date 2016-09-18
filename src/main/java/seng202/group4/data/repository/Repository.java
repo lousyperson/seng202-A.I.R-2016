@@ -50,7 +50,7 @@ public class Repository implements Serializable {
     /**
      * Deserializes the objects.
      */
-    public static void deserialize() {
+    private static void deserialize() {
         checkSerFile(airlineRepository, "airline");
         checkSerFile(airportRepository, "airport");
         checkSerFile(routeRepository, "route");
