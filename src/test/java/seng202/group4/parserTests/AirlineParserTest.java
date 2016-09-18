@@ -145,6 +145,7 @@ public class AirlineParserTest extends ParserTest {
         AirlineParser parser = new AirlineParser(fileArray(path + "oneValidAirlineWithNull.txt"));
         ArrayList<Airline> airlines = parser.makeAirlines();
         String airline0 = getString(airlines.get(0));
-        assertTrue(airline0.equals("412,Aerolineas Argentinas,null,AR,ARG,ARGENTINA,Argentina,false"));
+        System.out.println(airline0);
+        assertTrue(airline0.equals("412,Aerolineas Argentinas,null,AR,ARG,ARGENTINA,Argentina,true"));
     }
 }
