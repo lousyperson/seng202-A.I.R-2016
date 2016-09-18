@@ -76,7 +76,7 @@ public class RouteParser {
      * @throws IOException throws IOException error
      */
     public ArrayList<Route> makeRoutes() throws IOException {
-        for(String currentLine: file){
+        for(String currentLine: file) {
             addRoute(currentLine);
         }
         return routes;

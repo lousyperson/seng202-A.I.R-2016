@@ -17,7 +17,7 @@ public class Route implements Serializable {
     private Integer destAirportID;
     private String codeshare;
     private Integer stops;
-    private double distance;
+    private double distance;    // Will be used in phase 3
     private ArrayList<String> equipment = new ArrayList<String>();
 
     /**

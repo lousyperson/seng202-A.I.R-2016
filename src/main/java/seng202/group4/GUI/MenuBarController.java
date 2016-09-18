@@ -209,7 +209,6 @@ public class MenuBarController {
         boolean result = resetConformation();
         if (result) {
             Alert loading = showLoading();
-            loading.show();
             mainController.clearRouteTable();
             Repository.routeRepository = new RouteRepository();
             InputStream file = getClass().getResourceAsStream("/routes.dat");

@@ -53,7 +53,7 @@ public class ValidatorTest {
      */
     @Test
     public void multipleValidAirlinesSize() throws IOException {
-        AirlineValidator parser = new AirlineValidator(new FileInputStream("testfiles/Airlines/validAirline.txt"));
+        AirlineValidator parser = new AirlineValidator(new FileInputStream("testfiles/Airlines/6048Airlines.txt"));
         ArrayList<Airline> airlines = parser.makeAirlines();
         assertTrue(airlines.size() == 6048);
 
