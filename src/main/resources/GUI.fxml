@@ -152,73 +152,74 @@
                         </GridPane>
                     </content>
                 </Tab>
-            <Tab fx:id="flightTab" text="Flight View">
-               <content>
-                  <GridPane>
-                     <children>
-                        <Accordion fx:id="accord">
-                          <panes>
-                            <TitledPane fx:id="instructions" animated="false" text="Map Instructions">
-                              <content>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                       <children>
-                                          <TextArea editable="false" layoutX="-60.0" layoutY="-63.0" prefHeight="141.0" prefWidth="218.0" text="By selecting a flight, the map will show the flight path.&#10;&#10;Please use arrow keys to move the map and scroll to zoom." wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                       </children>
-                                    </AnchorPane>
-                              </content>
-                            </TitledPane>
-                          </panes>
-                        </Accordion>
-                        <AnchorPane maxWidth="220.0" minHeight="0.0" minWidth="0.0" prefHeight="706.0" prefWidth="220.0" GridPane.rowIndex="2" GridPane.rowSpan="2">
-                           <children>
-                              <ListView fx:id="flightList" layoutX="10.0" layoutY="38.0" prefHeight="307.0" prefWidth="200.0" />
-                              <Text layoutX="12.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Flights" />
-                              <Button alignment="TOP_CENTER" contentDisplay="CENTER" layoutX="37.0" layoutY="366.0" mnemonicParsing="false" onAction="#loadFlight" prefHeight="25.0" prefWidth="146.0" text="Import Flight" />
-                           </children>
-                        </AnchorPane>
-                        <AnchorPane prefHeight="103.0" prefWidth="220.0" GridPane.rowIndex="1">
-                           <children>
-                              <TextField fx:id="flightNameSearch" layoutX="12.0" layoutY="42.0" prefHeight="25.0" prefWidth="196.0" promptText="Search Flights..." />
-                              <Text layoutX="14.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Search" />
-                           </children>
-                        </AnchorPane>
-                        <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="317.0" prefWidth="221.0" GridPane.columnIndex="1" GridPane.columnSpan="6" GridPane.rowSpan="4">
-                          <items>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
-                                 <children>
-                                    <WebView fx:id="flightMap" prefHeight="348.0" prefWidth="802.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                 </children>
-                              </AnchorPane>
-                              <TableView fx:id="flightTableID" prefHeight="248.0" prefWidth="699.0">
-                                 <columns>
-                                    <TableColumn fx:id="flightID" minWidth="100.0" prefWidth="100.0" sortable="false" text="ID" />
-                                    <TableColumn fx:id="flightType" minWidth="100.0" prefWidth="100.0" sortable="false" text="Type" />
-                                    <TableColumn fx:id="flightAltitude" minWidth="100.0" prefWidth="100.0" sortable="false" text="Altitude" />
-                                    <TableColumn fx:id="flightLatitude" minWidth="100.0" prefWidth="200.0" sortable="false" text="Latitude" />
-                                    <TableColumn fx:id="flightLongitude" minWidth="100.0" prefWidth="200.0" sortable="false" text="Longitude" />
-                                 </columns>
-                              </TableView>
-                          </items>
-                        </SplitPane>
-                     </children>
-                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="220.0" minWidth="10.0" prefWidth="220.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="311.0" minWidth="10.0" prefWidth="218.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="266.0" minWidth="10.0" prefWidth="168.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                     </columnConstraints>
-                     <rowConstraints>
-                        <RowConstraints maxHeight="181.60398864746094" minHeight="0.0" prefHeight="169.9619598388672" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="320.78773498535156" minHeight="0.0" prefHeight="89.03804016113281" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="398.2533874511719" minHeight="20.0" prefHeight="305.1171875" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="242.85211181640625" minHeight="10.0" prefHeight="140.58978271484375" vgrow="SOMETIMES" />
-                     </rowConstraints>
-                  </GridPane>
-               </content>
-            </Tab>
+
+                <Tab fx:id="flightTab"  text="Flight View">
+                    <content>
+                        <GridPane>
+                            <children>
+                                <Accordion fx:id="accord">
+                                    <panes>
+                                        <TitledPane fx:id="instructions" animated="false" text="Map Instructions">
+                                            <content>
+                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                    <children>
+                                                        <TextArea editable="false" layoutX="-60.0" layoutY="-63.0" prefHeight="141.0" prefWidth="218.0" text="By selecting a flight, the map will show the flight path.&#10;&#10;Please use arrow keys to move the map and scroll to zoom." wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                    </children>
+                                                </AnchorPane>
+                                            </content>
+                                        </TitledPane>
+                                    </panes>
+                                </Accordion>
+                                <AnchorPane maxWidth="220.0" minHeight="0.0" minWidth="0.0" prefHeight="706.0" prefWidth="220.0" GridPane.rowIndex="2" GridPane.rowSpan="2">
+                                    <children>
+                                        <ListView fx:id="flightList" layoutX="10.0" layoutY="38.0" prefHeight="307.0" prefWidth="200.0" />
+                                        <Text layoutX="12.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Flights" />
+                                        <Button alignment="TOP_CENTER" contentDisplay="CENTER" layoutX="37.0" layoutY="366.0" mnemonicParsing="false" onAction="#loadFlight" prefHeight="25.0" prefWidth="146.0" text="Import Flight" />
+                                    </children>
+                                </AnchorPane>
+                                <AnchorPane prefHeight="103.0" prefWidth="220.0" GridPane.rowIndex="1">
+                                    <children>
+                                        <TextField fx:id="flightNameSearch" layoutX="12.0" layoutY="42.0" prefHeight="25.0" prefWidth="196.0" promptText="Search Flights..." />
+                                        <Text layoutX="14.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Search" />
+                                    </children>
+                                </AnchorPane>
+                                <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="317.0" prefWidth="221.0" GridPane.columnIndex="1" GridPane.columnSpan="6" GridPane.rowSpan="4">
+                                    <items>
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                                            <children>
+                                                <WebView fx:id="flightMap" prefHeight="348.0" prefWidth="802.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                            </children>
+                                        </AnchorPane>
+                                        <TableView fx:id="flightTableID" prefHeight="248.0" prefWidth="699.0">
+                                            <columns>
+                                                <TableColumn fx:id="flightID" minWidth="100.0" prefWidth="100.0" sortable="false" text="ID" />
+                                                <TableColumn fx:id="flightType" minWidth="100.0" prefWidth="100.0" sortable="false" text="Type" />
+                                                <TableColumn fx:id="flightAltitude" minWidth="100.0" prefWidth="100.0" sortable="false" text="Altitude" />
+                                                <TableColumn fx:id="flightLatitude" minWidth="100.0" prefWidth="200.0" sortable="false" text="Latitude" />
+                                                <TableColumn fx:id="flightLongitude" minWidth="100.0" prefWidth="200.0" sortable="false" text="Longitude" />
+                                            </columns>
+                                        </TableView>
+                                    </items>
+                                </SplitPane>
+                            </children>
+                            <columnConstraints>
+                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="220.0" minWidth="10.0" prefWidth="220.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="311.0" minWidth="10.0" prefWidth="218.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="266.0" minWidth="10.0" prefWidth="168.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints maxHeight="181.60398864746094" minHeight="0.0" prefHeight="169.9619598388672" vgrow="SOMETIMES" />
+                                <RowConstraints maxHeight="320.78773498535156" minHeight="0.0" prefHeight="89.03804016113281" vgrow="SOMETIMES" />
+                                <RowConstraints maxHeight="398.2533874511719" minHeight="20.0" prefHeight="305.1171875" vgrow="SOMETIMES" />
+                                <RowConstraints maxHeight="242.85211181640625" minHeight="10.0" prefHeight="140.58978271484375" vgrow="SOMETIMES" />
+                            </rowConstraints>
+                        </GridPane>
+                    </content>
+                </Tab>
             </tabs>
         </TabPane>
     </center>

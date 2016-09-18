@@ -51,10 +51,14 @@ import java.util.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * The main controller implementing GUI functions.
+ */
 public class Controller implements Initializable {
 
     @FXML
     private MenuBarController menuBarController;
+
     // Map view
     @FXML
     private WebView mapView;
@@ -524,9 +528,8 @@ public class Controller implements Initializable {
             removeItem.setOnAction(event -> {
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setTitle("Confirmation Dialog");
-                alert.setHeaderText("Look, a Confirmation Dialog!");
-                alert.setContentText("Confirm delete the row(s)?\nWarning: You cannot undo the action.\n");
-
+                alert.setHeaderText("Are you sure you want to delete?");
+                alert.setContentText("Pressing OK will delete the row(s).\nWARNING: The action cannot be undone.\n");
                 Optional<ButtonType> result = alert.showAndWait();
                 if (result.get() == ButtonType.OK) {
                     ObservableList<airportTable> selectedItems = airportTableID.getSelectionModel().getSelectedItems();
@@ -579,9 +582,8 @@ public class Controller implements Initializable {
             removeItem.setOnAction(event -> {
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setTitle("Confirmation Dialog");
-                alert.setHeaderText("Look, a Confirmation Dialog!");
-                alert.setContentText("Confirm delete the row(s)?\nWarning: You cannot undo the action.\n");
-
+                alert.setHeaderText("Are you sure you want to delete?");
+                alert.setContentText("Pressing OK will delete the row(s).\nWARNING: The action cannot be undone.\n");
                 Optional<ButtonType> result = alert.showAndWait();
                 if (result.get() == ButtonType.OK) {
                     ObservableList<routeTable> selectedItems = routeTableID.getSelectionModel().getSelectedItems();
