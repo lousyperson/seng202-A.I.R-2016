@@ -7,7 +7,7 @@ import seng202.group4.data.dataType.Route;
 import seng202.group4.data.repository.Repository;
 
 /**
- *
+ * Tests the serialize class to ensure it works appropriately.
  */
 public class SerializeTest {
     @Before
