@@ -317,7 +317,7 @@ public class Controller implements Initializable {
     }
 
     private String airlineLabel = "Airlines";
-    private String airportLabel = "Airport";
+    private String airportLabel = "Airports";
     private String routeLabel = "Routes";
 
 
