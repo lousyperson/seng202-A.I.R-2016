@@ -28,18 +28,6 @@
 <?import javafx.scene.web.WebView?>
 
 
-
-
-<!--<MenuBar xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.group4.GUI.MenuBarController">-->
-    <!--<menus>-->
-        <!--<Menu mnemonicParsing="false" text="Help">-->
-            <!--<items>-->
-                <!--<MenuItem mnemonicParsing="false" onAction="#getHelp" text="A.I.R. Help" />-->
-            <!--</items>-->
-        <!--</Menu>-->
-    <!--</menus>-->
-<!--</MenuBar>-->
-
 <MenuBar xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.group4.GUI.MenuBarController">
     <menus>
         <Menu mnemonicParsing="false" text="File">
@@ -52,13 +40,6 @@
                         <MenuItem mnemonicParsing="false" onAction="#loadFlight" text="Flight" />
                     </items>
                 </Menu>
-                <!--<Menu mnemonicParsing="false" text="Default Data">-->
-                    <!--<items>-->
-                        <!--<MenuItem mnemonicParsing="false" onAction="#defaultAirlines" text="Airline" />-->
-                        <!--<MenuItem mnemonicParsing="false" onAction="#defaultAirports" text="Airport" />-->
-                        <!--<MenuItem mnemonicParsing="false" onAction="#defaultRoutes" text="Route" />-->
-                    <!--</items>-->
-                <!--</Menu>-->
             </items>
         </Menu>
         <Menu mnemonicParsing="false" text="Help">
