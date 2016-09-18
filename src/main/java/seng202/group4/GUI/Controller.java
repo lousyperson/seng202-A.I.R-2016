@@ -1778,4 +1778,15 @@ public class Controller implements Initializable {
         return flightTab;
     }
 
+    public void clearRouteTable() {
+        routeTData.removeAll(routeTData);
+    }
+
+    public void clearAirlineTable() {
+        airlineTData.removeAll(airlineTData);
+    }
+
+    public void clearAirportTable() {
+        airportTData.removeAll(airportTData);
+    }
 }

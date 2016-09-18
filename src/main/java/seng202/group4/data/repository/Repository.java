@@ -44,7 +44,7 @@ public class Repository implements Serializable {
         serializeObject(flightRepository, "flight");
     }
 
-    protected static void serializeObject(Repository repository, String type) {
+    public static void serializeObject(Repository repository, String type) {
         try {
             FileOutputStream fileOut = new FileOutputStream(type + "s.ser");
             ObjectOutputStream out = new ObjectOutputStream(fileOut);

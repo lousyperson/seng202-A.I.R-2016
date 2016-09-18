@@ -8,6 +8,7 @@ import javafx.scene.control.*;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import seng202.group4.App;
 import seng202.group4.data.dataType.Airline;
 import seng202.group4.data.repository.AirlineRepository;
 import seng202.group4.data.repository.AirportRepository;
@@ -20,6 +21,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.util.HashMap;
+import java.util.Optional;
 
 /**
  * The MenuBarController with functions for importing data
@@ -38,9 +40,10 @@ public class MenuBarController {
 
     /**
      * Sets the main controller and retrieves private variables from the main controller
+     *
      * @param controller Controller
      */
-    public void setMainController(Controller controller){
+    public void setMainController(Controller controller) {
         this.mainController = controller;
         this.flightTab = mainController.getFlightTab();
         this.airlineLabel = mainController.getAirlineLabel();
@@ -53,9 +56,10 @@ public class MenuBarController {
 
     /**
      * Getter for the main controller
+     *
      * @return mainController
      */
-    public Controller getMainController(){
+    public Controller getMainController() {
         return mainController;
     }
 
@@ -72,7 +76,6 @@ public class MenuBarController {
         File in = fileChooser.showOpenDialog(stage);
         if (in != null && in.exists()) {
             InputStream file = new FileInputStream(in);
-            System.out.println("file opneedd");
             goToDataTab(airlineLabel);
             mainController.insertAirlineTable(file);
         }
@@ -118,6 +121,7 @@ public class MenuBarController {
 
     /**
      * Allows the user to load a flight from a file
+     *
      * @throws IOException throws IOException error
      */
     public void loadFlight() throws IOException {
@@ -130,7 +134,7 @@ public class MenuBarController {
             InputStream file = new FileInputStream(in);
             System.out.println("oooo yah flights");
             // change tab to flight tab if its not on it already
-            if(!tabPane.getSelectionModel().equals(flightTab)){
+            if (!tabPane.getSelectionModel().equals(flightTab)) {
                 tabPane.getSelectionModel().select(flightTab);
             }
             mainController.insertFlightTable(file);
@@ -140,9 +144,9 @@ public class MenuBarController {
     /**
      * Shows Aviation Information Reader's help page
      */
-    public void getHelp(){
+    public void getHelp() {
         System.out.println("help");
-        try{
+        try {
             FXMLLoader fxml = new FXMLLoader();
             fxml.setLocation(getClass().getClassLoader().getResource("help.fxml"));
             Parent root = fxml.load();
@@ -153,46 +157,91 @@ public class MenuBarController {
             stage.setTitle("Aviation Information Reader Help");
             stage.setScene(new Scene(root, 600, 400));
             stage.show();
-        }
-        catch(IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
     }
 
     // change tab to data tab if its not on it already and switch the selection tab to the given name
-    private void goToDataTab(String name){
-        if(!tabPane.getSelectionModel().equals(dataTab)){
+    private void goToDataTab(String name) {
+        if (!tabPane.getSelectionModel().equals(dataTab)) {
             tabPane.getSelectionModel().select(dataTab);
         }
         datalist.getSelectionModel().select(name);
     }
 
     public void resetAirline() throws IOException {
-//        Repository.airlineRepository = new AirlineRepository();
-//        InputStream file = getClass().getResourceAsStream("/airlines.dat");
-//        //File file = new File(getClass().getClassLoader().getResource("airlines.dat").toURI());
-//        if (file != null) {
-//            mainController.insertAirlineTable(file);
-//        }
-
+        boolean result = resetConformation();
+        if (result) {
+            Alert loading = showLoading();
+            loading.show();
+            mainController.clearAirlineTable();
+            Repository.airlineRepository = new AirlineRepository();
+            InputStream file = getClass().getResourceAsStream("/airlines.dat");
+            //File file = new File(getClass().getClassLoader().getResource("airlines.dat").toURI());
+            if (file != null) {
+                mainController.insertAirlineTable(file);
+            }
+            Repository.serializeObject(Repository.airlineRepository, "airline");
+            loading.close();
+        }
     }
 
     public void resetAirport() throws IOException {
-//        Repository.airportRepository = new AirportRepository();
-//        InputStream file = getClass().getResourceAsStream("/airlines.dat");
-//        //File file = new File(getClass().getClassLoader().getResource("airlines.dat").toURI());
-//        if (file != null) {
-//            mainController.insertAirportTable(file);
-//        }
+        boolean result = resetConformation();
+        if (result) {
+            Alert loading = showLoading();
+            loading.show();
+            mainController.clearAirportTable();
+            Repository.airportRepository = new AirportRepository();
+            InputStream file = getClass().getResourceAsStream("/airports.dat");
+            //File file = new File(getClass().getClassLoader().getResource("airlines.dat").toURI());
+            if (file != null) {
+                mainController.insertAirportTable(file);
+            }
+            Repository.serializeObject(Repository.airportRepository, "airport");
+            loading.close();
+        }
     }
 
     public void resetRoute() throws IOException {
-//        Repository.routeRepository = new RouteRepository();
-//        InputStream file = getClass().getResourceAsStream("/routes.dat");
-//        //File file = new File(getClass().getClassLoader().getResource("airlines.dat").toURI());
-//        if (file != null) {
-//            mainController.insertRouteTable(file);
-//        }
+        boolean result = resetConformation();
+        if (result) {
+            Alert loading = showLoading();
+            loading.show();
+            mainController.clearRouteTable();
+            Repository.routeRepository = new RouteRepository();
+            InputStream file = getClass().getResourceAsStream("/routes.dat");
+            //File file = new File(getClass().getClassLoader().getResource("airlines.dat").toURI());
+            if (file != null) {
+                mainController.insertRouteTable(file);
+            }
+            Repository.serializeObject(Repository.routeRepository, "route");
+            loading.close();
+        }
+    }
+
+    private boolean resetConformation() {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation Dialog");
+        alert.setHeaderText("Are you sure you want to reset airline data");
+        alert.setContentText("This will replace the data with the default data.\nThis may take a few moments" +
+                "\n\nWARNING: The action cannot be undone.\n");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private Alert showLoading() {
+        Alert loading = new Alert(Alert.AlertType.INFORMATION);
+        loading.setTitle("Loading...");
+        loading.setHeaderText("Loading default data");
+        loading.setContentText("This will close when data is loaded");
+        return loading;
     }
 }

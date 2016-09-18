@@ -1,18 +1,12 @@
 package seng202.group4;
 
 import javafx.application.Application;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Control;
-import javafx.scene.control.ListView;
 import javafx.stage.Stage;
-import seng202.group4.GUI.Controller;
 import seng202.group4.data.repository.*;
 
 /**
@@ -20,6 +14,7 @@ import seng202.group4.data.repository.*;
  *
  */
 public class App extends Application {
+    public static Stage primaryStage;
 
     // create data list
     ObservableList<String> items = FXCollections.observableArrayList("Default Airlines", "Default Airports", "Default Routes");
@@ -28,6 +23,7 @@ public class App extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
 
+        this.primaryStage = primaryStage;
         FXMLLoader fxml = new FXMLLoader();
         // set location for fxml file
         fxml.setLocation(getClass().getClassLoader().getResource("GUI.fxml"));
