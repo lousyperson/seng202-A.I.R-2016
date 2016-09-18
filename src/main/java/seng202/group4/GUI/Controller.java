@@ -388,7 +388,7 @@ public class Controller implements Initializable {
 
         // listen to whats being selected in the flight list
         flightList.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends String> ov, String old_val, String new_val) -> {
-            System.out.println("Selected item from flight list: " + new_val);
+            //System.out.println("Selected item from flight list: " + new_val);
 
             if (new_val != null) {
                 // clear table and populate it again with what's selected
@@ -401,7 +401,7 @@ public class Controller implements Initializable {
         searchFlightNames();
 
         datalist.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends String> ov, String old_val, String new_val) -> {
-            System.out.println("Selected item: " + new_val);
+            //System.out.println("Selected item: " + new_val);
             if (new_val.equals(airlineLabel)) {
                 airlineTableID.toFront();
                 airlinePane.setVisible(true);
@@ -510,8 +510,8 @@ public class Controller implements Initializable {
         airportTableID.setRowFactory(tableView -> {
             final TableRow<airportTable> row = new TableRow<>();
             final ContextMenu rowMenu = new ContextMenu();
-            MenuItem addA = new MenuItem("Add to point A");
-            MenuItem addB = new MenuItem("Add to point B");
+            MenuItem addA = new MenuItem("Add to airport A");
+            MenuItem addB = new MenuItem("Add to airport B");
             MenuItem removeItem = new MenuItem("Delete");
             row.setOnMouseClicked(event -> {
             });
@@ -749,7 +749,6 @@ public class Controller implements Initializable {
         //String flightName = "lol";
 
         if (flightMap.getEngine() != null) {
-            System.out.println("flgihthhhs!!!");
             flightMap.getEngine().executeScript("deleteFlights();");
             // get the flight that is selected so we can get the flight name whic is a key to the flight repo
             // so then we can get flight (info) now we have it yay its called flight
@@ -768,7 +767,6 @@ public class Controller implements Initializable {
                 flightMap.getEngine().executeScript("addFlight(" + lat + ", " + lon + ");");
             }
             flightMap.getEngine().executeScript("makePath();");
-            System.out.println("i survived");
         }
     }
 
@@ -1318,7 +1316,6 @@ public class Controller implements Initializable {
             InputStream file = getClass().getResourceAsStream("/airlines.dat");
             //File file = new File(getClass().getClassLoader().getResource("airlines.dat").toURI());
             if (file != null) {
-                System.out.println("file opened yeah~");
                 insertEmptyAirlineTable(file);
             }
         }
@@ -1408,9 +1405,8 @@ public class Controller implements Initializable {
             InputStream file = getClass().getResourceAsStream("/airports.dat");
             //File file = new File(getClass().getClassLoader().getResource("airports.dat").toURI());
             if (file != null) {
-                System.out.println("ooooooooh yyyyyyyyyyahhhhhh");
+                //System.out.println("ooooooooh yyyyyyyyyyahhhhhh");
                 insertEmptyAirportTable(file);
-                //System.out.println("size of re" + Repository.airportRepository.getAirports().size());
             }
         }
     }
@@ -1526,7 +1522,7 @@ public class Controller implements Initializable {
         } else {
             InputStream file = getClass().getResourceAsStream("/routes.dat");
             if (file != null) {
-                System.out.println("file opened oh yeah~");
+                //System.out.println("file opened oh yeah~");
                 insertEmptyRouteTable(file);
             }
         }
