@@ -94,7 +94,7 @@ public class MenuBarController {
         File in = fileChooser.showOpenDialog(stage);
         if (in != null && in.exists()) {
             InputStream file = new FileInputStream(in);
-            System.out.println("file opened oh ye bb~");
+            //System.out.println("file opened oh ye bb~");
             goToDataTab(airportLabel);
             mainController.insertAirportTable(file);
         }
@@ -113,7 +113,7 @@ public class MenuBarController {
         File in = fileChooser.showOpenDialog(stage);
         if (in != null && in.exists()) {
             InputStream file = new FileInputStream(in);
-            System.out.println("file opneeeedddd");
+            //System.out.println("file opneeeedddd");
             goToDataTab(routeLabel);
             mainController.insertRouteTable(file);
         }
@@ -132,7 +132,7 @@ public class MenuBarController {
         File in = fileChooser.showOpenDialog(stage);
         if (in != null && in.exists()) {
             InputStream file = new FileInputStream(in);
-            System.out.println("oooo yah flights");
+            //System.out.println("oooo yah flights");
             // change tab to flight tab if its not on it already
             if (!tabPane.getSelectionModel().equals(flightTab)) {
                 tabPane.getSelectionModel().select(flightTab);
@@ -145,7 +145,7 @@ public class MenuBarController {
      * Shows Aviation Information Reader's help page
      */
     public void getHelp() {
-        System.out.println("help");
+        //System.out.println("help");
         try {
             FXMLLoader fxml = new FXMLLoader();
             fxml.setLocation(getClass().getClassLoader().getResource("help.fxml"));

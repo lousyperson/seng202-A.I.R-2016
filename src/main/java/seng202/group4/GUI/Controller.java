@@ -668,8 +668,9 @@ public class Controller implements Initializable {
             });
             return cell;
         });
-        
+
         loadDefaultFlight();
+        noDataCheck();
 
         // listen for route search queries
         searchRoutes();
@@ -1378,6 +1379,7 @@ public class Controller implements Initializable {
         if (Repository.airlineRepository != null) {
             loadSerializedAirline();
         } else {
+            Repository.airlineRepository = new AirlineRepository();
             InputStream file = getClass().getResourceAsStream("/airlines.dat");
             //File file = new File(getClass().getClassLoader().getResource("airlines.dat").toURI());
             if (file != null) {
@@ -1470,6 +1472,7 @@ public class Controller implements Initializable {
         if (Repository.airportRepository != null) {
             loadSerializedAirport();
         } else {
+            Repository.airportRepository = new AirportRepository();
             InputStream file = getClass().getResourceAsStream("/airports.dat");
             //File file = new File(getClass().getClassLoader().getResource("airports.dat").toURI());
             if (file != null) {
@@ -1608,6 +1611,7 @@ public class Controller implements Initializable {
         if (Repository.routeRepository != null) {
             loadSerializedRoute();
         } else {
+            Repository.routeRepository = new RouteRepository();
             InputStream file = getClass().getResourceAsStream("/routes.dat");
             if (file != null) {
                 //System.out.println("file opened oh yeah~");
@@ -1789,5 +1793,38 @@ public class Controller implements Initializable {
 
     public void clearAirportTable() {
         airportTData.removeAll(airportTData);
+    }
+
+    private void noDataCheck() {
+        ArrayList<String> noData = new ArrayList<String>();
+        if (Repository.airlineRepository != null && Repository.airlineRepository.getAirlines().size() == 0) {
+            noData.add("airline");
+        }
+        if (Repository.airportRepository != null && Repository.airportRepository.getAirports().size() == 0) {
+            noData.add("airport");
+        }
+        if (Repository.routeRepository != null && Repository.routeRepository.getRoutes().size() == 0) {
+            noData.add("route");
+        }
+        if (noData.size() > 0) {
+            noDataWarning(noData);
+        }
+    }
+
+    private void noDataWarning(ArrayList<String> noData) {
+        String message = "";
+        String context = "Please go to \"Reset to Default\" under the file menu\nif you wish to load the default data.";
+        if (noData.size() == 1) {
+            message = noData.get(0);
+        } else if (noData.size() == 2) {
+            message = noData.get(0) + " or " + noData.get(1);
+        } else {
+            message = noData.get(0) + ", " + noData.get(1) + " or " + noData.get(2);
+        }
+        Alert warning = new Alert(Alert.AlertType.WARNING);
+        warning.setTitle("No " + message + " data found.");
+        warning.setHeaderText("You are about to load with empty data");
+        warning.setContentText(context);
+        warning.showAndWait();
     }
 }

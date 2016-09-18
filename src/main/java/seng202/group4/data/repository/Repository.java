@@ -1,10 +1,9 @@
 package seng202.group4.data.repository;
 
-import seng202.group4.data.dataType.Airline;
+import javafx.scene.control.Alert;
 
 import java.io.*;
-import java.util.HashMap;
-import java.util.Objects;
+import java.util.ArrayList;
 
 /**
  * Stores exactly one of each repository of each subclass.
@@ -21,6 +20,9 @@ public class Repository implements Serializable {
      */
     public static void initRepository() {
         deserialize();
+        if (flightRepository == null) {
+            flightRepository = new FlightRepository();
+        }
     }
 
     /**
