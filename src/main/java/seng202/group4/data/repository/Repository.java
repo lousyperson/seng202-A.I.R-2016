@@ -50,7 +50,7 @@ public class Repository implements Serializable {
     /**
      * Deserializes the repositories.
      */
-    private static void deserialize() {
+    public static void deserialize() {
         checkSerFile(airlineRepository, "airline");
         checkSerFile(airportRepository, "airport");
         checkSerFile(routeRepository, "route");
@@ -67,7 +67,7 @@ public class Repository implements Serializable {
         }
     }
 
-    private static Object deserializeObject(String type) {
+    protected static Object deserializeObject(String type) {
         try {
             Object repository;
             FileInputStream fileIn = new FileInputStream(type + "s.ser");
