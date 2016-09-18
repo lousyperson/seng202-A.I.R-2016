@@ -23,11 +23,16 @@ import java.util.ArrayList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-/**
- * Created by jjg64 on 25/08/16.
+/**ParserTest is a class written to run the Junit tests for the parser.
  */
 public class ParserTest {
 
+    /**
+     * Given a file path convert file lines into an array of strings
+     * @param path String
+     * @return stringArray if the file exists otherwise null
+     * @throws IOException throws IOException error
+     */
     // given a file path convert file lines into an array of strings
     public ArrayList<String> fileArray(String path) throws IOException {
         File in = new File(path);
@@ -48,6 +53,10 @@ public class ParserTest {
     }
     /* Airline parser test cases */
 
+    /**
+     * Given one valid airline, check that the size is 1
+     * @throws IOException throws IOException error
+     */
     @Test
     public void oneValidAirlineSize() throws IOException {
         AirlineParser parser = new AirlineParser(fileArray("testfiles/Airlines/oneValidAirline.txt"));
@@ -56,6 +65,10 @@ public class ParserTest {
 
     }
 
+    /**
+     * Given one valid airline, check that the content has been parsed correctly
+     * @throws IOException throws IOException error
+     */
     @Test
     public void oneValidAirlineContents() throws IOException {
         AirlineParser parser = new AirlineParser(fileArray("testfiles/Airlines/oneValidAirline.txt"));
@@ -68,6 +81,10 @@ public class ParserTest {
         assertTrue(isEqual);
     }
 
+    /**
+     * Check that every airline in the validAirline.txt has been read by the parser
+     * @throws IOException throws IOException error
+     */
     @Test
     public void multipleValidAirlinesSize() throws IOException {
         AirlineParser parser = new AirlineParser(fileArray("testfiles/Airlines/validAirline.txt"));
@@ -76,6 +93,10 @@ public class ParserTest {
 
     }
 
+    /**
+     * Check that a valid airline with null is read by the parser
+     * @throws IOException throws IOException error
+     */
     @Test
     public void oneValidAirlineWithNullSize() throws IOException {
         AirlineParser parser = new AirlineParser(fileArray("testfiles/Airlines/oneValidAirlineWithNull.txt"));
@@ -83,6 +104,10 @@ public class ParserTest {
         assertTrue(airlines.size() == 1);
     }
 
+    /**
+     * Check that if the airline parser parses an empty file, 0 airlines are parsed
+     * @throws IOException throws IOException error
+     */
     @Test
     public void emptyFileAirline() throws IOException {
         AirlineParser parser = new AirlineParser(fileArray("testfiles/empty.txt"));
@@ -94,6 +119,10 @@ public class ParserTest {
 
     /* Airport parser test cases */
 
+    /**
+     * Check that one valid airport is parsed when loading a file with only one valid airport
+     * @throws IOException throws IOException error
+     */
     @Test
     public void oneValidAirportSize() throws IOException {
         AirportParser parser = new AirportParser(fileArray("testfiles/Airports/oneValidAirport.txt"));
@@ -102,11 +131,19 @@ public class ParserTest {
 
     }
 
+    /**
+     * Check that the correct contents have been parsed given a valid airport
+     * @throws IOException throws IOException error
+     */
     @Test
     public void oneValidAirportContents() throws IOException {
         assertTrue(true);
     }
 
+    /**
+     * Checks that all airports in the valid airport file has been parsed
+     * @throws IOException throws IOException error
+     */
     @Test
     public void multipleValidAirportsSize() throws IOException {
         AirportParser parser = new AirportParser(fileArray("testfiles/Airports/validAirport.txt"));
@@ -114,6 +151,10 @@ public class ParserTest {
         assertTrue(airports.size() == 8106);
     }
 
+    /**
+     * Checks that a file with one valid airport with null can be parsed
+     * @throws IOException throws IOException error
+     */
     @Test
     public void oneValidAirportWithNullSize() throws IOException {
         AirportParser parser = new AirportParser(fileArray("testfiles/Airports/oneValidAirportWithNull.txt"));
@@ -122,12 +163,20 @@ public class ParserTest {
 
     }
 
+    /**
+     * Checks that a valid airport with comma can be parsed
+     * @throws IOException throws IOException error
+     */
     @Test public void oneValidAirportWithCommaSize() throws IOException {
         AirportParser parser = new AirportParser(fileArray("testfiles/Airports/oneValidAirportWithComma.txt"));
         ArrayList<Airport> airports = parser.makeAirports();
         assertTrue(airports.size() == 1);
     }
 
+    /**
+     * Check that an empty text file does not make any airports when parsed
+     * @throws IOException throws IOException error
+     */
     @Test
     public void emptyFileAirport() throws IOException {
         AirportParser parser = new AirportParser(fileArray("testfiles/empty.txt"));
@@ -140,6 +189,10 @@ public class ParserTest {
 
     /* Route Parser tests */
 
+    /**
+     * Check that an empty text file does not make any routes when parsed
+     * @throws IOException throws IOException error
+     */
     @Test
     public void emptyFileRoute() throws IOException {
         RouteParser parser = new RouteParser(fileArray("testfiles/empty.txt"));
@@ -148,7 +201,10 @@ public class ParserTest {
         assertTrue(size == 0);
     }
 
-
+    /**
+     * Checks that one valid route can be parsed
+     * @throws IOException throws IOException error
+     */
     @Test
     public void oneValidRouteSize() throws IOException {
         RouteParser parser = new RouteParser(fileArray("testfiles/Routes/oneValidRoute.txt"));
@@ -157,11 +213,19 @@ public class ParserTest {
         assertTrue(size == 1);
     }
 
+    /**
+     * Check that the contents of a valid route file are parsed correctly
+     * @throws IOException throws IOException error
+     */
     @Test
     public void oneValidRouteContents() throws IOException {
         assertTrue(true);
     }
 
+    /**
+     * Checks that one valid route with null can be parsed
+     * @throws IOException throws IOException error
+     */
     @Test
     public void oneValidRouteWithNullSize() throws IOException {
         RouteParser parser = new RouteParser(fileArray("testfiles/Routes/oneValidRouteWithNull.txt"));
@@ -170,11 +234,19 @@ public class ParserTest {
         assertTrue(size == 1);
     }
 
+    /**
+     * Checks that one valid route with null can be parsed, and the contents are correct
+     * @throws IOException throws IOException error
+     */
     @Test
     public void oneValidRouteWithNullContents() throws IOException {
         assertTrue(true);
     }
 
+    /**
+     * Checks that one valid route with multiple equipments can be parsed
+     * @throws IOException throws IOException error
+     */
     @Test
     public void oneValidRouteWithMultiEquipmentSize() throws IOException {
         RouteParser parser = new RouteParser(fileArray("testfiles/Routes/oneValidRouteWithMultiEquipment.txt"));
@@ -183,6 +255,10 @@ public class ParserTest {
         assertTrue(size == 1);
     }
 
+    /**
+     * Checks that one valid route with three equipments are parsed
+     * @throws IOException throws IOException error
+     */
     @Test
     public void oneValidRouteWithMultiEquipmentSize2() throws IOException {
         RouteParser parser = new RouteParser(fileArray("testfiles/Routes/oneValidRouteWithMultiEquipment.txt"));
@@ -191,11 +267,19 @@ public class ParserTest {
         assertTrue(size == 3);
     }
 
+    /**
+     * Check that a valid route with multiple equipments are parsed correctly with the correct contents
+     * @throws IOException throws IOException error
+     */
     @Test
     public void oneValidRouteWithMultiEquipmentContents() throws IOException {
         assertTrue(true);
     }
 
+    /**
+     * Check that all routes in a valid route file are parsed
+     * @throws IOException throws IOException error
+     */
     @Test
     public void multipleValidRoutesSize() throws IOException {
         RouteParser parser = new RouteParser(fileArray("testfiles/Routes/validRoute.txt"));
@@ -206,8 +290,13 @@ public class ParserTest {
 
     /* ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ */
 
+
     /* Flight Parser tests */
 
+    /**
+     * Check that an empty file is parsed and does not make any flights
+     * @throws IOException throws IOException error
+     */
     @Test
     public void emptyFileFlight() throws IOException {
         FlightParser parser = new FlightParser(fileArray("testfiles/empty.csv"));
@@ -216,7 +305,10 @@ public class ParserTest {
         assertTrue(size == 0);
     }
 
-
+    /**
+     * Check that each row from a valid flight file is parsed
+     * @throws IOException throws IOException error
+     */
     @Test
     public void validFlightSize() throws IOException {
         FlightParser parser = new FlightParser(fileArray("testfiles/Flights/validFlight.csv"));
