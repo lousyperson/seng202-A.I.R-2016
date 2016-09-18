@@ -218,7 +218,7 @@ public class MenuBarController {
         alert.setTitle("Confirmation Dialog");
         alert.setHeaderText("Are you sure you want to reset your selected data?");
         alert.setContentText("This will replace the data with the default data.\nThis may take a few moments" +
-                "\n\nWARNING: The action cannot be undone.\n");
+                "\n\nWARNING: The action cannot be undone and may take a while.\n");
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK) {
