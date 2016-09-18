@@ -20,7 +20,7 @@ public class FlightParserTest extends ParserTest {
     /**
      * Gets the string of the flight position that is used for testing
      */
-    public String getString(FlightPosition position) {
+    private String getString(FlightPosition position) {
         String s = "";
         s += position.getType() + "," + position.getID() + "," + position.getAltitude() + "," +
                 position.getLatitude() + "," + position.getLongitude();

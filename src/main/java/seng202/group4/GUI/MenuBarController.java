@@ -173,7 +173,7 @@ public class MenuBarController {
 
     /**
      * Clears the airline table and AirlineRepository then replaces them with the default airlines
-     * @throws IOException
+     * @throws IOException when default airline file cannot be read
      */
     public void resetAirline() throws IOException {
         boolean result = resetConformation();
@@ -191,7 +191,7 @@ public class MenuBarController {
 
     /**
      * Clears the airport table and AirportRepository then replaces them with the default airports
-     * @throws IOException
+     * @throws IOException when default airport file cannot be read
      */
     public void resetAirport() throws IOException {
         boolean result = resetConformation();
@@ -209,7 +209,7 @@ public class MenuBarController {
 
     /**
      * Clears the route table and routeRepository then replaces them with the default routes
-     * @throws IOException
+     * @throws IOException when default route file cannot be read
      */
     public void resetRoute() throws IOException {
         boolean result = resetConformation();

@@ -18,7 +18,7 @@ public class RouteParserTest extends ParserTest {
     /**
      * Gets the string of the route that is used for testing
      */
-    public String getString(Route route) {
+    private String getString(Route route) {
         int i = 0;
         String s = "";
         s += route.getAirline() + "," + route.getAirlineID() + "," + route.getSrcAirport() + "," +

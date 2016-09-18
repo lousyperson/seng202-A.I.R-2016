@@ -27,7 +27,7 @@ public class ValidatorGUITest {
     /**
      * Tests an invalid airline file to ensure the GUI responds as anticipated, by producing a pop-up dialog.
      * @param file the filename
-     * @throws IOException throws an IOException
+     * @throws IOException when file cannot be read
      */
     public static void testInvalidAirlineFile(String file) throws IOException {
         AirlineValidator parser = new AirlineValidator(new FileInputStream(file));
@@ -38,7 +38,7 @@ public class ValidatorGUITest {
     /**
      * Tests an invalid route file to ensure the GUI acts as anticipated, by producing a pop-up dialog.
      * @param file the name of the file
-     * @throws IOException throws an IOException
+     * @throws IOException when file cannot be read
      */
     public static void testInvalidRouteFile(String file) throws IOException {
         RouteValidator parser = new RouteValidator(new FileInputStream(file));
@@ -49,7 +49,7 @@ public class ValidatorGUITest {
     /**
      * Tests a valid airport file to see that the GUI responds as anticipated, by happily accepting the file.
      * @param file the filename
-     * @throws IOException throws an IOException
+     * @throws IOException when file cannot be read
      */
     public static void testValidAirportFile(String file) throws IOException {
         AirportValidator parser = new AirportValidator(new FileInputStream(file));
@@ -59,8 +59,8 @@ public class ValidatorGUITest {
 
     /**
      * Tests an invalid aiport file to see that the GUI responds appropriately, by producing a pop-up dialog.
-     * @param file
-     * @throws IOException
+     * @param file Filepath in string format
+     * @throws IOException when file cannot be read
      */
     public static void testInvalidAirportFile(String file) throws IOException {
         AirportValidator parser = new AirportValidator(new FileInputStream(file));
