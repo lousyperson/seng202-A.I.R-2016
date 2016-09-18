@@ -223,7 +223,7 @@
                   </GridPane>
                </content>
             </Tab>
-                <Tab fx:id="mapTab" disable="true" text="Map View">
+                <Tab fx:id="mapTab" text="Map View">
                     <content>
                         <GridPane>
                             <children>

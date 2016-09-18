@@ -7,17 +7,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
-
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.control.Button;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-
-import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
@@ -29,20 +23,15 @@ import seng202.group4.data.parser.validator.AirlineValidator;
 import seng202.group4.data.parser.validator.AirportValidator;
 import seng202.group4.data.parser.validator.FlightValidator;
 import seng202.group4.data.parser.validator.RouteValidator;
-import seng202.group4.data.repository.AirlineRepository;
-import seng202.group4.data.repository.AirportRepository;
-import seng202.group4.data.repository.FlightRepository;
-import seng202.group4.data.repository.RouteRepository;
 import seng202.group4.data.repository.Repository;
 
-
-import java.awt.*;
-import java.awt.event.InputEvent;
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.*;
-import java.util.List;
 import java.util.stream.Collectors;
 
 public class Controller implements Initializable{
@@ -597,7 +586,7 @@ public class Controller implements Initializable{
 
     public void showAllAirports() {
         if (mapView.getEngine() != null) {
-            HashMap<Integer, Airport> airports = airportRepository.getAirports();
+            HashMap<Integer, Airport> airports = Repository.airportRepository.getAirports();
             for (Map.Entry<Integer, Airport> entry : airports.entrySet()) {
                 double lat = entry.getValue().getLatitude();
                 double lon = entry.getValue().getLongitude();

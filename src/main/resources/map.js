@@ -98,9 +98,9 @@ function hideAllRoutes() {
     }
 }
 
-function addAirport(late, lone) {
+function addAirport(lat, lon) {
     var marker = new google.maps.Marker({
-        position: {lat: late, lng: lone},
+        position: {lat: lat, lng: lon},
         map: map,
     });
     markers.push(marker);
@@ -132,4 +132,5 @@ function showAllRoutes() {
         strokeOpacity: 1.0,
         strokeWeight: 1
     });
+}
 
