@@ -11,7 +11,6 @@ import java.util.Arrays;
 /**
  * The AirlineValidator class ensures that the information parsed into the program by the data file meets the
  * expected formatting criteria to ensure there are no representational issues.
- * Created by jjg64 on 25/08/16.
  */
 public class AirlineValidator {
     private final int ITEMS_PER_LINE = 8;
@@ -33,8 +32,8 @@ public class AirlineValidator {
     /**
      * Produces a list of airlines by checking each airline one by one from the data file and ensuring it is a valid
      * airline.
-     * @return
-     * @throws IOException
+     * @return Array list of airlines
+     * @throws IOException Throws IOException error
      */
     public ArrayList<Airline> makeAirlines() throws IOException {
         while ((currentLine = file.readLine()) != null) {
@@ -55,7 +54,6 @@ public class AirlineValidator {
     }
 
     private void validateLine() throws IOException {
-        //System.out.println("in validate");
         splitLine = currentLine.split(splitBy, ITEMS_PER_LINE + 1);
         if (splitLine.length != ITEMS_PER_LINE) {
             makeAlert("Expected " + ITEMS_PER_LINE + " comma separated variables.");

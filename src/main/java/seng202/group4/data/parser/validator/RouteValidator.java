@@ -8,7 +8,8 @@ import java.io.*;
 import java.util.ArrayList;
 
 /**
- * Created by jjg64 on 25/08/16.
+ * Ensures that the route data from the file is valid by reading and checking to ensure it meets formatting
+ * expectations.
  */
 public class RouteValidator {
     private final int ITEMS_PER_LINE = 9;
@@ -30,8 +31,8 @@ public class RouteValidator {
     /**
      * Creates the routes from the given data file to check if they are of the correct format. Calls validateLine to
      * ensure that the format is correct.
-     * @return
-     * @throws IOException
+     * @return Array list of routes
+     * @throws IOException Throws IOException error
      */
     public ArrayList<Route> makeroutes() throws IOException {
         while ((currentLine = file.readLine()) != null) {

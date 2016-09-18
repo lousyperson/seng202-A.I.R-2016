@@ -8,7 +8,7 @@ import seng202.group4.data.dataType.DaylightSavingsTime;
 
 
 /**
- * Created by psu43 on 25/08/16.
+ * Used to make a row of information to populate the airline table based upon given data.
  */
 public class airportTable {
 
@@ -27,18 +27,18 @@ public class airportTable {
 
     /**
      * Initializes the variables within the class.
-     * @param ttid
-     * @param ttname
-     * @param ttcity
-     * @param ttcountry
-     * @param ttiata
-     * @param tticao
-     * @param ttlatitude
-     * @param ttlongitude
-     * @param ttaltitude
-     * @param tttimezone
-     * @param ttdst
-     * @param tttzdatabase
+     * @param ttid int
+     * @param ttname String
+     * @param ttcity String
+     * @param ttcountry String
+     * @param ttiata String
+     * @param tticao String
+     * @param ttlatitude double
+     * @param ttlongitude double
+     * @param ttaltitude double
+     * @param tttimezone float
+     * @param ttdst String
+     * @param tttzdatabase String
      */
     public airportTable(int ttid, String ttname, String ttcity, String ttcountry, String ttiata, String tticao,
                         double ttlatitude, double ttlongitude, double ttaltitude, float tttimezone, String ttdst, String tttzdatabase){
@@ -62,7 +62,7 @@ public class airportTable {
 
     /**
      * A getter for the airport id value in the table.
-     * @return
+     * @return atid
      */
     public int getAtid() {
         return atid.get();
@@ -70,7 +70,7 @@ public class airportTable {
 
     /**
      * Retrieves the id of the airport from the parsed in data.
-     * @return
+     * @return atid
      */
     public SimpleIntegerProperty atidProperty() {
         return atid;
@@ -78,7 +78,7 @@ public class airportTable {
 
     /**
      * Sets the id value in the airport table
-     * @param atid
+     * @param atid int
      */
     public void setAtid(int atid) {
         this.atid.set(atid);
@@ -86,7 +86,7 @@ public class airportTable {
 
     /**
      * Gets the value of the airport name in the airport table
-     * @return
+     * @return atname
      */
     public String getAtname() {
         return atname.get();
@@ -94,7 +94,7 @@ public class airportTable {
 
     /**
      * Retrieves the airport name that has been parsed in by the data file.
-     * @return
+     * @return atname
      */
     public SimpleStringProperty atnameProperty() {
         return atname;
@@ -102,7 +102,7 @@ public class airportTable {
 
     /**
      * Sets the name of the airport in the airport table.
-     * @param atname
+     * @param atname String
      */
     public void setAtname(String atname) {
         this.atname.set(atname);
@@ -110,7 +110,7 @@ public class airportTable {
 
     /**
      * Gets the city of the airport in the airport table.
-     * @return
+     * @return atcity String
      */
     public String getAtcity() {
         return atcity.get();
@@ -118,7 +118,7 @@ public class airportTable {
 
     /**
      * Retrieves that value of the airport city as parsed in from the data file.
-     * @return
+     * @return atcity
      */
     public SimpleStringProperty atcityProperty() {
         return atcity;
@@ -126,7 +126,7 @@ public class airportTable {
 
     /**
      * Sets the value of the city in the airport table.
-     * @param atcity
+     * @param atcity String
      */
     public void setAtcity(String atcity) {
         this.atcity.set(atcity);
@@ -134,7 +134,7 @@ public class airportTable {
 
     /**
      * Gets the value of the airport country in the airport table.
-     * @return
+     * @return atcountry String
      */
     public String getAtcountry() {
         return atcountry.get();
@@ -142,7 +142,7 @@ public class airportTable {
 
     /**
      * Retrieves the value of the country from the parsed data.
-     * @return
+     * @return atcountry
      */
     public SimpleStringProperty atcountryProperty() {
         return atcountry;
@@ -150,7 +150,7 @@ public class airportTable {
 
     /**
      * Sets the value of the country in the table.
-     * @param atcountry
+     * @param atcountry String
      */
     public void setAtcountry(String atcountry) {
         this.atcountry.set(atcountry);
@@ -158,7 +158,7 @@ public class airportTable {
 
     /**
      * Gets the airport IATA value for the airport table.
-     * @return
+     * @return atiata String
      */
     public String getAtiata() {
         return atiata.get();
@@ -166,7 +166,7 @@ public class airportTable {
 
     /**
      * Retrieves the airport IATA value from the parsed data.
-     * @return
+     * @return atiata
      */
     public SimpleStringProperty atiataProperty() {
         return atiata;
@@ -174,15 +174,15 @@ public class airportTable {
 
     /**
      * Sets the IATA number in the airport table.
-     * @param atiata
+     * @param atiata String
      */
     public void setAtiata(String atiata) {
         this.atiata.set(atiata);
     }
 
     /**
-     * A getter for teh ICAO number of the airport in the airport table.
-     * @return
+     * A getter for the ICAO number of the airport in the airport table.
+     * @return aticao String
      */
     public String getAticao() {
         return aticao.get();
@@ -190,7 +190,7 @@ public class airportTable {
 
     /**
      * Retrieves the airports IATA number from the parsed data.
-     * @return
+     * @return aticao
      */
     public SimpleStringProperty aticaoProperty() {
         return aticao;
@@ -198,7 +198,7 @@ public class airportTable {
 
     /**
      * Sets the airport IATA number in the airport table.
-     * @param aticao
+     * @param aticao String
      */
     public void setAticao(String aticao) {
         this.aticao.set(aticao);
@@ -206,7 +206,7 @@ public class airportTable {
 
     /**
      * A getter for the airport latitude in the airport table.
-     * @return
+     * @return atlatitude double
      */
     public double getAtlatitude() {
         return atlatitude.get();
@@ -214,7 +214,7 @@ public class airportTable {
 
     /**
      * Retrieves the airport latitude from the parsed data.
-     * @return
+     * @return atlatitude
      */
     public SimpleDoubleProperty atlatitudeProperty() {
         return atlatitude;
@@ -222,7 +222,7 @@ public class airportTable {
 
     /**
      * Sets the airport latitude in the airport table.
-     * @param atlatitude
+     * @param atlatitude double
      */
     public void setAtlatitude(double atlatitude) {
         this.atlatitude.set(atlatitude);
@@ -230,7 +230,7 @@ public class airportTable {
 
     /**
      * A getter for the airport longitude in the airport table.
-     * @return
+     * @return atlongitude double
      */
     public double getAtlongitude() {
         return atlongitude.get();
@@ -238,7 +238,7 @@ public class airportTable {
 
     /**
      * Retrieves the longitude of the airport from the parsed data.
-     * @return
+     * @return atlongitude
      */
     public SimpleDoubleProperty atlongitudeProperty() {
         return atlongitude;
@@ -246,7 +246,7 @@ public class airportTable {
 
     /**
      * Sets the longitude of the airport in the airport table.
-     * @param atlongitude
+     * @param atlongitude double
      */
     public void setAtlongitude(double atlongitude) {
         this.atlongitude.set(atlongitude);
@@ -254,7 +254,7 @@ public class airportTable {
 
     /**
      * A getter for the altitude of the airport in the airport table
-     * @return
+     * @return ataltitude double
      */
     public double getAtaltitude() {
         return ataltitude.get();
@@ -262,7 +262,7 @@ public class airportTable {
 
     /**
      * Retrieves the altitude of the airport from the parsed data.
-     * @return
+     * @return ataltitude
      */
     public SimpleDoubleProperty ataltitudeProperty() {
         return ataltitude;
@@ -270,7 +270,7 @@ public class airportTable {
 
     /**
      * Sets the altitude of the airport in the airport table.
-     * @param ataltitude
+     * @param ataltitude double
      */
     public void setAtaltitude(double ataltitude) {
         this.ataltitude.set(ataltitude);
@@ -278,7 +278,7 @@ public class airportTable {
 
     /**
      * A getter for the airport timezone in the airport table.
-     * @return
+     * @return attimezone float
      */
     public float getAttimezone() {
         return attimezone.get();
@@ -286,7 +286,7 @@ public class airportTable {
 
     /**
      * Retrieves the airport timezone form the parsed data.
-     * @return
+     * @return attimezone
      */
     public SimpleFloatProperty attimezoneProperty() {
         return attimezone;
@@ -294,7 +294,7 @@ public class airportTable {
 
     /**
      * Sets the airport timezone in the airport table.
-     * @param attimezone
+     * @param attimezone float
      */
     public void setAttimezone(float attimezone) {
         this.attimezone.set(attimezone);
@@ -302,7 +302,7 @@ public class airportTable {
 
     /**
      * A getter for the airport daylight saving time.
-     * @return
+     * @return atdst String
      */
     public String getAtdst() {
         return atdst.get();
@@ -310,7 +310,7 @@ public class airportTable {
 
     /**
      * Retrieves the daylight saving time from the parsed data.
-     * @return
+     * @return atdst
      */
     public SimpleStringProperty atdstProperty() {
         return atdst;
@@ -318,7 +318,7 @@ public class airportTable {
 
     /**
      * Sets the daylight saving time in the airport table.
-     * @param atdst
+     * @param atdst String
      */
     public void setAtdst(String atdst) {
         this.atdst.set(atdst);
@@ -326,7 +326,7 @@ public class airportTable {
 
     /**
      * A getter for the airport time zone database for the airport table.
-     * @return
+     * @return attzdatabase String
      */
     public String getAttzdatabase() {
         return attzdatabase.get();
@@ -334,7 +334,7 @@ public class airportTable {
 
     /**
      * Retrieves the airport timezone database from the parsed data.
-     * @return
+     * @return attzdatabase
      */
     public SimpleStringProperty attzdatabaseProperty() {
         return attzdatabase;
@@ -342,7 +342,7 @@ public class airportTable {
 
     /**
      * Sets the timezone database in the airport talle.
-     * @param attzdatabase
+     * @param attzdatabase String
      */
     public void setAttzdatabase(String attzdatabase) {
         this.attzdatabase.set(attzdatabase);

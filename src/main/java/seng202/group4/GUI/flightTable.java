@@ -4,8 +4,7 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 /**
- * The flightTable class is used to make a row of information to populate the flight table based upon given data.
- * Created by Pang on 14/09/16.
+ * Used to make a row of information to populate the flight table based upon given data.
  */
 public class flightTable {
     private SimpleStringProperty fid;
@@ -16,11 +15,11 @@ public class flightTable {
 
     /**
      * Initializes all the variable values in flightTable, making a row in the table..
-     * @param source
-     * @param destination
-     * @param altitude
-     * @param latitude
-     * @param longitude
+     * @param source String
+     * @param destination String
+     * @param altitude Double
+     * @param latitude Double
+     * @param longitude Double
      */
     public flightTable(String source, String destination, Double altitude, Double latitude, Double longitude){
         this.fid = new SimpleStringProperty(source);
@@ -32,7 +31,7 @@ public class flightTable {
 
     /**
      * A getter for the if value of the flight in the flight table.
-     * @return
+     * @return fid
      */
     public String getFid() {
         return fid.get();
@@ -40,7 +39,7 @@ public class flightTable {
 
     /**
      * Retrieves the id value of the flight from the parsed data.
-     * @return
+     * @return fid
      */
     public SimpleStringProperty fidProperty() {
         return fid;
@@ -48,7 +47,7 @@ public class flightTable {
 
     /**
      * Sets the id value of the flight in the flight table.
-     * @param fid
+     * @param fid String
      */
     public void setFid(String fid) {
         this.fid.set(fid);
@@ -56,7 +55,7 @@ public class flightTable {
 
     /**
      * A getter for the flight type in the flight table.
-     * @return
+     * @return ftype
      */
     public String getFtype() {
         return ftype.get();
@@ -64,7 +63,7 @@ public class flightTable {
 
     /**
      * Retrieves the flight type from the parsed data.
-     * @return
+     * @return ftype
      */
     public SimpleStringProperty ftypeProperty() {
         return ftype;
@@ -72,7 +71,7 @@ public class flightTable {
 
     /**
      * Sets the flight type value in the flight table.
-     * @param ftype
+     * @param ftype String
      */
     public void setFtype(String ftype) {
         this.ftype.set(ftype);
@@ -80,7 +79,7 @@ public class flightTable {
 
     /**
      * A getter for the altitude of the flight in the flight table.
-     * @return
+     * @return faltitude
      */
     public double getFaltitude() {
         return faltitude.get();
@@ -88,7 +87,7 @@ public class flightTable {
 
     /**
      * Retrieves the flight altitude from the parsed flight data.
-     * @return
+     * @return faltitude
      */
     public SimpleDoubleProperty faltitudeProperty() {
         return faltitude;
@@ -96,7 +95,7 @@ public class flightTable {
 
     /**
      * Sets the flight altitude in the flight table.
-     * @param faltitude
+     * @param faltitude double
      */
     public void setFaltitude(double faltitude) {
         this.faltitude.set(faltitude);
@@ -104,7 +103,7 @@ public class flightTable {
 
     /**
      * A getter for the flight latitude in the flight table.
-     * @return
+     * @return flatitude
      */
     public double getFlatitude() {
         return flatitude.get();
@@ -112,7 +111,7 @@ public class flightTable {
 
     /**
      * Retrieves the flight latitude from the parsed flight data.
-     * @return
+     * @return flatitude
      */
     public SimpleDoubleProperty flatitudeProperty() {
         return flatitude;
@@ -120,7 +119,7 @@ public class flightTable {
 
     /**
      * Sets the flight latitude for in the flight table.
-     * @param flatitude
+     * @param flatitude double
      */
     public void setFlatitude(double flatitude) {
         this.flatitude.set(flatitude);
@@ -128,7 +127,7 @@ public class flightTable {
 
     /**
      * A getter for the flight longitude in the flight table.
-     * @return
+     * @return flongitude
      */
     public double getFlongitude() {
         return flongitude.get();
@@ -136,7 +135,7 @@ public class flightTable {
 
     /**
      * Retrieves the flight longitude from the parsed flight data.
-     * @return
+     * @return flongitude
      */
     public SimpleDoubleProperty flongitudeProperty() {
         return flongitude;
@@ -144,7 +143,7 @@ public class flightTable {
 
     /**
      * Sets the flight longitude in the flight table.
-     * @param flongitude
+     * @param flongitude double
      */
     public void setFlongitude(double flongitude) {
         this.flongitude.set(flongitude);

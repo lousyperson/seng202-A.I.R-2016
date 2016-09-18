@@ -9,7 +9,6 @@ import java.util.TreeSet;
 
 /**
  * Allows for the serialization and searching/filtering of routes.
- * Created by jjg64 on 15/08/16.
  */
 public class RouteRepository implements Serializable {
     //private HashMap<Integer, Route> Routes = new HashMap<Integer, Route>();
@@ -26,7 +25,7 @@ public class RouteRepository implements Serializable {
 
     /**
      * Given a destination location, returns routes that leave the given location.
-     * @param location
+     * @param location String
      * @return departureLocations
      */
     //given destination location returns the routes corresponding to this location
@@ -42,8 +41,8 @@ public class RouteRepository implements Serializable {
 
     /**
      * Given a location, returns the routes that arrive at the given location.
-     * @param location
-     * @return
+     * @param location String
+     * @return destinationLocations
      */
     //given a location, gets the routes that offer this destination
     public ArrayList<Route> getDestinationLocation(String location) {
@@ -88,8 +87,8 @@ public class RouteRepository implements Serializable {
 
     /**
      * Finds and returns all routes that utilise the user specified equipment.
-     * @param equipment
-     * @return
+     * @param equipment String
+     * @return equipmentRoute
      */
     // finds and returns all routes that utilise the given equipment
     public ArrayList<Route> getEquipment(String equipment) {

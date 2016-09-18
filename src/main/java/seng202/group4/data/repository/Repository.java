@@ -6,7 +6,6 @@ import java.io.*;
 
 /**
  * Connects all of the data type repositories together allowing for simplified serialization.
- * Created by jjg64 on 15/08/16.
  */
 public class Repository implements Serializable {
     public static AirlineRepository airlineRepository;

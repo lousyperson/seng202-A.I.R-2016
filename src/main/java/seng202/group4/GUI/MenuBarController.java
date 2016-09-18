@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * Created by Pang on 18/09/16.
+ * The MenuBarController with functions for importing data
  */
 public class MenuBarController{
 
@@ -31,7 +31,7 @@ public class MenuBarController{
 
     /**
      * Sets the main controller and retrieves private variables from the main controller
-     * @param controller
+     * @param controller Controller
      */
     public void setMainController(Controller controller){
         this.mainController = controller;
@@ -46,7 +46,7 @@ public class MenuBarController{
 
     /**
      * Getter for the main controller
-     * @return
+     * @return mainController
      */
     public Controller getMainController(){
         return mainController;
@@ -56,7 +56,7 @@ public class MenuBarController{
     /**
      * Allows the user to load airline data from a file
      *
-     * @throws IOException
+     * @throws IOException throws IOException error
      */
     public void loadAirline() throws IOException {
         Stage stage = new Stage();
@@ -74,7 +74,7 @@ public class MenuBarController{
     /**
      * Allows the user to load airport data from a file
      *
-     * @throws IOException
+     * @throws IOException throws IOException error
      */
     public void loadAirport() throws IOException {
 
@@ -93,7 +93,7 @@ public class MenuBarController{
     /**
      * Allows the user to load route data from a file
      *
-     * @throws IOException
+     * @throws IOException throws IOException error
      */
     public void loadRoute() throws IOException {
 
@@ -111,7 +111,7 @@ public class MenuBarController{
 
     /**
      * Allows the user to load a flight from a file
-     * @throws IOException
+     * @throws IOException throws IOException error
      */
     public void loadFlight() throws IOException {
 

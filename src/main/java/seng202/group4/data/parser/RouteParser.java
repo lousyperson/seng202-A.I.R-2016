@@ -10,7 +10,6 @@ import java.util.ArrayList;
 
 /**
  * Reads and parses through the route data from the input file.
- * Created by jjg64 on 15/08/16.
  */
 public class RouteParser {
     private final int ITEMS_PER_LINE = 9;
@@ -26,7 +25,7 @@ public class RouteParser {
 
     /**
      * Initializes the route parser variables.
-     * @param file
+     * @param file ArrayList
      */
     public RouteParser(ArrayList file) {
         this.file = file;
@@ -74,7 +73,7 @@ public class RouteParser {
     /**
      * Makes the singular routes and adds them to the list of routes
      * @return routes
-     * @throws IOException
+     * @throws IOException throws IOException error
      */
     public ArrayList<Route> makeRoutes() throws IOException {
         for(String currentLine: file){

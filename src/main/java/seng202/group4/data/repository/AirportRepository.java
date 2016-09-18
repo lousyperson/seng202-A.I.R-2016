@@ -7,7 +7,6 @@ import java.util.*;
 
 /**
  * Allows for the serialization and searching/filtering of airports.
- * Created by jjg64 on 15/08/16.
  */
 public class AirportRepository implements Serializable {
     private HashMap<Integer, Airport> airports = new HashMap<>();
@@ -15,7 +14,7 @@ public class AirportRepository implements Serializable {
 
     /**
      * Adds an airport to the list of airports.
-     * @param airport
+     * @param airport Airport
      */
     public void addAirport(Airport airport) {
         airports.put(airport.getID(), airport);
@@ -43,7 +42,7 @@ public class AirportRepository implements Serializable {
 
     /**
      * Gets the list of airports in a country.
-     * @returncountryAirports
+     * @return countryAirports
      */
     public HashMap<String, HashSet> getCountryAirports(){
         return countryAirports;
@@ -51,8 +50,8 @@ public class AirportRepository implements Serializable {
 
     /**
      * Takes a country and returns all the airport identification numbers of that country.
-     * @param country
-     * @return
+     * @param country String
+     * @return Set
      */
     // takes a country and returns all the airports IDs of that country
     public Set airportIDsOfCountry(String country){
@@ -64,8 +63,8 @@ public class AirportRepository implements Serializable {
 
     /**
      * Finds and returns all airports in a given country.
-     * @param country
-     * @return
+     * @param country String
+     * @return AirportCountry
      */
     // finds and returns all airports in a given country
     public ArrayList<Airport> getCountry(String country) {
@@ -80,8 +79,8 @@ public class AirportRepository implements Serializable {
 
     /**
      * Finds the country of an airport with a given IATA.
-     * @param id
-     * @return
+     * @param id String
+     * @return airport country if it exists otherwise null
      */
     // finds the country of an airport given IATA
     public String findCountry(String id) {

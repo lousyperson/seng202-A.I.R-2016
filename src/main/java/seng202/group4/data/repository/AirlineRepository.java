@@ -8,7 +8,6 @@ import java.util.HashMap;
 
 /**
  * Allows for the serialization and searching/filtering of airlines.
- * Created by jjg64 on 15/08/16.
  */
 public class AirlineRepository implements Serializable {
 
@@ -16,7 +15,7 @@ public class AirlineRepository implements Serializable {
 
     /**
      * Adds an airline to the list of airlines.
-     * @param airline
+     * @param airline Airline
      */
     public void addAirline(Airline airline) {
         airlines.put(airline.getID(), airline);
@@ -24,7 +23,7 @@ public class AirlineRepository implements Serializable {
 
     /**
      * Returns a list of airlines.
-     * @return
+     * @return airlines
      */
     public HashMap<Integer, Airline> getAirlines() {
         return airlines;
@@ -33,8 +32,8 @@ public class AirlineRepository implements Serializable {
 
     /**
      * Given a country, finds all airlines based in that country.
-     * @param country
-     * @return
+     * @param country String
+     * @return AirlineCountry
      */
     //given a country, finds all airlines based in that country
     public ArrayList<Airline> getCountry(String country) {
@@ -49,7 +48,7 @@ public class AirlineRepository implements Serializable {
 
     /**
      * Finds all operating airlines.
-     * @return
+     * @return ActiveAirlines
      */
     //finds all the active (operating) airlines
     public ArrayList<Airline> getActive() {
@@ -64,7 +63,7 @@ public class AirlineRepository implements Serializable {
 
     /**
      * Finds all inactive airlines
-     * @return
+     * @return InActiveAirlines
      */
     //finds all inactive (no longer operating) airlines
     public ArrayList<Airline> getInActive() {

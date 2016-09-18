@@ -8,7 +8,6 @@ import java.util.HashMap;
 
 /**
  * Allows the for the serialization off flights.
- * Created by jjg64 on 15/08/16.
  */
 public class FlightRepository implements Serializable {
     //private ArrayList<Flight> flights = new ArrayList<>();
@@ -16,8 +15,8 @@ public class FlightRepository implements Serializable {
 
     /**
      * Adds a flight to the list of flights.
-     * @param name
-     * @param flight
+     * @param name String
+     * @param flight Flight
      */
     public void addFlight(String name, Flight flight) {
         //flights.add(flight);

@@ -10,7 +10,6 @@ import java.util.HashMap;
 
 /**
  * The airline parser parses through the airline data in the given file.
- * Created by seng202-group-4. Last updated September 12, 2016.
  */
 public class AirlineParser {
     private final int MAX_ITEMS_PER_LINE = 8;
@@ -25,7 +24,7 @@ public class AirlineParser {
 
     /**
      * Initializes the file for the parser to parse through.
-     * @param file
+     * @param file ArrayList
      */
     public AirlineParser(ArrayList file) {
         this.file = file;
@@ -61,7 +60,7 @@ public class AirlineParser {
     /**
      * Makes an airline and returns a list of airlines.
      * @return airlines
-     * @throws IOException
+     * @throws IOException throws IOException error
      */
     public ArrayList<Airline> makeAirlines() throws IOException {
         for(String currentLine: file){

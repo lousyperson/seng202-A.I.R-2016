@@ -9,9 +9,8 @@ import java.io.*;
 import java.util.ArrayList;
 
 /**
- * The FlightValidator class checks to make sure that the flight data file that is being parsed in is correcly formatted
+ * The FlightValidator class checks to make sure that the flight data file that is being parsed in is correctly formatted
  * so that all data is represented accurately.
- * Created by jjg64 on 25/08/16.
  */
 public class FlightValidator {
     private final int ITEMS_PER_LINE = 5;
@@ -27,8 +26,8 @@ public class FlightValidator {
 
     /**
      * Parses in the flight data to be validated so that it is can be read and checked.
-     * @param filepath
-     * @throws FileNotFoundException
+     * @param filepath InputStream
+     * @throws FileNotFoundException Throws error when file is not found
      */
     public FlightValidator(InputStream filepath) throws FileNotFoundException {
         this.filepath = filepath;
@@ -37,8 +36,8 @@ public class FlightValidator {
 
     /**
      * Creates the flights one by one, checking that each is valid as it is created.
-     * @return
-     * @throws IOException
+     * @return Flight
+     * @throws IOException Throws IOException error
      */
     public Flight makeFlight() throws IOException {
         while ((currentLine = file.readLine()) != null) {

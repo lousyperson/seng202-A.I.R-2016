@@ -10,7 +10,6 @@ import java.util.ArrayList;
 
 /**
  * Reads through the flight data from the given file.
- * Created by jjg64 on 15/08/16.
  */
 public class FlightParser {
     private ArrayList<String> file;
@@ -22,7 +21,7 @@ public class FlightParser {
 
     /**
      * Initializes the FlightParser variables.
-     * @param file
+     * @param file ArrayList
      */
     public FlightParser(ArrayList file) {
         this.file = file;
@@ -46,8 +45,8 @@ public class FlightParser {
 
     /**
      * Makes a singular flight from the current line in the flight data.
-     * @return
-     * @throws IOException
+     * @return Flight
+     * @throws IOException throws IOException error
      */
     public Flight makeFlight() throws IOException {
         for(String currentLine: file){

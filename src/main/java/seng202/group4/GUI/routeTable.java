@@ -6,7 +6,6 @@ import javafx.beans.property.SimpleStringProperty;
 /**
  * The routeTable class is called for singular pieces of flight data to enable information that has been parsed in from
  * a data file to be used in populating a route table.
- * Created by psu43 on 28/08/16.
  */
 public class routeTable {
     private SimpleStringProperty rairline;
@@ -35,7 +34,7 @@ public class routeTable {
 
     /**
      * A getter for the airline name that operates the route for the route table.
-     * @return
+     * @return rairline
      */
     public String getRairline() {
         return rairline.get();
@@ -43,7 +42,7 @@ public class routeTable {
 
     /**
      * Retrieves the name of the airline that operates the route from the parsed route data.
-     * @return
+     * @return rairline
      */
     public SimpleStringProperty rairlineProperty() {
         return rairline;
@@ -51,7 +50,7 @@ public class routeTable {
 
     /**
      * Sets the name of the airline that operates the route in the route table.
-     * @param rairline
+     * @param rairline String
      */
     public void setRairline(String rairline) {
         this.rairline.set(rairline);
@@ -59,7 +58,7 @@ public class routeTable {
 
     /**
      * A getter for the route id for the route table.
-     * @return
+     * @return rid
      */
     public String getRid() {
         return rid.get();
@@ -67,7 +66,7 @@ public class routeTable {
 
     /**
      * Retrieves the route id value from the parsed route data.
-     * @return
+     * @return rid
      */
     public SimpleStringProperty ridProperty() {
         return rid;
@@ -75,7 +74,7 @@ public class routeTable {
 
     /**
      * Sets the route id in the route table.
-     * @param rid
+     * @param rid String
      */
     public void setRid(String rid) {
         this.rid.set(rid);
@@ -83,7 +82,7 @@ public class routeTable {
 
     /**
      * A getter for the souce airport of the route for the route table.
-     * @return
+     * @return rsource
      */
     public String getRsource() {
         return rsource.get();
@@ -91,7 +90,7 @@ public class routeTable {
 
     /**
      * Retrieves the source airport from the parsed route data.
-     * @return
+     * @return rsource
      */
     public SimpleStringProperty rsourceProperty() {
         return rsource;
@@ -99,7 +98,7 @@ public class routeTable {
 
     /**
      * Sets the source airport in the route table.
-     * @param rsource
+     * @param rsource String
      */
     public void setRsource(String rsource) {
         this.rsource.set(rsource);
@@ -107,7 +106,7 @@ public class routeTable {
 
     /**
      * A getter for the source airport id for the route table.
-     * @return
+     * @return rsourceid
      */
     public String getRsourceid() {
         return rsourceid.get();
@@ -115,7 +114,7 @@ public class routeTable {
 
     /**
      * Retrieves the source airport id from the parsed route data.
-     * @return
+     * @return rsourceid
      */
     public SimpleStringProperty rsourceidProperty() {
         return rsourceid;
@@ -123,7 +122,7 @@ public class routeTable {
 
     /**
      * Sets the source airport id in the route table.
-     * @param rsourceid
+     * @param rsourceid String
      */
     public void setRsourceid(String rsourceid) {
         this.rsourceid.set(rsourceid);
@@ -131,7 +130,7 @@ public class routeTable {
 
     /**
      * A getter for the destination airport of the route for the route table.
-     * @return
+     * @return rdest
      */
     public String getRdest() {
         return rdest.get();
@@ -139,7 +138,7 @@ public class routeTable {
 
     /**
      * Retrieves the destination airport from the parsed route data.
-     * @return
+     * @return rdest
      */
     public SimpleStringProperty rdestProperty() {
         return rdest;
@@ -147,7 +146,7 @@ public class routeTable {
 
     /**
      * Sets the destination airport for the route in the route table.
-     * @param rdest
+     * @param rdest String
      */
     public void setRdest(String rdest) {
         this.rdest.set(rdest);
@@ -155,7 +154,7 @@ public class routeTable {
 
     /**
      * A getter for the route's destination airport identification number in the route table.
-     * @return
+     * @return rdestid
      */
     public String getRdestid() {
         return rdestid.get();
@@ -163,7 +162,7 @@ public class routeTable {
 
     /**
      * Retrieves the route's destination airport identifaction number from the parsed route data.
-     * @return
+     * @return rdestid
      */
     public SimpleStringProperty rdestidProperty() {
         return rdestid;
@@ -171,7 +170,7 @@ public class routeTable {
 
     /**
      * Sets the route's destination airport identification number in the route table.
-     * @param rdestid
+     * @param rdestid String
      */
     public void setRdestid(String rdestid) {
         this.rdestid.set(rdestid);
@@ -179,7 +178,7 @@ public class routeTable {
 
     /**
      * A getter for the route codeshare for the route table.
-     * @return
+     * @return rcodeshare
      */
     public String getRcodeshare() {
         return rcodeshare.get();
@@ -187,7 +186,7 @@ public class routeTable {
 
     /**
      *Retrieves the codeshare value for the route from the parsed route data.
-     * @return
+     * @return rcodeshare
      */
     public SimpleStringProperty rcodeshareProperty() {
         return rcodeshare;
@@ -195,7 +194,7 @@ public class routeTable {
 
     /**
      * Sets the codeshare value for the route in the route table.
-     * @param rcodeshare
+     * @param rcodeshare String
      */
     public void setRcodeshare(String rcodeshare) {
         this.rcodeshare.set(rcodeshare);
@@ -203,7 +202,7 @@ public class routeTable {
 
     /**
      * A getter for the routes number of stops for the route table.
-     * @return
+     * @return rstops
      */
     public String getRstops() {
         return rstops.get();
@@ -211,7 +210,7 @@ public class routeTable {
 
     /**
      * Retrieves the number of stops for the route from the parsed route data.
-     * @return
+     * @return rstops
      */
     public SimpleStringProperty rstopsProperty() {
         return rstops;
@@ -219,7 +218,7 @@ public class routeTable {
 
     /**
      * Sets the routes number of stops in the route table.
-     * @param rstops
+     * @param rstops String
      */
     public void setRstops(String rstops) {
         this.rstops.set(rstops);
@@ -227,7 +226,7 @@ public class routeTable {
 
     /**
      * A getter for the equipment utilised by the route for the route table.
-     * @return
+     * @return requipment
      */
     public String getRequipment() {
         return requipment.get();
@@ -235,7 +234,7 @@ public class routeTable {
 
     /**
      * Retrieves the equipment information from the parsed route data.
-     * @return
+     * @return requipment
      */
     public SimpleStringProperty requipmentProperty() {
         return requipment;
@@ -243,7 +242,7 @@ public class routeTable {
 
     /**
      * Sets the route equipment information in the route table.
-     * @param requipment
+     * @param requipment String
      */
     public void setRequipment(String requipment) {
         this.requipment.set(requipment);

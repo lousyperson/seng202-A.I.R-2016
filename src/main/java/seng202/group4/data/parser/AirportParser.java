@@ -10,7 +10,6 @@ import java.util.HashMap;
 
 /**
  * Reads through the airport data in the given file.
- * Created by jjg64 on 15/08/16.
  */
 public class AirportParser {
     private ArrayList<String> file;
@@ -24,7 +23,7 @@ public class AirportParser {
 
     /**
      * Sets up the file to be parsed through.
-     * @param file
+     * @param file ArrayList
      */
     public AirportParser(ArrayList file) {
         this.file = file;
@@ -87,8 +86,8 @@ public class AirportParser {
 
     /**
      * Builds the singular airport from the current line in the data and adds it to the list of airports.
-     * @return
-     * @throws IOException
+     * @return airports
+     * @throws IOException Throws IOException error
      */
     public ArrayList<Airport> makeAirports() throws IOException {
         for(String currentLine: file){

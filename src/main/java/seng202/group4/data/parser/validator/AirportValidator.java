@@ -12,7 +12,6 @@ import java.util.Set;
 /**
  * Ensures that the airport data from the file is valid by reading and checking to ensure it meets formatting
  * expectations.
- * Created by jjg64 on 25/08/16.
  */
 public class AirportValidator {
     private final int MIN_ITEMS_PER_LINE = 12;
@@ -40,8 +39,8 @@ public class AirportValidator {
 
     /**
      * Makes a list of airports, by making the airports and checking that each is a valid airport along the way.
-     * @return
-     * @throws IOException
+     * @return Array list of airports
+     * @throws IOException Throws IOException error
      */
     public ArrayList<Airport> makeAirports() throws IOException {
         while ((currentLine = file.readLine()) != null) {
@@ -150,8 +149,8 @@ public class AirportValidator {
 
     /**
      * Builds the reader so that each line can be read and an airport bult for that line.
-     * @param filepath
-     * @throws FileNotFoundException
+     * @param filepath InputStream
+     * @throws FileNotFoundException Throws error when file is not found
      */
     public AirportValidator(InputStream filepath) throws FileNotFoundException {
         this.filepath = filepath;

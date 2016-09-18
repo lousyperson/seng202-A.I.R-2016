@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 /**
  * The airline class creates an airline object that is represented in the airline table.
- * Created by jjg64 on 15/08/16.
  */
 public class Airline implements Serializable {
     private int ID;
@@ -18,14 +17,14 @@ public class Airline implements Serializable {
 
     /**
      * Initializes all the values for the variables of the airline class.
-     * @param ID
-     * @param name
-     * @param alias
-     * @param IATA
-     * @param ICAO
-     * @param callsign
-     * @param country
-     * @param active
+     * @param ID An Integer for the airline ID
+     * @param name A String for the airline name
+     * @param alias A String for the airline alias
+     * @param IATA A String for the airline IATA
+     * @param ICAO A String for the airline ICAO
+     * @param callsign A String for the airline callsign
+     * @param country A String for the airline country
+     * @param active A String for the airline active
      */
     public Airline(int ID, String name, String alias, String IATA, String ICAO, String callsign, String country, boolean active) {
         this.ID = ID;

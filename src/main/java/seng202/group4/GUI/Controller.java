@@ -359,8 +359,8 @@ public class Controller implements Initializable {
     /**
      * Where the program starts, initializes things like listeners and starts running the GUI.
      *
-     * @param location
-     * @param resources
+     * @param location URL
+     * @param resources ResourceBundle
      */
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -1167,7 +1167,7 @@ public class Controller implements Initializable {
     /**
      * Allows the user to select the direct flight filter option.
      *
-     * @throws IOException
+     * @throws IOException throws IOException error
      */
     public void selectDirect() throws IOException {
         updateRouteSearch();
@@ -1176,7 +1176,7 @@ public class Controller implements Initializable {
     /**
      * Allows the user to select the indirect flight filter option.
      *
-     * @throws IOException
+     * @throws IOException throws IOException error
      */
     public void selectIndirect() throws IOException {
         updateRouteSearch();
@@ -1185,7 +1185,7 @@ public class Controller implements Initializable {
     /**
      * Filters the list of airlines by country, leaving only airlines from the selected county.
      *
-     * @throws IOException
+     * @throws IOException throws IOException error
      */
     public void filterAirlineCountry() throws IOException {
         updateAirlineSearch();
@@ -1194,7 +1194,7 @@ public class Controller implements Initializable {
     /**
      * Filters the list of airports by country, leaving only airports from the selected county.
      *
-     * @throws IOException
+     * @throws IOException throws IOException error
      */
     public void filterAirportCountry() throws IOException {
         updateAirportSearch();
@@ -1203,7 +1203,7 @@ public class Controller implements Initializable {
     /**
      * Filters by departure country, only showing routes departing from the selected country.
      *
-     * @throws IOException
+     * @throws IOException throws IOException error
      */
     public void filterDepCountry() throws IOException {
         updateRouteSearch();
@@ -1212,7 +1212,7 @@ public class Controller implements Initializable {
     /**
      * Filters by destination country, only showing routes that arrive in the selected country.
      *
-     * @throws IOException
+     * @throws IOException throws IOException error
      */
     public void filterDestCountry() throws IOException {
         updateRouteSearch();
@@ -1221,7 +1221,7 @@ public class Controller implements Initializable {
     /**
      * Filters by the equipment in a route, only showing routes that utilize that equipment.
      *
-     * @throws IOException
+     * @throws IOException throws IOException error
      */
     public void filterEquipment() throws IOException {
         updateRouteSearch();
@@ -1230,7 +1230,7 @@ public class Controller implements Initializable {
     /**
      * Filters by whether or not the airline is active, only showing active airlines.
      *
-     * @throws IOException
+     * @throws IOException throws IOException error
      */
     public void selectActiveAirlines() throws IOException {
         updateAirlineSearch();
@@ -1239,7 +1239,7 @@ public class Controller implements Initializable {
     /**
      * Filters by whether or not the airline is active, only showing inactive airlines.
      *
-     * @throws IOException
+     * @throws IOException throws IOException error
      */
     public void selectInactiveAirlines() throws IOException {
         updateAirlineSearch();
@@ -1247,8 +1247,8 @@ public class Controller implements Initializable {
 
     /**Insert the airlines in a given file into the airline table GUI checking for duplicates
      *
-     * @param file
-     * @throws IOException
+     * @param file InputStream
+     * @throws IOException throws IOException error
      */
     public void insertAirlineTable(InputStream file) throws IOException {
         AirlineValidator validator = new AirlineValidator(file);
@@ -1303,7 +1303,7 @@ public class Controller implements Initializable {
     /**
      * Allows the user to load airline data from a file
      *
-     * @throws IOException
+     * @throws IOException throws IOException error
      */
     public void loadAirline() throws IOException {
         menuBarController.loadAirline();
@@ -1337,8 +1337,8 @@ public class Controller implements Initializable {
 
     /**Insert the airports in a given file into the airport table GUI checking for duplicates
      *
-     * @param file
-     * @throws IOException
+     * @param file InputStream
+     * @throws IOException throws IOException error
      */
     public void insertAirportTable(InputStream file) throws IOException {
         AirportValidator validator = new AirportValidator(file);
@@ -1391,7 +1391,7 @@ public class Controller implements Initializable {
     /**
      * Allows the user to load airport data from a file
      *
-     * @throws IOException
+     * @throws IOException throws IOException error
      */
     public void loadAirport() throws IOException {
 
@@ -1427,8 +1427,8 @@ public class Controller implements Initializable {
 
     /**Insert the routes in a given file into the route table GUI checking for duplicates
      *
-     * @param file
-     * @throws IOException
+     * @param file InputStream
+     * @throws IOException throws IOException error
      */
     public void insertRouteTable(InputStream file) throws IOException {
         RouteValidator validator = new RouteValidator(file);
@@ -1510,7 +1510,7 @@ public class Controller implements Initializable {
     /**
      * Allows the user to load route data from a file
      *
-     * @throws IOException
+     * @throws IOException throws IOException error
      */
     public void loadRoute() throws IOException {
         menuBarController.loadRoute();
@@ -1560,8 +1560,8 @@ public class Controller implements Initializable {
 
     /**Insert the flight in a given file into the flight table
      *
-     * @param file
-     * @throws IOException
+     * @param file InputStream
+     * @throws IOException throws IOException error
      */
     public void insertFlightTable(InputStream file) throws IOException {
         FlightValidator validator = new FlightValidator(file);
@@ -1629,7 +1629,7 @@ public class Controller implements Initializable {
 
     /**
      * Allows the user to load a flight from a file
-     * @throws IOException
+     * @throws IOException throws IOException error
      */
     public void loadFlight() throws IOException {
         menuBarController.loadFlight();

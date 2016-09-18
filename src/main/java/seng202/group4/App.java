@@ -16,7 +16,7 @@ import seng202.group4.GUI.Controller;
 import seng202.group4.data.repository.*;
 
 /**
- * Hello world!
+ * Main, runs the program.
  *
  */
 public class App extends Application {
@@ -36,8 +36,6 @@ public class App extends Application {
 //
 //        System.out.println(controller);
 //        controller.getMenuBarController().setMainController(controller);
-
-
 
         primaryStage.setTitle("Aviation Information Reader");
         primaryStage.setScene(new Scene(root, 1280, 775));
