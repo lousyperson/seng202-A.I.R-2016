@@ -174,8 +174,6 @@ public class MenuBarController {
     public void resetAirline() throws IOException {
         boolean result = resetConformation();
         if (result) {
-            Alert loading = showLoading();
-            loading.show();
             mainController.clearAirlineTable();
             Repository.airlineRepository = new AirlineRepository();
             InputStream file = getClass().getResourceAsStream("/airlines.dat");
@@ -184,15 +182,12 @@ public class MenuBarController {
                 mainController.insertAirlineTable(file);
             }
             Repository.serializeObject(Repository.airlineRepository, "airline");
-            loading.close();
         }
     }
 
     public void resetAirport() throws IOException {
         boolean result = resetConformation();
         if (result) {
-            Alert loading = showLoading();
-            loading.show();
             mainController.clearAirportTable();
             Repository.airportRepository = new AirportRepository();
             InputStream file = getClass().getResourceAsStream("/airports.dat");
@@ -201,14 +196,12 @@ public class MenuBarController {
                 mainController.insertAirportTable(file);
             }
             Repository.serializeObject(Repository.airportRepository, "airport");
-            loading.close();
         }
     }
 
     public void resetRoute() throws IOException {
         boolean result = resetConformation();
         if (result) {
-            Alert loading = showLoading();
             mainController.clearRouteTable();
             Repository.routeRepository = new RouteRepository();
             InputStream file = getClass().getResourceAsStream("/routes.dat");
@@ -217,7 +210,6 @@ public class MenuBarController {
                 mainController.insertRouteTable(file);
             }
             Repository.serializeObject(Repository.routeRepository, "route");
-            loading.close();
         }
     }
 
