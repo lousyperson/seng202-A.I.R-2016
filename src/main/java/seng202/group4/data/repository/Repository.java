@@ -67,7 +67,7 @@ public class Repository implements Serializable {
         }
     }
 
-    protected static Object deserializeObject(String type) {
+    private static Object deserializeObject(String type) {
         try {
             Object repository;
             FileInputStream fileIn = new FileInputStream(type + "s.ser");
