@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.*;
 
 /**
- * Allows for the serialization and searching/filtering of airports.
+ * Stores all the Airports in exactly one HashMap and has methods that Airports will use.
  */
 public class AirportRepository extends Repository implements Serializable {
     private HashMap<Integer, Airport> airports = new HashMap<>();

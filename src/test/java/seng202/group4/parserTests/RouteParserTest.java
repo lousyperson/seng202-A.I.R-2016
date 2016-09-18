@@ -10,9 +10,7 @@ import java.util.ArrayList;
 import static org.junit.Assert.assertTrue;
 
 /**
- * @param
- * @returns
- * @throws
+ * Tests the RouteParser class with valid Route files.
  */
 public class RouteParserTest extends ParserTest {
     private String path = "testfiles/Routes/";

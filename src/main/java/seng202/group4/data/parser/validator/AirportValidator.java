@@ -11,7 +11,7 @@ import java.util.Set;
 
 /**
  * Ensures that the airport data from the file is valid by reading and checking to ensure it meets formatting
- * expectations.
+ * expectations. Error checks the file and uses the AirportParser if valid.
  */
 public class AirportValidator {
     private final int MIN_ITEMS_PER_LINE = 12;

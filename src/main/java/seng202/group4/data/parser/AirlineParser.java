@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * The airline parser parses through the airline data in the given file.
+ * The airline parser parses through the airline data in the given list. No error checking is done here.
  */
 public class AirlineParser {
     private final int MAX_ITEMS_PER_LINE = 8;

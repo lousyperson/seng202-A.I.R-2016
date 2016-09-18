@@ -8,11 +8,15 @@ import java.util.HashMap;
 import java.util.TreeSet;
 
 /**
- * Allows for the serialization and searching/filtering of routes.
+ * Stores all the Routes in exactly one HashMap and has methods that Routes will use.
  */
 public class RouteRepository extends Repository implements Serializable {
     private HashMap<String, Route> routes = new HashMap<String, Route>();
 
+    /**
+     * Adds the given routes to the HashMap of routes
+     * @param route Route
+     */
     public void addRoute(Route route) {
         String key = getKey(route);
         routes.put(key, route);
@@ -22,6 +26,10 @@ public class RouteRepository extends Repository implements Serializable {
         return routes;
     }
 
+    /**
+     * Generates a unique key for the given route
+     * @param route Route
+     */
     public static String getKey(Route route) {
         String key = "";
         key += route.getAirline() + route.getAirlineID() + route.getSrcAirport() + route.getSrcAirportID()

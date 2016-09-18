@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import static org.junit.Assert.assertTrue;
 
 /**
- *
+ * Tests the AirportParser class with valid Airport files.
  */
 public class AirportParserTest extends ParserTest {
     String path = "testfiles/Airports/";

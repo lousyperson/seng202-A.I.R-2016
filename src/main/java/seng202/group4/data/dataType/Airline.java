@@ -3,7 +3,8 @@ package seng202.group4.data.dataType;
 import java.io.Serializable;
 
 /**
- * The airline class creates an airline object that is represented in the airline table.
+ * Stores information about an Airline.
+ * Airline class creates an airline object that is represented in the airline table.
  */
 public class Airline implements Serializable {
     private int ID;

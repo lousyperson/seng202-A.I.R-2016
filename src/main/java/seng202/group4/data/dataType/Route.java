@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 
 /**
+ * Stores information about a route.
  * The route class creates the route object using the information for the route and allows for the construction of the
  * route table.
  */

@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Objects;
 
 /**
+ * Stores exactly one of each repository of each subclass.
  * Connects all of the data type repositories together allowing for simplified serialization.
  */
 public class Repository implements Serializable {
@@ -51,7 +52,6 @@ public class Repository implements Serializable {
             out.writeObject(repository);
             out.close();
             fileOut.close();
-            System.out.println("Serialized data is saved in " + type + "s.ser");
         }catch(IOException i) {
             i.printStackTrace();
         }

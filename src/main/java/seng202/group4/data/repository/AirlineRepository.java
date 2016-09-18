@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * Allows for the serialization and searching/filtering of airlines.
+ * Stores all the Airlines in exactly one HashMap and has methods that Airlines will use.
  */
 public class AirlineRepository extends Repository implements Serializable {
 

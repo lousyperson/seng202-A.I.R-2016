@@ -10,7 +10,8 @@ import java.util.Arrays;
 
 /**
  * The AirlineValidator class ensures that the information parsed into the program by the data file meets the
- * expected formatting criteria to ensure there are no representational issues.
+ * expected formatting criteria to ensure there are no representational issues. Error checks the files and
+ * uses the AirlineParser if valid.
  */
 public class AirlineValidator {
     private final int ITEMS_PER_LINE = 8;

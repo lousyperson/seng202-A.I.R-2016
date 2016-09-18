@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * Reads through the airport data in the given file.
+ * Reads through the airport data in the given list. No error checking is done here.
  */
 public class AirportParser {
     private ArrayList<String> file;

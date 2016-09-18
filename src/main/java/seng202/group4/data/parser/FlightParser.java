@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- * Reads through the flight data from the given file.
+ * Reads through the flight data from the given list. No error checking is done here.
  */
 public class FlightParser {
     private ArrayList<String> file;

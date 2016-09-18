@@ -3,6 +3,7 @@ package seng202.group4.data.dataType;
 import java.io.Serializable;
 
 /**
+ * Stores information about an Airport.
  * The airport class creates the airport object using the information for the airport and allows for the construction of
  * the airport table.
  */

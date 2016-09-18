@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 /**
  * Ensures that the route data from the file is valid by reading and checking to ensure it meets formatting
- * expectations.
+ * expectations. Error checks the file and uses RouteParser if valid.
  */
 public class RouteValidator {
     private final int ITEMS_PER_LINE = 9;

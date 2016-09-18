@@ -24,7 +24,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 /**
- * ParserTest has the fileArray method used for each parser test.
+ * ParserTest contains the fileArray method which is needed for each distinct type of parser test.
  */
 public class ParserTest {
 

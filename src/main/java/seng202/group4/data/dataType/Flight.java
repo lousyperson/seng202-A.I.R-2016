@@ -4,7 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
- * * The flightPosition class exists to allow for building of flights to be represented in the GUI as a table.
+ * Stores a Flight which is made up of an array list of flight positions.
+ * The flightPosition class exists to allow for building of flights to be represented in the GUI as a table.
  */
 public class Flight implements Serializable {
     private ArrayList<FlightPosition> positions;

@@ -12,9 +12,7 @@ import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
 /**
- * @param
- * @returns
- * @throws
+ * Tests the FlightParser class with valid Flight files.
  */
 public class FlightParserTest extends ParserTest {
     private String path = "testfiles/Flights/";

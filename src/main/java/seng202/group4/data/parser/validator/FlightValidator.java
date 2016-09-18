@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 /**
  * The FlightValidator class checks to make sure that the flight data file that is being parsed in is correctly formatted
- * so that all data is represented accurately.
+ * so that all data is represented accurately. Error checks the file and uses FlightParser if valid.
  */
 public class FlightValidator {
     private final int ITEMS_PER_LINE = 5;

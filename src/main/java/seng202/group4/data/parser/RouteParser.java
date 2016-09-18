@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- * Reads and parses through the route data from the input file.
+ * Reads and parses through the route data from the given list. No error checking is done here.
  */
 public class RouteParser {
     private final int ITEMS_PER_LINE = 9;

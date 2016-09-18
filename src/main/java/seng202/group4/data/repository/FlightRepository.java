@@ -7,14 +7,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * Allows the for the serialization off flights.
+ * Stores all the Flights in exactly one HashMap and has methods that Flights will use.
  */
 public class FlightRepository extends Repository implements Serializable {
     //private ArrayList<Flight> flights = new ArrayList<>();
     private HashMap<String, Flight> flights = new HashMap<>();
 
     /**
-     * Adds a flight to the list of flights.
+     * Adds a flight to the HashMap of flights.
      * @param name String
      * @param flight Flight
      */

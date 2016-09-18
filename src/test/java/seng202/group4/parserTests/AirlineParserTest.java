@@ -10,9 +10,7 @@ import java.util.ArrayList;
 import static org.junit.Assert.assertTrue;
 
 /**
- * @param
- * @returns
- * @throws
+ * Tests the AirlineParser class with valid Airline files.
  */
 public class AirlineParserTest extends ParserTest {
     String path = "testfiles/Airlines/";
