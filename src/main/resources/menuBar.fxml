@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
@@ -27,8 +29,7 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.web.WebView?>
 
-
-<MenuBar xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.group4.GUI.MenuBarController">
+<MenuBar xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.group4.GUI.MenuBarController">
     <menus>
         <Menu mnemonicParsing="false" text="File">
             <items>
@@ -40,6 +41,13 @@
                         <MenuItem mnemonicParsing="false" onAction="#loadFlight" text="Flight" />
                     </items>
                 </Menu>
+            <Menu mnemonicParsing="false" text="Reset to Default">
+              <items>
+                <MenuItem mnemonicParsing="false" onAction="#resetAirline" text="Airline" />
+                  <MenuItem mnemonicParsing="false" onAction="#resetAirport" text="Airport" />
+                  <MenuItem mnemonicParsing="false" onAction="#resetRoute" text="Route" />
+              </items>
+            </Menu>
             </items>
         </Menu>
         <Menu mnemonicParsing="false" text="Help">

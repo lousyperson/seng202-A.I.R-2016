@@ -8,16 +8,23 @@ import javafx.scene.control.*;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import seng202.group4.data.dataType.Airline;
+import seng202.group4.data.repository.AirlineRepository;
+import seng202.group4.data.repository.AirportRepository;
+import seng202.group4.data.repository.Repository;
+import seng202.group4.data.repository.RouteRepository;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URISyntaxException;
+import java.util.HashMap;
 
 /**
  * The MenuBarController with functions for importing data
  */
-public class MenuBarController{
+public class MenuBarController {
 
     private Tab flightTab;
     private String airlineLabel;
@@ -159,5 +166,33 @@ public class MenuBarController{
             tabPane.getSelectionModel().select(dataTab);
         }
         datalist.getSelectionModel().select(name);
+    }
+
+    public void resetAirline() throws IOException {
+//        Repository.airlineRepository = new AirlineRepository();
+//        InputStream file = getClass().getResourceAsStream("/airlines.dat");
+//        //File file = new File(getClass().getClassLoader().getResource("airlines.dat").toURI());
+//        if (file != null) {
+//            mainController.insertAirlineTable(file);
+//        }
+
+    }
+
+    public void resetAirport() throws IOException {
+//        Repository.airportRepository = new AirportRepository();
+//        InputStream file = getClass().getResourceAsStream("/airlines.dat");
+//        //File file = new File(getClass().getClassLoader().getResource("airlines.dat").toURI());
+//        if (file != null) {
+//            mainController.insertAirportTable(file);
+//        }
+    }
+
+    public void resetRoute() throws IOException {
+//        Repository.routeRepository = new RouteRepository();
+//        InputStream file = getClass().getResourceAsStream("/routes.dat");
+//        //File file = new File(getClass().getClassLoader().getResource("airlines.dat").toURI());
+//        if (file != null) {
+//            mainController.insertRouteTable(file);
+//        }
     }
 }

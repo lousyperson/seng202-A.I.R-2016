@@ -597,7 +597,15 @@ public class Controller implements Initializable {
                     Optional<ButtonType> result = alert.showAndWait();
                     if (result.get() == ButtonType.OK) {
                         ObservableList<routeTable> selectedItems = routeTableID.getSelectionModel().getSelectedItems();
-
+                        for (routeTable route : selectedItems) {
+                            String key = route.getRairline() + route.getRid() + route.getRsource() + route.getRsourceid()
+                                    + route.getRdest() + route.getRdestid() + route.getRcodeshare() + route.getRstops();
+                            String[] equipment = route.getRequipment().split(", ");
+                            for (String item : equipment) {
+                                key += item;
+                            }
+                            Repository.routeRepository.getRoutes().remove(key);
+                        }
                         routeTData.removeAll(selectedItems);
                         routeTableID.getSelectionModel().clearSelection();
                     }
@@ -1488,7 +1496,7 @@ public class Controller implements Initializable {
         if (routes != null) {
             for (int i = 0; i < routes.size(); i++) {
                 Route route = routes.get(i);
-                if (diffRoutes(route, Repository.routeRepository.getRoutes())) {
+                if (diffRoutes(route)) {
                     Repository.routeRepository.addRoute(route);
                     routeTData.add(new routeTable(route.getAirline(), String.valueOf(route.getAirlineID()),
                             route.getSrcAirport(), String.valueOf(route.getSrcAirportID()),
@@ -1580,9 +1588,8 @@ public class Controller implements Initializable {
     }
 
     private void loadSerializedRoute() {
-        ArrayList<Route> routes = Repository.routeRepository.getRoutes();
-        for (int i = 0; i < routes.size(); i++) {
-            Route route = routes.get(i);
+        Collection<Route> routes = Repository.routeRepository.getRoutes().values();
+        for (Route route : routes) {
             routeTData.add(new routeTable(route.getAirline(), String.valueOf(route.getAirlineID()),
                     route.getSrcAirport(), String.valueOf(route.getSrcAirportID()),
                     route.getDestAirport(), String.valueOf(route.getDestAirportID()),
@@ -1705,18 +1712,12 @@ public class Controller implements Initializable {
 
 
     // Compare routes, return true if the routes are different otherwise false
-    private boolean diffRoutes(Route route, ArrayList<Route> routeArray) {
-        for(Route r: routeArray){
-            if (r.getAirline().equals(route.getAirline()) &&
-                    r.getSrcAirport().equals(route.getSrcAirport()) &&
-                    r.getDestAirport().equals(route.getDestAirport()) &&
-                    r.getCodeshare().equals(route.getCodeshare()) &&
-                    String.valueOf(r.getStops()).equals(String.valueOf(route.getStops())) &&
-                    r.getEquipment().equals(route.getEquipment())) {
-                return false;
-            }
+    private boolean diffRoutes(Route route) {
+        if (Repository.routeRepository.getRoutes().containsKey(RouteRepository.getKey(route))) {
+            return false;
+        } else {
+            return true;
         }
-        return true;
     }
 
 
@@ -1728,6 +1729,5 @@ public class Controller implements Initializable {
     public Tab getFlightTab() {
         return flightTab;
     }
-
 
 }

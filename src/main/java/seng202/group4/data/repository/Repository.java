@@ -4,6 +4,7 @@ import seng202.group4.data.dataType.Airline;
 
 import java.io.*;
 import java.util.HashMap;
+import java.util.Objects;
 
 /**
  * Connects all of the data type repositories together allowing for simplified serialization.
@@ -76,12 +77,12 @@ public class Repository implements Serializable {
         }
     }
 
-    protected static Repository deserializeObject(String type) {
+    protected static Object deserializeObject(String type) {
         try {
-            Repository repository;
+            Object repository;
             FileInputStream fileIn = new FileInputStream(type + "s.ser");
             ObjectInputStream in = new ObjectInputStream(fileIn);
-            repository = (Repository) in.readObject();
+            repository = in.readObject();
             in.close();
             fileIn.close();
             return repository;

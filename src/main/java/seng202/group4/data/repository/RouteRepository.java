@@ -11,15 +11,25 @@ import java.util.TreeSet;
  * Allows for the serialization and searching/filtering of routes.
  */
 public class RouteRepository extends Repository implements Serializable {
-    //private HashMap<Integer, Route> Routes = new HashMap<Integer, Route>();
-    private ArrayList<Route> routes = new ArrayList<>();
-    //private TreeSet Routes = new TreeSet<>();
+    private HashMap<String, Route> routes = new HashMap<String, Route>();
+
     public void addRoute(Route route) {
-        routes.add(route);
+        String key = getKey(route);
+        routes.put(key, route);
     }
 
-    public ArrayList<Route> getRoutes() {
+    public HashMap<String, Route> getRoutes() {
         return routes;
+    }
+
+    public static String getKey(Route route) {
+        String key = "";
+        key += route.getAirline() + route.getAirlineID() + route.getSrcAirport() + route.getSrcAirportID()
+                + route.getDestAirport() + route.getDestAirportID() + route.getCodeshare() + route.getStops();
+        for (String item : route.getEquipment()) {
+            key += item;
+        }
+        return key;
     }
 
 
@@ -31,7 +41,7 @@ public class RouteRepository extends Repository implements Serializable {
     //given destination location returns the routes corresponding to this location
     public ArrayList<Route> getDepartureLocation(String location) {
         ArrayList<Route> departureLocations = new ArrayList<>();
-        for (Route route : routes) {
+        for (Route route : routes.values()) {
             if (route.getSrcAirport().equals(location)) {
                 departureLocations.add(route);
             }
@@ -47,7 +57,7 @@ public class RouteRepository extends Repository implements Serializable {
     //given a location, gets the routes that offer this destination
     public ArrayList<Route> getDestinationLocation(String location) {
         ArrayList<Route> destinationLocations = new ArrayList<Route>();
-        for (Route route : routes) {
+        for (Route route : routes.values()) {
             if (route.getDestAirport().equals(location)) {
                 destinationLocations.add(route);
             }
@@ -62,7 +72,7 @@ public class RouteRepository extends Repository implements Serializable {
     //finds all direct routes
     public ArrayList<Route> getDirect() {
         ArrayList<Route> nonStopRoutes = new ArrayList<Route>();
-        for (Route route : routes) {
+        for (Route route : routes.values()) {
             if( route.getStops() == 0) {
                 nonStopRoutes.add(route);
             }
@@ -77,7 +87,7 @@ public class RouteRepository extends Repository implements Serializable {
     // finds all indirect routes
     public ArrayList<Route> getInDirect() {
         ArrayList<Route> stopRoutes = new ArrayList<Route>();
-        for (Route route : routes) {
+        for (Route route : routes.values()) {
             if( route.getStops() > 0) {
                 stopRoutes.add(route);
             }
@@ -93,7 +103,7 @@ public class RouteRepository extends Repository implements Serializable {
     // finds and returns all routes that utilise the given equipment
     public ArrayList<Route> getEquipment(String equipment) {
         ArrayList<Route> equipmentRoute = new ArrayList<Route>();
-        for (Route route: routes) {
+        for (Route route: routes.values()) {
             for (String equip: route.getEquipment()) {
                 if (equip.equals(equipment)) {
                     equipmentRoute.add(route);
