@@ -18,7 +18,7 @@ public class AirportParserTest extends ParserTest {
     /**
      * Gets the string of the flight position that is used for testing
      */
-    public String getString(Airport airport) {
+    private String getString(Airport airport) {
         String s = "";
         s += airport.getID() + "," + airport.getName() + "," + airport.getCity() + "," + airport.getCountry() + "," +
                 airport.getIATA() + "," + airport.getICAO() + "," + airport.getLatitude() + "," +

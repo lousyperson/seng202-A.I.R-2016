@@ -18,6 +18,17 @@ public class AirlineParserTest extends ParserTest {
     String path = "testfiles/Airlines/";
 
     /**
+     * Gets the string of the flight position that is used for testing
+     */
+    private String getString(Airline airline) {
+        String s = "";
+        s += airline.getID() + "," + airline.getName() + "," + airline.getAlias() + "," +
+                airline.getIATA() + "," + airline.getICAO() + "," + airline.getCallsign() + "," +
+                airline.getCountry() + ","  + airline.getActive();
+        return s;
+    }
+
+    /**
      * Check that if the airline parser parses an empty file, 0 airlines are parsed
      * @throws IOException throws IOException error
      */
