@@ -171,6 +171,10 @@ public class MenuBarController {
         datalist.getSelectionModel().select(name);
     }
 
+    /**
+     * Clears the airline table and AirlineRepository then replaces them with the default airlines
+     * @throws IOException
+     */
     public void resetAirline() throws IOException {
         boolean result = resetConformation();
         if (result) {
@@ -185,6 +189,10 @@ public class MenuBarController {
         }
     }
 
+    /**
+     * Clears the airport table and AirportRepository then replaces them with the default airports
+     * @throws IOException
+     */
     public void resetAirport() throws IOException {
         boolean result = resetConformation();
         if (result) {
@@ -199,6 +207,10 @@ public class MenuBarController {
         }
     }
 
+    /**
+     * Clears the route table and routeRepository then replaces them with the default routes
+     * @throws IOException
+     */
     public void resetRoute() throws IOException {
         boolean result = resetConformation();
         if (result) {
