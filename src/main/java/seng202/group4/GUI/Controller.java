@@ -1365,7 +1365,12 @@ public class Controller implements Initializable {
      * @throws IOException throws IOException error
      */
     public void loadAirline() throws IOException {
-        menuBarController.loadAirline();
+        try {
+            menuBarController.loadAirline();
+        } catch (NullPointerException e) {
+            // Do Nothing
+
+        }
     }
 
     private void loadDefaultAirline() throws IOException, URISyntaxException {
@@ -1453,8 +1458,11 @@ public class Controller implements Initializable {
      * @throws IOException throws IOException error
      */
     public void loadAirport() throws IOException {
-
-        menuBarController.loadAirport();
+        try {
+            menuBarController.loadAirport();
+        } catch (NullPointerException e) {
+            // Do nothing
+        }
     }
 
     private void loadDefaultAirports() throws IOException, URISyntaxException {
@@ -1572,7 +1580,11 @@ public class Controller implements Initializable {
      * @throws IOException throws IOException error
      */
     public void loadRoute() throws IOException {
-        menuBarController.loadRoute();
+        try {
+            menuBarController.loadRoute();
+        } catch (NullPointerException e) {
+            // Do nothing
+        }
     }
 
     private void loadDefaultRoute() throws IOException, URISyntaxException {
@@ -1690,7 +1702,11 @@ public class Controller implements Initializable {
      * @throws IOException throws IOException error
      */
     public void loadFlight() throws IOException {
-        menuBarController.loadFlight();
+        try {
+            menuBarController.loadFlight();
+        } catch (NullPointerException e) {
+            // Do nothing
+        }
     }
 
 

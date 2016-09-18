@@ -70,7 +70,7 @@ public class MenuBarController {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open file");
         File in = fileChooser.showOpenDialog(stage);
-        if (in.exists()) {
+        if (in != null && in.exists()) {
             InputStream file = new FileInputStream(in);
             System.out.println("file opneedd");
             goToDataTab(airlineLabel);
@@ -89,7 +89,7 @@ public class MenuBarController {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open file");
         File in = fileChooser.showOpenDialog(stage);
-        if (in.exists()) {
+        if (in != null && in.exists()) {
             InputStream file = new FileInputStream(in);
             System.out.println("file opened oh ye bb~");
             goToDataTab(airportLabel);
@@ -108,7 +108,7 @@ public class MenuBarController {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open file");
         File in = fileChooser.showOpenDialog(stage);
-        if (in.exists()) {
+        if (in != null && in.exists()) {
             InputStream file = new FileInputStream(in);
             System.out.println("file opneeeedddd");
             goToDataTab(routeLabel);
@@ -126,7 +126,7 @@ public class MenuBarController {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open file");
         File in = fileChooser.showOpenDialog(stage);
-        if (in.exists()) {
+        if (in != null && in.exists()) {
             InputStream file = new FileInputStream(in);
             System.out.println("oooo yah flights");
             // change tab to flight tab if its not on it already
