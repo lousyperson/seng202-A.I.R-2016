@@ -3,7 +3,7 @@
  */
 
 var map;
-var markerCluster;
+// var markerCluster;
 var markers = [];
 var flightPath = [];
 var bounds = new google.maps.LatLngBounds();
@@ -96,6 +96,6 @@ function showAllAirports()
     markers.push(marker);
     markerCluster = new MarkerClusterer(map, markers);
 
-};
+}
 
 
