@@ -9,7 +9,7 @@ import java.util.*;
  * Allows for the serialization and searching/filtering of airports.
  * Created by jjg64 on 15/08/16.
  */
-public class AirportRepository implements Serializable {
+public class AirportRepository extends Repository implements Serializable {
     private HashMap<Integer, Airport> airports = new HashMap<>();
     private HashMap<String, HashSet> countryAirports = new HashMap<>();
 

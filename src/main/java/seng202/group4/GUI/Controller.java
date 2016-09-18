@@ -623,6 +623,37 @@ public class Controller implements Initializable {
 
         flightTableID.setItems(flightTData);
 
+        flightTableID.setRowFactory(tableView -> {
+            final TableRow<flightTable> row = new TableRow<>();
+            final ContextMenu rowMenu = new ContextMenu();
+            MenuItem removeItem = new MenuItem("Delete");
+            row.setOnMouseClicked(event -> {
+            });
+            removeItem.setOnAction(event -> {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Confirmation Dialog");
+                alert.setHeaderText("Are you sure you want to delete?");
+                alert.setContentText("Pressing OK will delete the row(s).\nWARNING: The action cannot be undone.\n");
+
+                Optional<ButtonType> result = alert.showAndWait();
+                if (result.get() == ButtonType.OK) {
+                    ObservableList<flightTable> selectedItems = flightTableID.getSelectionModel().getSelectedItems();
+                    for (flightTable flight : selectedItems) {
+                        Repository.flightRepository.getFlights().remove(flight.getFid());
+                    }
+                    flightTData.removeAll(selectedItems);
+                    flightTableID.getSelectionModel().clearSelection();
+                }
+            });
+            rowMenu.getItems().addAll(removeItem);
+            row.contextMenuProperty().bind(
+                    Bindings.when(Bindings.isNotNull(row.itemProperty()))
+                            .then(rowMenu)
+                            .otherwise((ContextMenu) null)
+            );
+            return row;
+        });
+        
         loadDefaultFlight();
 
         // listen for route search queries

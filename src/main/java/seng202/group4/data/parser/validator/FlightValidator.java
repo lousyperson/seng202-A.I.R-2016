@@ -105,7 +105,7 @@ public class FlightValidator {
         alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");
         alert.setHeaderText("There is an error in your file on line " + lineNumber);
-        alert.setContentText(message + "\nFlight was not added.\nPlease go to help drop down for file formatting help.");
+        alert.setContentText(message + "\n\nFlight was not added.\n\nPlease go to help drop down for file formatting help.");
         alert.showAndWait();
     }
 }

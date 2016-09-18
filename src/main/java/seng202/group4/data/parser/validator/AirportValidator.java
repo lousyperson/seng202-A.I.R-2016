@@ -163,7 +163,7 @@ public class AirportValidator {
         alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");
         alert.setHeaderText("There is an error in your file on line " + lineNumber);
-        alert.setContentText(message + "\nNo airports were added.\nPlease go to help drop down for file formatting help.");
+        alert.setContentText(message + "\n\nNo airports were added.\n\nPlease go to help drop down for file formatting help.");
         alert.showAndWait();
     }
 }
