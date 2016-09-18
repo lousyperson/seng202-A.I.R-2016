@@ -681,6 +681,7 @@ public class Controller implements Initializable {
     public void calcDistance() {
         if (pointALat != null && pointALon != null &&
                 pointBLat != null && pointBLon != null) {
+
             final int R = 6371; // Radius of the earth in km
 
             Double latDistance = Math.toRadians(pointBLat - pointALat);
@@ -1374,7 +1375,7 @@ public class Controller implements Initializable {
     }
 
     private void loadDefaultAirline() throws IOException, URISyntaxException {
-        if (Repository.airlineRepository.getAirlines().size() > 0) {
+        if (Repository.airlineRepository != null) {
             loadSerializedAirline();
         } else {
             InputStream file = getClass().getResourceAsStream("/airlines.dat");
@@ -1466,7 +1467,7 @@ public class Controller implements Initializable {
     }
 
     private void loadDefaultAirports() throws IOException, URISyntaxException {
-        if (Repository.airportRepository.getAirports().size() > 0) {
+        if (Repository.airportRepository != null) {
             loadSerializedAirport();
         } else {
             InputStream file = getClass().getResourceAsStream("/airports.dat");
@@ -1604,7 +1605,7 @@ public class Controller implements Initializable {
     }
 
     private void loadDefaultRoute() throws IOException, URISyntaxException {
-        if (Repository.routeRepository.getRoutes().size() > 0) {
+        if (Repository.routeRepository != null) {
             loadSerializedRoute();
         } else {
             InputStream file = getClass().getResourceAsStream("/routes.dat");
@@ -1652,7 +1653,7 @@ public class Controller implements Initializable {
     }
 
     private void loadDefaultFlight() {
-        if (Repository.flightRepository.getFlights().size() > 0) {
+        if (Repository.flightRepository != null) {
             for (String name : Repository.flightRepository.getFlights().keySet()) {
                 flightItems.add(name);
                 flightList.setItems(flightItems);

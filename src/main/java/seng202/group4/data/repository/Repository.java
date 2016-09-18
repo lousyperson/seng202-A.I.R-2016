@@ -21,18 +21,6 @@ public class Repository implements Serializable {
      */
     public static void initRepository() {
         deserialize();
-        if (airlineRepository == null) {
-            airlineRepository = new AirlineRepository();
-        }
-        if (airportRepository == null) {
-            airportRepository = new AirportRepository();
-        }
-        if (routeRepository == null) {
-            routeRepository = new RouteRepository();
-        }
-        if (flightRepository == null) {
-            flightRepository = new FlightRepository();
-        }
     }
 
     /**
