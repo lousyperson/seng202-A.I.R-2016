@@ -104,11 +104,49 @@ public class AirlineParserTest extends ParserTest {
     public void oneValidAirlineContents() throws IOException {
         AirlineParser parser = new AirlineParser(fileArray(path + "oneValidAirline.txt"));
         ArrayList<Airline> airlines = parser.makeAirlines();
-        Airline airline = airlines.get(0);
-        boolean isEqual = airline.getID() == 324 && airline.getName().equals("All Nippon Airways") &&
-                airline.getAlias().equals("ANA All Nippon Airways") && airline.getIATA().equals("NH") &&
-                airline.getICAO().equals("ANA") && airline.getCallsign().equals("ALL NIPPON") &&
-                airline.getCountry().equals("Japan") && airline.getActive();
-        assertTrue(isEqual);
+        String airline0 = getString(airlines.get(0));
+        assertTrue(airline0.equals("324,All Nippon Airways,ANA All Nippon Airways,NH,ANA,ALL NIPPON,Japan,true"));
+    }
+
+    /**
+     * Given one valid airline, check that the content has been parsed correctly
+     * @throws IOException throws IOException error
+     */
+    @Test
+    public void twoValidAirlineContents() throws IOException {
+        AirlineParser parser = new AirlineParser(fileArray(path + "twoValidAirlines.txt"));
+        ArrayList<Airline> airlines = parser.makeAirlines();
+        String airline0 = getString(airlines.get(0));
+        String airline1 = getString(airlines.get(1));
+        assertTrue(airline0.equals("334,Alajnihah for Air Transport,null,,ANH,ALAJNIHAH,Libya,false") &&
+                airline1.equals("335,Air Atlantic (Nig) Limited,null,,ANI,NIGALANTIC,Nigeria,false"));
+    }
+
+    /**
+     * Given one valid airline, check that the content has been parsed correctly
+     * @throws IOException throws IOException error
+     */
+    @Test
+    public void threeValidAirlineContents() throws IOException {
+        AirlineParser parser = new AirlineParser(fileArray(path + "threeValidAirlines.txt"));
+        ArrayList<Airline> airlines = parser.makeAirlines();
+        String airline0 = getString(airlines.get(0));
+        String airline1 = getString(airlines.get(1));
+        String airline2 = getString(airlines.get(2));
+        assertTrue(airline0.equals("86,Airdeal Oy,null,,ADU,AIRDEAL,Finland,false") &&
+                airline1.equals("87,Advance Air Charters,null,,ADV,ADVANCE,Canada,false") &&
+                airline2.equals("88,Air Andaman,null,,ADW,AIR ANDAMAN,Thailand,false"));
+    }
+
+    /**
+     * Given one valid airline, check that the content has been parsed correctly
+     * @throws IOException throws IOException error
+     */
+    @Test
+    public void oneValidAirlineWithNullContents() throws IOException {
+        AirlineParser parser = new AirlineParser(fileArray(path + "oneValidAirlineWithNull.txt"));
+        ArrayList<Airline> airlines = parser.makeAirlines();
+        String airline0 = getString(airlines.get(0));
+        assertTrue(airline0.equals("412,Aerolineas Argentinas,null,AR,ARG,ARGENTINA,Argentina,false"));
     }
 }
