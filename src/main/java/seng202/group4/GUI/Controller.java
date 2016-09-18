@@ -1700,7 +1700,7 @@ public class Controller implements Initializable {
                         alert.setTitle("Oops!");
                         alert.setHeaderText(null);
                         alert.setContentText("Please give a different name for your flight \n" +
-                                "and make sure that it does not already exist \n in the system.");
+                                "and make sure that it does not already exist \nin the system.");
                         alert.showAndWait();
                     }
                 }
