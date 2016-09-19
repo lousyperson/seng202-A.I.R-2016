@@ -3,11 +3,13 @@ package seng202.group4.GUI;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -219,6 +221,7 @@ public class MenuBarController {
         if (result) {
             ProgressBar pb = new ProgressBar();
             ProgressIndicator pin = new ProgressIndicator();
+
             new Thread(new Runnable() {
                 @Override
                 public void run() {
@@ -234,14 +237,10 @@ public class MenuBarController {
                         }
                     }
                     Repository.serializeObject(Repository.routeRepository, "route");
-                    pb.setProgress(1);
-                    pin.setProgress(1);
+                    pb.setProgress(1.0f);
+                    pin.setProgress(1.0f);
                 }
             }).start();
-
-            Label labels = new Label();
-
-            HBox hbs = new HBox();
 
             Stage stage = new Stage();
             Group root = new Group();
@@ -249,18 +248,23 @@ public class MenuBarController {
             stage.setScene(scene);
             stage.setTitle("Progress Controls");
 
-            final Label label = labels[i] = new Label();
-            label.setText("progress: ");
+            Label label = new Label();
+            label.setText("loading: ");
 
-            final ProgressBar pb = pbs[i] = new ProgressBar();
-            pb.setProgress(values[i]);
+            pb.setProgress(ProgressIndicator.INDETERMINATE_PROGRESS);
 
-            final ProgressIndicator pin = pins[i] = new ProgressIndicator();
-            pin.setProgress(values[i]);
-            final HBox hb = hbs[i] = new HBox();
+            pin.setProgress(ProgressIndicator.INDETERMINATE_PROGRESS);
+            HBox hb = new HBox();
             hb.setSpacing(5);
             hb.setAlignment(Pos.CENTER);
             hb.getChildren().addAll(label, pb, pin);
+
+            VBox vb = new VBox();
+            vb.setSpacing(5);
+            vb.getChildren().addAll(hb);
+            scene.setRoot(vb);
+            stage.show();
+
         }
     }
 
