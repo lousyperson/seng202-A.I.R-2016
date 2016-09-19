@@ -1,10 +1,13 @@
 package seng202.group4.GUI;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.HBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -214,14 +217,50 @@ public class MenuBarController {
     public void resetRoute() throws IOException {
         boolean result = resetConformation();
         if (result) {
-            mainController.clearRouteTable();
-            Repository.routeRepository = new RouteRepository();
-            InputStream file = getClass().getResourceAsStream("/routes.dat");
-            //File file = new File(getClass().getClassLoader().getResource("airlines.dat").toURI());
-            if (file != null) {
-                mainController.insertRouteTable(file);
-            }
-            Repository.serializeObject(Repository.routeRepository, "route");
+            ProgressBar pb = new ProgressBar();
+            ProgressIndicator pin = new ProgressIndicator();
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    mainController.clearRouteTable();
+                    Repository.routeRepository = new RouteRepository();
+                    InputStream file = getClass().getResourceAsStream("/routes.dat");
+                    //File file = new File(getClass().getClassLoader().getResource("airlines.dat").toURI());
+                    if (file != null) {
+                        try {
+                            mainController.insertRouteTable(file);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    Repository.serializeObject(Repository.routeRepository, "route");
+                    pb.setProgress(1);
+                    pin.setProgress(1);
+                }
+            }).start();
+
+            Label labels = new Label();
+
+            HBox hbs = new HBox();
+
+            Stage stage = new Stage();
+            Group root = new Group();
+            Scene scene = new Scene(root, 300, 150);
+            stage.setScene(scene);
+            stage.setTitle("Progress Controls");
+
+            final Label label = labels[i] = new Label();
+            label.setText("progress: ");
+
+            final ProgressBar pb = pbs[i] = new ProgressBar();
+            pb.setProgress(values[i]);
+
+            final ProgressIndicator pin = pins[i] = new ProgressIndicator();
+            pin.setProgress(values[i]);
+            final HBox hb = hbs[i] = new HBox();
+            hb.setSpacing(5);
+            hb.setAlignment(Pos.CENTER);
+            hb.getChildren().addAll(label, pb, pin);
         }
     }
 
