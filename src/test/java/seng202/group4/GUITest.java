@@ -21,19 +21,19 @@ public class GUITest extends Application{
      */
     @Override
     public void start(Stage primaryStage) throws Exception{
-        FXMLLoader loader = new FXMLLoader();
-        Parent root = loader.load(getClass().getClassLoader().getResource("GUI.fxml").openStream());
+//        FXMLLoader loader = new FXMLLoader();
+//        Parent root = loader.load(getClass().getClassLoader().getResource("GUI.fxml").openStream());
 //        Parent root = FXMLLoader.load(getClass().getResource("GUI.fxml"));
         //Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("../GUI.fxml"));
-        primaryStage.setTitle("Aviation Information Reader");
-        primaryStage.setScene(new Scene(root, 600, 775));
-        primaryStage.show();
+//        primaryStage.setTitle("Aviation Information Reader");
+//        primaryStage.setScene(new Scene(root, 600, 775));
+//        primaryStage.show();
         test();
     }
 
     private void test() throws IOException {
-        //testAirline();
-        //testRoute();
+        testAirline();
+        testRoute();
         testAirport();
     }
 

@@ -1,3 +1,4 @@
 Manifest-Version: 1.0
+Class-Path: junit-4.12.jar hamcrest-core-1.3.jar gson-2.5.jar
 Main-Class: seng202.group4.App
 
