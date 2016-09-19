@@ -1,6 +1,7 @@
 package seng202.group4.GUI;
 
 import javafx.application.Platform;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
@@ -218,13 +219,19 @@ public class MenuBarController {
      */
     public void resetRoute() throws IOException {
         boolean result = resetConformation();
+//        boolean done = false;
+
         if (result) {
             ProgressBar pb = new ProgressBar();
             ProgressIndicator pin = new ProgressIndicator();
+            Button toClose = new Button();
+            toClose.setText("Click me!");
+            toClose.setVisible(false);
 
-            new Thread(new Runnable() {
+            Task<Void> task = new Task<Void>() {
                 @Override
-                public void run() {
+                public Void call() {
+                    // process long-running computation, data retrieval, etc...
                     mainController.clearRouteTable();
                     Repository.routeRepository = new RouteRepository();
                     InputStream file = getClass().getResourceAsStream("/routes.dat");
@@ -237,10 +244,17 @@ public class MenuBarController {
                         }
                     }
                     Repository.serializeObject(Repository.routeRepository, "route");
-                    pb.setProgress(1.0f);
-                    pin.setProgress(1.0f);
+                    return null;
                 }
-            }).start();
+            };
+
+            task.setOnSucceeded(e -> {
+                pb.setProgress(1.0f);
+                pin.setProgress(1.0f);
+                toClose.setVisible(true);
+            });
+
+            new Thread(task).start();
 
             Stage stage = new Stage();
             Group root = new Group();
@@ -260,11 +274,14 @@ public class MenuBarController {
             hb.getChildren().addAll(label, pb, pin);
 
             VBox vb = new VBox();
+
             vb.setSpacing(5);
-            vb.getChildren().addAll(hb);
+            vb.getChildren().addAll(hb, toClose);
             scene.setRoot(vb);
             stage.show();
-
+            toClose.setOnAction( event ->
+                    stage.close()
+            );
         }
     }
 
