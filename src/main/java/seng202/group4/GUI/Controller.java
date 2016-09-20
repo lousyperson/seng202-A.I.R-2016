@@ -1,6 +1,10 @@
 package seng202.group4.GUI;
 
 
+import com.mashape.unirest.http.HttpResponse;
+import com.mashape.unirest.http.JsonNode;
+import com.mashape.unirest.http.Unirest;
+import com.mashape.unirest.http.exceptions.UnirestException;
 import javafx.beans.binding.Bindings;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -303,6 +307,8 @@ public class Controller implements Initializable {
     private Double pointALon;
     private Double pointBLat;
     private Double pointBLon;
+    private String pointAICAO;
+    private String pointBICAO;
 
 
     public String getAirlineLabel() {
@@ -520,11 +526,13 @@ public class Controller implements Initializable {
                 airportA.setText(row.getItem().getAtname());
                 pointALat = row.getItem().getAtlatitude();
                 pointALon = row.getItem().getAtlongitude();
+                pointAICAO = row.getItem().getAticao();
             });
             addB.setOnAction(event -> {
                 airportB.setText(row.getItem().getAtname());
                 pointBLat = row.getItem().getAtlatitude();
                 pointBLon = row.getItem().getAtlongitude();
+                pointBICAO = row.getItem().getAticao();
             });
             removeItem.setOnAction(event -> {
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -1832,5 +1840,21 @@ public class Controller implements Initializable {
     public void refreshMap() {
         flightMap.getEngine().load(getClass().getClassLoader().getResource("map.html").toExternalForm());
         flightList.getSelectionModel().clearSelection();
+    }
+
+    public void getFlightPath() throws UnirestException, IOException {
+        HttpResponse<JsonNode> getID = Unirest.get("https://api.flightplandatabase.com/search/plans?fromICAO="+pointAICAO+"&toICAO="+pointBICAO+"&limit=1")
+                .asJson();
+//        HttpResponse<JsonNode> getID = Unirest.get("https://api.flightplandatabase.com/search/plans?fromICAO="+"something"+"&toICAO="+pointBICAO+"&limit=1")
+//                .asJson();
+//        System.out.println(getID.getBody());
+        Integer id = getID.getBody().getArray().getJSONObject(0).getInt("id");
+        String id2 = Integer.toString(id);
+//        System.out.println(id2);
+//        System.out.println("https://api.flightplandatabase.com/plan/"+id2);
+//
+        String something = Unirest.get("https://api.flightplandatabase.com/plan/"+id2).header("Accept", "text/csv").asString().getBody();
+//        System.out.println(something);
+        menuBarController.loadFlight2(something);
     }
 }

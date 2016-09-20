@@ -21,11 +21,9 @@ import seng202.group4.data.repository.AirportRepository;
 import seng202.group4.data.repository.Repository;
 import seng202.group4.data.repository.RouteRepository;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.net.URISyntaxException;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Optional;
 
@@ -145,6 +143,11 @@ public class MenuBarController {
             }
             mainController.insertFlightTable(file);
         }
+    }
+
+    public void loadFlight2(String someCSV) throws IOException {
+        InputStream file = new ByteArrayInputStream(someCSV.getBytes(StandardCharsets.UTF_8));
+        mainController.insertFlightTable(file);
     }
 
     /**

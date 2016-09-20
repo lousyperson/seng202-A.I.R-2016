@@ -149,6 +149,7 @@
                                     <Text layoutX="24.0" layoutY="192.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Right-click on an airport to" />
                                     <Text layoutX="37.0" layoutY="210.0" strokeType="OUTSIDE" strokeWidth="0.0" text=" add as Airport A or B." />
                                     <Button alignment="TOP_CENTER" contentDisplay="CENTER" layoutX="37.0" layoutY="470.0" mnemonicParsing="false" onAction="#loadAirport" prefHeight="25.0" prefWidth="146.0" text="Import Airport" />
+                                    <Button layoutX="10.0" layoutY="430.0" mnemonicParsing="false" onAction="#getFlightPath" text="Get flight path from internet" />
                                             </children>
                                         </AnchorPane>
                                     </children>
