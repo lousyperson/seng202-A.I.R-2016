@@ -1724,6 +1724,7 @@ public class Controller implements Initializable {
             }
 
         }
+        tabPane.getSelectionModel().select(1);
     }
 
     // update flight table view given the flight name
@@ -1845,16 +1846,32 @@ public class Controller implements Initializable {
     public void getFlightPath() throws UnirestException, IOException {
         HttpResponse<JsonNode> getID = Unirest.get("https://api.flightplandatabase.com/search/plans?fromICAO="+pointAICAO+"&toICAO="+pointBICAO+"&limit=1")
                 .asJson();
-//        HttpResponse<JsonNode> getID = Unirest.get("https://api.flightplandatabase.com/search/plans?fromICAO="+"something"+"&toICAO="+pointBICAO+"&limit=1")
-//                .asJson();
-//        System.out.println(getID.getBody());
-        Integer id = getID.getBody().getArray().getJSONObject(0).getInt("id");
-        String id2 = Integer.toString(id);
-//        System.out.println(id2);
-//        System.out.println("https://api.flightplandatabase.com/plan/"+id2);
-//
-        String something = Unirest.get("https://api.flightplandatabase.com/plan/"+id2).header("Accept", "text/csv").asString().getBody();
-//        System.out.println(something);
-        menuBarController.loadFlight2(something);
+
+        try {
+            Integer id = getID.getBody().getArray().getJSONObject(0).getInt("id");
+            String id2 = Integer.toString(id);
+
+            String something = Unirest.get("https://api.flightplandatabase.com/plan/"+id2).header("Accept", "text/csv").asString().getBody();
+
+            if (!something.contains("Bad Request")) {
+                menuBarController.loadFlight2(something);
+            }
+            else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error Dialog");
+                alert.setHeaderText("Look, an Error Dialog");
+                alert.setContentText("There is no flight path from " + pointAICAO + " to " + pointBICAO + "\nat FlightPlanDatabase.com.");
+
+                alert.showAndWait();
+            }
+
+        } catch (Exception ex) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error Dialog");
+            alert.setHeaderText("Look, an Error Dialog");
+            alert.setContentText("There is no flight path from " + pointAICAO + " to " + pointBICAO + "\nat FlightPlanDatabase.com.");
+
+            alert.showAndWait();
+        }
     }
 }
