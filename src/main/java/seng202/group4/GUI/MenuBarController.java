@@ -4,6 +4,7 @@ import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Parent;
@@ -11,6 +12,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.layout.VBoxBuilder;
+import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -225,10 +228,14 @@ public class MenuBarController {
 //        boolean done = false;
 
         if (result) {
+            Label label = new Label();
+            label.setText("loading: ");
             ProgressBar pb = new ProgressBar();
             ProgressIndicator pin = new ProgressIndicator();
+            Text text = new Text();
+            text.setText("\nThis action might take longer usual.\nPlease wait :)\n");
             Button toClose = new Button();
-            toClose.setText("Click me!");
+            toClose.setText("Click to close!");
             toClose.setVisible(false);
 
             Task<Void> task = new Task<Void>() {
@@ -259,15 +266,6 @@ public class MenuBarController {
 
             new Thread(task).start();
 
-            Stage stage = new Stage();
-            Group root = new Group();
-            Scene scene = new Scene(root, 300, 150);
-            stage.setScene(scene);
-            stage.setTitle("Progress Controls");
-
-            Label label = new Label();
-            label.setText("loading: ");
-
             pb.setProgress(ProgressIndicator.INDETERMINATE_PROGRESS);
 
             pin.setProgress(ProgressIndicator.INDETERMINATE_PROGRESS);
@@ -276,11 +274,15 @@ public class MenuBarController {
             hb.setAlignment(Pos.CENTER);
             hb.getChildren().addAll(label, pb, pin);
 
-            VBox vb = new VBox();
+            Stage stage = new Stage();
+            Scene scene = new Scene(VBoxBuilder.create()
+                    .children(hb, text, toClose)
+                    .alignment(Pos.CENTER)
+                    .padding(new Insets(10))
+                    .build(), 300, 170);
+            stage.setScene(scene);
+            stage.setTitle("Progress Controls");
 
-            vb.setSpacing(5);
-            vb.getChildren().addAll(hb, toClose);
-            scene.setRoot(vb);
             stage.show();
             toClose.setOnAction( event ->
                     stage.close()
