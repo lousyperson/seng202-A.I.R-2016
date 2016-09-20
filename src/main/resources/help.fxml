@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TitledPane?>
@@ -9,7 +13,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Text?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="743.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="743.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
   </columnConstraints>
@@ -29,7 +33,7 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TextArea prefHeight="254.0" prefWidth="741.0" text="Once the application is open, default airport, airline and route data is pre-loaded onto the tables. &#10;&#10;The default data is taken from Information from http://openflights.org/data.html.&#10;" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <TextArea editable="false" prefHeight="254.0" prefWidth="741.0" text="Once the application is open, default airport, airline and route data is pre-loaded onto the tables. &#10;&#10;The default data is taken from Information from http://openflights.org/data.html.&#10;" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                      </children>
                   </AnchorPane>
                </content>
@@ -38,7 +42,7 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TextArea prefHeight="254.0" prefWidth="741.0" text="To import a file select File &gt;&gt; Import then select the data type you want to import. &#10;A file selection window should appear then select the data file you want and press OK. The file must be in a csv format. &#10;&#10;An example line for airline data:&#10;413,&quot;Arrowhead Airways&quot;,\N,&quot;&quot;,&quot;ARH&quot;,&quot;ARROWHEAD&quot;,&quot;United States&quot;,&quot;N&quot;&#10;&#10;An example line for airport data:&#10;3127,&quot;Pokhara&quot;,&quot;Pokhara&quot;,&quot;Nepal&quot;,&quot;PKR&quot;,&quot;VNPK&quot;,28.208,83.982,2712,5.75,&quot;N&quot;,&quot;Asia/Katmandu&#10;&#10;An example line for route data:&#10;BA,1355,SIN,3316,MEL,3339,Y,0,744&#10;&#10;An example line for flight data:&#10;APT,NZCH,0,-43.48664019,172.53368221" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <TextArea editable="false" prefHeight="254.0" prefWidth="741.0" text="To import a file select File &gt;&gt; Import then select the data type you want to import. &#10;A file selection window should appear then select the data file you want and press OK. The file must be in a csv format. &#10;&#10;An example line for airline data:&#10;413,&quot;Arrowhead Airways&quot;,\N,&quot;&quot;,&quot;ARH&quot;,&quot;ARROWHEAD&quot;,&quot;United States&quot;,&quot;N&quot;&#10;&#10;An example line for airport data:&#10;3127,&quot;Pokhara&quot;,&quot;Pokhara&quot;,&quot;Nepal&quot;,&quot;PKR&quot;,&quot;VNPK&quot;,28.208,83.982,2712,5.75,&quot;N&quot;,&quot;Asia/Katmandu&#10;&#10;An example line for route data:&#10;BA,1355,SIN,3316,MEL,3339,Y,0,744&#10;&#10;An example line for flight data:&#10;APT,NZCH,0,-43.48664019,172.53368221" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                      </children></AnchorPane>
             </content>
           </TitledPane>
@@ -46,7 +50,7 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TextArea prefHeight="254.0" prefWidth="741.0" text="Airline ID - Unique OpenFlights identifier for this airline.&#10;Name - Name of the airline.&#10;Alias - Alias of the airline. For example, All Nippon Airways is commonly known as &quot;ANA&quot;.&#10;IATA - 2-letter IATA code, if available.&#10;ICAO - 3-letter ICAO code, if available.&#10;Callsign - Airline callsign.&#10;Country - Country or territory where airline is incorporated.&#10;Active - &quot;Y&quot; if the airline is or has until recently been operational, &quot;N&quot; if it is defunct. This field is not reliable: in particular, major airlines that stopped flying long ago, but have not had their IATA code reassigned (eg. Ansett/AN), will incorrectly show as &quot;Y&quot;.&#10;&#10;Eg: 413,&quot;Arrowhead Airways&quot;,\N,&quot;&quot;,&quot;ARH&quot;,&quot;ARROWHEAD&quot;,&quot;United States&quot;,&#10;&#10;Information from http://openflights.org/data.html." wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <TextArea editable="false" prefHeight="254.0" prefWidth="741.0" text="Airline ID - Unique OpenFlights identifier for this airline.&#10;Name - Name of the airline.&#10;Alias - Alias of the airline. For example, All Nippon Airways is commonly known as &quot;ANA&quot;.&#10;IATA - 2-letter IATA code, if available.&#10;ICAO - 3-letter ICAO code, if available.&#10;Callsign - Airline callsign.&#10;Country - Country or territory where airline is incorporated.&#10;Active - &quot;Y&quot; if the airline is or has until recently been operational, &quot;N&quot; if it is defunct. This field is not reliable: in particular, major airlines that stopped flying long ago, but have not had their IATA code reassigned (eg. Ansett/AN), will incorrectly show as &quot;Y&quot;.&#10;&#10;Eg: 413,&quot;Arrowhead Airways&quot;,\N,&quot;&quot;,&quot;ARH&quot;,&quot;ARROWHEAD&quot;,&quot;United States&quot;,&#10;&#10;Information from http://openflights.org/data.html." wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                      </children></AnchorPane>
             </content>
           </TitledPane>
@@ -54,7 +58,7 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TextArea prefHeight="229.0" prefWidth="741.0" text="Airport ID - Unique OpenFlights identifier for this airport.&#10;Name - Name of airport. May or may not contain the City name.&#10;City - Main city served by airport. May be spelled differently from Name.&#10;Country - Country or territory where airport is located.&#10;IATA/FAA - 3-letter FAA code for airports located in USA, 3-letter IATA code for all other airports.&#10;ICAO - 4-letter ICAO code.&#10;Latitude - Decimal degrees, usually to six significant digits. Negative is South, positive is North.&#10;Longitude - Decimal degrees, usually to six significant digits. Negative is West, positive is East.&#10;Altitude - In feet.&#10;Timezone - Hours offset from UTC. Fractional hours are expressed as decimals, eg. India is 5.5.&#10;DST - Daylight savings time. One of E (Europe), A (US/Canada), S (South America), O (Australia), Z (New Zealand), N (None) or U (Unknown)&#10;Tz database time zone - Timezone in &quot;tz&quot; (Olson) format, eg. &quot;America/Los_Angeles&quot;.&#10;&#10;Eg. 3127,&quot;Pokhara&quot;,&quot;Pokhara&quot;,&quot;Nepal&quot;,&quot;PKR&quot;,&quot;VNPK&quot;,28.208,83.982,2712,5.75,&quot;N&quot;,&quot;Asia/Katmandu&quot;&#10;&#10;Information from http://openflights.org/data.html." wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <TextArea editable="false" prefHeight="229.0" prefWidth="741.0" text="Airport ID - Unique OpenFlights identifier for this airport.&#10;Name - Name of airport. May or may not contain the City name.&#10;City - Main city served by airport. May be spelled differently from Name.&#10;Country - Country or territory where airport is located.&#10;IATA/FAA - 3-letter FAA code for airports located in USA, 3-letter IATA code for all other airports.&#10;ICAO - 4-letter ICAO code.&#10;Latitude - Decimal degrees, usually to six significant digits. Negative is South, positive is North.&#10;Longitude - Decimal degrees, usually to six significant digits. Negative is West, positive is East.&#10;Altitude - In feet.&#10;Timezone - Hours offset from UTC. Fractional hours are expressed as decimals, eg. India is 5.5.&#10;DST - Daylight savings time. One of E (Europe), A (US/Canada), S (South America), O (Australia), Z (New Zealand), N (None) or U (Unknown)&#10;Tz database time zone - Timezone in &quot;tz&quot; (Olson) format, eg. &quot;America/Los_Angeles&quot;.&#10;&#10;Eg. 3127,&quot;Pokhara&quot;,&quot;Pokhara&quot;,&quot;Nepal&quot;,&quot;PKR&quot;,&quot;VNPK&quot;,28.208,83.982,2712,5.75,&quot;N&quot;,&quot;Asia/Katmandu&quot;&#10;&#10;Information from http://openflights.org/data.html." wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                      </children>
                   </AnchorPane>
                </content>
@@ -63,7 +67,7 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TextArea prefHeight="254.0" prefWidth="741.0" text="Airline - 2-letter (IATA) or 3-letter (ICAO) code of the airline.&#10;Airline ID - Unique OpenFlights identifier for airline (see Airline).&#10;Source airport - 3-letter (IATA) or 4-letter (ICAO) code of the source airport.&#10;Source airport ID - Unique OpenFlights identifier for source airport (see Airport)&#10;Destination airport - 3-letter (IATA) or 4-letter (ICAO) code of the destination airport.&#10;Destination airport ID - Unique OpenFlights identifier for destination airport (see Airport)&#10;Codeshare - &quot;Y&quot; if this flight is a codeshare (that is, not operated by Airline, but another carrier), or empty&#10;Stops - Number of stops on this flight (&quot;0&quot; for direct)&#10;Equipment - 3-letter codes for plane type(s) generally used on this flight, separated by spaces&#10;&#10;Eg. BA,1355,SIN,3316,MEL,3339,Y,0,744&#10;&#10;Information from http://openflights.org/data.html." wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <TextArea editable="false" prefHeight="254.0" prefWidth="741.0" text="Airline - 2-letter (IATA) or 3-letter (ICAO) code of the airline.&#10;Airline ID - Unique OpenFlights identifier for airline (see Airline).&#10;Source airport - 3-letter (IATA) or 4-letter (ICAO) code of the source airport.&#10;Source airport ID - Unique OpenFlights identifier for source airport (see Airport)&#10;Destination airport - 3-letter (IATA) or 4-letter (ICAO) code of the destination airport.&#10;Destination airport ID - Unique OpenFlights identifier for destination airport (see Airport)&#10;Codeshare - &quot;Y&quot; if this flight is a codeshare (that is, not operated by Airline, but another carrier), or empty&#10;Stops - Number of stops on this flight (&quot;0&quot; for direct)&#10;Equipment - 3-letter codes for plane type(s) generally used on this flight, separated by spaces&#10;&#10;Eg. BA,1355,SIN,3316,MEL,3339,Y,0,744&#10;&#10;Information from http://openflights.org/data.html." wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                      </children>
                   </AnchorPane>
                </content>
@@ -72,7 +76,7 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TextArea prefHeight="254.0" prefWidth="741.0" text="Type - 3-letter code, first and last entries must be type APT (airport)&#10;ID - Up to 5 letters identifying a point in the sky&#10;Altitude - Integer number&#10;Longitude - Floating point number, may be positive or negative&#10;Latitude - Floating point number, may be positive or negative&#10;&#10;Eg. APT,NZCH,0,-43.48664019,172.53368221&#10;&#10;Example information from https://flightplandatabase.com" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <TextArea editable="false" prefHeight="254.0" prefWidth="741.0" text="Type - 3-letter code, first and last entries must be type APT (airport)&#10;ID - Up to 5 letters identifying a point in the sky&#10;Altitude - Integer number&#10;Longitude - Floating point number, may be positive or negative&#10;Latitude - Floating point number, may be positive or negative&#10;&#10;Eg. APT,NZCH,0,-43.48664019,172.53368221&#10;&#10;Example information from https://flightplandatabase.com" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                      </children>
                   </AnchorPane>
                </content>
@@ -81,7 +85,7 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TextArea layoutX="17.0" layoutY="45.0" prefHeight="261.0" prefWidth="598.0" text="Search is not case-sensitive, and you may search for any alphanumeric characters. You may search and filter at the same time.&#10;&#10;From Data View, results will be returned if any column in that row matches your search, either partially or totally.&#10;&#10;From Flight View, you must have first imported flights in order to search for them." wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <TextArea editable="false" layoutX="17.0" layoutY="45.0" prefHeight="261.0" prefWidth="598.0" text="Search is not case-sensitive, and you may search for any alphanumeric characters. You may search and filter at the same time.&#10;&#10;From Data View, results will be returned if any column in that row matches your search, either partially or totally.&#10;&#10;From Flight View, you must have first imported flights in order to search for them." wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                      </children>
                   </AnchorPane>
             </content>
@@ -90,7 +94,7 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TextArea layoutX="17.0" layoutY="45.0" prefHeight="261.0" prefWidth="598.0" text="Right click the entry you want to delete, select delete, then select OK in the confirmation window. Deletions cannot be undone, so be careful what you delete.&#10;" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <TextArea editable="false" layoutX="17.0" layoutY="45.0" prefHeight="261.0" prefWidth="598.0" text="Right click the entry you want to delete, select delete, then select OK in the confirmation window. Deletions cannot be undone, so be careful what you delete.&#10;" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                      </children>
                   </AnchorPane>
                </content>
@@ -99,7 +103,7 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TextArea layoutX="17.0" layoutY="45.0" prefHeight="261.0" prefWidth="598.0" text="From the Airport table, right click a row and select “Add to airport A” then right click another row and select “Add to airport B”. Then press the button “Calculate Distance” in the left-hand column. Distances are in kilometres and are formatted to 2 decimal places." wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <TextArea editable="false" layoutX="17.0" layoutY="45.0" prefHeight="261.0" prefWidth="598.0" text="From the Airport table, right click a row and select “Add to airport A” then right click another row and select “Add to airport B”. Then press the button “Calculate Distance” in the left-hand column. Distances are in kilometres and are formatted to 2 decimal places." wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                      </children>
                   </AnchorPane>
                </content>
@@ -108,7 +112,7 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TextArea layoutX="17.0" layoutY="45.0" prefHeight="261.0" prefWidth="598.0" text="Use the arrow keys to move, and the mouse scroll wheel to change the zoom level." wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <TextArea editable="false" layoutX="17.0" layoutY="45.0" prefHeight="261.0" prefWidth="598.0" text="Use the arrow keys to move, and the mouse scroll wheel to change the zoom level." wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                      </children>
                   </AnchorPane>
                </content>
@@ -117,7 +121,7 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TextArea layoutX="17.0" layoutY="45.0" prefHeight="261.0" prefWidth="598.0" text="On the very right upper corner on the airline, airport and route table there is a small + sign. By clicking that you have the option to select which columns you want to show/hide." wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <TextArea editable="false" layoutX="17.0" layoutY="45.0" prefHeight="261.0" prefWidth="598.0" text="On the very right upper corner on the airline, airport and route table there is a small + sign. By clicking that you have the option to select which columns you want to show/hide." wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                      </children>
                   </AnchorPane>
                </content>

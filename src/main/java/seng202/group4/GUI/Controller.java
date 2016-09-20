@@ -1828,4 +1828,9 @@ public class Controller implements Initializable {
         warning.setContentText(context);
         warning.showAndWait();
     }
+
+    public void refreshMap() {
+        flightMap.getEngine().load(getClass().getClassLoader().getResource("map.html").toExternalForm());
+        flightList.getSelectionModel().clearSelection();
+    }
 }
