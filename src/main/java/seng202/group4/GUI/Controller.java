@@ -12,6 +12,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 
+import javafx.concurrent.Task;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -1843,20 +1844,28 @@ public class Controller implements Initializable {
         flightList.getSelectionModel().clearSelection();
     }
 
-    public void getFlightPath() throws UnirestException, IOException {
-        HttpResponse<JsonNode> getID = Unirest.get("https://api.flightplandatabase.com/search/plans?fromICAO="+pointAICAO+"&toICAO="+pointBICAO+"&limit=1")
-                .asJson();
+    public void getFlightPath() throws UnirestException, IOException, InterruptedException {
+        if (!(pointAICAO == null) && !(pointBICAO == null)) {
+            HttpResponse<JsonNode> getID = Unirest.get("https://api.flightplandatabase.com/search/plans?fromICAO=" + pointAICAO + "&toICAO=" + pointBICAO + "&limit=1")
+                    .asJson();
+            try {
+                Integer id = getID.getBody().getArray().getJSONObject(0).getInt("id");
+                String id2 = Integer.toString(id);
 
-        try {
-            Integer id = getID.getBody().getArray().getJSONObject(0).getInt("id");
-            String id2 = Integer.toString(id);
+                String something = Unirest.get("https://api.flightplandatabase.com/plan/" + id2).header("Accept", "text/csv").asString().getBody();
 
-            String something = Unirest.get("https://api.flightplandatabase.com/plan/"+id2).header("Accept", "text/csv").asString().getBody();
+                if (!something.contains("Bad Request")) {
+                    menuBarController.loadFlight2(something);
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Error Dialog");
+                    alert.setHeaderText("Look, an Error Dialog");
+                    alert.setContentText("There is no flight path from " + pointAICAO + " to " + pointBICAO + "\nat FlightPlanDatabase.com.");
 
-            if (!something.contains("Bad Request")) {
-                menuBarController.loadFlight2(something);
-            }
-            else {
+                    alert.showAndWait();
+                }
+
+            } catch (Exception ex) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error Dialog");
                 alert.setHeaderText("Look, an Error Dialog");
@@ -1864,14 +1873,34 @@ public class Controller implements Initializable {
 
                 alert.showAndWait();
             }
-
-        } catch (Exception ex) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error Dialog");
-            alert.setHeaderText("Look, an Error Dialog");
-            alert.setContentText("There is no flight path from " + pointAICAO + " to " + pointBICAO + "\nat FlightPlanDatabase.com.");
-
-            alert.showAndWait();
+        } else if (!(pointAICAO == null) || !(pointBICAO == null)) {
+            if (!(pointAICAO == null)) {
+                popUpMap(pointALat, pointALon);
+            } else if (!(pointBICAO == null)) {
+                popUpMap(pointBLat, pointBLon);
+            }
         }
+    }
+
+    private void popUpMap(Double lat, Double lon) throws InterruptedException {
+        Stage stage = new Stage();
+        stage.setTitle("Map View");
+        WebView webView = new WebView();
+        Scene scene = new Scene(webView);
+
+        webView.getEngine().load(getClass().getClassLoader().getResource("map.html").toExternalForm());
+        stage.setScene(scene);
+        stage.show();
+        Task<Void> task = new Task<Void>() {
+            @Override
+            public Void call() throws InterruptedException {
+                // process long-running computation, data retrieval, etc...
+                Thread.sleep(5000);
+                webView.getEngine().executeScript("addFlight(" + lat + ", " + lon + ");");
+                System.out.println("something");
+                return null;
+            }
+        };
+        new Thread(task).start();
     }
 }
