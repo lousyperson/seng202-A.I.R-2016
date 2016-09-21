@@ -1855,7 +1855,15 @@ public class Controller implements Initializable {
                 String something = Unirest.get("https://api.flightplandatabase.com/plan/" + id2).header("Accept", "text/csv").asString().getBody();
 
                 if (!something.contains("Bad Request")) {
-                    menuBarController.loadFlight2(something);
+                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                    alert.setTitle("Confirmation Dialog");
+                    alert.setHeaderText("Flight plan found!");
+                    alert.setContentText("There was a matching plan (id: " + id2 + ")\nfrom FlightPlanDatabase.com.\n\nPress OK to load.");
+
+                    Optional<ButtonType> result = alert.showAndWait();
+                    if (result.get() == ButtonType.OK) {
+                        menuBarController.loadFlight2(something);
+                    }
                 } else {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Error Dialog");
@@ -1869,38 +1877,49 @@ public class Controller implements Initializable {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error Dialog");
                 alert.setHeaderText("Look, an Error Dialog");
-                alert.setContentText("There is no flight path from " + pointAICAO + " to " + pointBICAO + "\nat FlightPlanDatabase.com.");
+                alert.setContentText("There is no flight plan found on\nFlightPlanDatabase.com." +
+                        "\n\nPress OK to load a simple path.\nPress CANCEL to return to airport table.");
 
-                alert.showAndWait();
+                ButtonType buttonTypeOne = new ButtonType("OK");
+                ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+
+                alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeCancel);
+                Optional<ButtonType> result = alert.showAndWait();
+                if (result.get() == buttonTypeOne){
+                    String makeCSV = "APT,"+pointAICAO+",0,"+pointALat+","+pointALon+"\n" +
+                            "APT,"+pointBICAO+",0,"+pointBLat+","+pointBLon;
+                    menuBarController.loadFlight2(makeCSV);
+                }
             }
-        } else if (!(pointAICAO == null) || !(pointBICAO == null)) {
-            if (!(pointAICAO == null)) {
-                popUpMap(pointALat, pointALon);
-            } else if (!(pointBICAO == null)) {
-                popUpMap(pointBLat, pointBLon);
-            }
+        } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Warning Dialog");
+            alert.setHeaderText("Woops");
+            alert.setContentText("Please select Airport A and Airport B\nbefore continuing.");
+
+            alert.showAndWait();
         }
     }
 
-    private void popUpMap(Double lat, Double lon) throws InterruptedException {
-        Stage stage = new Stage();
-        stage.setTitle("Map View");
-        WebView webView = new WebView();
-        Scene scene = new Scene(webView);
-
-        webView.getEngine().load(getClass().getClassLoader().getResource("map.html").toExternalForm());
-        stage.setScene(scene);
-        stage.show();
-        Task<Void> task = new Task<Void>() {
-            @Override
-            public Void call() throws InterruptedException {
-                // process long-running computation, data retrieval, etc...
-                Thread.sleep(5000);
-                webView.getEngine().executeScript("addFlight(" + lat + ", " + lon + ");");
-                System.out.println("something");
-                return null;
-            }
-        };
-        new Thread(task).start();
-    }
+//    private void popUpMap(Double lat, Double lon) throws InterruptedException {
+//        Stage stage = new Stage();
+//        stage.setTitle("Map View");
+//        WebView webView = new WebView();
+//        Scene scene = new Scene(webView);
+//
+//        webView.getEngine().load(getClass().getClassLoader().getResource("map.html").toExternalForm());
+//        stage.setScene(scene);
+//        stage.show();
+//        Task<Void> task = new Task<Void>() {
+//            @Override
+//            public Void call() throws InterruptedException {
+//                // process long-running computation, data retrieval, etc...
+//                Thread.sleep(5000);
+//                webView.getEngine().executeScript("addFlight(" + lat + ", " + lon + ");");
+//                System.out.println("something");
+//                return null;
+//            }
+//        };
+//        new Thread(task).start();
+//    }
 }
