@@ -1858,10 +1858,21 @@ public class Controller implements Initializable {
                     Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                     alert.setTitle("Confirmation Dialog");
                     alert.setHeaderText("Flight plan found!");
-                    alert.setContentText("There was a matching plan (id: " + id2 + ")\nfrom FlightPlanDatabase.com.\n\nPress OK to load.");
+                    alert.setContentText("There was a matching plan (id: " + id2 + ")\nfrom FlightPlanDatabase.com." +
+                            "\n\nPress 'Simple path' to load point-to-point path." +
+                            "\nPress 'Online path' to load plan "+id2+".");
 
+                    ButtonType buttonTypeOne = new ButtonType("Simple path");
+                    ButtonType buttonTypeTwo = new ButtonType("Online path");
+                    ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+
+                    alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo, buttonTypeCancel);
                     Optional<ButtonType> result = alert.showAndWait();
-                    if (result.get() == ButtonType.OK) {
+                    if (result.get() == buttonTypeOne){
+                        String makeCSV = "APT,"+pointAICAO+",0,"+pointALat+","+pointALon+"\n" +
+                                "APT,"+pointBICAO+",0,"+pointBLat+","+pointBLon;
+                        menuBarController.loadFlight2(makeCSV);
+                    } else if (result.get() == buttonTypeTwo) {
                         menuBarController.loadFlight2(something);
                     }
                 } else {
