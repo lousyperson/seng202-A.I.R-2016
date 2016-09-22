@@ -1887,9 +1887,8 @@ public class Controller implements Initializable {
             } catch (Exception ex) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error Dialog");
-                alert.setHeaderText("Look, an Error Dialog");
-                alert.setContentText("There is no flight plan found on\nFlightPlanDatabase.com." +
-                        "\n\nPress OK to load a simple path.\nPress CANCEL to return to airport table.");
+                alert.setHeaderText("There is no flight plan found on\nFlightPlanDatabase.com.");
+                alert.setContentText("Press OK to load a simple path.\nPress CANCEL to return to airport table.");
 
                 ButtonType buttonTypeOne = new ButtonType("OK");
                 ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
@@ -1911,26 +1910,4 @@ public class Controller implements Initializable {
             alert.showAndWait();
         }
     }
-
-//    private void popUpMap(Double lat, Double lon) throws InterruptedException {
-//        Stage stage = new Stage();
-//        stage.setTitle("Map View");
-//        WebView webView = new WebView();
-//        Scene scene = new Scene(webView);
-//
-//        webView.getEngine().load(getClass().getClassLoader().getResource("map.html").toExternalForm());
-//        stage.setScene(scene);
-//        stage.show();
-//        Task<Void> task = new Task<Void>() {
-//            @Override
-//            public Void call() throws InterruptedException {
-//                // process long-running computation, data retrieval, etc...
-//                Thread.sleep(5000);
-//                webView.getEngine().executeScript("addFlight(" + lat + ", " + lon + ");");
-//                System.out.println("something");
-//                return null;
-//            }
-//        };
-//        new Thread(task).start();
-//    }
 }
