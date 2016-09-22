@@ -25,8 +25,6 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-
-import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
@@ -40,10 +38,6 @@ import seng202.group4.data.parser.validator.AirlineValidator;
 import seng202.group4.data.parser.validator.AirportValidator;
 import seng202.group4.data.parser.validator.FlightValidator;
 import seng202.group4.data.parser.validator.RouteValidator;
-import seng202.group4.data.repository.AirlineRepository;
-import seng202.group4.data.repository.AirportRepository;
-import seng202.group4.data.repository.FlightRepository;
-import seng202.group4.data.repository.RouteRepository;
 import seng202.group4.data.repository.Repository;
 
 import com.aquafx_project.AquaFx;
@@ -54,7 +48,6 @@ import java.io.*;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.*;
-import java.util.List;
 import java.util.stream.Collectors;
 
 /**
@@ -377,6 +370,7 @@ public class Controller implements Initializable {
 
         // Load the flight map
         flightMap.getEngine().load(getClass().getClassLoader().getResource("map.html").toExternalForm());
+        mapView.getEngine().load(getClass().getClassLoader().getResource("map.html").toExternalForm());
 
         // initially expand the map instructions on the side bar
         accord.setExpandedPane(instructions);
@@ -707,6 +701,22 @@ public class Controller implements Initializable {
         }
     }
 
+    public void showAllAirports() {
+        if (mapView.getEngine() != null) {
+            HashMap<Integer, Airport> airports = Repository.airportRepository.getAirports();
+            for (Map.Entry<Integer, Airport> entry : airports.entrySet()) {
+                double lat = entry.getValue().getLatitude();
+                double lon = entry.getValue().getLongitude();
+                String name = entry.getValue().getName();
+                mapView.getEngine().executeScript("addAirport(" + lat + ", " + lon + ");");
+            }
+            mapView.getEngine().executeScript("showAllAirports();");
+        }
+        if (airportsAll.isSelected() == false) {
+            mapView.getEngine().executeScript("hideAllAirports();");
+        }
+    }
+
     /**
      * Searches through the names of the flights so that the user is able to find and select flight from the list.
      */
@@ -732,6 +742,14 @@ public class Controller implements Initializable {
         });
     }
 
+    public void showAllRoutes() {
+        if (mapView.getEngine() != null) {
+            mapView.getEngine().executeScript("showAllRoutes();");
+        }
+        if (routesAll.isSelected() == false) {
+            mapView.getEngine().executeScript("hideAllRoutes();");
+        }
+    }
     /**
      * Searches through the airports in the table dependent on a specific search entry by the user.
      */

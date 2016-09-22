@@ -14,6 +14,8 @@ public class Airline implements Serializable {
     private String ICAO;
     private String callsign;
     private String country;
+
+
     private boolean active; // Can be active or not active
 
     /**
@@ -37,6 +39,7 @@ public class Airline implements Serializable {
         this.country = country;
         this.active = active;
     }
+
 
     public int getID() {
         return ID;

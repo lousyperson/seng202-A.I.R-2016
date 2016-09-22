@@ -27,6 +27,10 @@ public class AirportValidator {
     int index;
     private ArrayList<String> stringArray = new ArrayList<>();
 
+    /**
+     * Builds the daylight saving time enum and checks that the line meets the minimum number of items per line.
+     * @throws IOException
+     */
     private void validateLine() throws IOException {
         makeMap();
         splitLine = currentLine.split(splitBy);
@@ -70,6 +74,10 @@ public class AirportValidator {
         DSTs.add("\"U\"");
     }
 
+    /**
+     * Checks that the singular line contains data of the expected format.
+     * @throws IOException
+     */
     private void checkLine() throws IOException {
         index = 1;
         try {
@@ -114,6 +122,10 @@ public class AirportValidator {
         }
     }
 
+    /**
+     * Checks that the string with commas is valid.
+     * @return isValid, a boolean, depending on whether on not the string is valid, true if valid, false if not.
+     */
     private boolean checkStringWithCommas() {
         boolean isValid = true;
         if (splitLine[index].startsWith("\"")) {
@@ -152,6 +164,11 @@ public class AirportValidator {
         }
     }
 
+    /**
+     * Checks to see if the given index points to a string.
+     * @param i
+     * @return a boolean, true if it points to a string, false if not.
+     */
     private boolean checkString(int i) {
         boolean isValid = true;
         if (!splitLine[index + i].equals("\\N")) {

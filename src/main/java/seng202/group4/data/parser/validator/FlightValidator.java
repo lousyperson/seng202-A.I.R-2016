@@ -57,6 +57,10 @@ public class FlightValidator {
         return parser.makeFlight();
     }
 
+    /**
+     * Checks to see if a single line is valid.
+     * @throws IOException
+     */
     private void validateLine() throws IOException {
         splitLine = currentLine.split(splitBy, ITEMS_PER_LINE + 1);
         if (splitLine.length != ITEMS_PER_LINE) {
@@ -66,6 +70,10 @@ public class FlightValidator {
         }
     }
 
+    /**
+     * Ensures that every individual part of the line is valid.
+     * @throws IOException
+     */
     private void checkLine() throws IOException {
         // Strings do not need to be checked, as quotation marks is no longer a constraint
 
@@ -82,6 +90,11 @@ public class FlightValidator {
 
     }
 
+    /**
+     * Checks that was is pointed o is a string.
+     * @param i
+     * @return if a string, returns true, else, false.
+     */
     private boolean checkString(int i) {
         boolean isValid = true;
         if (splitLine[i].contains(" ")) {
@@ -112,6 +125,10 @@ public class FlightValidator {
         }
     }
 
+    /**
+     * Makes an alert to the user if there is an error in the formatting of the raw data.
+     * @param message
+     */
     private void makeAlert(String message) {
         hasError = true;
         alert = new Alert(Alert.AlertType.ERROR);
