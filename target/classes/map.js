@@ -11,12 +11,8 @@ var bounds = new google.maps.LatLngBounds();
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: 20, lng: 0},
-<<<<<<< HEAD
         zoom: 1,
         draggable: false
-=======
-        zoom: 2
->>>>>>> jar
     });
 }
 

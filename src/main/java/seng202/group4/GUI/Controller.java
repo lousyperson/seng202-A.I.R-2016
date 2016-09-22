@@ -1,54 +1,42 @@
 package seng202.group4.GUI;
 
 
-import com.mashape.unirest.http.HttpResponse;
-import com.mashape.unirest.http.JsonNode;
-import com.mashape.unirest.http.Unirest;
-import com.mashape.unirest.http.exceptions.UnirestException;
+//import com.mashape.unirest.http.HttpResponse;
+//import com.mashape.unirest.http.JsonNode;
+//import com.mashape.unirest.http.Unirest;
+//import com.mashape.unirest.http.exceptions.UnirestException;
+
 import javafx.beans.binding.Bindings;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
-
-import javafx.concurrent.Task;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.Button;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.text.Text;
 import javafx.scene.web.WebView;
-import javafx.stage.FileChooser;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 import seng202.group4.data.dataType.*;
 import seng202.group4.data.parser.validator.AirlineValidator;
 import seng202.group4.data.parser.validator.AirportValidator;
 import seng202.group4.data.parser.validator.FlightValidator;
 import seng202.group4.data.parser.validator.RouteValidator;
+import seng202.group4.data.repository.AirlineRepository;
+import seng202.group4.data.repository.AirportRepository;
 import seng202.group4.data.repository.Repository;
+import seng202.group4.data.repository.RouteRepository;
 
-import com.aquafx_project.AquaFx;
-
-import java.awt.*;
-import java.awt.event.InputEvent;
-import java.io.*;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.*;
 import java.util.stream.Collectors;
+
+//import com.aquafx_project.AquaFx;
 
 /**
  * The main controller implementing GUI functions.
@@ -295,6 +283,15 @@ public class Controller implements Initializable {
 
     @FXML
     private Tab mapTab;
+
+    @FXML
+    private ComboBox chooseAirport;
+
+    @FXML
+    private CheckBox allAirports;
+
+    @FXML
+    private CheckBox allRoutes;
 
 
     private Double pointALat;
@@ -712,7 +709,7 @@ public class Controller implements Initializable {
             }
             mapView.getEngine().executeScript("showAllAirports();");
         }
-        if (airportsAll.isSelected() == false) {
+        if (allAirports.isSelected() == false) {
             mapView.getEngine().executeScript("hideAllAirports();");
         }
     }
@@ -746,7 +743,7 @@ public class Controller implements Initializable {
         if (mapView.getEngine() != null) {
             mapView.getEngine().executeScript("showAllRoutes();");
         }
-        if (routesAll.isSelected() == false) {
+        if (allRoutes.isSelected() == false) {
             mapView.getEngine().executeScript("hideAllRoutes();");
         }
     }
@@ -1862,6 +1859,7 @@ public class Controller implements Initializable {
         flightList.getSelectionModel().clearSelection();
     }
 
+    /* RYAN's method requires HTTP
     public void getFlightPath() throws UnirestException, IOException, InterruptedException {
         if (!(pointAICAO == null) && !(pointBICAO == null)) {
             HttpResponse<JsonNode> getID = Unirest.get("https://api.flightplandatabase.com/search/plans?fromICAO=" + pointAICAO + "&toICAO=" + pointBICAO + "&limit=1")
@@ -1928,4 +1926,5 @@ public class Controller implements Initializable {
             alert.showAndWait();
         }
     }
+    */
 }
