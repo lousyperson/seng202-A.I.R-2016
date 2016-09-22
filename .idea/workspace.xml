@@ -2,20 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ca2aa813-8719-4e3c-a54d-137829d6f1e4" name="Default" comment="Airport validator had a small bug">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/seng202/group4/App.class" afterPath="$PROJECT_DIR$/target/classes/seng202/group4/App.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/seng202/group4/GUI/Controller.class" afterPath="$PROJECT_DIR$/target/classes/seng202/group4/GUI/Controller.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/seng202/group4/GUI/MenuBarController.class" afterPath="$PROJECT_DIR$/target/classes/seng202/group4/GUI/MenuBarController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/seng202/group4/data/dataType/Airline.class" afterPath="$PROJECT_DIR$/target/classes/seng202/group4/data/dataType/Airline.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/seng202/group4/data/parser/AirportParser.class" afterPath="$PROJECT_DIR$/target/classes/seng202/group4/data/parser/AirportParser.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/seng202/group4/data/parser/validator/AirportValidator.class" afterPath="$PROJECT_DIR$/target/classes/seng202/group4/data/parser/validator/AirportValidator.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/seng202/group4/data/parser/validator/FlightValidator.class" afterPath="$PROJECT_DIR$/target/classes/seng202/group4/data/parser/validator/FlightValidator.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/seng202-project.iml" afterPath="$PROJECT_DIR$/seng202-project.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/seng202/group4/GUI/Controller.java" afterPath="$PROJECT_DIR$/src/main/java/seng202/group4/GUI/Controller.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/GUI.fxml" afterPath="$PROJECT_DIR$/src/main/resources/GUI.fxml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/map.html" afterPath="$PROJECT_DIR$/src/main/resources/map.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/GUI.fxml" afterPath="$PROJECT_DIR$/target/classes/GUI.fxml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/map.js" afterPath="$PROJECT_DIR$/target/classes/map.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/map.html" afterPath="$PROJECT_DIR$/target/classes/map.html" />
     </list>
     <ignored path="seng202-project.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -38,21 +29,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="map.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="map.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/resources/map.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="191">
+            <state relative-caret-position="-529">
               <caret line="29" column="19" selection-start-line="29" selection-start-column="19" selection-end-line="29" selection-end-column="19" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Controller.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Controller.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/seng202/group4/GUI/Controller.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="201">
-              <caret line="369" column="0" selection-start-line="369" selection-start-column="0" selection-end-line="369" selection-end-column="0" />
+            <state relative-caret-position="261">
+              <caret line="1199" column="5" selection-start-line="1199" selection-start-column="5" selection-end-line="1199" selection-end-column="5" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -190,8 +181,8 @@
         <option value="$PROJECT_DIR$/src/main/java/seng202/group4/data/repository/RouteRepository.java" />
         <option value="$PROJECT_DIR$/src/main/java/seng202/group4/App.java" />
         <option value="$PROJECT_DIR$/src/main/java/seng202/group4/data/repository/Repository.java" />
-        <option value="$PROJECT_DIR$/src/main/java/seng202/group4/GUI/Controller.java" />
         <option value="$PROJECT_DIR$/src/main/resources/map.html" />
+        <option value="$PROJECT_DIR$/src/main/java/seng202/group4/GUI/Controller.java" />
       </list>
     </option>
   </component>
@@ -958,7 +949,7 @@
       <workItem from="1474003245679" duration="622000" />
       <workItem from="1474003970579" duration="1466000" />
       <workItem from="1474074578398" duration="7010000" />
-      <workItem from="1474520283322" duration="2205000" />
+      <workItem from="1474520283322" duration="3893000" />
     </task>
     <task id="LOCAL-00001" summary="New junit version">
       <created>1472011458815</created>
@@ -1108,7 +1099,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="45493000" />
+    <option name="totallyTimeSpent" value="47181000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1679" y="0" width="1922" height="1080" extended-state="6" />
@@ -1511,21 +1502,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/seng202/group4/GUI/Controller.java">
+    <entry file="file://$PROJECT_DIR$/src/main/resources/map.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="201">
-          <caret line="369" column="0" selection-start-line="369" selection-start-column="0" selection-end-line="369" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="-529">
+          <caret line="29" column="19" selection-start-line="29" selection-start-column="19" selection-end-line="29" selection-end-column="19" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/map.html">
+    <entry file="file://$PROJECT_DIR$/src/main/java/seng202/group4/GUI/Controller.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="191">
-          <caret line="29" column="19" selection-start-line="29" selection-start-column="19" selection-end-line="29" selection-end-column="19" />
-          <folding />
+        <state relative-caret-position="261">
+          <caret line="1199" column="5" selection-start-line="1199" selection-start-column="5" selection-end-line="1199" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

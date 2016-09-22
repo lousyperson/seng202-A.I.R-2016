@@ -338,6 +338,7 @@ public class Controller implements Initializable {
     private String allEquipmentsTag = " --ALL EQUIPMENTS-- ";
     private String departureCountryTag = " --DEPART FROM-- ";
     private String destinationCountryTag = " --ARRIVE TO-- ";
+    private String chooseAirportCountryTag = "--CHOOSE AIRPORT--";
 
     // airlineCountrySet holds all the countries uploaded to airline
     private TreeSet airlineCountrySet = new TreeSet();
@@ -350,6 +351,9 @@ public class Controller implements Initializable {
 
     // dest holds all the destination country names uploaded to routes
     private TreeSet destSet = new TreeSet();
+
+    // dest holds all the destination country names uploaded to routes
+    private TreeSet airportSet = new TreeSet();
 
     // equipmentSet holds all the equipment uploaded to route
     private TreeSet equipmentSet = new TreeSet();
@@ -1206,6 +1210,17 @@ public class Controller implements Initializable {
         }
     }
 
+    private void updateMapCountryBox() {
+        chooseAirport.getItems().clear();
+        if (!chooseAirport.getItems().contains(chooseAirportCountryTag)) {
+            chooseAirport.getItems().add(chooseAirportCountryTag);
+        }
+        Iterator itr = airportSet.iterator();
+        while (itr.hasNext()) {
+            chooseAirport.getItems().add(itr.next());
+        }
+    }
+
 
     private void updateEquipBox() {
         // clear the current combo box
@@ -1569,6 +1584,7 @@ public class Controller implements Initializable {
                 updateEquipBox();
                 updateDepCountryBox();
                 updateDestCountryBox();
+                updateMapCountryBox();
             }
         }
 
@@ -1613,6 +1629,7 @@ public class Controller implements Initializable {
             updateEquipBox();
             updateDepCountryBox();
             updateDestCountryBox();
+            updateMapCountryBox();
         }
 
 
@@ -1679,6 +1696,7 @@ public class Controller implements Initializable {
         updateEquipBox();
         updateDepCountryBox();
         updateDestCountryBox();
+        updateMapCountryBox();
     }
 
     private void loadDefaultFlight() {
