@@ -1,11 +1,9 @@
 package seng202.group4.GUI;
 
-
-//import com.mashape.unirest.http.HttpResponse;
-//import com.mashape.unirest.http.JsonNode;
-//import com.mashape.unirest.http.Unirest;
-//import com.mashape.unirest.http.exceptions.UnirestException;
-
+import com.mashape.unirest.http.HttpResponse;
+import com.mashape.unirest.http.JsonNode;
+import com.mashape.unirest.http.Unirest;
+import com.mashape.unirest.http.exceptions.UnirestException;
 import javafx.beans.binding.Bindings;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -1877,7 +1875,6 @@ public class Controller implements Initializable {
         flightList.getSelectionModel().clearSelection();
     }
 
-    /* RYAN's method requires HTTP
     public void getFlightPath() throws UnirestException, IOException, InterruptedException {
         if (!(pointAICAO == null) && !(pointBICAO == null)) {
             HttpResponse<JsonNode> getID = Unirest.get("https://api.flightplandatabase.com/search/plans?fromICAO=" + pointAICAO + "&toICAO=" + pointBICAO + "&limit=1")
@@ -1944,5 +1941,4 @@ public class Controller implements Initializable {
             alert.showAndWait();
         }
     }
-    */
 }
