@@ -1,6 +1,5 @@
 package seng202.group4.GUI;
 
-
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
@@ -11,30 +10,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
-
-import javafx.concurrent.Task;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.Button;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.text.Text;
 import javafx.scene.web.WebView;
-import javafx.stage.FileChooser;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 import seng202.group4.data.dataType.*;
 import seng202.group4.data.parser.validator.AirlineValidator;
 import seng202.group4.data.parser.validator.AirportValidator;
@@ -42,20 +24,17 @@ import seng202.group4.data.parser.validator.FlightValidator;
 import seng202.group4.data.parser.validator.RouteValidator;
 import seng202.group4.data.repository.AirlineRepository;
 import seng202.group4.data.repository.AirportRepository;
-import seng202.group4.data.repository.FlightRepository;
-import seng202.group4.data.repository.RouteRepository;
 import seng202.group4.data.repository.Repository;
+import seng202.group4.data.repository.RouteRepository;
 
-import com.aquafx_project.AquaFx;
-
-import java.awt.*;
-import java.awt.event.InputEvent;
-import java.io.*;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.*;
-import java.util.List;
 import java.util.stream.Collectors;
+
+//import com.aquafx_project.AquaFx;
 
 /**
  * The main controller implementing GUI functions.
@@ -317,6 +296,15 @@ public class Controller implements Initializable {
     @FXML
     private Tab mapTab;
 
+    @FXML
+    private ComboBox chooseAirport;
+
+    @FXML
+    private CheckBox allAirports;
+
+    @FXML
+    private CheckBox allRoutes;
+
 
     private Double pointALat;
     private Double pointALon;
@@ -362,6 +350,7 @@ public class Controller implements Initializable {
     private String allEquipmentsTag = " --ALL EQUIPMENTS-- ";
     private String departureCountryTag = " --DEPART FROM-- ";
     private String destinationCountryTag = " --ARRIVE TO-- ";
+    private String chooseAirportCountryTag = "--CHOOSE AIRPORT--";
 
     // airlineCountrySet holds all the countries uploaded to airline
     private TreeSet airlineCountrySet = new TreeSet();
@@ -374,6 +363,9 @@ public class Controller implements Initializable {
 
     // dest holds all the destination country names uploaded to routes
     private TreeSet destSet = new TreeSet();
+
+    // dest holds all the destination country names uploaded to routes
+    private TreeSet airportSet = new TreeSet();
 
     // equipmentSet holds all the equipment uploaded to route
     private TreeSet equipmentSet = new TreeSet();
@@ -393,9 +385,11 @@ public class Controller implements Initializable {
 //
 //        // Load the flight map
 //        flightMap.getEngine().load(getClass().getClassLoader().getResource("map.html").toExternalForm());
+        mapView.getEngine().load(getClass().getClassLoader().getResource("map.html").toExternalForm());
 //
 //        // initially expand the map instructions on the side bar
 //        accord.setExpandedPane(instructions);
+
 
         // initialise data list
         //datalist.setItems(items);
@@ -723,6 +717,22 @@ public class Controller implements Initializable {
         }
     }
 
+    public void showAllAirports() {
+        if (mapView.getEngine() != null) {
+            HashMap<Integer, Airport> airports = Repository.airportRepository.getAirports();
+            for (Map.Entry<Integer, Airport> entry : airports.entrySet()) {
+                double lat = entry.getValue().getLatitude();
+                double lon = entry.getValue().getLongitude();
+                String name = entry.getValue().getName();
+                mapView.getEngine().executeScript("addAirport(" + lat + ", " + lon + ");");
+            }
+            mapView.getEngine().executeScript("showAllAirports();");
+        }
+        if (allAirports.isSelected() == false) {
+            mapView.getEngine().executeScript("hideAllAirports();");
+        }
+    }
+
     /**
      * Searches through the names of the flights so that the user is able to find and select flight from the list.
      */
@@ -748,6 +758,14 @@ public class Controller implements Initializable {
         });
     }
 
+    public void showAllRoutes() {
+        if (mapView.getEngine() != null) {
+            mapView.getEngine().executeScript("showAllRoutes();");
+        }
+        if (allRoutes.isSelected() == false) {
+            mapView.getEngine().executeScript("hideAllRoutes();");
+        }
+    }
     /**
      * Searches through the airports in the table dependent on a specific search entry by the user.
      */
@@ -1207,6 +1225,17 @@ public class Controller implements Initializable {
         }
     }
 
+    private void updateMapCountryBox() {
+        chooseAirport.getItems().clear();
+        if (!chooseAirport.getItems().contains(chooseAirportCountryTag)) {
+            chooseAirport.getItems().add(chooseAirportCountryTag);
+        }
+        Iterator itr = airportSet.iterator();
+        while (itr.hasNext()) {
+            chooseAirport.getItems().add(itr.next());
+        }
+    }
+
 
     private void updateEquipBox() {
         // clear the current combo box
@@ -1570,6 +1599,7 @@ public class Controller implements Initializable {
                 updateEquipBox();
                 updateDepCountryBox();
                 updateDestCountryBox();
+                updateMapCountryBox();
             }
         }
 
@@ -1614,6 +1644,7 @@ public class Controller implements Initializable {
             updateEquipBox();
             updateDepCountryBox();
             updateDestCountryBox();
+            updateMapCountryBox();
         }
 
 
@@ -1680,6 +1711,7 @@ public class Controller implements Initializable {
         updateEquipBox();
         updateDepCountryBox();
         updateDestCountryBox();
+        updateMapCountryBox();
     }
 
     private void loadDefaultFlight() {

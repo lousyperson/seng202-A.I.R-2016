@@ -1,13 +1,13 @@
 /**
  * Created by jar156 on 11/09/16.
- */
 
+ */
 var map;
 // var markerCluster;
 var markers = [];
+var polylines = [];
 var flightPath = [];
 var bounds = new google.maps.LatLngBounds();
-
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: 20, lng: 0},
@@ -45,8 +45,8 @@ function hideFlights() {
 }
 
 function deleteFlights() {
-    for (var i = 0; i < markers.length; i++) {
         markers[i].setMap(null);
+    for (var i = 0; i < markers.length; i++) {
     }
     markers = [];
     flightPath = [];
@@ -85,6 +85,28 @@ function repositionMap(flightPath) {
     map.fitBounds(bounds);
 }
 
+function hideAllAirports() {
+    for (var i = 0; i < markers.length; i++) {
+        markers[i].setMap(null);
+    }
+    markerCluster.setMap(null);
+    markerCluster.repaint();
+}
+
+function hideAllRoutes() {
+    for (var i = 0; i < polylines.length; i++) {
+        polylines[i].setMap(null);
+    }
+}
+
+function addAirport(lat, lon) {
+    var marker = new google.maps.Marker({
+        position: {lat: lat, lng: lon},
+        map: map,
+    });
+    markers.push(marker);
+}
+
 // creates and displays markers for all airports
 function showAllAirports()
 {
@@ -98,4 +120,18 @@ function showAllAirports()
 
 }
 
+// creates and displays lines for all routes
+function showAllRoutes() {
+    var flightPlanCoordinates = [
+        {lat: 37.772, lng: -122.214},
+        {lat: -27.467, lng: 153.027}
+    ];
+    var flightPath = new google.maps.Polyline({
+        path: flightPlanCoordinates,
+        geodesic: true,
+        strokeColor: '#FF0000',
+        strokeOpacity: 1.0,
+        strokeWeight: 1
+    });
+}
 
