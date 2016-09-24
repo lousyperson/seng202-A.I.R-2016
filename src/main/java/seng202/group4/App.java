@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import seng202.group4.GUI.Controller;
 import seng202.group4.data.repository.*;
 
 /**
@@ -28,10 +29,14 @@ public class App extends Application {
         // set location for fxml file
         fxml.setLocation(getClass().getClassLoader().getResource("GUI.fxml"));
         Parent root = fxml.load();
-//        Controller controller = fxml.getController();
+        Controller controller = fxml.getController();
 //
 //        System.out.println(controller);
-//        controller.getMenuBarController().setMainController(controller);
+        controller.getMenuBarController().setMainController(controller);
+        //controller.getSearchPanesController().setMainController(controller);
+        controller.getDataTabController().setMainController(controller);
+
+
 
         primaryStage.setTitle("Aviation Information Reader");
         primaryStage.setScene(new Scene(root, 1280, 775));

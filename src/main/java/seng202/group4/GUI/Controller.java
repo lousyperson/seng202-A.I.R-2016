@@ -65,6 +65,20 @@ public class Controller implements Initializable {
     @FXML
     private MenuBarController menuBarController;
 
+    public DataTabController getDataTabController() {
+        return dataTabController;
+    }
+
+    @FXML
+    private DataTabController dataTabController;
+
+//    public SearchPanesController getSearchPanesController() {
+//        return searchPanesController;
+//    }
+//
+//    @FXML
+//    private SearchPanesController searchPanesController;
+
     // Map view
     @FXML
     private WebView mapView;
@@ -374,316 +388,318 @@ public class Controller implements Initializable {
 
         // Passing MainController to MenuBarController
         menuBarController.setMainController(this);
-
-        // Load the flight map
-        flightMap.getEngine().load(getClass().getClassLoader().getResource("map.html").toExternalForm());
-
-        // initially expand the map instructions on the side bar
-        accord.setExpandedPane(instructions);
+        dataTabController.setMainController(this);
+        //searchPanesController.setMainController(this);
+//
+//        // Load the flight map
+//        flightMap.getEngine().load(getClass().getClassLoader().getResource("map.html").toExternalForm());
+//
+//        // initially expand the map instructions on the side bar
+//        accord.setExpandedPane(instructions);
 
         // initialise data list
-        datalist.setItems(items);
+        //datalist.setItems(items);
 
         // setting up view
-        updateAirlineSearch();
-        updateAirportSearch();
-        updateRouteSearch();
-        updateFlightNameSearch();
-        // select first data type (airline) on the side bar
-        datalist.getSelectionModel().clearAndSelect(0);
-        // show airline table
-        airlineTableID.toFront();
+//        updateAirlineSearch();
+//        updateAirportSearch();
+//        updateRouteSearch();
+//        updateFlightNameSearch();
+//        // select first data type (airline) on the side bar
+//        datalist.getSelectionModel().clearAndSelect(0);
+//        // show airline table
+//        airlineTableID.toFront();
 
-        // listen to whats being selected in the flight list
-        flightList.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends String> ov, String old_val, String new_val) -> {
-            //System.out.println("Selected item from flight list: " + new_val);
+//        // listen to whats being selected in the flight list
+//        flightList.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends String> ov, String old_val, String new_val) -> {
+//            //System.out.println("Selected item from flight list: " + new_val);
+//
+//            if (new_val != null) {
+//                // clear table and populate it again with what's selected
+//                updateFlightTable(new_val.toLowerCase());
+//                showFlightPath(new_val.toLowerCase());
+//            }
+//
+//        });
+//
+//        searchFlightNames();
 
-            if (new_val != null) {
-                // clear table and populate it again with what's selected
-                updateFlightTable(new_val.toLowerCase());
-                showFlightPath(new_val.toLowerCase());
-            }
-
-        });
-
-        searchFlightNames();
-
-        datalist.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends String> ov, String old_val, String new_val) -> {
-            //System.out.println("Selected item: " + new_val);
-            if (new_val.equals(airlineLabel)) {
-                airlineTableID.toFront();
-                airlinePane.setVisible(true);
-                airportPane.setVisible(false);
-                routePane.setVisible(false);
-            } else if (new_val.equals(airportLabel)) {
-                airportTableID.toFront();
-                airlinePane.setVisible(false);
-                airportPane.setVisible(true);
-                routePane.setVisible(false);
-            } else if (new_val.equals(routeLabel)) {
-                routeTableID.toFront();
-                airlinePane.setVisible(false);
-                airportPane.setVisible(false);
-                routePane.setVisible(true);
-            }
-
-        });
-
-        // initialise airline table resources
-        aid.setCellValueFactory(new PropertyValueFactory<>("rid"));
-        aname.setCellValueFactory(new PropertyValueFactory<>("rname"));
-        aalias.setCellValueFactory(new PropertyValueFactory<>("ralias"));
-        aiata.setCellValueFactory(new PropertyValueFactory<>("riata"));
-        aicao.setCellValueFactory(new PropertyValueFactory<>("ricao"));
-        acallsign.setCellValueFactory(new PropertyValueFactory<>("rcallsign"));
-        acountry.setCellValueFactory(new PropertyValueFactory<>("rcountry"));
-        aactive.setCellValueFactory(new PropertyValueFactory<>("ractive"));
-
-        airlineTableID.setItems(airlineTData);
-
-        // loads default airline list
-        try {
-            loadDefaultAirline();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        }
+//        datalist.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends String> ov, String old_val, String new_val) -> {
+//            //System.out.println("Selected item: " + new_val);
+//            if (new_val.equals(airlineLabel)) {
+//                airlineTableID.toFront();
+//                airlinePane.setVisible(true);
+//                airportPane.setVisible(false);
+//                routePane.setVisible(false);
+//            } else if (new_val.equals(airportLabel)) {
+//                airportTableID.toFront();
+//                airlinePane.setVisible(false);
+//                airportPane.setVisible(true);
+//                routePane.setVisible(false);
+//            } else if (new_val.equals(routeLabel)) {
+//                routeTableID.toFront();
+//                airlinePane.setVisible(false);
+//                airportPane.setVisible(false);
+//                routePane.setVisible(true);
+//            }
+//
+//        });
+//
+//        // initialise airline table resources
+//        aid.setCellValueFactory(new PropertyValueFactory<>("rid"));
+//        aname.setCellValueFactory(new PropertyValueFactory<>("rname"));
+//        aalias.setCellValueFactory(new PropertyValueFactory<>("ralias"));
+//        aiata.setCellValueFactory(new PropertyValueFactory<>("riata"));
+//        aicao.setCellValueFactory(new PropertyValueFactory<>("ricao"));
+//        acallsign.setCellValueFactory(new PropertyValueFactory<>("rcallsign"));
+//        acountry.setCellValueFactory(new PropertyValueFactory<>("rcountry"));
+//        aactive.setCellValueFactory(new PropertyValueFactory<>("ractive"));
+//
+//        airlineTableID.setItems(airlineTData);
+//
+//        // loads default airline list
+//        try {
+//            loadDefaultAirline();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        } catch (URISyntaxException e) {
+//            e.printStackTrace();
+//        }
 
         // listen for airline search queries
-        searchAirlines();
+//        searchAirlines();
 
-        airlineTableID.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+//        airlineTableID.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+//
+//        airlineTableID.setRowFactory(tableView -> {
+//            final TableRow<airlineTable> row = new TableRow<>();
+//            final ContextMenu rowMenu = new ContextMenu();
+//            MenuItem removeItem = new MenuItem("Delete");
+//            row.setOnMouseClicked(event -> {
+//            });
+//            removeItem.setOnAction(event -> {
+//                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+//                alert.setTitle("Confirmation Dialog");
+//                alert.setHeaderText("Are you sure you want to delete?");
+//                alert.setContentText("Pressing OK will delete the row(s).\nWARNING: The action cannot be undone.\n");
+//
+//                Optional<ButtonType> result = alert.showAndWait();
+//                if (result.get() == ButtonType.OK) {
+//                    ObservableList<airlineTable> selectedItems = airlineTableID.getSelectionModel().getSelectedItems();
+//                    for (airlineTable airline : selectedItems) {
+//                        Repository.airlineRepository.getAirlines().remove(airline.getRid());
+//                    }
+//                    airlineTData.removeAll(selectedItems);
+//                    airlineTableID.getSelectionModel().clearSelection();
+//                }
+//            });
+//            rowMenu.getItems().addAll(removeItem);
+//            row.contextMenuProperty().bind(
+//                    Bindings.when(Bindings.isNotNull(row.itemProperty()))
+//                            .then(rowMenu)
+//                            .otherwise((ContextMenu) null)
+//            );
+//            return row;
+//        });
+//
+//        // initialise airport table resources
+//        apid.setCellValueFactory(new PropertyValueFactory<>("atid"));
+//        apname.setCellValueFactory(new PropertyValueFactory<>("atname"));
+//        apcity.setCellValueFactory(new PropertyValueFactory<>("atcity"));
+//        apcountry.setCellValueFactory(new PropertyValueFactory<>("atcountry"));
+//        apiata.setCellValueFactory(new PropertyValueFactory<>("atiata"));
+//        apicao.setCellValueFactory(new PropertyValueFactory<>("aticao"));
+//        aplat.setCellValueFactory(new PropertyValueFactory<>("atlatitude"));
+//        aplong.setCellValueFactory(new PropertyValueFactory<>("atlongitude"));
+//        apalt.setCellValueFactory(new PropertyValueFactory<>("ataltitude"));
+//        aptimezone.setCellValueFactory(new PropertyValueFactory<>("attimezone"));
+//        apdst.setCellValueFactory(new PropertyValueFactory<>("atdst"));
+//        aptz.setCellValueFactory(new PropertyValueFactory<>("attzdatabase"));
+//
+//        airportTableID.setItems(airportTData);
+//
+//        try {
+//            loadDefaultAirports();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        } catch (URISyntaxException e) {
+//            e.printStackTrace();
+//        }
+//
+//        // listen for airports search queries
+//        searchAirports();
+//
+//        airportTableID.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+//
+//        airportTableID.setRowFactory(tableView -> {
+//            final TableRow<airportTable> row = new TableRow<>();
+//            final ContextMenu rowMenu = new ContextMenu();
+//            MenuItem addA = new MenuItem("Add to airport A");
+//            MenuItem addB = new MenuItem("Add to airport B");
+//            MenuItem removeItem = new MenuItem("Delete");
+//            row.setOnMouseClicked(event -> {
+//            });
+//            addA.setOnAction(event -> {
+//                airportA.setText(row.getItem().getAtname());
+//                pointALat = row.getItem().getAtlatitude();
+//                pointALon = row.getItem().getAtlongitude();
+//                pointAICAO = row.getItem().getAticao();
+//            });
+//            addB.setOnAction(event -> {
+//                airportB.setText(row.getItem().getAtname());
+//                pointBLat = row.getItem().getAtlatitude();
+//                pointBLon = row.getItem().getAtlongitude();
+//                pointBICAO = row.getItem().getAticao();
+//            });
+//            removeItem.setOnAction(event -> {
+//                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+//                alert.setTitle("Confirmation Dialog");
+//                alert.setHeaderText("Are you sure you want to delete?");
+//                alert.setContentText("Pressing OK will delete the row(s).\nWARNING: The action cannot be undone.\n");
+//                Optional<ButtonType> result = alert.showAndWait();
+//                if (result.get() == ButtonType.OK) {
+//                    ObservableList<airportTable> selectedItems = airportTableID.getSelectionModel().getSelectedItems();
+//                    for (airportTable airport : selectedItems) {
+//                        Repository.airportRepository.getAirports().remove(airport.getAtid());
+//                    }
+//                    airportTData.removeAll(selectedItems);
+//                    airportTableID.getSelectionModel().clearSelection();
+//                }
+//            });
+//            rowMenu.getItems().addAll(addA, addB, removeItem);
+//            row.contextMenuProperty().bind(
+//                    Bindings.when(Bindings.isNotNull(row.itemProperty()))
+//                            .then(rowMenu)
+//                            .otherwise((ContextMenu) null)
+//            );
+//            return row;
+//        });
+//
+//        // initialise route data table resources
+//        airline.setCellValueFactory(new PropertyValueFactory<>("rairline"));
+//        airlineID.setCellValueFactory(new PropertyValueFactory<>("rid"));
+//        source.setCellValueFactory(new PropertyValueFactory<>("rsource"));
+//        sourceID.setCellValueFactory(new PropertyValueFactory<>("rsourceid"));
+//        dest.setCellValueFactory(new PropertyValueFactory<>("rdest"));
+//        destID.setCellValueFactory(new PropertyValueFactory<>("rdestid"));
+//        codeshare.setCellValueFactory(new PropertyValueFactory<>("rcodeshare"));
+//        stops.setCellValueFactory(new PropertyValueFactory<>("rstops"));
+//        equipment.setCellValueFactory(new PropertyValueFactory<>("requipment"));
+//
+//        routeTableID.setItems(routeTData);
+//
+//        //loads default route list
+//        try {
+//            loadDefaultRoute();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        } catch (URISyntaxException e) {
+//            e.printStackTrace();
+//        }
+//
+//        routeTableID.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+//
+//        routeTableID.setRowFactory(tableView -> {
+//            final TableRow<routeTable> row = new TableRow<>();
+//            final ContextMenu rowMenu = new ContextMenu();
+//            MenuItem removeItem = new MenuItem("Delete");
+//            row.setOnMouseClicked(event -> {
+//            });
+//            removeItem.setOnAction(event -> {
+//                if (routeTableID.getSelectionModel().getSelectedItems().size() > 5000) {
+//                    Alert warning = new Alert(Alert.AlertType.WARNING);
+//                    warning.setTitle("Warning Dialog");
+//                    warning.setHeaderText("Cannot delete more than 5000 lines at a time.");
+//                    warning.setContentText("You selected " + routeTableID.getSelectionModel().getSelectedItems().size() + " lines.");
+//
+//                    warning.showAndWait();
+//
+//                } else {
+//                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+//                    alert.setTitle("Confirmation Dialog");
+//                    alert.setHeaderText("Are you sure you want to delete?");
+//                    alert.setContentText("Pressing OK will delete the row(s).\nWARNING: The action cannot be undone.\n");
+//
+//                    Optional<ButtonType> result = alert.showAndWait();
+//                    if (result.get() == ButtonType.OK) {
+//                        ObservableList<routeTable> selectedItems = routeTableID.getSelectionModel().getSelectedItems();
+//                        for (routeTable route : selectedItems) {
+//                            String key = route.getRairline() + route.getRid() + route.getRsource() + route.getRsourceid()
+//                                    + route.getRdest() + route.getRdestid() + route.getRcodeshare() + route.getRstops();
+//                            String[] equipment = route.getRequipment().split(", ");
+//                            for (String item : equipment) {
+//                                key += item;
+//                            }
+//                            Repository.routeRepository.getRoutes().remove(key);
+//                        }
+//                        routeTData.removeAll(selectedItems);
+//                        routeTableID.getSelectionModel().clearSelection();
+//                    }
+//                }
+//
+//            });
+//            rowMenu.getItems().addAll(removeItem);
+//            row.contextMenuProperty().bind(
+//                    Bindings.when(Bindings.isNotNull(row.itemProperty()))
+//                            .then(rowMenu)
+//                            .otherwise((ContextMenu) null)
+//            );
+//            return row;
+//        });
 
-        airlineTableID.setRowFactory(tableView -> {
-            final TableRow<airlineTable> row = new TableRow<>();
-            final ContextMenu rowMenu = new ContextMenu();
-            MenuItem removeItem = new MenuItem("Delete");
-            row.setOnMouseClicked(event -> {
-            });
-            removeItem.setOnAction(event -> {
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                alert.setTitle("Confirmation Dialog");
-                alert.setHeaderText("Are you sure you want to delete?");
-                alert.setContentText("Pressing OK will delete the row(s).\nWARNING: The action cannot be undone.\n");
 
-                Optional<ButtonType> result = alert.showAndWait();
-                if (result.get() == ButtonType.OK) {
-                    ObservableList<airlineTable> selectedItems = airlineTableID.getSelectionModel().getSelectedItems();
-                    for (airlineTable airline : selectedItems) {
-                        Repository.airlineRepository.getAirlines().remove(airline.getRid());
-                    }
-                    airlineTData.removeAll(selectedItems);
-                    airlineTableID.getSelectionModel().clearSelection();
-                }
-            });
-            rowMenu.getItems().addAll(removeItem);
-            row.contextMenuProperty().bind(
-                    Bindings.when(Bindings.isNotNull(row.itemProperty()))
-                            .then(rowMenu)
-                            .otherwise((ContextMenu) null)
-            );
-            return row;
-        });
+//        // initialise route data table resources
+//        flightID.setCellValueFactory(new PropertyValueFactory<>("fid"));
+//        flightType.setCellValueFactory(new PropertyValueFactory<>("ftype"));
+//        flightAltitude.setCellValueFactory(new PropertyValueFactory<>("faltitude"));
+//        flightLatitude.setCellValueFactory(new PropertyValueFactory<>("flatitude"));
+//        flightLongitude.setCellValueFactory(new PropertyValueFactory<>("flongitude"));
+//
+//        flightTableID.setItems(flightTData);
+//
+//        flightList.setCellFactory(listView -> {
+//            final ListCell<String> cell = new ListCell<>();
+//            final ContextMenu contextMenu = new ContextMenu();
+//            MenuItem removeItem = new MenuItem("Delete");
+//
+//            cell.setOnMouseClicked(event -> {});
+//            removeItem.setOnAction(event -> {
+//                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+//                alert.setTitle("Confirmation Dialog");
+//                alert.setHeaderText("Are you sure you want to delete?");
+//                alert.setContentText("Pressing OK will delete the row(s).\nWARNING: The action cannot be undone.\n");
+//
+//                Optional<ButtonType> result = alert.showAndWait();
+//                if (result.get() == ButtonType.OK) {
+//                    Repository.flightRepository.getFlights().remove(cell.getItem());
+//                    flightList.getItems().remove(cell.getItem());
+//                    if (cell.getItem() != null) {
+//                        updateFlightTable(cell.getItem());
+//                    } else {
+//                        flightMap.getEngine().executeScript("initMap();");
+//                    }
+//
+//                }
+//            });
+//            contextMenu.getItems().addAll(removeItem);
+//
+//            cell.textProperty().bind(cell.itemProperty());
+//
+//            cell.emptyProperty().addListener((obs, wasEmpty, isNowEmpty) -> {
+//                if (isNowEmpty) {
+//                    cell.setContextMenu(null);
+//                } else {
+//                    cell.setContextMenu(contextMenu);
+//                }
+//            });
+//            return cell;
+//        });
+//
+//        loadDefaultFlight();
+//        noDataCheck();
 
-        // initialise airport table resources
-        apid.setCellValueFactory(new PropertyValueFactory<>("atid"));
-        apname.setCellValueFactory(new PropertyValueFactory<>("atname"));
-        apcity.setCellValueFactory(new PropertyValueFactory<>("atcity"));
-        apcountry.setCellValueFactory(new PropertyValueFactory<>("atcountry"));
-        apiata.setCellValueFactory(new PropertyValueFactory<>("atiata"));
-        apicao.setCellValueFactory(new PropertyValueFactory<>("aticao"));
-        aplat.setCellValueFactory(new PropertyValueFactory<>("atlatitude"));
-        aplong.setCellValueFactory(new PropertyValueFactory<>("atlongitude"));
-        apalt.setCellValueFactory(new PropertyValueFactory<>("ataltitude"));
-        aptimezone.setCellValueFactory(new PropertyValueFactory<>("attimezone"));
-        apdst.setCellValueFactory(new PropertyValueFactory<>("atdst"));
-        aptz.setCellValueFactory(new PropertyValueFactory<>("attzdatabase"));
-
-        airportTableID.setItems(airportTData);
-
-        try {
-            loadDefaultAirports();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        }
-
-        // listen for airports search queries
-        searchAirports();
-
-        airportTableID.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-
-        airportTableID.setRowFactory(tableView -> {
-            final TableRow<airportTable> row = new TableRow<>();
-            final ContextMenu rowMenu = new ContextMenu();
-            MenuItem addA = new MenuItem("Add to airport A");
-            MenuItem addB = new MenuItem("Add to airport B");
-            MenuItem removeItem = new MenuItem("Delete");
-            row.setOnMouseClicked(event -> {
-            });
-            addA.setOnAction(event -> {
-                airportA.setText(row.getItem().getAtname());
-                pointALat = row.getItem().getAtlatitude();
-                pointALon = row.getItem().getAtlongitude();
-                pointAICAO = row.getItem().getAticao();
-            });
-            addB.setOnAction(event -> {
-                airportB.setText(row.getItem().getAtname());
-                pointBLat = row.getItem().getAtlatitude();
-                pointBLon = row.getItem().getAtlongitude();
-                pointBICAO = row.getItem().getAticao();
-            });
-            removeItem.setOnAction(event -> {
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                alert.setTitle("Confirmation Dialog");
-                alert.setHeaderText("Are you sure you want to delete?");
-                alert.setContentText("Pressing OK will delete the row(s).\nWARNING: The action cannot be undone.\n");
-                Optional<ButtonType> result = alert.showAndWait();
-                if (result.get() == ButtonType.OK) {
-                    ObservableList<airportTable> selectedItems = airportTableID.getSelectionModel().getSelectedItems();
-                    for (airportTable airport : selectedItems) {
-                        Repository.airportRepository.getAirports().remove(airport.getAtid());
-                    }
-                    airportTData.removeAll(selectedItems);
-                    airportTableID.getSelectionModel().clearSelection();
-                }
-            });
-            rowMenu.getItems().addAll(addA, addB, removeItem);
-            row.contextMenuProperty().bind(
-                    Bindings.when(Bindings.isNotNull(row.itemProperty()))
-                            .then(rowMenu)
-                            .otherwise((ContextMenu) null)
-            );
-            return row;
-        });
-
-        // initialise route data table resources
-        airline.setCellValueFactory(new PropertyValueFactory<>("rairline"));
-        airlineID.setCellValueFactory(new PropertyValueFactory<>("rid"));
-        source.setCellValueFactory(new PropertyValueFactory<>("rsource"));
-        sourceID.setCellValueFactory(new PropertyValueFactory<>("rsourceid"));
-        dest.setCellValueFactory(new PropertyValueFactory<>("rdest"));
-        destID.setCellValueFactory(new PropertyValueFactory<>("rdestid"));
-        codeshare.setCellValueFactory(new PropertyValueFactory<>("rcodeshare"));
-        stops.setCellValueFactory(new PropertyValueFactory<>("rstops"));
-        equipment.setCellValueFactory(new PropertyValueFactory<>("requipment"));
-
-        routeTableID.setItems(routeTData);
-
-        //loads default route list
-        try {
-            loadDefaultRoute();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        }
-
-        routeTableID.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-
-        routeTableID.setRowFactory(tableView -> {
-            final TableRow<routeTable> row = new TableRow<>();
-            final ContextMenu rowMenu = new ContextMenu();
-            MenuItem removeItem = new MenuItem("Delete");
-            row.setOnMouseClicked(event -> {
-            });
-            removeItem.setOnAction(event -> {
-                if (routeTableID.getSelectionModel().getSelectedItems().size() > 5000) {
-                    Alert warning = new Alert(Alert.AlertType.WARNING);
-                    warning.setTitle("Warning Dialog");
-                    warning.setHeaderText("Cannot delete more than 5000 lines at a time.");
-                    warning.setContentText("You selected " + routeTableID.getSelectionModel().getSelectedItems().size() + " lines.");
-
-                    warning.showAndWait();
-
-                } else {
-                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                    alert.setTitle("Confirmation Dialog");
-                    alert.setHeaderText("Are you sure you want to delete?");
-                    alert.setContentText("Pressing OK will delete the row(s).\nWARNING: The action cannot be undone.\n");
-
-                    Optional<ButtonType> result = alert.showAndWait();
-                    if (result.get() == ButtonType.OK) {
-                        ObservableList<routeTable> selectedItems = routeTableID.getSelectionModel().getSelectedItems();
-                        for (routeTable route : selectedItems) {
-                            String key = route.getRairline() + route.getRid() + route.getRsource() + route.getRsourceid()
-                                    + route.getRdest() + route.getRdestid() + route.getRcodeshare() + route.getRstops();
-                            String[] equipment = route.getRequipment().split(", ");
-                            for (String item : equipment) {
-                                key += item;
-                            }
-                            Repository.routeRepository.getRoutes().remove(key);
-                        }
-                        routeTData.removeAll(selectedItems);
-                        routeTableID.getSelectionModel().clearSelection();
-                    }
-                }
-
-            });
-            rowMenu.getItems().addAll(removeItem);
-            row.contextMenuProperty().bind(
-                    Bindings.when(Bindings.isNotNull(row.itemProperty()))
-                            .then(rowMenu)
-                            .otherwise((ContextMenu) null)
-            );
-            return row;
-        });
-        ;
-
-        // initialise route data table resources
-        flightID.setCellValueFactory(new PropertyValueFactory<>("fid"));
-        flightType.setCellValueFactory(new PropertyValueFactory<>("ftype"));
-        flightAltitude.setCellValueFactory(new PropertyValueFactory<>("faltitude"));
-        flightLatitude.setCellValueFactory(new PropertyValueFactory<>("flatitude"));
-        flightLongitude.setCellValueFactory(new PropertyValueFactory<>("flongitude"));
-
-        flightTableID.setItems(flightTData);
-
-        flightList.setCellFactory(listView -> {
-            final ListCell<String> cell = new ListCell<>();
-            final ContextMenu contextMenu = new ContextMenu();
-            MenuItem removeItem = new MenuItem("Delete");
-
-            cell.setOnMouseClicked(event -> {});
-            removeItem.setOnAction(event -> {
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                alert.setTitle("Confirmation Dialog");
-                alert.setHeaderText("Are you sure you want to delete?");
-                alert.setContentText("Pressing OK will delete the row(s).\nWARNING: The action cannot be undone.\n");
-
-                Optional<ButtonType> result = alert.showAndWait();
-                if (result.get() == ButtonType.OK) {
-                    Repository.flightRepository.getFlights().remove(cell.getItem());
-                    flightList.getItems().remove(cell.getItem());
-                    if (cell.getItem() != null) {
-                        updateFlightTable(cell.getItem());
-                    } else {
-                        flightMap.getEngine().executeScript("initMap();");
-                    }
-
-                }
-            });
-            contextMenu.getItems().addAll(removeItem);
-
-            cell.textProperty().bind(cell.itemProperty());
-
-            cell.emptyProperty().addListener((obs, wasEmpty, isNowEmpty) -> {
-                if (isNowEmpty) {
-                    cell.setContextMenu(null);
-                } else {
-                    cell.setContextMenu(contextMenu);
-                }
-            });
-            return cell;
-        });
-
-        loadDefaultFlight();
-        noDataCheck();
-
-        // listen for route search queries
-        searchRoutes();
+//        // listen for route search queries
+//        searchRoutes();
     }
 
     /**
