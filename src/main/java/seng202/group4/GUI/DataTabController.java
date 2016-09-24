@@ -10,27 +10,41 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBoxBuilder;
+import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import seng202.group4.data.dataType.Airline;
 import seng202.group4.data.dataType.Airport;
+import seng202.group4.data.dataType.Flight;
 import seng202.group4.data.dataType.Route;
 import seng202.group4.data.parser.validator.AirlineValidator;
 import seng202.group4.data.parser.validator.AirportValidator;
+import seng202.group4.data.parser.validator.FlightValidator;
 import seng202.group4.data.parser.validator.RouteValidator;
 import seng202.group4.data.repository.AirlineRepository;
 import seng202.group4.data.repository.AirportRepository;
 import seng202.group4.data.repository.Repository;
 import seng202.group4.data.repository.RouteRepository;
 
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -39,9 +53,14 @@ import java.util.stream.Collectors;
  */
 public class DataTabController implements Initializable{
     private Controller mainController;
-    private MenuBarController menuBarController;
-    private SearchPanesController searchPanesController;
+    private FlightTabController flightTabController;
 
+    private Tab flightTab;
+    private TabPane tabPane;
+    private Tab dataTab;
+
+    @FXML
+    private MenuBarController menuBarController;
 
     // search field
     @FXML
@@ -304,6 +323,7 @@ public class DataTabController implements Initializable{
      * @param resources ResourceBundle
      */
     public void initialize(URL location, ResourceBundle resources) {
+       // menuBarController.setDataTabController(this);
         datalist.setItems(items);
         // select first data type (airline) on the side bar
         datalist.getSelectionModel().clearAndSelect(0);
@@ -545,8 +565,14 @@ public class DataTabController implements Initializable{
      */
     public void setMainController(Controller controller) {
         this.mainController = controller;
-        System.out.println("got itwhat +");
-        this.menuBarController = controller.getMenuBarController();
+        //this.menuBarController = controller.getMenuBarController();
+        this.flightTabController = mainController.getFlightTabController();
+        this.flightTab = mainController.getFlightTab();
+        this.airlineLabel = mainController.getAirlineLabel();
+        this.airportLabel = mainController.getAirportLabel();
+        this.routeLabel = mainController.getRouteLabel();
+        this.tabPane = mainController.getTabPane();
+        this.dataTab = mainController.getDataTab();
     }
 
     /**
@@ -1237,20 +1263,91 @@ public class DataTabController implements Initializable{
         updateAirlineSearch();
     }
 
+//    /**
+//     * Allows the user to load airline data from a file
+//     *
+//     * @throws IOException throws IOException error
+//     */
+//    public void loadAirline() throws IOException {
+//        try {
+//            menuBarController.loadAirline();
+//        } catch (NullPointerException e) {
+//            // Do Nothing
+//
+//        }
+//    }
+
     /**
      * Allows the user to load airline data from a file
      *
      * @throws IOException throws IOException error
      */
     public void loadAirline() throws IOException {
-        try {
-            menuBarController.loadAirline();
-        } catch (NullPointerException e) {
-            // Do Nothing
-
+        Stage stage = new Stage();
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Open file");
+        File in = fileChooser.showOpenDialog(stage);
+        if (in != null && in.exists()) {
+            InputStream file = new FileInputStream(in);
+            goToDataTab(airlineLabel);
+            insertAirlineTable(file);
         }
     }
 
+
+    /**Insert the airlines in a given file into the airline table GUI checking for duplicates
+     *
+     * @param file InputStream
+     * @throws IOException throws IOException error
+     */
+    public void insertAirlineTable(InputStream file) throws IOException {
+        AirlineValidator validator = new AirlineValidator(file);
+        ArrayList<Airline> airlines = validator.makeAirlines();
+        validator = null;
+        if (airlines != null) {
+            for (int i = 0; i < airlines.size(); i++) {
+                Airline airline = airlines.get(i);
+                // if the airline ID already exists in the repository, warn the user
+                if (!Repository.airlineRepository.getAirlines().containsKey(airline.getID())) {
+                    Repository.airlineRepository.addAirline(airline);
+                    airlineTData.add(new airlineTable(airline.getID(), airline.getName(),
+                            airline.getAlias(), airline.getIATA(),
+                            airline.getICAO(), airline.getCallsign(),
+                            airline.getCountry(), airline.getActive()));
+                    if (airline.getCountry() != null) {
+                        airlineCountrySet.add(airline.getCountry());
+                    }
+                } else {
+                    duplicateIDAlert("Please fix the conflict and reupload the file.", airline.getID());
+                    break;
+                }
+                updateAirlineCountryBox();
+            }
+        }
+    }
+
+
+    private void duplicateIDAlert(String message, Integer id) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText("ID: " + id + " already exists in the system.");
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+//
+//    /**
+//     * Allows the user to load route data from a file
+//     *
+//     * @throws IOException throws IOException error
+//     */
+//    public void loadRoute() throws IOException {
+//        try {
+//            menuBarController.loadRoute();
+//        } catch (NullPointerException e) {
+//            // Do nothing
+//        }
+//    }
 
     /**
      * Allows the user to load route data from a file
@@ -1258,12 +1355,40 @@ public class DataTabController implements Initializable{
      * @throws IOException throws IOException error
      */
     public void loadRoute() throws IOException {
-        try {
-            menuBarController.loadRoute();
-        } catch (NullPointerException e) {
-            // Do nothing
+
+        Stage stage = new Stage();
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Open file");
+        File in = fileChooser.showOpenDialog(stage);
+        if (in != null && in.exists()) {
+            InputStream file = new FileInputStream(in);
+            //System.out.println("file opneeeedddd");
+            goToDataTab(routeLabel);
+            insertRouteTable(file);
         }
     }
+
+    // change tab to data tab if its not on it already and switch the selection tab to the given name
+    private void goToDataTab(String name) {
+        if (!tabPane.getSelectionModel().equals(dataTab)) {
+            tabPane.getSelectionModel().select(dataTab);
+        }
+        datalist.getSelectionModel().select(name);
+    }
+
+
+//    /**
+//     * Allows the user to load airport data from a file
+//     *
+//     * @throws IOException throws IOException error
+//     */
+//    public void loadAirport() throws IOException {
+//        try {
+//            menuBarController.loadAirport();
+//        } catch (NullPointerException e) {
+//            // Do nothing
+//        }
+//    }
 
 
     /**
@@ -1272,12 +1397,50 @@ public class DataTabController implements Initializable{
      * @throws IOException throws IOException error
      */
     public void loadAirport() throws IOException {
-        try {
-            menuBarController.loadAirport();
-        } catch (NullPointerException e) {
-            // Do nothing
+
+        Stage stage = new Stage();
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Open file");
+        File in = fileChooser.showOpenDialog(stage);
+        if (in != null && in.exists()) {
+            InputStream file = new FileInputStream(in);
+            //System.out.println("file opened oh ye bb~");
+            goToDataTab(airportLabel);
+            insertAirportTable(file);
         }
     }
+
+    /**Insert the airports in a given file into the airport table GUI checking for duplicates
+     *
+     * @param file InputStream
+     * @throws IOException throws IOException error
+     */
+    public void insertAirportTable(InputStream file) throws IOException {
+        AirportValidator validator = new AirportValidator(file);
+        ArrayList<Airport> airports = validator.makeAirports();
+        validator = null;
+        if (airports != null) {
+            for (int i = 0; i < airports.size(); i++) {
+                Airport airport = airports.get(i);
+                if (!Repository.airportRepository.getAirports().containsKey(airport.getID())) {
+                    Repository.airportRepository.addAirport(airport);
+                    airportTData.add(new airportTable(airport.getID(), airport.getName(), airport.getCity(),
+                            airport.getCountry(), airport.getIATA(), airport.getICAO(), airport.getLatitude(),
+                            airport.getLongitude(), airport.getAltitude(), airport.getTimezone(), airport.getDST().toText(),
+                            airport.getTz()));
+                    if (airport.getCountry() != null) {
+                        airportCountrySet.add(airport.getCountry());
+                    }
+                } else {
+                    duplicateIDAlert("Please fix the conflict and reupload the file.", airport.getID());
+                    break;
+                }
+
+            }
+            updateAirportCountryBox();
+        }
+    }
+
 
     /**
      * Calculates the distance between two coordinates on the map.
@@ -1328,9 +1491,9 @@ public class DataTabController implements Initializable{
                     if (result.get() == buttonTypeOne){
                         String makeCSV = "APT,"+pointAICAO+",0,"+pointALat+","+pointALon+"\n" +
                                 "APT,"+pointBICAO+",0,"+pointBLat+","+pointBLon;
-                        menuBarController.loadFlight2(makeCSV);
+                        loadFlight2(makeCSV);
                     } else if (result.get() == buttonTypeTwo) {
-                        menuBarController.loadFlight2(something);
+                        loadFlight2(something);
                     }
                 } else {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -1355,7 +1518,7 @@ public class DataTabController implements Initializable{
                 if (result.get() == buttonTypeOne){
                     String makeCSV = "APT,"+pointAICAO+",0,"+pointALat+","+pointALon+"\n" +
                             "APT,"+pointBICAO+",0,"+pointBLat+","+pointBLon;
-                    menuBarController.loadFlight2(makeCSV);
+                    loadFlight2(makeCSV);
                 }
             }
         } else {
@@ -1368,6 +1531,10 @@ public class DataTabController implements Initializable{
         }
     }
 
+    private void loadFlight2(String someCSV) throws IOException {
+        InputStream file = new ByteArrayInputStream(someCSV.getBytes(StandardCharsets.UTF_8));
+        flightTabController.insertFlightTable(file);
+    }
 
     public void updateAirlineCountryBox() {
         // clear the current combo box
@@ -1434,5 +1601,264 @@ public class DataTabController implements Initializable{
         }
     }
 
+//        /**
+//     * Allows the user to load a flight from a file
+//     *
+//     * @throws IOException throws IOException error
+//     */
+//    public void loadFlight() throws IOException {
+//        flightTabController.loadFlight();
+//    }
+
+//    /**
+//     * Allows the user to load a flight from a file
+//     *
+//     * @throws IOException throws IOException error
+//     */
+//    public void loadFlight() throws IOException {
+//
+//        Stage stage = new Stage();
+//        FileChooser fileChooser = new FileChooser();
+//        fileChooser.setTitle("Open file");
+//        File in = fileChooser.showOpenDialog(stage);
+//        if (in != null && in.exists()) {
+//            InputStream file = new FileInputStream(in);
+//            //System.out.println("oooo yah flights");
+//            // change tab to flight tab if its not on it already
+//            if (!tabPane.getSelectionModel().equals(flightTab)) {
+//                tabPane.getSelectionModel().select(flightTab);
+//            }
+//            insertFlightTable(file);
+//        }
+//    }
+
+
+
+    /**
+     * Clears the airline table and AirlineRepository then replaces them with the default airlines
+     * @throws IOException when default airline file cannot be read
+     */
+    public void resetAirline() throws IOException {
+        boolean result = resetConformation();
+        if (result) {
+            clearAirlineTable();
+            Repository.airlineRepository = new AirlineRepository();
+            InputStream file = getClass().getResourceAsStream("/airlines.dat");
+            //File file = new File(getClass().getClassLoader().getResource("airlines.dat").toURI());
+            if (file != null) {
+                insertAirlineTable(file);
+            }
+            Repository.serializeObject(Repository.airlineRepository, "airline");
+        }
+    }
+
+    /**
+     * Clears the airport table and AirportRepository then replaces them with the default airports
+     * @throws IOException when default airport file cannot be read
+     */
+    public void resetAirport() throws IOException {
+        boolean result = resetConformation();
+        if (result) {
+            clearAirportTable();
+            Repository.airportRepository = new AirportRepository();
+            InputStream file = getClass().getResourceAsStream("/airports.dat");
+            //File file = new File(getClass().getClassLoader().getResource("airlines.dat").toURI());
+            if (file != null) {
+                insertAirportTable(file);
+            }
+            Repository.serializeObject(Repository.airportRepository, "airport");
+        }
+    }
+
+    /**
+     * Clears the route table and routeRepository then replaces them with the default routes
+     * @throws IOException when default route file cannot be read
+     */
+    public void resetRoute() throws IOException {
+        boolean result = resetConformation();
+//        boolean done = false;
+
+        if (result) {
+            Label label = new Label();
+            label.setText("loading: ");
+            ProgressBar pb = new ProgressBar();
+            ProgressIndicator pin = new ProgressIndicator();
+            Text text = new Text();
+            text.setText("\nThis action might take longer usual.\nPlease wait :)\n");
+            Button toClose = new Button();
+            toClose.setText("Click to close!");
+            toClose.setVisible(false);
+
+            Task<Void> task = new Task<Void>() {
+                @Override
+                public Void call() {
+                    // process long-running computation, data retrieval, etc...
+                    clearRouteTable();
+                    Repository.routeRepository = new RouteRepository();
+                    InputStream file = getClass().getResourceAsStream("/routes.dat");
+                    //File file = new File(getClass().getClassLoader().getResource("airlines.dat").toURI());
+                    if (file != null) {
+                        try {
+                            insertRouteTable(file);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    Repository.serializeObject(Repository.routeRepository, "route");
+                    return null;
+                }
+            };
+
+            task.setOnSucceeded(e -> {
+                pb.setProgress(1.0f);
+                pin.setProgress(1.0f);
+                toClose.setVisible(true);
+            });
+
+            new Thread(task).start();
+
+            pb.setProgress(ProgressIndicator.INDETERMINATE_PROGRESS);
+
+            pin.setProgress(ProgressIndicator.INDETERMINATE_PROGRESS);
+            HBox hb = new HBox();
+            hb.setSpacing(5);
+            hb.setAlignment(Pos.CENTER);
+            hb.getChildren().addAll(label, pb, pin);
+
+            Stage stage = new Stage();
+            Scene scene = new Scene(VBoxBuilder.create()
+                    .children(hb, text, toClose)
+                    .alignment(Pos.CENTER)
+                    .padding(new Insets(10))
+                    .build(), 300, 170);
+            stage.setScene(scene);
+            stage.setTitle("Progress Controls");
+
+            stage.show();
+            toClose.setOnAction( event ->
+                    stage.close()
+            );
+        }
+    }
+
+    private boolean resetConformation() {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation Dialog");
+        alert.setHeaderText("Are you sure you want to reset your selected data?");
+        alert.setContentText("This will replace the data with the default data.\nThis may take a few moments" +
+                "\n\nWARNING: The action cannot be undone and may take a while.\n");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+//    /**
+//     * Shows Aviation Information Reader's help page
+//     */
+//    public void getHelp() {
+//        //System.out.println("help");
+//        try {
+//            FXMLLoader fxml = new FXMLLoader();
+//            fxml.setLocation(getClass().getClassLoader().getResource("help.fxml"));
+//            Parent root = fxml.load();
+//            //Parent root = FXMLLoader.load(getClass().getResource("help.fxml"));
+//            Stage stage = new Stage();
+//            stage.initModality(Modality.APPLICATION_MODAL);
+//            stage.setResizable(false);
+//            stage.setTitle("Aviation Information Reader Help");
+//            stage.setScene(new Scene(root, 600, 400));
+//            stage.show();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//    }
+
+    /**Insert the routes in a given file into the route table GUI checking for duplicates
+     *
+     * @param file InputStream
+     * @throws IOException throws IOException error
+     */
+    public void insertRouteTable(InputStream file) throws IOException {
+        RouteValidator validator = new RouteValidator(file);
+        ArrayList<Route> routes = validator.makeroutes();
+        validator = null;
+        if (routes != null) {
+            for (int i = 0; i < routes.size(); i++) {
+                Route route = routes.get(i);
+                if (diffRoutes(route)) {
+                    Repository.routeRepository.addRoute(route);
+                    routeTData.add(new routeTable(route.getAirline(), String.valueOf(route.getAirlineID()),
+                            route.getSrcAirport(), String.valueOf(route.getSrcAirportID()),
+                            route.getDestAirport(), String.valueOf(route.getDestAirportID()),
+                            route.getCodeshare(), String.valueOf(route.getStops()),
+                            route.getEquipment().stream().collect(Collectors.joining(", "))));
+
+                    // if destination country id is not null then add it to destSet
+                    if (route.getDestAirportID() != null) {
+                        // also check that the airport of that id exists in the repository
+                        if (Repository.airportRepository.getAirports().get(route.getDestAirportID()) != null) {
+                            destSet.add(Repository.airportRepository.getAirports().get(route.getDestAirportID()).getCountry());
+                        }
+                    }
+                    // if departure country id is not null then add it to depSet
+                    if (route.getSrcAirportID() != null) {
+                        // also check that the airport of that id exists in the repository
+                        if (Repository.airportRepository.getAirports().get(route.getSrcAirportID()) != null) {
+                            depSet.add(Repository.airportRepository.getAirports().get(route.getSrcAirportID()).getCountry());
+                        }
+                    }
+
+                    // loop through the equipments given and add it to the equipmentSet
+                    for (String r : route.getEquipment()) {
+                        if (!r.isEmpty()) {
+                            equipmentSet.add(r);
+                        }
+                    }
+                } else {
+                    duplicateAlert("The system has read " + i + " route(s) from your file.\nPlease upload a file with different routes.");
+                    break;
+                }
+                updateEquipBox();
+                updateDepCountryBox();
+                updateDestCountryBox();
+                //updateMapCountryBox(); // add this back once mapp allgood
+            }
+        }
+
+    }
+
+    private void duplicateAlert(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText("The route already exists in the system.");
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+    // Compare routes, return true if the routes are different otherwise false
+    private boolean diffRoutes(Route route) {
+        if (Repository.routeRepository.getRoutes().containsKey(RouteRepository.getKey(route))) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public void clearRouteTable() {
+        routeTData.removeAll(routeTData);
+    }
+
+    public void clearAirlineTable() {
+        airlineTData.removeAll(airlineTData);
+    }
+
+    public void clearAirportTable() {
+        airportTData.removeAll(airportTData);
+    }
 
 }

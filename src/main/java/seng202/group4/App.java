@@ -32,7 +32,7 @@ public class App extends Application {
         Controller controller = fxml.getController();
 //
 //        System.out.println(controller);
-        controller.getMenuBarController().setMainController(controller);
+        //controller.getMenuBarController().setMainController(controller);
         //controller.getSearchPanesController().setMainController(controller);
         controller.getDataTabController().setMainController(controller);
 

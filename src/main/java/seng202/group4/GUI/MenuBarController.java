@@ -35,32 +35,30 @@ import java.util.Optional;
  */
 public class MenuBarController {
 
-    private Tab flightTab;
-    private String airlineLabel;
-    private String airportLabel;
-    private String routeLabel;
-    private TabPane tabPane;
-    private Tab dataTab;
-    private ListView<String> datalist;
+
 
     private Controller mainController;
+    private DataTabController dataTabController;
+    private FlightTabController flightTabController;
 
     /**
-     * Sets the main controller and retrieves private variables from the main controller
+     * Sets the main controller and retrieves variables from the main controller
      *
      * @param controller Controller
      */
     public void setMainController(Controller controller) {
         this.mainController = controller;
-        this.flightTab = mainController.getFlightTab();
-        this.airlineLabel = mainController.getAirlineLabel();
-        this.airportLabel = mainController.getAirportLabel();
-        this.routeLabel = mainController.getRouteLabel();
-        this.tabPane = mainController.getTabPane();
-        this.dataTab = mainController.getDataTab();
-        this.datalist = mainController.getDatalist();
+        this.dataTabController = mainController.getDataTabController();
+        this.flightTabController = mainController.getFlightTabController();
     }
 
+    /**
+     * Sets the data tab controller to retrieve functions and variables from it
+     * @param dataTabController
+     */
+    public void setDataTabController(DataTabController dataTabController) {
+        this.dataTabController = dataTabController;
+    }
     /**
      * Getter for the main controller
      *
@@ -70,22 +68,13 @@ public class MenuBarController {
         return mainController;
     }
 
-
     /**
      * Allows the user to load airline data from a file
      *
      * @throws IOException throws IOException error
      */
     public void loadAirline() throws IOException {
-        Stage stage = new Stage();
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Open file");
-        File in = fileChooser.showOpenDialog(stage);
-        if (in != null && in.exists()) {
-            InputStream file = new FileInputStream(in);
-            goToDataTab(airlineLabel);
-            mainController.insertAirlineTable(file);
-        }
+        dataTabController.loadAirline();
     }
 
     /**
@@ -94,17 +83,7 @@ public class MenuBarController {
      * @throws IOException throws IOException error
      */
     public void loadAirport() throws IOException {
-
-        Stage stage = new Stage();
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Open file");
-        File in = fileChooser.showOpenDialog(stage);
-        if (in != null && in.exists()) {
-            InputStream file = new FileInputStream(in);
-            //System.out.println("file opened oh ye bb~");
-            goToDataTab(airportLabel);
-            mainController.insertAirportTable(file);
-        }
+        dataTabController.loadAirport();
     }
 
     /**
@@ -113,17 +92,7 @@ public class MenuBarController {
      * @throws IOException throws IOException error
      */
     public void loadRoute() throws IOException {
-
-        Stage stage = new Stage();
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Open file");
-        File in = fileChooser.showOpenDialog(stage);
-        if (in != null && in.exists()) {
-            InputStream file = new FileInputStream(in);
-            //System.out.println("file opneeeedddd");
-            goToDataTab(routeLabel);
-            mainController.insertRouteTable(file);
-        }
+        dataTabController.loadRoute();
     }
 
     /**
@@ -132,25 +101,32 @@ public class MenuBarController {
      * @throws IOException throws IOException error
      */
     public void loadFlight() throws IOException {
-
-        Stage stage = new Stage();
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Open file");
-        File in = fileChooser.showOpenDialog(stage);
-        if (in != null && in.exists()) {
-            InputStream file = new FileInputStream(in);
-            //System.out.println("oooo yah flights");
-            // change tab to flight tab if its not on it already
-            if (!tabPane.getSelectionModel().equals(flightTab)) {
-                tabPane.getSelectionModel().select(flightTab);
-            }
-            mainController.insertFlightTable(file);
-        }
+        flightTabController.loadFlight();
     }
 
-    public void loadFlight2(String someCSV) throws IOException {
-        InputStream file = new ByteArrayInputStream(someCSV.getBytes(StandardCharsets.UTF_8));
-        mainController.insertFlightTable(file);
+
+    /**
+     * Clears the airline table and AirlineRepository then replaces them with the default airlines
+     * @throws IOException when default airline file cannot be read
+     */
+    public void resetAirline() throws IOException {
+        dataTabController.resetAirline();
+    }
+
+    /**
+     * Clears the airport table and AirportRepository then replaces them with the default airports
+     * @throws IOException when default airport file cannot be read
+     */
+    public void resetAirport() throws IOException {
+        dataTabController.resetAirport();
+    }
+
+    /**
+     * Clears the route table and routeRepository then replaces them with the default routes
+     * @throws IOException when default route file cannot be read
+     */
+    public void resetRoute() throws IOException {
+        dataTabController.resetRoute();
     }
 
     /**
@@ -175,141 +151,4 @@ public class MenuBarController {
 
     }
 
-    // change tab to data tab if its not on it already and switch the selection tab to the given name
-    private void goToDataTab(String name) {
-        if (!tabPane.getSelectionModel().equals(dataTab)) {
-            tabPane.getSelectionModel().select(dataTab);
-        }
-        datalist.getSelectionModel().select(name);
-    }
-
-    /**
-     * Clears the airline table and AirlineRepository then replaces them with the default airlines
-     * @throws IOException when default airline file cannot be read
-     */
-    public void resetAirline() throws IOException {
-        boolean result = resetConformation();
-        if (result) {
-            mainController.clearAirlineTable();
-            Repository.airlineRepository = new AirlineRepository();
-            InputStream file = getClass().getResourceAsStream("/airlines.dat");
-            //File file = new File(getClass().getClassLoader().getResource("airlines.dat").toURI());
-            if (file != null) {
-                mainController.insertAirlineTable(file);
-            }
-            Repository.serializeObject(Repository.airlineRepository, "airline");
-        }
-    }
-
-    /**
-     * Clears the airport table and AirportRepository then replaces them with the default airports
-     * @throws IOException when default airport file cannot be read
-     */
-    public void resetAirport() throws IOException {
-        boolean result = resetConformation();
-        if (result) {
-            mainController.clearAirportTable();
-            Repository.airportRepository = new AirportRepository();
-            InputStream file = getClass().getResourceAsStream("/airports.dat");
-            //File file = new File(getClass().getClassLoader().getResource("airlines.dat").toURI());
-            if (file != null) {
-                mainController.insertAirportTable(file);
-            }
-            Repository.serializeObject(Repository.airportRepository, "airport");
-        }
-    }
-
-    /**
-     * Clears the route table and routeRepository then replaces them with the default routes
-     * @throws IOException when default route file cannot be read
-     */
-    public void resetRoute() throws IOException {
-        boolean result = resetConformation();
-//        boolean done = false;
-
-        if (result) {
-            Label label = new Label();
-            label.setText("loading: ");
-            ProgressBar pb = new ProgressBar();
-            ProgressIndicator pin = new ProgressIndicator();
-            Text text = new Text();
-            text.setText("\nThis action might take longer usual.\nPlease wait :)\n");
-            Button toClose = new Button();
-            toClose.setText("Click to close!");
-            toClose.setVisible(false);
-
-            Task<Void> task = new Task<Void>() {
-                @Override
-                public Void call() {
-                    // process long-running computation, data retrieval, etc...
-                    mainController.clearRouteTable();
-                    Repository.routeRepository = new RouteRepository();
-                    InputStream file = getClass().getResourceAsStream("/routes.dat");
-                    //File file = new File(getClass().getClassLoader().getResource("airlines.dat").toURI());
-                    if (file != null) {
-                        try {
-                            mainController.insertRouteTable(file);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                    Repository.serializeObject(Repository.routeRepository, "route");
-                    return null;
-                }
-            };
-
-            task.setOnSucceeded(e -> {
-                pb.setProgress(1.0f);
-                pin.setProgress(1.0f);
-                toClose.setVisible(true);
-            });
-
-            new Thread(task).start();
-
-            pb.setProgress(ProgressIndicator.INDETERMINATE_PROGRESS);
-
-            pin.setProgress(ProgressIndicator.INDETERMINATE_PROGRESS);
-            HBox hb = new HBox();
-            hb.setSpacing(5);
-            hb.setAlignment(Pos.CENTER);
-            hb.getChildren().addAll(label, pb, pin);
-
-            Stage stage = new Stage();
-            Scene scene = new Scene(VBoxBuilder.create()
-                    .children(hb, text, toClose)
-                    .alignment(Pos.CENTER)
-                    .padding(new Insets(10))
-                    .build(), 300, 170);
-            stage.setScene(scene);
-            stage.setTitle("Progress Controls");
-
-            stage.show();
-            toClose.setOnAction( event ->
-                    stage.close()
-            );
-        }
-    }
-
-    private boolean resetConformation() {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Confirmation Dialog");
-        alert.setHeaderText("Are you sure you want to reset your selected data?");
-        alert.setContentText("This will replace the data with the default data.\nThis may take a few moments" +
-                "\n\nWARNING: The action cannot be undone and may take a while.\n");
-
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == ButtonType.OK) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    private Alert showLoading() {
-        Alert loading = new Alert(Alert.AlertType.INFORMATION);
-        loading.setTitle("Loading...");
-        loading.setHeaderText("Loading default data");
-        loading.setContentText("This will close when data is loaded");
-        return loading;
-    }
 }

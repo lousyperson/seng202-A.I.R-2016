@@ -8,11 +8,17 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.web.WebView;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import seng202.group4.data.dataType.Flight;
 import seng202.group4.data.dataType.FlightPosition;
+import seng202.group4.data.parser.validator.FlightValidator;
 import seng202.group4.data.repository.Repository;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Optional;
@@ -24,7 +30,10 @@ import java.util.ResourceBundle;
 public class FlightTabController implements Initializable{
 
     Controller mainController;
-    MenuBarController menuBarController;
+    //MenuBarController menuBarController;
+
+    private Tab flightTab;
+    private TabPane tabPane;
 
     // testing for flight
     private ObservableList<String> flightItems = FXCollections.observableArrayList();
@@ -76,7 +85,9 @@ public class FlightTabController implements Initializable{
      */
     public void setMainController(Controller controller) {
         this.mainController = controller;
-        this.menuBarController = controller.getMenuBarController();
+        //this.menuBarController = controller.getMenuBarController();
+        this.flightTab = mainController.getFlightTab();
+        this.tabPane = mainController.getTabPane();
 
 
 
@@ -272,16 +283,91 @@ public class FlightTabController implements Initializable{
     }
 
 
+//    /**
+//     * Allows the user to load a flight from a file
+//     * @throws IOException throws IOException error
+//     */
+//    public void loadFlight() throws IOException {
+//        try {
+//            menuBarController.loadFlight();
+//        } catch (NullPointerException e) {
+//            // Do nothing
+//        }
+//    }
+
     /**
      * Allows the user to load a flight from a file
+     *
      * @throws IOException throws IOException error
      */
     public void loadFlight() throws IOException {
-        try {
-            menuBarController.loadFlight();
-        } catch (NullPointerException e) {
-            // Do nothing
+
+        Stage stage = new Stage();
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Open file");
+        File in = fileChooser.showOpenDialog(stage);
+        if (in != null && in.exists()) {
+            InputStream file = new FileInputStream(in);
+            //System.out.println("oooo yah flights");
+            // change tab to flight tab if its not on it already
+            if (!tabPane.getSelectionModel().equals(flightTab)) {
+                tabPane.getSelectionModel().select(flightTab);
+            }
+            insertFlightTable(file);
         }
+    }
+
+    /**Insert the flight in a given file into the flight table
+     *
+     * @param file InputStream
+     * @throws IOException throws IOException error
+     */
+    public void insertFlightTable(InputStream file) throws IOException {
+        FlightValidator validator = new FlightValidator(file);
+        Flight flight = validator.makeFlight();
+        validator = null;
+
+        if(flight != null) {
+            boolean gotName = false;
+            while(!gotName){
+                // ask user for flight name
+                TextInputDialog dialog = new TextInputDialog();
+                dialog.setTitle("Name your flight!");
+                dialog.setHeaderText("Please give a name for your flight.");
+                dialog.setContentText("Flight name:");
+                Optional<String> name = dialog.showAndWait();
+                // if they press ok and field is not empty, check if a flight with that name exists
+                if(name.isPresent() && !name.get().trim().isEmpty()) {
+                    // if it does not already exist add the flight with that name to the repository
+                    if(!Repository.flightRepository.getFlights().containsKey(name.get().toLowerCase())){
+                        gotName = true;
+                        Repository.flightRepository.addFlight(name.get().toLowerCase(), flight);
+                        flightItems.add(name.get());
+
+                        // update the listView of flight names
+                        flightList.setItems(flightItems);
+
+                        // make the listView select to the newly uploaded flight which is
+                        // listened to already so it will populate the table
+                        flightList.getSelectionModel().selectLast();
+
+                    }
+                    else{
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("Oops!");
+                        alert.setHeaderText(null);
+                        alert.setContentText("Please give a different name for your flight \n" +
+                                "and make sure that it does not already exist \nin the system.");
+                        alert.showAndWait();
+                    }
+                }
+                else if(!name.isPresent()){
+                    gotName = true;
+                }
+            }
+
+        }
+        tabPane.getSelectionModel().select(1);
     }
 
     private void updateFlightNameSearch() {
