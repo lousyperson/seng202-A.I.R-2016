@@ -58,40 +58,40 @@ public class AirportAnchorController implements Initializable{
     private Button calc;
 
     @FXML
-    private TableColumn<airportTable, String> apid;
+    private TableColumn<AirportTable, String> apid;
 
     @FXML
-    private TableColumn<airportTable, String> apname;
+    private TableColumn<AirportTable, String> apname;
 
     @FXML
-    private TableColumn<airportTable, String> apcity;
+    private TableColumn<AirportTable, String> apcity;
 
     @FXML
-    private TableColumn<airportTable, String> apcountry;
+    private TableColumn<AirportTable, String> apcountry;
 
     @FXML
-    private TableColumn<airportTable, String> apiata;
+    private TableColumn<AirportTable, String> apiata;
 
     @FXML
-    private TableColumn<airportTable, String> apicao;
+    private TableColumn<AirportTable, String> apicao;
 
     @FXML
-    private TableColumn<airportTable, String> aplat;
+    private TableColumn<AirportTable, String> aplat;
 
     @FXML
-    private TableColumn<airportTable, String> aplong;
+    private TableColumn<AirportTable, String> aplong;
 
     @FXML
-    private TableColumn<airportTable, String> apalt;
+    private TableColumn<AirportTable, String> apalt;
 
     @FXML
-    private TableColumn<airportTable, String> aptimezone;
+    private TableColumn<AirportTable, String> aptimezone;
 
     @FXML
-    private TableColumn<airportTable, String> apdst;
+    private TableColumn<AirportTable, String> apdst;
 
     @FXML
-    private TableColumn<airportTable, String> aptz;
+    private TableColumn<AirportTable, String> aptz;
 
     // controllers
     private DataTabController mainController;
@@ -101,7 +101,7 @@ public class AirportAnchorController implements Initializable{
     private String allCountriesTag;
 
     // create table data
-    private ObservableList<airportTable> airportTData = FXCollections.observableArrayList();
+    private ObservableList<AirportTable> airportTData = FXCollections.observableArrayList();
 
     // airportCountrySet holds all the countries uploaded to airport
     private TreeSet airportCountrySet = new TreeSet();
@@ -152,7 +152,7 @@ public class AirportAnchorController implements Initializable{
         airportTableID.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
         airportTableID.setRowFactory(tableView -> {
-            final TableRow<airportTable> row = new TableRow<>();
+            final TableRow<AirportTable> row = new TableRow<>();
             final ContextMenu rowMenu = new ContextMenu();
             MenuItem addA = new MenuItem("Add to airport A");
             MenuItem addB = new MenuItem("Add to airport B");
@@ -178,8 +178,8 @@ public class AirportAnchorController implements Initializable{
                 alert.setContentText("Pressing OK will delete the row(s).\nWARNING: The action cannot be undone.\n");
                 Optional<ButtonType> result = alert.showAndWait();
                 if (result.get() == ButtonType.OK) {
-                    ObservableList<airportTable> selectedItems = airportTableID.getSelectionModel().getSelectedItems();
-                    for (airportTable airport : selectedItems) {
+                    ObservableList<AirportTable> selectedItems = airportTableID.getSelectionModel().getSelectedItems();
+                    for (AirportTable airport : selectedItems) {
                         Repository.airportRepository.getAirports().remove(airport.getAtid());
                     }
                     airportTData.removeAll(selectedItems);
@@ -225,7 +225,7 @@ public class AirportAnchorController implements Initializable{
     private void loadSerializedAirport() {
         Collection<Airport> airports = Repository.airportRepository.getAirports().values();
         for (Airport airport : airports) {
-            airportTData.add(new airportTable(airport.getID(), airport.getName(), airport.getCity(),
+            airportTData.add(new AirportTable(airport.getID(), airport.getName(), airport.getCity(),
                     airport.getCountry(), airport.getIATA(), airport.getICAO(), airport.getLatitude(),
                     airport.getLongitude(), airport.getAltitude(), airport.getTimezone(), airport.getDST().toText(),
                     airport.getTz()));
@@ -244,7 +244,7 @@ public class AirportAnchorController implements Initializable{
             for (int i = 0; i < airports.size(); i++) {
                 Airport airport = airports.get(i);
                 Repository.airportRepository.addAirport(airport);
-                airportTData.add(new airportTable(airport.getID(), airport.getName(), airport.getCity(),
+                airportTData.add(new AirportTable(airport.getID(), airport.getName(), airport.getCity(),
                         airport.getCountry(), airport.getIATA(), airport.getICAO(), airport.getLatitude(),
                         airport.getLongitude(), airport.getAltitude(), airport.getTimezone(), airport.getDST().toText(),
                         airport.getTz()));
@@ -289,7 +289,7 @@ public class AirportAnchorController implements Initializable{
                 Airport airport = airports.get(i);
                 if (!Repository.airportRepository.getAirports().containsKey(airport.getID())) {
                     Repository.airportRepository.addAirport(airport);
-                    airportTData.add(new airportTable(airport.getID(), airport.getName(), airport.getCity(),
+                    airportTData.add(new AirportTable(airport.getID(), airport.getName(), airport.getCity(),
                             airport.getCountry(), airport.getIATA(), airport.getICAO(), airport.getLatitude(),
                             airport.getLongitude(), airport.getAltitude(), airport.getTimezone(), airport.getDST().toText(),
                             airport.getTz()));
@@ -362,7 +362,7 @@ public class AirportAnchorController implements Initializable{
     private void searchAirports() {
         String intPattern = "[-]?[0-9]*[.]?[0-9]+";
         // searching for airline
-        FilteredList<airportTable> airportTableFiltered = new FilteredList<>(airportTData, p -> true);
+        FilteredList<AirportTable> airportTableFiltered = new FilteredList<>(airportTData, p -> true);
 
         airportSearch.textProperty().addListener((observable, oldValue, newValue) -> {
             airportTableFiltered.setPredicate(airport -> {
@@ -429,7 +429,7 @@ public class AirportAnchorController implements Initializable{
         });
 
         // Wrap the filtered list in a SortedList
-        SortedList<airportTable> airportTableSorted = new SortedList<>(airportTableFiltered);
+        SortedList<AirportTable> airportTableSorted = new SortedList<>(airportTableFiltered);
 
         // Bind the SortedList comparator to the TableView comparator
         airportTableSorted.comparatorProperty().bind(airportTableID.comparatorProperty());

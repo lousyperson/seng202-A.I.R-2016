@@ -1,31 +1,17 @@
 package seng202.group4.GUI;
 
-import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.MapChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
-import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.chart.*;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBoxBuilder;
-import javafx.scene.text.Text;
-import javafx.stage.Stage;
-import seng202.group4.data.repository.Repository;
-import seng202.group4.data.repository.RouteRepository;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.net.URL;
-import java.util.HashMap;
 import java.util.ResourceBundle;
 
 //import com.aquafx_project.AquaFx;
@@ -86,7 +72,7 @@ public class Controller implements Initializable {
     // Used in equipmentAnalysis
     ObservableMap<String, Integer> countEquipment = FXCollections.observableHashMap();
     ObservableList<String> equipKeys = FXCollections.observableArrayList();
-    ObservableList<equipAnalysisTable> equipAnalysisTData = FXCollections.observableArrayList();
+    ObservableList<EquipAnalysisTable> equipAnalysisTData = FXCollections.observableArrayList();
     ObservableList<PieChart.Data> equipPieChartData = FXCollections.observableArrayList();
     ObservableList<XYChart.Series<String, Integer>> equipBarChartData = FXCollections.observableArrayList();
 
@@ -117,13 +103,13 @@ public class Controller implements Initializable {
     private GridPane equipPane;
 
     @FXML
-    private TableView<equipAnalysisTable> equipAndRoutes;
+    private TableView<EquipAnalysisTable> equipAndRoutes;
 
     @FXML
-    private TableColumn<equipAnalysisTable, String> equipment;
+    private TableColumn<EquipAnalysisTable, String> equipment;
 
     @FXML
-    private TableColumn<equipAnalysisTable, Integer> equipCount;
+    private TableColumn<EquipAnalysisTable, Integer> equipCount;
 
     @FXML
     private PieChart equipPieChart;

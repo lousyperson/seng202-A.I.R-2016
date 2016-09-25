@@ -53,28 +53,28 @@ public class AirlineAnchorController implements Initializable{
     private TableView airlineTableID;
 
     @FXML
-    private TableColumn<airlineTable, String> aid;
+    private TableColumn<AirlineTable, String> aid;
 
     @FXML
-    private TableColumn<airlineTable, String> aname;
+    private TableColumn<AirlineTable, String> aname;
 
     @FXML
-    private TableColumn<airlineTable, String> aalias;
+    private TableColumn<AirlineTable, String> aalias;
 
     @FXML
-    private TableColumn<airlineTable, String> aiata;
+    private TableColumn<AirlineTable, String> aiata;
 
     @FXML
-    private TableColumn<airlineTable, String> aicao;
+    private TableColumn<AirlineTable, String> aicao;
 
     @FXML
-    private TableColumn<airlineTable, String> acallsign;
+    private TableColumn<AirlineTable, String> acallsign;
 
     @FXML
-    private TableColumn<airlineTable, String> acountry;
+    private TableColumn<AirlineTable, String> acountry;
 
     @FXML
-    private TableColumn<airlineTable, String> aactive;
+    private TableColumn<AirlineTable, String> aactive;
 
     // controllers
     private DataTabController mainController;
@@ -83,7 +83,7 @@ public class AirlineAnchorController implements Initializable{
     private String allCountriesTag;
 
     // create table data
-    private ObservableList<airlineTable> airlineTData = FXCollections.observableArrayList();
+    private ObservableList<AirlineTable> airlineTData = FXCollections.observableArrayList();
 
     // airlineCountrySet holds all the countries uploaded to airline
     private TreeSet airlineCountrySet = new TreeSet();
@@ -145,7 +145,7 @@ public class AirlineAnchorController implements Initializable{
 
     private void enableDeleteAirlines(){
         airlineTableID.setRowFactory(tableView -> {
-            final TableRow<airlineTable> row = new TableRow<>();
+            final TableRow<AirlineTable> row = new TableRow<>();
             final ContextMenu rowMenu = new ContextMenu();
             MenuItem removeItem = new MenuItem("Delete");
             row.setOnMouseClicked(event -> {
@@ -158,8 +158,8 @@ public class AirlineAnchorController implements Initializable{
 
                 Optional<ButtonType> result = alert.showAndWait();
                 if (result.get() == ButtonType.OK) {
-                    ObservableList<airlineTable> selectedItems = airlineTableID.getSelectionModel().getSelectedItems();
-                    for (airlineTable airline : selectedItems) {
+                    ObservableList<AirlineTable> selectedItems = airlineTableID.getSelectionModel().getSelectedItems();
+                    for (AirlineTable airline : selectedItems) {
                         Repository.airlineRepository.getAirlines().remove(airline.getRid());
                     }
                     airlineTData.removeAll(selectedItems);
@@ -245,7 +245,7 @@ public class AirlineAnchorController implements Initializable{
                 // if the airline ID already exists in the repository, warn the user
                 if (!Repository.airlineRepository.getAirlines().containsKey(airline.getID())) {
                     Repository.airlineRepository.addAirline(airline);
-                    airlineTData.add(new airlineTable(airline.getID(), airline.getName(),
+                    airlineTData.add(new AirlineTable(airline.getID(), airline.getName(),
                             airline.getAlias(), airline.getIATA(),
                             airline.getICAO(), airline.getCallsign(),
                             airline.getCountry(), airline.getActive()));
@@ -298,7 +298,7 @@ public class AirlineAnchorController implements Initializable{
             for (int i = 0; i < airlines.size(); i++) {
                 Airline airline = airlines.get(i);
                 Repository.airlineRepository.addAirline(airline);
-                airlineTData.add(new airlineTable(airline.getID(), airline.getName(),
+                airlineTData.add(new AirlineTable(airline.getID(), airline.getName(),
                         airline.getAlias(), airline.getIATA(),
                         airline.getICAO(), airline.getCallsign(),
                         airline.getCountry(), airline.getActive()));
@@ -314,7 +314,7 @@ public class AirlineAnchorController implements Initializable{
     private void loadSerializedAirline() {
         Collection<Airline> airlines = Repository.airlineRepository.getAirlines().values();
         for (Airline airline : airlines) {
-            airlineTData.add(new airlineTable(airline.getID(), airline.getName(),
+            airlineTData.add(new AirlineTable(airline.getID(), airline.getName(),
                     airline.getAlias(), airline.getIATA(),
                     airline.getICAO(), airline.getCallsign(),
                     airline.getCountry(), airline.getActive()));
@@ -349,7 +349,7 @@ public class AirlineAnchorController implements Initializable{
 
     private void searchAirlines() {
         // searching for airline
-        FilteredList<airlineTable> airlineTableFiltered = new FilteredList<>(airlineTData, p -> true);
+        FilteredList<AirlineTable> airlineTableFiltered = new FilteredList<>(airlineTData, p -> true);
 
         airlineSearch.textProperty().addListener((observable, oldValue, newValue) -> {
             airlineTableFiltered.setPredicate(airline -> {
@@ -414,7 +414,7 @@ public class AirlineAnchorController implements Initializable{
         });
 
         // Wrap the filtered list in a SortedList
-        SortedList<airlineTable> airlineTableSorted = new SortedList<>(airlineTableFiltered);
+        SortedList<AirlineTable> airlineTableSorted = new SortedList<>(airlineTableFiltered);
 
         // Bind the SortedList comparator to the TableView comparator
         airlineTableSorted.comparatorProperty().bind(airlineTableID.comparatorProperty());
