@@ -12,29 +12,23 @@ import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBoxBuilder;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import seng202.group4.data.dataType.Airline;
 import seng202.group4.data.dataType.Airport;
-import seng202.group4.data.dataType.Flight;
 import seng202.group4.data.dataType.Route;
 import seng202.group4.data.parser.validator.AirlineValidator;
 import seng202.group4.data.parser.validator.AirportValidator;
-import seng202.group4.data.parser.validator.FlightValidator;
 import seng202.group4.data.parser.validator.RouteValidator;
 import seng202.group4.data.repository.AirlineRepository;
 import seng202.group4.data.repository.AirportRepository;
@@ -54,6 +48,7 @@ import java.util.stream.Collectors;
 public class DataTabController implements Initializable{
     private Controller mainController;
     private FlightTabController flightTabController;
+    private AirlinePaneController airlinePaneController;
 
     private Tab flightTab;
     private TabPane tabPane;
@@ -143,6 +138,10 @@ public class DataTabController implements Initializable{
     private String pointAICAO;
     private String pointBICAO;
 
+    public String getAllCountriesTag() {
+        return allCountriesTag;
+    }
+
     // initial combobox names
     private String allCountriesTag = " --ALL COUNTRIES-- ";
     private String allEquipmentsTag = " --ALL EQUIPMENTS-- ";
@@ -152,107 +151,21 @@ public class DataTabController implements Initializable{
     @FXML
     private ListView<String> datalist;
 
+    public TableView<airlineTable> getAirlineTableID() {
+        return airlineTableID;
+    }
+
     // Airline Table
     @FXML
-    private TableView<airlineTable> airlineTableID;
-    @FXML
-    private TableColumn<airlineTable, String> aid;
-
-    @FXML
-    private TableColumn<airlineTable, String> aname;
-
-    @FXML
-    private TableColumn<airlineTable, String> aalias;
-
-    @FXML
-    private TableColumn<airlineTable, String> aiata;
-
-    @FXML
-    private TableColumn<airlineTable, String> aicao;
-
-    @FXML
-    private TableColumn<airlineTable, String> acallsign;
-
-    @FXML
-    private TableColumn<airlineTable, String> acountry;
-
-    @FXML
-    private TableColumn<airlineTable, String> aactive;
+    public TableView<airlineTable> airlineTableID;
 
     // Airport Table
     @FXML
     private TableView<airportTable> airportTableID;
 
-    @FXML
-    private TableColumn<airportTable, String> apid;
-
-    @FXML
-    private TableColumn<airportTable, String> apname;
-
-    @FXML
-    private TableColumn<airportTable, String> apcity;
-
-    @FXML
-    private TableColumn<airportTable, String> apcountry;
-
-    @FXML
-    private TableColumn<airportTable, String> apiata;
-
-    @FXML
-    private TableColumn<airportTable, String> apicao;
-
-    @FXML
-    private TableColumn<airportTable, String> aplat;
-
-    @FXML
-    private TableColumn<airportTable, String> aplong;
-
-    @FXML
-    private TableColumn<airportTable, String> apalt;
-
-    @FXML
-    private TableColumn<airportTable, String> aptimezone;
-
-    @FXML
-    private TableColumn<airportTable, String> apdst;
-
-    @FXML
-    private TableColumn<airportTable, String> aptz;
-
     // Route table
-
     @FXML
     private TableView<routeTable> routeTableID;
-
-    @FXML
-    private TableColumn<routeTable, String> airline;
-
-    @FXML
-    private TableColumn<routeTable, Integer> airlineID;
-
-    @FXML
-    private TableColumn<routeTable, String> source;
-
-    @FXML
-    private TableColumn<routeTable, Integer> sourceID;
-
-    @FXML
-    private TableColumn<routeTable, String> dest;
-
-    @FXML
-    private TableColumn<routeTable, Integer> destID;
-
-    @FXML
-    private TableColumn<routeTable, String> codeshare;
-
-    @FXML
-    private TableColumn<routeTable, Integer> stops;
-
-    @FXML
-    private TableColumn<routeTable, String> equipment;
-
-
-
 
     @FXML
     private AnchorPane airlinePane;
@@ -267,6 +180,10 @@ public class DataTabController implements Initializable{
     private String airportLabel = "Airports";
     private String routeLabel = "Routes";
 
+    public ObservableList<airlineTable> getAirlineTData() {
+        return airlineTData;
+    }
+
     // create table data
     private ObservableList<airlineTable> airlineTData = FXCollections.observableArrayList();
 
@@ -278,11 +195,8 @@ public class DataTabController implements Initializable{
 
     private ObservableList<String> items = FXCollections.observableArrayList(airlineLabel, airportLabel, routeLabel);
 
-
-
-    public TreeSet getAirlineCountrySet() {
-        return airlineCountrySet;
-    }
+    // airlineCountrySet holds all the countries uploaded to airline
+    private TreeSet airlineCountrySet = new TreeSet();
 
     public TreeSet getAirportCountrySet() {
         return airportCountrySet;
@@ -299,9 +213,6 @@ public class DataTabController implements Initializable{
     public TreeSet getEquipmentSet() {
         return equipmentSet;
     }
-
-    // airlineCountrySet holds all the countries uploaded to airline
-    private TreeSet airlineCountrySet = new TreeSet();
 
     // airportCountrySet holds all the countries uploaded to airport
     private TreeSet airportCountrySet = new TreeSet();
@@ -323,6 +234,8 @@ public class DataTabController implements Initializable{
      * @param resources ResourceBundle
      */
     public void initialize(URL location, ResourceBundle resources) {
+
+        System.out.println("datatab init");
        // menuBarController.setDataTabController(this);
         datalist.setItems(items);
         // select first data type (airline) on the side bar
@@ -352,17 +265,10 @@ public class DataTabController implements Initializable{
 
         });
 
-        // initialise airline table resources
-        aid.setCellValueFactory(new PropertyValueFactory<>("rid"));
-        aname.setCellValueFactory(new PropertyValueFactory<>("rname"));
-        aalias.setCellValueFactory(new PropertyValueFactory<>("ralias"));
-        aiata.setCellValueFactory(new PropertyValueFactory<>("riata"));
-        aicao.setCellValueFactory(new PropertyValueFactory<>("ricao"));
-        acallsign.setCellValueFactory(new PropertyValueFactory<>("rcallsign"));
-        acountry.setCellValueFactory(new PropertyValueFactory<>("rcountry"));
-        aactive.setCellValueFactory(new PropertyValueFactory<>("ractive"));
-
         airlineTableID.setItems(airlineTData);
+        System.out.println("just set airline table id items");
+
+//        airlinePaneController.go();
 
         // loads default airline list
         try {
@@ -372,7 +278,6 @@ public class DataTabController implements Initializable{
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
-
         searchAirlines();
 
         airlineTableID.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
@@ -408,19 +313,6 @@ public class DataTabController implements Initializable{
             return row;
         });
 
-        // initialise airport table resources
-        apid.setCellValueFactory(new PropertyValueFactory<>("atid"));
-        apname.setCellValueFactory(new PropertyValueFactory<>("atname"));
-        apcity.setCellValueFactory(new PropertyValueFactory<>("atcity"));
-        apcountry.setCellValueFactory(new PropertyValueFactory<>("atcountry"));
-        apiata.setCellValueFactory(new PropertyValueFactory<>("atiata"));
-        apicao.setCellValueFactory(new PropertyValueFactory<>("aticao"));
-        aplat.setCellValueFactory(new PropertyValueFactory<>("atlatitude"));
-        aplong.setCellValueFactory(new PropertyValueFactory<>("atlongitude"));
-        apalt.setCellValueFactory(new PropertyValueFactory<>("ataltitude"));
-        aptimezone.setCellValueFactory(new PropertyValueFactory<>("attimezone"));
-        apdst.setCellValueFactory(new PropertyValueFactory<>("atdst"));
-        aptz.setCellValueFactory(new PropertyValueFactory<>("attzdatabase"));
 
         airportTableID.setItems(airportTData);
 
@@ -480,17 +372,6 @@ public class DataTabController implements Initializable{
             );
             return row;
         });
-
-        // initialise route data table resources
-        airline.setCellValueFactory(new PropertyValueFactory<>("rairline"));
-        airlineID.setCellValueFactory(new PropertyValueFactory<>("rid"));
-        source.setCellValueFactory(new PropertyValueFactory<>("rsource"));
-        sourceID.setCellValueFactory(new PropertyValueFactory<>("rsourceid"));
-        dest.setCellValueFactory(new PropertyValueFactory<>("rdest"));
-        destID.setCellValueFactory(new PropertyValueFactory<>("rdestid"));
-        codeshare.setCellValueFactory(new PropertyValueFactory<>("rcodeshare"));
-        stops.setCellValueFactory(new PropertyValueFactory<>("rstops"));
-        equipment.setCellValueFactory(new PropertyValueFactory<>("requipment"));
 
         routeTableID.setItems(routeTData);
 
@@ -564,9 +445,11 @@ public class DataTabController implements Initializable{
      * @param controller Controller
      */
     public void setMainController(Controller controller) {
+        System.out.println("settin in data tab");
         this.mainController = controller;
         //this.menuBarController = controller.getMenuBarController();
         this.flightTabController = mainController.getFlightTabController();
+        this.airlinePaneController = mainController.getAirlinePaneController();
         this.flightTab = mainController.getFlightTab();
         this.airlineLabel = mainController.getAirlineLabel();
         this.airportLabel = mainController.getAirportLabel();
@@ -1263,19 +1146,7 @@ public class DataTabController implements Initializable{
         updateAirlineSearch();
     }
 
-//    /**
-//     * Allows the user to load airline data from a file
-//     *
-//     * @throws IOException throws IOException error
-//     */
-//    public void loadAirline() throws IOException {
-//        try {
-//            menuBarController.loadAirline();
-//        } catch (NullPointerException e) {
-//            // Do Nothing
-//
-//        }
-//    }
+
 
     /**
      * Allows the user to load airline data from a file
@@ -1327,7 +1198,7 @@ public class DataTabController implements Initializable{
     }
 
 
-    private void duplicateIDAlert(String message, Integer id) {
+    public void duplicateIDAlert(String message, Integer id) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");
         alert.setHeaderText("ID: " + id + " already exists in the system.");
@@ -1335,19 +1206,6 @@ public class DataTabController implements Initializable{
         alert.showAndWait();
     }
 
-//
-//    /**
-//     * Allows the user to load route data from a file
-//     *
-//     * @throws IOException throws IOException error
-//     */
-//    public void loadRoute() throws IOException {
-//        try {
-//            menuBarController.loadRoute();
-//        } catch (NullPointerException e) {
-//            // Do nothing
-//        }
-//    }
 
     /**
      * Allows the user to load route data from a file
@@ -1369,26 +1227,12 @@ public class DataTabController implements Initializable{
     }
 
     // change tab to data tab if its not on it already and switch the selection tab to the given name
-    private void goToDataTab(String name) {
+    public void goToDataTab(String name) {
         if (!tabPane.getSelectionModel().equals(dataTab)) {
             tabPane.getSelectionModel().select(dataTab);
         }
         datalist.getSelectionModel().select(name);
     }
-
-
-//    /**
-//     * Allows the user to load airport data from a file
-//     *
-//     * @throws IOException throws IOException error
-//     */
-//    public void loadAirport() throws IOException {
-//        try {
-//            menuBarController.loadAirport();
-//        } catch (NullPointerException e) {
-//            // Do nothing
-//        }
-//    }
 
 
     /**
@@ -1601,56 +1445,6 @@ public class DataTabController implements Initializable{
         }
     }
 
-//        /**
-//     * Allows the user to load a flight from a file
-//     *
-//     * @throws IOException throws IOException error
-//     */
-//    public void loadFlight() throws IOException {
-//        flightTabController.loadFlight();
-//    }
-
-//    /**
-//     * Allows the user to load a flight from a file
-//     *
-//     * @throws IOException throws IOException error
-//     */
-//    public void loadFlight() throws IOException {
-//
-//        Stage stage = new Stage();
-//        FileChooser fileChooser = new FileChooser();
-//        fileChooser.setTitle("Open file");
-//        File in = fileChooser.showOpenDialog(stage);
-//        if (in != null && in.exists()) {
-//            InputStream file = new FileInputStream(in);
-//            //System.out.println("oooo yah flights");
-//            // change tab to flight tab if its not on it already
-//            if (!tabPane.getSelectionModel().equals(flightTab)) {
-//                tabPane.getSelectionModel().select(flightTab);
-//            }
-//            insertFlightTable(file);
-//        }
-//    }
-
-
-
-    /**
-     * Clears the airline table and AirlineRepository then replaces them with the default airlines
-     * @throws IOException when default airline file cannot be read
-     */
-    public void resetAirline() throws IOException {
-        boolean result = resetConformation();
-        if (result) {
-            clearAirlineTable();
-            Repository.airlineRepository = new AirlineRepository();
-            InputStream file = getClass().getResourceAsStream("/airlines.dat");
-            //File file = new File(getClass().getClassLoader().getResource("airlines.dat").toURI());
-            if (file != null) {
-                insertAirlineTable(file);
-            }
-            Repository.serializeObject(Repository.airlineRepository, "airline");
-        }
-    }
 
     /**
      * Clears the airport table and AirportRepository then replaces them with the default airports
@@ -1741,7 +1535,7 @@ public class DataTabController implements Initializable{
         }
     }
 
-    private boolean resetConformation() {
+    public boolean resetConformation() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmation Dialog");
         alert.setHeaderText("Are you sure you want to reset your selected data?");
@@ -1756,27 +1550,6 @@ public class DataTabController implements Initializable{
         }
     }
 
-//    /**
-//     * Shows Aviation Information Reader's help page
-//     */
-//    public void getHelp() {
-//        //System.out.println("help");
-//        try {
-//            FXMLLoader fxml = new FXMLLoader();
-//            fxml.setLocation(getClass().getClassLoader().getResource("help.fxml"));
-//            Parent root = fxml.load();
-//            //Parent root = FXMLLoader.load(getClass().getResource("help.fxml"));
-//            Stage stage = new Stage();
-//            stage.initModality(Modality.APPLICATION_MODAL);
-//            stage.setResizable(false);
-//            stage.setTitle("Aviation Information Reader Help");
-//            stage.setScene(new Scene(root, 600, 400));
-//            stage.show();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//
-//    }
 
     /**Insert the routes in a given file into the route table GUI checking for duplicates
      *

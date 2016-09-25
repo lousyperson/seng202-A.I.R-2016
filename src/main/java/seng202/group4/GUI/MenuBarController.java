@@ -1,34 +1,12 @@
 package seng202.group4.GUI;
 
-import javafx.application.Platform;
-import javafx.concurrent.Task;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.scene.layout.VBoxBuilder;
-import javafx.scene.text.Text;
-import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import seng202.group4.App;
-import seng202.group4.data.dataType.Airline;
-import seng202.group4.data.repository.AirlineRepository;
-import seng202.group4.data.repository.AirportRepository;
-import seng202.group4.data.repository.Repository;
-import seng202.group4.data.repository.RouteRepository;
 
-import java.io.*;
-import java.net.URISyntaxException;
-import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
-import java.util.Optional;
+import java.io.IOException;
 
 /**
  * The MenuBarController with functions for importing data
@@ -40,6 +18,7 @@ public class MenuBarController {
     private Controller mainController;
     private DataTabController dataTabController;
     private FlightTabController flightTabController;
+    private AirlinePaneController airlinePaneController;
 
     /**
      * Sets the main controller and retrieves variables from the main controller
@@ -50,6 +29,7 @@ public class MenuBarController {
         this.mainController = controller;
         this.dataTabController = mainController.getDataTabController();
         this.flightTabController = mainController.getFlightTabController();
+        this.airlinePaneController = mainController.getAirlinePaneController();
     }
 
     /**
@@ -74,7 +54,7 @@ public class MenuBarController {
      * @throws IOException throws IOException error
      */
     public void loadAirline() throws IOException {
-        dataTabController.loadAirline();
+        airlinePaneController.loadAirline();
     }
 
     /**
@@ -110,7 +90,7 @@ public class MenuBarController {
      * @throws IOException when default airline file cannot be read
      */
     public void resetAirline() throws IOException {
-        dataTabController.resetAirline();
+        airlinePaneController.resetAirline();
     }
 
     /**

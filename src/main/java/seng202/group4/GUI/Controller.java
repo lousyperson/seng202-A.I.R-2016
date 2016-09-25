@@ -44,6 +44,21 @@ public class Controller implements Initializable {
     @FXML
     private MapTabController mapTabController;
 
+    public AirlinePaneController getAirlinePaneController() {
+        return airlinePaneController;
+    }
+
+    @FXML
+    private AirlinePaneController airlinePaneController;
+
+    @FXML
+    private AirlineTableIDController airlineTableIDController;
+
+    @FXML
+    private AirportTableIDController airportTableIDController;
+
+    @FXML
+    private RouteTableIDController routeTableIDController;
 
 //    public SearchPanesController getSearchPanesController() {
 //        return searchPanesController;
@@ -130,12 +145,37 @@ public class Controller implements Initializable {
      * @param resources ResourceBundle
      */
     public void initialize(URL location, ResourceBundle resources) {
-
+        System.out.println("control init");
         // Passing MainController to the other controllers
         menuBarController.setMainController(this);
         mapTabController.setMainController(this);
         dataTabController.setMainController(this);
+        System.out.println("done data tab set");
         flightTabController.setMainController(this);
+        System.out.println("done flight tab set");
+
+
+//        System.out.println("done airlinepane set");
+//        // loads default airline list
+//        try {
+//            airlinePaneController.loadDefaultAirline();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        } catch (URISyntaxException e) {
+//            e.printStackTrace();
+//        }
+
+//        airlineTableIDController.setMainController(this);
+//        System.out.println("done airlinetable id set");
+//        routeTableIDController.setMainController(this);
+//        System.out.println("done route table id set");
+        //airlinePaneController.setMainController(this);
+       // airlinePaneController.setMainController(this);
+//        System.out.println("done airlinepane set");
+
+//        airportTableIDController.setMainController(this);
+
+
 //        mapView.getEngine().load(getClass().getClassLoader().getResource("map.html").toExternalForm());
 
     }

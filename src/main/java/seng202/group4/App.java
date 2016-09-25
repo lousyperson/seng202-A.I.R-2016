@@ -34,7 +34,8 @@ public class App extends Application {
 //        System.out.println(controller);
         //controller.getMenuBarController().setMainController(controller);
         //controller.getSearchPanesController().setMainController(controller);
-        controller.getDataTabController().setMainController(controller);
+
+        //controller.getDataTabController().setMainController(controller);
 
 
 

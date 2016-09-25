@@ -84,6 +84,7 @@ public class FlightTabController implements Initializable{
      * @param controller Controller
      */
     public void setMainController(Controller controller) {
+        System.out.println("in set main controller for fligth tab");
         this.mainController = controller;
         //this.menuBarController = controller.getMenuBarController();
         this.flightTab = mainController.getFlightTab();
