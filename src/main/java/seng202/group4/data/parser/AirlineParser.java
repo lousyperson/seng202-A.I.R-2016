@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * Created by seng202-group-4. Last updated September 12, 2016.
+ * The airline parser parses through the airline data in the given list. No error checking is done here.
  */
 public class AirlineParser {
     private final int MAX_ITEMS_PER_LINE = 8;
@@ -22,6 +22,10 @@ public class AirlineParser {
     private String currentLine;
     private ArrayList<Airline> airlines = new ArrayList<>();
 
+    /**
+     * Initializes the file for the parser to parse through.
+     * @param file ArrayList
+     */
     public AirlineParser(ArrayList file) {
         this.file = file;
     }
@@ -32,6 +36,7 @@ public class AirlineParser {
             splitLine[i] = null;
         } else {
             splitLine[i] = splitLine[i].replaceAll("^\"|\"$", "");      // Remove quotation marks
+            splitLine[i] = splitLine[i].replace("\\\\", "");            // Remove \\
         }
     }
 
@@ -53,6 +58,11 @@ public class AirlineParser {
         airlines.add(thisAirline);
     }
 
+    /**
+     * Makes an airline and returns a list of airlines.
+     * @return airlines
+     * @throws IOException throws IOException error
+     */
     public ArrayList<Airline> makeAirlines() throws IOException {
         for(String currentLine: file){
             addAirline(currentLine);

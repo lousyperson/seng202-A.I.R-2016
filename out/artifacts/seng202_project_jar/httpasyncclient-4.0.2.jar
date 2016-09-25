@@ -1,0 +1,41 @@
+<!doctype html public "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<title>Authorisation required for Internet access</title>
+<style>
+<!--
+div.top {
+  background: rgb(192, 12, 12);
+  color: white;
+  padding: 12pt;
+}
+
+h2 {
+  color: rgb(192, 12, 12);
+}
+-->
+</style>
+</head>
+<body>
+
+<div class=top>
+<h1 style="float: right">Authorisation required for Internet access</h1>
+<img src="whitelogo.png" width="120" height="94" border="0" alt="">
+</div>
+
+<p>Your device has attempted to access a website or resource outside of the 
+University of Canterbury network.</p>
+
+<h2>What do I do?</h2>
+
+<p>If this device has used the Internet before you may just need to 
+<a href="http://www.it.canterbury.ac.nz/service-catalogue/internet/ienabler.shtml">re-enable 
+the Internet Enabler program</a>.</p>
+
+<p>If this is a new device you will need to 
+<a href="http://www.it.canterbury.ac.nz/service-catalogue/internet/">set 
+it up to access the Internet</a>.</p>
+
+</body>
+</html>
+

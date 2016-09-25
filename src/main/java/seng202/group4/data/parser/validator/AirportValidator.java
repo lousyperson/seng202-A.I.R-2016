@@ -10,7 +10,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Created by jjg64 on 25/08/16.
+ * Ensures that the airport data from the file is valid by reading and checking to ensure it meets formatting
+ * expectations. Error checks the file and uses the AirportParser if valid.
  */
 public class AirportValidator {
     private final int MIN_ITEMS_PER_LINE = 12;
@@ -26,6 +27,10 @@ public class AirportValidator {
     int index;
     private ArrayList<String> stringArray = new ArrayList<>();
 
+    /**
+     * Builds the daylight saving time enum and checks that the line meets the minimum number of items per line.
+     * @throws IOException
+     */
     private void validateLine() throws IOException {
         makeMap();
         splitLine = currentLine.split(splitBy);
@@ -36,6 +41,11 @@ public class AirportValidator {
         }
     }
 
+    /**
+     * Makes a list of airports, by making the airports and checking that each is a valid airport along the way.
+     * @return Array list of airports
+     * @throws IOException Throws IOException error
+     */
     public ArrayList<Airport> makeAirports() throws IOException {
         while ((currentLine = file.readLine()) != null) {
             lineNumber++;
@@ -64,6 +74,10 @@ public class AirportValidator {
         DSTs.add("\"U\"");
     }
 
+    /**
+     * Checks that the singular line contains data of the expected format.
+     * @throws IOException
+     */
     private void checkLine() throws IOException {
         index = 1;
         try {
@@ -87,14 +101,14 @@ public class AirportValidator {
         } else if (!checkString(0) && !(splitLine[index].length() == 6 || splitLine[index].equals("\\N"))) {
             makeAlert("ICAO must be letters of length 4 in quotations");
             return;
-        } else if (!checkNumber(2)) {
-            makeAlert("Latitude must be a number");
+        } else if (!checkNumber(2, -90, 90)) {
+            makeAlert("Latitude must be a number in degrees");
             return;
-        } else if (!checkNumber(3)) {
-            makeAlert("Longitude must be a number");
+        } else if (!checkNumber(3, -180, 180)) {
+            makeAlert("Longitude must be a number in degrees");
             return;
         } else if (!checkNumber(4)) {
-            makeAlert("Altitude must be a number");
+            makeAlert("Altitude must be a number in feet");
             return;
         } else if (!checkNumber(5)) {
             makeAlert("Timezone must be a number");
@@ -108,6 +122,10 @@ public class AirportValidator {
         }
     }
 
+    /**
+     * Checks that the string with commas is valid.
+     * @return isValid, a boolean, depending on whether on not the string is valid, true if valid, false if not.
+     */
     private boolean checkStringWithCommas() {
         boolean isValid = true;
         if (splitLine[index].startsWith("\"")) {
@@ -124,6 +142,19 @@ public class AirportValidator {
         return isValid;
     }
 
+    private boolean checkNumber(int i, int lowerBound, int upperBound) {
+        try {
+            Double number = Double.parseDouble(splitLine[index + i]);
+            if (number >= lowerBound && number <= upperBound) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
     private boolean checkNumber(int i) {
         try {
             Double.parseDouble(splitLine[index + i]);
@@ -133,6 +164,11 @@ public class AirportValidator {
         }
     }
 
+    /**
+     * Checks to see if the given index points to a string.
+     * @param i
+     * @return a boolean, true if it points to a string, false if not.
+     */
     private boolean checkString(int i) {
         boolean isValid = true;
         if (!splitLine[index + i].equals("\\N")) {
@@ -141,6 +177,11 @@ public class AirportValidator {
         return isValid;
     }
 
+    /**
+     * Builds the reader so that each line can be read and an airport bult for that line.
+     * @param filepath InputStream
+     * @throws FileNotFoundException Throws error when file is not found
+     */
     public AirportValidator(InputStream filepath) throws FileNotFoundException {
         this.filepath = filepath;
         this.file = new BufferedReader(new InputStreamReader(filepath));
@@ -151,7 +192,7 @@ public class AirportValidator {
         alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");
         alert.setHeaderText("There is an error in your file on line " + lineNumber);
-        alert.setContentText(message + "\nNo airports were added.\nPlease go to help drop down for file formatting help.");
+        alert.setContentText(message + "\n\nNo airports were added.\n\nPlease go to help drop down for file formatting help.");
         alert.showAndWait();
     }
 }

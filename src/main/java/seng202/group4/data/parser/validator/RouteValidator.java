@@ -8,9 +8,8 @@ import java.io.*;
 import java.util.ArrayList;
 
 /**
- * @param
- * @returns
- * @throws
+ * Ensures that the route data from the file is valid by reading and checking to ensure it meets formatting
+ * expectations. Error checks the file and uses RouteParser if valid.
  */
 public class RouteValidator {
     private final int ITEMS_PER_LINE = 9;
@@ -29,6 +28,12 @@ public class RouteValidator {
         this.file = new BufferedReader(new InputStreamReader(filepath));
     }
 
+    /**
+     * Creates the routes from the given data file to check if they are of the correct format. Calls validateLine to
+     * ensure that the format is correct.
+     * @return Array list of routes
+     * @throws IOException Throws IOException error
+     */
     public ArrayList<Route> makeroutes() throws IOException {
         while ((currentLine = file.readLine()) != null) {
             lineNumber++;
@@ -99,7 +104,7 @@ public class RouteValidator {
         alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");
         alert.setHeaderText("There is an error in your file on line " + lineNumber);
-        alert.setContentText(message + "\nNo routes were added.\nPlease go to help drop down for file formatting help.");
+        alert.setContentText(message + "\n\nNo routes were added.\n\nPlease go to help drop down for file formatting help.");
         alert.showAndWait();
     }
 }

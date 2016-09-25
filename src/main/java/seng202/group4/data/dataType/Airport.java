@@ -1,9 +1,13 @@
 package seng202.group4.data.dataType;
 
+import java.io.Serializable;
+
 /**
- * Created by jjg64 on 15/08/16.
+ * Stores information about an Airport.
+ * The airport class creates the airport object using the information for the airport and allows for the construction of
+ * the airport table.
  */
-public class Airport {
+public class Airport implements Serializable {
     private int ID;
     private String name;
     private String city;
@@ -18,9 +22,22 @@ public class Airport {
     private String tz;
     private int routes = 0;
 
-    public Airport() {
 
-    }
+    /**
+     * Initializes all of the variables for the airport class.
+     * @param ID An Integer for the airport ID
+     * @param name A String for the airport name
+     * @param city A String for the airport city
+     * @param country A String for the airport country
+     * @param IATA A String for the airport IATA
+     * @param ICAO A String for the airport ICAO
+     * @param latitude A Double for the airport latitude
+     * @param longitude A Double for the airport longitude
+     * @param altitude A Double for the airport altitude
+     * @param timezone A Float for the airport timezone
+     * @param DST A DaylightSavingsTime enum for the airport DST
+     * @param tz A String for the airport tzdata
+     */
     public Airport(int ID, String name, String city, String country, String IATA, String ICAO, double latitude,
             double longitude, double altitude, float timezone, DaylightSavingsTime DST, String tz) {
         this.ID = ID;

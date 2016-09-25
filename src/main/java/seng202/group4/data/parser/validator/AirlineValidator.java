@@ -9,7 +9,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
- * Created by jjg64 on 25/08/16.
+ * The AirlineValidator class ensures that the information parsed into the program by the data file meets the
+ * expected formatting criteria to ensure there are no representational issues. Error checks the files and
+ * uses the AirlineParser if valid.
  */
 public class AirlineValidator {
     private final int ITEMS_PER_LINE = 8;
@@ -28,6 +30,12 @@ public class AirlineValidator {
         this.file = new BufferedReader(new InputStreamReader(filepath));
     }
 
+    /**
+     * Produces a list of airlines by checking each airline one by one from the data file and ensuring it is a valid
+     * airline.
+     * @return Array list of airlines
+     * @throws IOException Throws IOException error
+     */
     public ArrayList<Airline> makeAirlines() throws IOException {
         while ((currentLine = file.readLine()) != null) {
             lineNumber++;
@@ -47,7 +55,6 @@ public class AirlineValidator {
     }
 
     private void validateLine() throws IOException {
-        //System.out.println("in validate");
         splitLine = currentLine.split(splitBy, ITEMS_PER_LINE + 1);
         if (splitLine.length != ITEMS_PER_LINE) {
             makeAlert("Expected " + ITEMS_PER_LINE + " comma separated variables.");
@@ -105,7 +112,7 @@ public class AirlineValidator {
         alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");
         alert.setHeaderText("There is an error in your file on line " + lineNumber);
-        alert.setContentText(message + "\nNo airlines were added.\nPlease go to help drop down for file formatting help.");
+        alert.setContentText(message + "\n\nNo airlines were added.\n\nPlease go to help drop down for file formatting help.");
         alert.showAndWait();
     }
 }

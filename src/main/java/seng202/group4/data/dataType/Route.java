@@ -1,12 +1,15 @@
 package seng202.group4.data.dataType;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 
 /**
- * Created by jjg64 on 15/08/16.
+ * Stores information about a route.
+ * The route class creates the route object using the information for the route and allows for the construction of the
+ * route table.
  */
-public class Route {
+public class Route implements Serializable {
     private String airline;
     private Integer AirlineID;
     private String srcAirport;
@@ -15,10 +18,23 @@ public class Route {
     private Integer destAirportID;
     private String codeshare;
     private Integer stops;
-    private double distance;
+    private double distance;    // Will be used in phase 3
     private ArrayList<String> equipment = new ArrayList<String>();
 
-    public Route(String airline, Integer airlineID, String srcAirport, Integer srcAirportID, String destAirport, Integer destAirportID, String codeshare, Integer stops, ArrayList<String> equipment) {
+    /**
+     * Initializes the variables for the route class.
+     * @param airline A String for the route's airline
+     * @param airlineID An Integer for the route's airline ID
+     * @param srcAirport A String for the route's source airport
+     * @param srcAirportID An Integer for the route's source airport ID
+     * @param destAirport A String for the route's destination airport
+     * @param destAirportID An Integer for the route's destination airport ID
+     * @param codeshare A String for the route's codeshare
+     * @param stops An Integer for the number of stops
+     * @param equipment An ArrayList containing the route's equipment(s)
+     */
+    public Route(String airline, Integer airlineID, String srcAirport, Integer srcAirportID, String destAirport,
+                 Integer destAirportID, String codeshare, Integer stops, ArrayList<String> equipment) {
         this.airline = airline;
         this.AirlineID = airlineID;
         this.srcAirport = srcAirport;

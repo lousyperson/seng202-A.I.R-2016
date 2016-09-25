@@ -1,11 +1,13 @@
 package seng202.group4.data.dataType;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
- * Created by jjg64 on 15/08/16.
+ * Stores a Flight which is made up of an array list of flight positions.
+ * The flightPosition class exists to allow for building of flights to be represented in the GUI as a table.
  */
-public class Flight {
+public class Flight implements Serializable {
     private ArrayList<FlightPosition> positions;
 
     public Flight(ArrayList<FlightPosition> positions) {

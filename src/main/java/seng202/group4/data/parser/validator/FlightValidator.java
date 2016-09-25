@@ -9,7 +9,8 @@ import java.io.*;
 import java.util.ArrayList;
 
 /**
- * Created by jjg64 on 25/08/16.
+ * The FlightValidator class checks to make sure that the flight data file that is being parsed in is correctly formatted
+ * so that all data is represented accurately. Error checks the file and uses FlightParser if valid.
  */
 public class FlightValidator {
     private final int ITEMS_PER_LINE = 5;
@@ -23,11 +24,21 @@ public class FlightValidator {
     private boolean hasError = false;
     private ArrayList<String> stringArray = new ArrayList<>();
 
+    /**
+     * Parses in the flight data to be validated so that it is can be read and checked.
+     * @param filepath InputStream
+     * @throws FileNotFoundException Throws error when file is not found
+     */
     public FlightValidator(InputStream filepath) throws FileNotFoundException {
         this.filepath = filepath;
         this.file = new BufferedReader(new InputStreamReader(filepath));
     }
 
+    /**
+     * Creates the flights one by one, checking that each is valid as it is created.
+     * @return Flight
+     * @throws IOException Throws IOException error
+     */
     public Flight makeFlight() throws IOException {
         while ((currentLine = file.readLine()) != null) {
             lineNumber++;
@@ -37,7 +48,7 @@ public class FlightValidator {
                 stringArray.add(currentLine);
             }
             if (hasError) {
-                return new Flight(new ArrayList<FlightPosition>());
+                return null;
             }
         }
 
@@ -46,6 +57,10 @@ public class FlightValidator {
         return parser.makeFlight();
     }
 
+    /**
+     * Checks to see if a single line is valid.
+     * @throws IOException
+     */
     private void validateLine() throws IOException {
         splitLine = currentLine.split(splitBy, ITEMS_PER_LINE + 1);
         if (splitLine.length != ITEMS_PER_LINE) {
@@ -55,28 +70,50 @@ public class FlightValidator {
         }
     }
 
+    /**
+     * Ensures that every individual part of the line is valid.
+     * @throws IOException
+     */
     private void checkLine() throws IOException {
         // Strings do not need to be checked, as quotation marks is no longer a constraint
 
         if (!checkNumber(2)) {
-            makeAlert("Altitude must be a number.");
+            makeAlert("Altitude must be a number in feet");
             return;
-        } else if (!checkNumber(3)) {
-            makeAlert("Longitude must be a number.");
+        } else if (!checkNumber(3, -90 , 90)) {
+            makeAlert("Latitude must be a number in degrees");
             return;
-        } else if (!checkNumber(4)) {
-            makeAlert("Latitude must be a number.");
+        } else if (!checkNumber(4, -180, 180)) {
+            makeAlert("Longitude must be a number in degrees");
             return;
         }
 
     }
 
+    /**
+     * Checks that was is pointed o is a string.
+     * @param i
+     * @return if a string, returns true, else, false.
+     */
     private boolean checkString(int i) {
         boolean isValid = true;
         if (splitLine[i].contains(" ")) {
             isValid = false;
         }
         return isValid;
+    }
+
+    private boolean checkNumber(int i, int lowerBound, int upperBound) {
+        try {
+            Double number = Double.parseDouble(splitLine[i]);
+            if (number >= lowerBound && number <= upperBound) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 
     private boolean checkNumber(int i) {
@@ -88,12 +125,16 @@ public class FlightValidator {
         }
     }
 
+    /**
+     * Makes an alert to the user if there is an error in the formatting of the raw data.
+     * @param message
+     */
     private void makeAlert(String message) {
         hasError = true;
         alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");
         alert.setHeaderText("There is an error in your file on line " + lineNumber);
-        alert.setContentText(message + "\nFlight was not added.\nPlease go to help drop down for file formatting help.");
+        alert.setContentText(message + "\n\nFlight was not added.\n\nPlease go to help drop down for file formatting help.");
         alert.showAndWait();
     }
 }
