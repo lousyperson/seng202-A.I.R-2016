@@ -23,6 +23,7 @@
     var markers = [];
     var flightPath = [];
     var bounds = new google.maps.LatLngBounds();
+    var routes = [];
 
     function initMap() {
         map = new google.maps.Map(document.getElementById('map'), {
@@ -61,12 +62,12 @@
         flightPath = [];
     }
 
-    function addFlight(late, lone) {
+    function addFlight(lat, lon) {
         var marker = new google.maps.Marker({
-            position: {lat: late, lng: lone},
+            position: {lat: lat, lng: lon},
             map: map,
         });
-        coord = new google.maps.LatLng({lat: late, lng: lone});
+        coord = new google.maps.LatLng({lat: lat, lng: lon});
         flightPath.push(coord);
         markers.push(marker);
     }
@@ -93,6 +94,26 @@
         }
         map.fitBounds(bounds);
     }
+
+    function addRoute(srcLat, srcLon, destLat, destLon) {
+        var route = new google.maps.Polyline({
+            path: [{lat: srcLat, lng: srcLon}, {lat: destLat, lng: destLon}],
+            geodesic: true,
+            strokeColor: '#FF0000',
+            strokeOpacity: 0.5,
+            strokeWeight: 0.5
+        });
+        routes = [];
+        routes.push(route);
+        route.setMap(map);
+    }
+
+    function clearRoutes() {
+        for (route in routes) {
+            route.setMap(null);
+        }
+    }
+
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDveyGvSTsiUJK9jpfyBYYSvx0uUT9raWs&callback=initMap"
         async defer></script>

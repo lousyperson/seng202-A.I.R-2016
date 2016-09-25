@@ -67,7 +67,7 @@ public class AirportRepository extends Repository implements Serializable {
      * @return AirportCountry
      */
     // finds and returns all airports in a given country
-    public ArrayList<Airport> getCountry(String country) {
+    public ArrayList<Airport> getAirportsFromCountry(String country) {
         ArrayList<Airport> AirportCountry = new ArrayList<Airport>();
         for (Airport airport : airports.values()) {
             if (airport.getCountry().equals(country)) {
