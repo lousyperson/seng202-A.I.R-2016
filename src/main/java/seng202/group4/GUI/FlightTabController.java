@@ -148,12 +148,9 @@ public class FlightTabController implements Initializable{
                 if (result.get() == ButtonType.OK) {
                     Repository.flightRepository.getFlights().remove(cell.getItem());
                     flightList.getItems().remove(cell.getItem());
-                    if (cell.getItem() != null) {
-                        updateFlightTable(cell.getItem());
-                    } else {
-                        flightMap.getEngine().executeScript("initMap();");
-                    }
-
+                    flightMap.getEngine().executeScript("initMap();");
+                    flightList.getSelectionModel().clearSelection();
+                    flightTData.clear();
                 }
             });
             contextMenu.getItems().addAll(removeItem);
@@ -280,6 +277,7 @@ public class FlightTabController implements Initializable{
     public void refreshMap() {
         flightMap.getEngine().load(getClass().getClassLoader().getResource("map.html").toExternalForm());
         flightList.getSelectionModel().clearSelection();
+        flightTData.clear();
     }
 
 
