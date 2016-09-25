@@ -12,9 +12,11 @@ import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -24,12 +26,15 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBoxBuilder;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import seng202.group4.data.dataType.Airline;
 import seng202.group4.data.dataType.Airport;
+import seng202.group4.data.dataType.Flight;
 import seng202.group4.data.dataType.Route;
 import seng202.group4.data.parser.validator.AirlineValidator;
 import seng202.group4.data.parser.validator.AirportValidator;
+import seng202.group4.data.parser.validator.FlightValidator;
 import seng202.group4.data.parser.validator.RouteValidator;
 import seng202.group4.data.repository.AirlineRepository;
 import seng202.group4.data.repository.AirportRepository;
@@ -267,7 +272,7 @@ public class DataTabController implements Initializable{
 
     private ObservableList<airportTable> airportTData = FXCollections.observableArrayList();
 
-    private ObservableList<routeTable> routeTData = FXCollections.observableArrayList();
+    public ObservableList<routeTable> routeTData = FXCollections.observableArrayList();
 
     private ObservableList<flightTable> flightTData = FXCollections.observableArrayList();
 
@@ -1855,5 +1860,7 @@ public class DataTabController implements Initializable{
     public void clearAirportTable() {
         airportTData.removeAll(airportTData);
     }
+
+    public ObservableList<routeTable> getRouteTData() {return routeTData;}
 
 }
