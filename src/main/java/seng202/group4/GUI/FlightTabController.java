@@ -68,11 +68,6 @@ public class FlightTabController implements Initializable{
     // main controller
     private Controller mainController;
 
-    public String getTester() {
-        return tester;
-    }
-
-    private String tester = "test";
     // for variables from main controller
     private Tab flightTab;
     private TabPane tabPane;
