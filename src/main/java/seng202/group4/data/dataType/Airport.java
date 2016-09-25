@@ -1,6 +1,7 @@
 package seng202.group4.data.dataType;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * Stores information about an Airport.
@@ -20,7 +21,7 @@ public class Airport implements Serializable {
     private float timezone;
     private DaylightSavingsTime DST;
     private String tz;
-    private int routes = 0;
+    private ArrayList<Route> routes = new ArrayList<Route>();
 
 
     /**
@@ -149,5 +150,21 @@ public class Airport implements Serializable {
 
     public void setTz(String tz) {
         this.tz = tz;
+    }
+
+    public ArrayList<Route> getRoutes() {
+        return routes;
+    }
+
+    public void setRoutes(ArrayList<Route> routes) {
+        this.routes = routes;
+    }
+
+    /**
+     * Add route where this airport is the source
+     * @param route
+     */
+    public void addRoute(Route route) {
+        routes.add(route);
     }
 }
