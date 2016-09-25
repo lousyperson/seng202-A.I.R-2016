@@ -8,9 +8,7 @@ import seng202.group4.data.dataType.Airport;
 import seng202.group4.data.repository.Repository;
 
 import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.ResourceBundle;
+import java.util.*;
 
 /**
  * Created by psu43 on 25/09/16.
@@ -18,24 +16,13 @@ import java.util.ResourceBundle;
 public class MapTabController implements Initializable{
 
     Controller mainController;
-
-    @FXML
-    private Accordion accord1;
-
-    @FXML
-    private TitledPane instructions1;
-
-    @FXML
-    private TextField flightNameSearch1;
-
-
-    // Map view
+    
     @FXML
     private WebView mapView;
 
 
     @FXML
-    private ComboBox chooseAirport;
+    private ComboBox<String> chooseAirportFilter;
 
     @FXML
     private CheckBox allAirports;
@@ -44,6 +31,7 @@ public class MapTabController implements Initializable{
     private CheckBox allRoutes;
 
 
+    private TreeSet<String> airportCountrySet = new TreeSet();
 
     /**
      * Sets the main controller and retrieves private variables from the main controller
@@ -63,6 +51,40 @@ public class MapTabController implements Initializable{
     public void initialize(URL location, ResourceBundle resources) {
         mapView.getEngine().load(getClass().getClassLoader().getResource("map.html").toExternalForm());
 
+        HashMap<Integer, Airport> airports = Repository.airportRepository.getAirports();
+        if (airports != null) {
+            for (Airport airport : airports.values()) {
+                if (airport != null && airport.getCountry() != null) {
+                    airportCountrySet.add(airport.getCountry());
+                }
+            }
+        }
+
+        updateChooseAirportFilter();
+        //onAction="#updateChooseAirportFilter
+    }
+
+    public void updateChooseAirportFilter() {
+        // clear the current combo box
+        chooseAirportFilter.getItems().clear();
+
+        // if the combo box doesn't have --CHOOSE AIRPORT-- then add one
+        if (!chooseAirportFilter.getItems().contains("--CHOOSE AIRPORT--")) {
+            chooseAirportFilter.getItems().add("--CHOOSE AIRPORT--");
+        }
+        // add countries from TreeSet as combobox options
+        Iterator<String> itr = airportCountrySet.iterator();
+        while (itr.hasNext()) {
+            chooseAirportFilter.getItems().add(itr.next());
+        }
+    }
+
+    public String selectedCountry() {
+        String selectedAirportCountry = null;
+        if (chooseAirportFilter.getValue() != null) {
+            selectedAirportCountry = chooseAirportFilter.getValue().toString();
+        }
+        return selectedAirportCountry;
     }
 
     public void showAllAirports() {
@@ -71,7 +93,6 @@ public class MapTabController implements Initializable{
             for (Map.Entry<Integer, Airport> entry : airports.entrySet()) {
                 double lat = entry.getValue().getLatitude();
                 double lon = entry.getValue().getLongitude();
-                String name = entry.getValue().getName();
                 mapView.getEngine().executeScript("addAirport(" + lat + ", " + lon + ");");
             }
             mapView.getEngine().executeScript("showAllAirports();");
