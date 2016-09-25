@@ -1,31 +1,17 @@
 package seng202.group4.GUI;
 
-import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.MapChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
-import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.chart.*;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBoxBuilder;
-import javafx.scene.text.Text;
-import javafx.stage.Stage;
-import seng202.group4.data.repository.Repository;
-import seng202.group4.data.repository.RouteRepository;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.net.URL;
-import java.util.HashMap;
 import java.util.ResourceBundle;
 
 //import com.aquafx_project.AquaFx;
@@ -79,14 +65,14 @@ public class Controller implements Initializable {
     // Used in flightAnalysis
     ObservableMap<String, Integer> countAirport = FXCollections.observableHashMap();
     ObservableList<String> keys = FXCollections.observableArrayList();
-    ObservableList<analysisTable> analysisTData = FXCollections.observableArrayList();
+    ObservableList<AnalysisTable> analysisTData = FXCollections.observableArrayList();
     ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
     ObservableList<XYChart.Series<String, Integer>> barChartData = FXCollections.observableArrayList();
 
     // Used in equipmentAnalysis
     ObservableMap<String, Integer> countEquipment = FXCollections.observableHashMap();
     ObservableList<String> equipKeys = FXCollections.observableArrayList();
-    ObservableList<equipAnalysisTable> equipAnalysisTData = FXCollections.observableArrayList();
+    ObservableList<EquipAnalysisTable> equipAnalysisTData = FXCollections.observableArrayList();
     ObservableList<PieChart.Data> equipPieChartData = FXCollections.observableArrayList();
     ObservableList<XYChart.Series<String, Integer>> equipBarChartData = FXCollections.observableArrayList();
 
@@ -98,13 +84,13 @@ public class Controller implements Initializable {
     private GridPane airportPane;
 
     @FXML
-    private TableView<analysisTable> airportsAndRoutes;
+    private TableView<AnalysisTable> airportsAndRoutes;
 
     @FXML
-    private TableColumn<analysisTable, String> airport;
+    private TableColumn<AnalysisTable, String> airport;
 
     @FXML
-    private TableColumn<analysisTable, Integer> airportCount;
+    private TableColumn<AnalysisTable, Integer> airportCount;
 
     @FXML
     private PieChart pieChart;
@@ -117,13 +103,13 @@ public class Controller implements Initializable {
     private GridPane equipPane;
 
     @FXML
-    private TableView<equipAnalysisTable> equipAndRoutes;
+    private TableView<EquipAnalysisTable> equipAndRoutes;
 
     @FXML
-    private TableColumn<equipAnalysisTable, String> equipment;
+    private TableColumn<EquipAnalysisTable, String> equipment;
 
     @FXML
-    private TableColumn<equipAnalysisTable, Integer> equipCount;
+    private TableColumn<EquipAnalysisTable, Integer> equipCount;
 
     @FXML
     private PieChart equipPieChart;
@@ -163,7 +149,7 @@ public class Controller implements Initializable {
             }
         });
 
-        for (routeTable airport : dataTabController.getRouteAnchorController().getRouteTData()) {
+        for (RouteTable airport : dataTabController.getRouteAnchorController().getRouteTData()) {
             if (countAirport.containsKey(airport.getRsource())) {
                 countAirport.put(airport.getRsource(), countAirport.get(airport.getRsource()) + 1);
             } else {
@@ -175,7 +161,7 @@ public class Controller implements Initializable {
         XYChart.Series<String, Integer> series1 = new XYChart.Series<String, Integer>();
 
         for (String key : countAirport.keySet()) {
-            analysisTData.add(new analysisTable(key, countAirport.get(key)));
+            analysisTData.add(new AnalysisTable(key, countAirport.get(key)));
             pieChartData.add(new PieChart.Data(key, countAirport.get(key)));
             series1.getData().add(new XYChart.Data(key, countAirport.get(key)));
         }
@@ -200,7 +186,7 @@ public class Controller implements Initializable {
 //            }
 //        });
 //
-//        for (routeTable equipment : dataTabController.getRouteTData()) {
+//        for (RouteTable equipment : dataTabController.getRouteTData()) {
 //            if (countEquipment.containsKey(equipment.getRequipment())) {
 //                countEquipment.put(equipment.getRequipment(), countEquipment.get(equipment.getRequipment()) + 1);
 //            } else {
@@ -212,7 +198,7 @@ public class Controller implements Initializable {
 //        XYChart.Series<String, Integer> series1 = new XYChart.Series<String, Integer>();
 //
 //        for (String key : countEquipment.keySet()) {
-//            equipAnalysisTData.add(new analysisTable(key, countEquipment.get(key)));
+//            equipAnalysisTData.add(new AnalysisTable(key, countEquipment.get(key)));
 //            equipPieChartData.add(new PieChart.Data(key, countEquipment.get(key)));
 //            series1.getData().add(new XYChart.Data(key, countEquipment.get(key)));
 //        }
