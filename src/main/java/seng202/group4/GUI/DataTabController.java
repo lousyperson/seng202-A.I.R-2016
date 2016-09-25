@@ -1,51 +1,18 @@
 package seng202.group4.GUI;
 
-import com.mashape.unirest.http.HttpResponse;
-import com.mashape.unirest.http.JsonNode;
-import com.mashape.unirest.http.Unirest;
-import com.mashape.unirest.http.exceptions.UnirestException;
-import javafx.beans.binding.Bindings;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
-import javafx.concurrent.Task;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBoxBuilder;
-import javafx.scene.text.Text;
-import javafx.stage.FileChooser;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-import seng202.group4.data.dataType.Airline;
-import seng202.group4.data.dataType.Airport;
-import seng202.group4.data.dataType.Flight;
-import seng202.group4.data.dataType.Route;
-import seng202.group4.data.parser.validator.AirlineValidator;
-import seng202.group4.data.parser.validator.AirportValidator;
-import seng202.group4.data.parser.validator.FlightValidator;
-import seng202.group4.data.parser.validator.RouteValidator;
-import seng202.group4.data.repository.AirlineRepository;
-import seng202.group4.data.repository.AirportRepository;
 import seng202.group4.data.repository.Repository;
-import seng202.group4.data.repository.RouteRepository;
 
-import java.io.*;
-import java.net.URISyntaxException;
 import java.net.URL;
-import java.nio.charset.StandardCharsets;
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.Optional;
+import java.util.ResourceBundle;
 
 /**
  * Created by Pang on 22/09/16.
@@ -208,12 +175,6 @@ public class DataTabController implements Initializable{
         datalist.getSelectionModel().select(name);
     }
 
-    private void loadFlight2(String someCSV) throws IOException {
-        InputStream file = new ByteArrayInputStream(someCSV.getBytes(StandardCharsets.UTF_8));
-        flightTabController.insertFlightTable(file);
-    }
-
-
 
     public boolean resetConformation() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -257,5 +218,10 @@ public class DataTabController implements Initializable{
     public RouteAnchorController getRouteAnchorController() {
         return routeAnchorController;
     }
+
+    public FlightTabController getFlightTabController() {
+        return flightTabController;
+    }
+
 
 }

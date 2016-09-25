@@ -204,7 +204,9 @@ public class AirportAnchorController implements Initializable{
      */
     public void setMainController(DataTabController controller) {
         this.mainController = controller;
+        //this.flightTabController = mainController.getFlightTabController();
         this.allCountriesTag = mainController.getAllCountriesTag();
+
 
     }
 
@@ -466,9 +468,13 @@ public class AirportAnchorController implements Initializable{
      * @throws InterruptedException when an error occurs
      */
     public void getFlightPath() throws UnirestException, IOException, InterruptedException {
+        // get the flight tab controller
+        flightTabController = mainController.getFlightTabController();
+        // test its being called
+        System.out.println(flightTabController.getTester());
+
         if (!(pointAICAO == null) && !(pointBICAO == null)) {
-            HttpResponse<JsonNode> getID = Unirest.get("https://api.flightplandatabase.com/search/plans?fromICAO=" + pointAICAO + "&toICAO=" + pointBICAO + "&limit=1")
-                    .asJson();
+            HttpResponse<JsonNode> getID = Unirest.get("https://api.flightplandatabase.com/search/plans?fromICAO=" + pointAICAO + "&toICAO=" + pointBICAO + "&limit=1").asJson();
             try {
                 Integer id = getID.getBody().getArray().getJSONObject(0).getInt("id");
                 String id2 = Integer.toString(id);

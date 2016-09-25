@@ -20,7 +20,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -69,6 +68,11 @@ public class FlightTabController implements Initializable{
     // main controller
     private Controller mainController;
 
+    public String getTester() {
+        return tester;
+    }
+
+    private String tester = "test";
     // for variables from main controller
     private Tab flightTab;
     private TabPane tabPane;
