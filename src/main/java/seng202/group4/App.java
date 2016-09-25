@@ -40,7 +40,7 @@ public class App extends Application {
 
 
         primaryStage.setTitle("Aviation Information Reader");
-        primaryStage.setScene(new Scene(root, 1050, 775));
+        primaryStage.setScene(new Scene(root, 1280, 775));
 
         primaryStage.show();
     }
