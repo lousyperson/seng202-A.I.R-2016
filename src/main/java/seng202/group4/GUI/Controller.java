@@ -14,6 +14,7 @@ import javafx.scene.Scene;
 import javafx.scene.chart.*;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBoxBuilder;
 import javafx.scene.text.Text;
@@ -158,6 +159,9 @@ public class Controller implements Initializable {
 
     // airport and routes FXML
     @FXML
+    private GridPane airportPane;
+
+    @FXML
     private TableView<analysisTable> airportsAndRoutes;
 
     @FXML
@@ -174,6 +178,9 @@ public class Controller implements Initializable {
 
     // equip and routes FXML
     @FXML
+    private GridPane equipPane;
+
+    @FXML
     private TableView<equipAnalysisTable> equipAndRoutes;
 
     @FXML
@@ -187,6 +194,10 @@ public class Controller implements Initializable {
 
     @FXML
     private BarChart equipBarChart;
+
+    // equip and routes FXML
+    @FXML
+    private GridPane countryPane;
 
 
     /**
@@ -228,24 +239,24 @@ public class Controller implements Initializable {
             }
         }
 
-//        XYChart.Series<String, Integer> series1 = new XYChart.Series<String, Integer>();
+        XYChart.Series<String, Integer> series1 = new XYChart.Series<String, Integer>();
 
         for (String key : countAirport.keySet()) {
             analysisTData.add(new analysisTable(key, countAirport.get(key)));
-//            pieChartData.add(new PieChart.Data(key, countAirport.get(key)));
-//            series1.getData().add(new XYChart.Data(key, countAirport.get(key)));
+            pieChartData.add(new PieChart.Data(key, countAirport.get(key)));
+            series1.getData().add(new XYChart.Data(key, countAirport.get(key)));
         }
 
         airport.setCellValueFactory(new PropertyValueFactory<>("airport"));
         airportCount.setCellValueFactory(new PropertyValueFactory<>("number"));
         airportsAndRoutes.setItems(analysisTData);
 
-//        pieChart.setData(pieChartData);
-//        pieChart.setTitle("Airports and Count Pie Chart");
-//
-//        barChartData.addAll(series1);
-//        barChart.setData(barChartData);
-//        barChart.setTitle("Country Versus Count Bar Chart");
+        pieChart.setData(pieChartData);
+        pieChart.setTitle("Airports and Count Pie Chart");
+
+        barChartData.addAll(series1);
+        barChart.setData(barChartData);
+        barChart.setTitle("Country Versus Count Bar Chart");
     }
 
     private void equipmentAnalysis() {
@@ -285,13 +296,17 @@ public class Controller implements Initializable {
 //        barChart.setTitle("Country Versus Count Bar Chart");
     }
 
+    private void countryAnalysis() {
+
+    }
+
     public void getAnalysis() {
         if (analysisDropdown.getSelectionModel().getSelectedIndex() == 0) {
             airportAnalysis();
         } else if (analysisDropdown.getSelectionModel().getSelectedIndex() == 1) {
             equipmentAnalysis();
         } else if (analysisDropdown.getSelectionModel().getSelectedIndex() == 2) {
-
+            countryAnalysis();
         }
     }
 

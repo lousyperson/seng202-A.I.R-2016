@@ -64,7 +64,7 @@
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Analyse:" />
                               <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnSpan="3" GridPane.rowIndex="1" GridPane.rowSpan="3">
                                  <children>
-                                    <GridPane>
+                                    <GridPane fx:id="airportPane">
                                       <columnConstraints>
                                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="455.0" minWidth="10.0" prefWidth="346.0" />
@@ -93,9 +93,9 @@
                                           <PieChart fx:id="pieChart" GridPane.columnIndex="2" GridPane.rowSpan="2" />
                                        </children>
                                     </GridPane>
-                                    <GridPane layoutX="10.0" layoutY="10.0">
+                                    <GridPane fx:id="equipPane" layoutX="10.0" layoutY="10.0" visible="false">
                                        <children>
-                                          <TableView fx:id="equipAndRoutes" prefHeight="200.0" prefWidth="200.0" visible="false" GridPane.columnSpan="2" GridPane.rowSpan="2">
+                                          <TableView fx:id="equipAndRoutes" prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowSpan="2">
                                              <columns>
                                                 <TableColumn fx:id="equipment" prefWidth="206.0" text="Equipment" />
                                                 <TableColumn fx:id="equipCount" prefWidth="295.0" text="Number of Routes" />
@@ -110,6 +110,35 @@
                                              </yAxis>
                                           </BarChart>
                                           <PieChart fx:id="equipPieChart" GridPane.columnIndex="2" GridPane.rowSpan="2" />
+                                       </children>
+                                       <columnConstraints>
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="455.0" minWidth="10.0" prefWidth="346.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="736.0" minWidth="10.0" prefWidth="495.0" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints maxHeight="206.0" minHeight="10.0" prefHeight="126.0" vgrow="SOMETIMES" />
+                                          <RowConstraints maxHeight="202.0" minHeight="10.0" prefHeight="186.0" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                    </GridPane>
+                                    <GridPane fx:id="countryPane" layoutX="10.0" layoutY="10.0" visible="false">
+                                       <children>
+                                          <TableView fx:id="equipAndRoutes1" prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowSpan="2">
+                                             <columns>
+                                                <TableColumn fx:id="equipment1" prefWidth="206.0" text="Equipment" />
+                                                <TableColumn fx:id="equipCount1" prefWidth="295.0" text="Number of Routes" />
+                                             </columns>
+                                          </TableView>
+                                          <BarChart fx:id="equipBarChart1" GridPane.columnSpan="3" GridPane.rowIndex="2">
+                                             <xAxis>
+                                                <CategoryAxis side="BOTTOM" />
+                                             </xAxis>
+                                             <yAxis>
+                                                <NumberAxis side="LEFT" />
+                                             </yAxis>
+                                          </BarChart>
+                                          <PieChart fx:id="equipPieChart1" GridPane.columnIndex="2" GridPane.rowSpan="2" />
                                        </children>
                                        <columnConstraints>
                                           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
