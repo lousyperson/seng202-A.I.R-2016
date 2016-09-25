@@ -12,11 +12,9 @@ import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -26,15 +24,12 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBoxBuilder;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import seng202.group4.data.dataType.Airline;
 import seng202.group4.data.dataType.Airport;
-import seng202.group4.data.dataType.Flight;
 import seng202.group4.data.dataType.Route;
 import seng202.group4.data.parser.validator.AirlineValidator;
 import seng202.group4.data.parser.validator.AirportValidator;
-import seng202.group4.data.parser.validator.FlightValidator;
 import seng202.group4.data.parser.validator.RouteValidator;
 import seng202.group4.data.repository.AirlineRepository;
 import seng202.group4.data.repository.AirportRepository;
@@ -154,70 +149,70 @@ public class DataTabController implements Initializable{
 
     // Airline Table
     @FXML
-    private TableView<airlineTable> airlineTableID;
+    private TableView<AirlineTable> airlineTableID;
     @FXML
-    private TableColumn<airlineTable, String> aid;
+    private TableColumn<AirlineTable, String> aid;
 
     @FXML
-    private TableColumn<airlineTable, String> aname;
+    private TableColumn<AirlineTable, String> aname;
 
     @FXML
-    private TableColumn<airlineTable, String> aalias;
+    private TableColumn<AirlineTable, String> aalias;
 
     @FXML
-    private TableColumn<airlineTable, String> aiata;
+    private TableColumn<AirlineTable, String> aiata;
 
     @FXML
-    private TableColumn<airlineTable, String> aicao;
+    private TableColumn<AirlineTable, String> aicao;
 
     @FXML
-    private TableColumn<airlineTable, String> acallsign;
+    private TableColumn<AirlineTable, String> acallsign;
 
     @FXML
-    private TableColumn<airlineTable, String> acountry;
+    private TableColumn<AirlineTable, String> acountry;
 
     @FXML
-    private TableColumn<airlineTable, String> aactive;
+    private TableColumn<AirlineTable, String> aactive;
 
     // Airport Table
     @FXML
-    private TableView<airportTable> airportTableID;
+    private TableView<AirportTable> airportTableID;
 
     @FXML
-    private TableColumn<airportTable, String> apid;
+    private TableColumn<AirportTable, String> apid;
 
     @FXML
-    private TableColumn<airportTable, String> apname;
+    private TableColumn<AirportTable, String> apname;
 
     @FXML
-    private TableColumn<airportTable, String> apcity;
+    private TableColumn<AirportTable, String> apcity;
 
     @FXML
-    private TableColumn<airportTable, String> apcountry;
+    private TableColumn<AirportTable, String> apcountry;
 
     @FXML
-    private TableColumn<airportTable, String> apiata;
+    private TableColumn<AirportTable, String> apiata;
 
     @FXML
-    private TableColumn<airportTable, String> apicao;
+    private TableColumn<AirportTable, String> apicao;
 
     @FXML
-    private TableColumn<airportTable, String> aplat;
+    private TableColumn<AirportTable, String> aplat;
 
     @FXML
-    private TableColumn<airportTable, String> aplong;
+    private TableColumn<AirportTable, String> aplong;
 
     @FXML
-    private TableColumn<airportTable, String> apalt;
+    private TableColumn<AirportTable, String> apalt;
 
     @FXML
-    private TableColumn<airportTable, String> aptimezone;
+    private TableColumn<AirportTable, String> aptimezone;
 
     @FXML
-    private TableColumn<airportTable, String> apdst;
+    private TableColumn<AirportTable, String> apdst;
 
     @FXML
-    private TableColumn<airportTable, String> aptz;
+    private TableColumn<AirportTable, String> aptz;
 
     // Route table
 
@@ -268,9 +263,9 @@ public class DataTabController implements Initializable{
     private String routeLabel = "Routes";
 
     // create table data
-    private ObservableList<airlineTable> airlineTData = FXCollections.observableArrayList();
+    private ObservableList<AirlineTable> airlineTData = FXCollections.observableArrayList();
 
-    private ObservableList<airportTable> airportTData = FXCollections.observableArrayList();
+    private ObservableList<AirportTable> airportTData = FXCollections.observableArrayList();
 
     private ObservableList<routeTable> routeTData = FXCollections.observableArrayList();
 
@@ -278,7 +273,9 @@ public class DataTabController implements Initializable{
 
     private ObservableList<String> items = FXCollections.observableArrayList(airlineLabel, airportLabel, routeLabel);
 
-
+    // create maps
+    private HashMap<Integer, AirlineTable> airlineTableMap = new HashMap<Integer, AirlineTable>();
+    private HashMap<Integer, AirportTable> airportTableMap = new HashMap<Integer, AirportTable>();
 
     public TreeSet getAirlineCountrySet() {
         return airlineCountrySet;
@@ -378,7 +375,7 @@ public class DataTabController implements Initializable{
         airlineTableID.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
         airlineTableID.setRowFactory(tableView -> {
-            final TableRow<airlineTable> row = new TableRow<>();
+            final TableRow<AirlineTable> row = new TableRow<>();
             final ContextMenu rowMenu = new ContextMenu();
             MenuItem removeItem = new MenuItem("Delete");
             row.setOnMouseClicked(event -> {
@@ -391,8 +388,8 @@ public class DataTabController implements Initializable{
 
                 Optional<ButtonType> result = alert.showAndWait();
                 if (result.get() == ButtonType.OK) {
-                    ObservableList<airlineTable> selectedItems = airlineTableID.getSelectionModel().getSelectedItems();
-                    for (airlineTable airline : selectedItems) {
+                    ObservableList<AirlineTable> selectedItems = airlineTableID.getSelectionModel().getSelectedItems();
+                    for (AirlineTable airline : selectedItems) {
                         Repository.airlineRepository.getAirlines().remove(airline.getRid());
                     }
                     airlineTData.removeAll(selectedItems);
@@ -438,7 +435,7 @@ public class DataTabController implements Initializable{
         airportTableID.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
         airportTableID.setRowFactory(tableView -> {
-            final TableRow<airportTable> row = new TableRow<>();
+            final TableRow<AirportTable> row = new TableRow<>();
             final ContextMenu rowMenu = new ContextMenu();
             MenuItem addA = new MenuItem("Add to airport A");
             MenuItem addB = new MenuItem("Add to airport B");
@@ -464,8 +461,8 @@ public class DataTabController implements Initializable{
                 alert.setContentText("Pressing OK will delete the row(s).\nWARNING: The action cannot be undone.\n");
                 Optional<ButtonType> result = alert.showAndWait();
                 if (result.get() == ButtonType.OK) {
-                    ObservableList<airportTable> selectedItems = airportTableID.getSelectionModel().getSelectedItems();
-                    for (airportTable airport : selectedItems) {
+                    ObservableList<AirportTable> selectedItems = airportTableID.getSelectionModel().getSelectedItems();
+                    for (AirportTable airport : selectedItems) {
                         Repository.airportRepository.getAirports().remove(airport.getAtid());
                     }
                     airportTData.removeAll(selectedItems);
@@ -812,7 +809,7 @@ public class DataTabController implements Initializable{
     private void searchAirports() {
         String intPattern = "[-]?[0-9]*[.]?[0-9]+";
         // searching for airline
-        FilteredList<airportTable> airportTableFiltered = new FilteredList<>(airportTData, p -> true);
+        FilteredList<AirportTable> airportTableFiltered = new FilteredList<>(airportTData, p -> true);
 
         airportSearch.textProperty().addListener((observable, oldValue, newValue) -> {
             airportTableFiltered.setPredicate(airport -> {
@@ -879,7 +876,7 @@ public class DataTabController implements Initializable{
         });
 
         // Wrap the filtered list in a SortedList
-        SortedList<airportTable> airportTableSorted = new SortedList<>(airportTableFiltered);
+        SortedList<AirportTable> airportTableSorted = new SortedList<>(airportTableFiltered);
 
         // Bind the SortedList comparator to the TableView comparator
         airportTableSorted.comparatorProperty().bind(airportTableID.comparatorProperty());
@@ -891,7 +888,7 @@ public class DataTabController implements Initializable{
 
     private void searchAirlines() {
         // searching for airline
-        FilteredList<airlineTable> airlineTableFiltered = new FilteredList<>(airlineTData, p -> true);
+        FilteredList<AirlineTable> airlineTableFiltered = new FilteredList<>(airlineTData, p -> true);
 
         airlineSearch.textProperty().addListener((observable, oldValue, newValue) -> {
             airlineTableFiltered.setPredicate(airline -> {
@@ -956,7 +953,7 @@ public class DataTabController implements Initializable{
         });
 
         // Wrap the filtered list in a SortedList
-        SortedList<airlineTable> airlineTableSorted = new SortedList<>(airlineTableFiltered);
+        SortedList<AirlineTable> airlineTableSorted = new SortedList<>(airlineTableFiltered);
 
         // Bind the SortedList comparator to the TableView comparator
         airlineTableSorted.comparatorProperty().bind(airlineTableID.comparatorProperty());
@@ -982,10 +979,12 @@ public class DataTabController implements Initializable{
     private void loadSerializedAirline() {
         Collection<Airline> airlines = Repository.airlineRepository.getAirlines().values();
         for (Airline airline : airlines) {
-            airlineTData.add(new airlineTable(airline.getID(), airline.getName(),
+            AirlineTable thisTable = new AirlineTable(airline.getID(), airline.getName(),
                     airline.getAlias(), airline.getIATA(),
                     airline.getICAO(), airline.getCallsign(),
-                    airline.getCountry(), airline.getActive()));
+                    airline.getCountry(), airline.getActive());
+            airlineTData.add(thisTable);
+            airlineTableMap.put(airline.getID(), thisTable);
             if (airline.getCountry() != null) {
                 airlineCountrySet.add(airline.getCountry());
             }
@@ -1003,10 +1002,12 @@ public class DataTabController implements Initializable{
             for (int i = 0; i < airlines.size(); i++) {
                 Airline airline = airlines.get(i);
                 Repository.airlineRepository.addAirline(airline);
-                airlineTData.add(new airlineTable(airline.getID(), airline.getName(),
+                AirlineTable thisTable = new AirlineTable(airline.getID(), airline.getName(),
                         airline.getAlias(), airline.getIATA(),
                         airline.getICAO(), airline.getCallsign(),
-                        airline.getCountry(), airline.getActive()));
+                        airline.getCountry(), airline.getActive());
+                airlineTData.add(thisTable);
+                airlineTableMap.put(airline.getID(), thisTable);
                 if (airline.getCountry() != null) {
                     airlineCountrySet.add(airline.getCountry());
                 }
@@ -1154,10 +1155,12 @@ public class DataTabController implements Initializable{
             for (int i = 0; i < airports.size(); i++) {
                 Airport airport = airports.get(i);
                 Repository.airportRepository.addAirport(airport);
-                airportTData.add(new airportTable(airport.getID(), airport.getName(), airport.getCity(),
+                AirportTable thisTable = new AirportTable(airport.getID(), airport.getName(), airport.getCity(),
                         airport.getCountry(), airport.getIATA(), airport.getICAO(), airport.getLatitude(),
                         airport.getLongitude(), airport.getAltitude(), airport.getTimezone(), airport.getDST().toText(),
-                        airport.getTz()));
+                        airport.getTz());
+                airportTData.add(thisTable);
+                airportTableMap.put(airport.getID(), thisTable);
                 if (airport.getCountry() != null) {
                     airportCountrySet.add(airport.getCountry());
                 }
@@ -1170,10 +1173,12 @@ public class DataTabController implements Initializable{
     private void loadSerializedAirport() {
         Collection<Airport> airports = Repository.airportRepository.getAirports().values();
         for (Airport airport : airports) {
-            airportTData.add(new airportTable(airport.getID(), airport.getName(), airport.getCity(),
+            AirportTable thisTable = new AirportTable(airport.getID(), airport.getName(), airport.getCity(),
                     airport.getCountry(), airport.getIATA(), airport.getICAO(), airport.getLatitude(),
                     airport.getLongitude(), airport.getAltitude(), airport.getTimezone(), airport.getDST().toText(),
-                    airport.getTz()));
+                    airport.getTz());
+            airportTData.add(thisTable);
+            airportTableMap.put(airport.getID(), thisTable);
             if (airport.getCountry() != null) {
                 airportCountrySet.add(airport.getCountry());
             }
@@ -1303,6 +1308,7 @@ public class DataTabController implements Initializable{
     public void insertAirlineTable(InputStream file) throws IOException {
         AirlineValidator validator = new AirlineValidator(file);
         ArrayList<Airline> airlines = validator.makeAirlines();
+        ButtonResult result = null;
         validator = null;
         if (airlines != null) {
             for (int i = 0; i < airlines.size(); i++) {
@@ -1310,16 +1316,26 @@ public class DataTabController implements Initializable{
                 // if the airline ID already exists in the repository, warn the user
                 if (!Repository.airlineRepository.getAirlines().containsKey(airline.getID())) {
                     Repository.airlineRepository.addAirline(airline);
-                    airlineTData.add(new airlineTable(airline.getID(), airline.getName(),
+                    AirlineTable thisTable = new AirlineTable(airline.getID(), airline.getName(),
                             airline.getAlias(), airline.getIATA(),
                             airline.getICAO(), airline.getCallsign(),
-                            airline.getCountry(), airline.getActive()));
+                            airline.getCountry(), airline.getActive());
+                    airlineTData.add(thisTable);
+                    airlineTableMap.put(airline.getID(), thisTable);
                     if (airline.getCountry() != null) {
                         airlineCountrySet.add(airline.getCountry());
                     }
                 } else {
-                    duplicateIDAlert("Please fix the conflict and reupload the file.", airline.getID());
-                    break;
+                    if (result == ButtonResult.OVERRIDEALL) {
+                        overrideAirline(airline);
+                    } else if (result != ButtonResult.IGNOREALL){
+                        result = dataOverridePopup("Airline", airline.getID());
+                        if (result == ButtonResult.OVERRIDE || result == ButtonResult.OVERRIDEALL) {
+                            overrideAirline(airline);
+                        } else if (result == ButtonResult.CANCEL) {
+                            break;
+                        }
+                    }
                 }
                 updateAirlineCountryBox();
             }
@@ -1416,6 +1432,7 @@ public class DataTabController implements Initializable{
      * @throws IOException throws IOException error
      */
     public void insertAirportTable(InputStream file) throws IOException {
+        ButtonResult result = null;
         AirportValidator validator = new AirportValidator(file);
         ArrayList<Airport> airports = validator.makeAirports();
         validator = null;
@@ -1424,16 +1441,26 @@ public class DataTabController implements Initializable{
                 Airport airport = airports.get(i);
                 if (!Repository.airportRepository.getAirports().containsKey(airport.getID())) {
                     Repository.airportRepository.addAirport(airport);
-                    airportTData.add(new airportTable(airport.getID(), airport.getName(), airport.getCity(),
+                    AirportTable thisTable = new AirportTable(airport.getID(), airport.getName(), airport.getCity(),
                             airport.getCountry(), airport.getIATA(), airport.getICAO(), airport.getLatitude(),
                             airport.getLongitude(), airport.getAltitude(), airport.getTimezone(), airport.getDST().toText(),
-                            airport.getTz()));
+                            airport.getTz());
+                    airportTData.add(thisTable);
+                    airportTableMap.put(airport.getID(), thisTable);
                     if (airport.getCountry() != null) {
                         airportCountrySet.add(airport.getCountry());
                     }
                 } else {
-                    duplicateIDAlert("Please fix the conflict and reupload the file.", airport.getID());
-                    break;
+                    if (result == ButtonResult.OVERRIDEALL) {
+                        overrideAirport(airport);
+                    } else if (result != ButtonResult.IGNOREALL){
+                        result = dataOverridePopup("Airport", airport.getID());
+                        if (result == ButtonResult.OVERRIDE || result == ButtonResult.OVERRIDEALL) {
+                            overrideAirport(airport);
+                        } else if (result == ButtonResult.CANCEL) {
+                            break;
+                        }
+                    }
                 }
 
             }
@@ -1790,6 +1817,7 @@ public class DataTabController implements Initializable{
         if (routes != null) {
             for (int i = 0; i < routes.size(); i++) {
                 Route route = routes.get(i);
+                // Show in table and add to repository if unique (prevents duplicates in table)
                 if (diffRoutes(route)) {
                     Repository.routeRepository.addRoute(route);
                     routeTData.add(new routeTable(route.getAirline(), String.valueOf(route.getAirlineID()),
@@ -1819,10 +1847,11 @@ public class DataTabController implements Initializable{
                             equipmentSet.add(r);
                         }
                     }
-                } else {
-                    duplicateAlert("The system has read " + i + " route(s) from your file.\nPlease upload a file with different routes.");
-                    break;
                 }
+//                else {
+//                    duplicateAlert("The system has read " + i + " route(s) from your file.\nPlease upload a file with different routes.");
+//                    break;
+//                }
                 updateEquipBox();
                 updateDepCountryBox();
                 updateDestCountryBox();
@@ -1861,4 +1890,62 @@ public class DataTabController implements Initializable{
         airportTData.removeAll(airportTData);
     }
 
+    private ButtonResult dataOverridePopup(String dataType, int ID) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Clashing ID");
+        alert.setHeaderText(dataType + " with ID " + ID + " already exists in the system");
+        alert.setContentText("Choose your option.");
+
+        ButtonType override = new ButtonType("Override\n ");
+        ButtonType overrideAll = new ButtonType("Override\nAll");
+        ButtonType ignore = new ButtonType("Ignore\n ");
+        ButtonType ignoreAll = new ButtonType("Ignore\nAll");
+        ButtonType cancel = new ButtonType("Cancel\n ", ButtonBar.ButtonData.CANCEL_CLOSE);
+
+        alert.getButtonTypes().setAll(override, overrideAll, ignore, ignoreAll, cancel);
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == override) {
+            return ButtonResult.OVERRIDE;
+        } else if (result.get() == overrideAll) {
+            return ButtonResult.OVERRIDEALL;
+        } else if (result.get() == ignore) {
+            return ButtonResult.IGNORE;
+        } else if (result.get() == ignoreAll) {
+            return ButtonResult.IGNOREALL;
+        } else {
+            return ButtonResult.CANCEL;
+        }
+    }
+
+    private void overrideAirline(Airline airline) {
+        Repository.airlineRepository.getAirlines().put(airline.getID(), airline);
+        AirlineTable oldAirline = airlineTableMap.get(airline.getID());
+        oldAirline.setRname(airline.getName());
+        oldAirline.setRalias(airline.getAlias());
+        oldAirline.setRiata(airline.getIATA());
+        oldAirline.setRicao(airline.getICAO());
+        oldAirline.setRcallsign(airline.getCallsign());
+        oldAirline.setRcountry(airline.getCountry());
+        oldAirline.setRactive(airline.getActive());
+        if (airline.getCountry() != null) {
+            airlineCountrySet.add(airline.getCountry());
+        }
+    }
+
+    private void overrideAirport(Airport airport) {
+        Repository.airportRepository.getAirports().put(airport.getID(), airport);
+        AirportTable oldAirport = airportTableMap.get(airport.getID());
+        oldAirport.setAtname(airport.getName());
+        oldAirport.setAtcity(airport.getCity());
+        oldAirport.setAtcountry(airport.getCountry());
+        oldAirport.setAtiata(airport.getIATA());
+        oldAirport.setAticao(airport.getICAO());
+        oldAirport.setAtlatitude(airport.getLatitude());
+        oldAirport.setAtlongitude(airport.getLongitude());
+        oldAirport.setAtaltitude(airport.getAltitude());
+        oldAirport.setAttimezone(airport.getTimezone());
+        oldAirport.setAtdst(airport.getDST().toText());
+        oldAirport.setAttzdatabase(airport.getTz());
+    }
 }

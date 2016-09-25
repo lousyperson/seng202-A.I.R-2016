@@ -10,7 +10,7 @@ import seng202.group4.data.dataType.DaylightSavingsTime;
 /**
  * Used to make a row of information to populate the airline table based upon given data.
  */
-public class airportTable {
+public class AirportTable {
 
     private SimpleIntegerProperty atid;
     private SimpleStringProperty atname;
@@ -40,7 +40,7 @@ public class airportTable {
      * @param ttdst String
      * @param tttzdatabase String
      */
-    public airportTable(int ttid, String ttname, String ttcity, String ttcountry, String ttiata, String tticao,
+    public AirportTable(int ttid, String ttname, String ttcity, String ttcountry, String ttiata, String tticao,
                         double ttlatitude, double ttlongitude, double ttaltitude, float tttimezone, String ttdst, String tttzdatabase){
         this.atid = new SimpleIntegerProperty(ttid);
         this.atname = new SimpleStringProperty(ttname);
