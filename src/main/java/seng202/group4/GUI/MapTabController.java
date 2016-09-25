@@ -2,9 +2,11 @@ package seng202.group4.GUI;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.web.WebView;
 import seng202.group4.data.dataType.Airport;
+import seng202.group4.data.dataType.Route;
 import seng202.group4.data.repository.Repository;
 
 import java.net.URL;
@@ -16,7 +18,7 @@ import java.util.*;
 public class MapTabController implements Initializable{
 
     Controller mainController;
-    
+
     @FXML
     private WebView mapView;
 
@@ -82,9 +84,27 @@ public class MapTabController implements Initializable{
     public String selectedCountry() {
         String selectedAirportCountry = null;
         if (chooseAirportFilter.getValue() != null) {
-            selectedAirportCountry = chooseAirportFilter.getValue().toString();
+            selectedAirportCountry = chooseAirportFilter.getValue();
         }
         return selectedAirportCountry;
+    }
+
+    public void showCountryRoutes() {
+        mapView.getEngine().executeScript("clearRoutes();");
+        String country = selectedCountry();
+        ArrayList<Airport> airports = Repository.airportRepository.getAirportsFromCountry(country);
+        for (Airport airport : airports) {
+            double srcLat = airport.getLatitude();
+            double srcLon = airport.getLongitude();
+            HashMap<String, Route> routes = Repository.routeRepository.getRoutes();
+            for (Route route : routes.values()) {
+                int destID = route.getDestAirportID();
+                Airport destPort = Repository.airportRepository.getAirports().get(destID);
+                double destLat = destPort.getLatitude();
+                double destLon = destPort.getLongitude();
+                mapView.getEngine().executeScript("addRoute(" + srcLat + ", " + srcLon + ", " + destLat + ", " + destLon + ");");
+            }
+        }
     }
 
     public void showAllAirports() {
