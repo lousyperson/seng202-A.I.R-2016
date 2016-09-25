@@ -234,11 +234,4 @@ public class airlineTable {
         this.ractive.set(ractive);
     }
 
-
-
-
-
-
-
-
 }

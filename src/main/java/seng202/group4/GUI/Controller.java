@@ -16,60 +16,26 @@ import java.util.ResourceBundle;
  */
 public class Controller implements Initializable {
 
-    public MenuBarController getMenuBarController() {
-        return menuBarController;
-    }
-
     @FXML
     private MenuBarController menuBarController;
 
-    public DataTabController getDataTabController() {
-        return dataTabController;
-    }
+    @FXML
+    private RouteAnchorController routeAnchorController;
 
     @FXML
     private DataTabController dataTabController;
 
-    public FlightTabController getFlightTabController() {
-        return flightTabController;
-    }
-
     @FXML
     private FlightTabController flightTabController;
-
-    public MapTabController getMapTabController() {
-        return mapTabController;
-    }
 
     @FXML
     private MapTabController mapTabController;
 
-    public AirlinePaneController getAirlinePaneController() {
-        return airlinePaneController;
-    }
+    @FXML
+    private AirportAnchorController airportAnchorController;
 
     @FXML
-    private AirlinePaneController airlinePaneController;
-
-    @FXML
-    private AirlineTableIDController airlineTableIDController;
-
-    @FXML
-    private AirportTableIDController airportTableIDController;
-
-    @FXML
-    private RouteTableIDController routeTableIDController;
-
-//    public SearchPanesController getSearchPanesController() {
-//        return searchPanesController;
-//    }
-//
-//    @FXML
-//    private SearchPanesController searchPanesController;
-
-//    // Map view
-//    @FXML
-//    private WebView mapView;
+    private AirlineAnchorController airlineAnchorController;
 
     @FXML
     private MenuBar menuBar;
@@ -77,29 +43,8 @@ public class Controller implements Initializable {
     @FXML
     private Tab mapTab;
 
-//    @FXML
-//    private Accordion accord1;
-//
-//    @FXML
-//    private TitledPane instructions1;
-//
-//    @FXML
-//    private TextField flightNameSearch1;
-
-
-
-
-
-    public TabPane getTabPane() {
-        return tabPane;
-    }
-
     @FXML
     private TabPane tabPane;
-
-    public Tab getDataTab() {
-        return dataTab;
-    }
 
     @FXML
     private Tab dataTab;
@@ -107,17 +52,25 @@ public class Controller implements Initializable {
     @FXML
     private Tab flightTab;
 
+    // labels for the user's data selection
+    private String airlineLabel = "Airlines";
+    private String airportLabel = "Airports";
+    private String routeLabel = "Routes";
 
-//
-//    @FXML
-//    private ComboBox chooseAirport;
-//
-//    @FXML
-//    private CheckBox allAirports;
-//
-//    @FXML
-//    private CheckBox allRoutes;
 
+    /**
+     * Initializes the controller
+     *
+     * @param location URL
+     * @param resources ResourceBundle
+     */
+    public void initialize(URL location, ResourceBundle resources) {
+        // Passing MainController to the other controllers
+        menuBarController.setMainController(this);
+        mapTabController.setMainController(this);
+        dataTabController.setMainController(this);
+        flightTabController.setMainController(this);
+    }
 
 
     public String getAirlineLabel() {
@@ -132,94 +85,44 @@ public class Controller implements Initializable {
         return routeLabel;
     }
 
-    private String airlineLabel = "Airlines";
-    private String airportLabel = "Airports";
-    private String routeLabel = "Routes";
-
-
-
-    /**
-     * Where the program starts, initializes things like listeners and starts running the GUI.
-     *
-     * @param location URL
-     * @param resources ResourceBundle
-     */
-    public void initialize(URL location, ResourceBundle resources) {
-        System.out.println("control init");
-        // Passing MainController to the other controllers
-        menuBarController.setMainController(this);
-        mapTabController.setMainController(this);
-        dataTabController.setMainController(this);
-        System.out.println("done data tab set");
-        flightTabController.setMainController(this);
-        System.out.println("done flight tab set");
-
-
-//        System.out.println("done airlinepane set");
-//        // loads default airline list
-//        try {
-//            airlinePaneController.loadDefaultAirline();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        } catch (URISyntaxException e) {
-//            e.printStackTrace();
-//        }
-
-//        airlineTableIDController.setMainController(this);
-//        System.out.println("done airlinetable id set");
-//        routeTableIDController.setMainController(this);
-//        System.out.println("done route table id set");
-        //airlinePaneController.setMainController(this);
-       // airlinePaneController.setMainController(this);
-//        System.out.println("done airlinepane set");
-
-//        airportTableIDController.setMainController(this);
-
-
-//        mapView.getEngine().load(getClass().getClassLoader().getResource("map.html").toExternalForm());
-
-    }
-
-
-
-//    public void showAllAirports() {
-//        if (mapView.getEngine() != null) {
-//            HashMap<Integer, Airport> airports = Repository.airportRepository.getAirports();
-//            for (Map.Entry<Integer, Airport> entry : airports.entrySet()) {
-//                double lat = entry.getValue().getLatitude();
-//                double lon = entry.getValue().getLongitude();
-//                String name = entry.getValue().getName();
-//                mapView.getEngine().executeScript("addAirport(" + lat + ", " + lon + ");");
-//            }
-//            mapView.getEngine().executeScript("showAllAirports();");
-//        }
-//        if (allAirports.isSelected() == false) {
-//            mapView.getEngine().executeScript("hideAllAirports();");
-//        }
-//    }
-//
-//
-//    public void showAllRoutes() {
-//        if (mapView.getEngine() != null) {
-//            mapView.getEngine().executeScript("showAllRoutes();");
-//        }
-//        if (allRoutes.isSelected() == false) {
-//            mapView.getEngine().executeScript("hideAllRoutes();");
-//        }
-//    }
-
-
-
-
     public Tab getFlightTab() {
         return flightTab;
     }
 
+    public TabPane getTabPane() {
+        return tabPane;
+    }
 
+    public Tab getDataTab() {
+        return dataTab;
+    }
 
+    public DataTabController getDataTabController() {
+        return dataTabController;
+    }
 
-//    public void refreshMap() {
-//        mapView.getEngine().load(getClass().getClassLoader().getResource("map.html").toExternalForm());
-//    }
+    public RouteAnchorController getRouteAnchorController() {
+        return routeAnchorController;
+    }
+
+    public FlightTabController getFlightTabController() {
+        return flightTabController;
+    }
+
+    public AirportAnchorController getAirportAnchorController() {
+        return airportAnchorController;
+    }
+
+    public AirlineAnchorController getAirlineAnchorController() {
+        return airlineAnchorController;
+    }
+
+    public MenuBarController getMenuBarController() {
+        return menuBarController;
+    }
+
+    public MapTabController getMapTabController() {
+        return mapTabController;
+    }
 
 }

@@ -54,9 +54,6 @@ public class airportTable {
         this.attimezone = new SimpleFloatProperty(tttimezone);
         this.atdst = new SimpleStringProperty(ttdst);
         this.attzdatabase = new SimpleStringProperty(tttzdatabase);
-
-
-
     }
 
 

@@ -13,15 +13,15 @@ import java.io.IOException;
  */
 public class MenuBarController {
 
-
-
     private Controller mainController;
     private DataTabController dataTabController;
     private FlightTabController flightTabController;
-    private AirlinePaneController airlinePaneController;
+    private AirlineAnchorController airlineAnchorController;
+    private AirportAnchorController airportAnchorController;
+    private RouteAnchorController routeAnchorController;
 
     /**
-     * Sets the main controller and retrieves variables from the main controller
+     * Sets the main controller and retrieves variables from other controllers
      *
      * @param controller Controller
      */
@@ -29,23 +29,9 @@ public class MenuBarController {
         this.mainController = controller;
         this.dataTabController = mainController.getDataTabController();
         this.flightTabController = mainController.getFlightTabController();
-        this.airlinePaneController = mainController.getAirlinePaneController();
-    }
-
-    /**
-     * Sets the data tab controller to retrieve functions and variables from it
-     * @param dataTabController
-     */
-    public void setDataTabController(DataTabController dataTabController) {
-        this.dataTabController = dataTabController;
-    }
-    /**
-     * Getter for the main controller
-     *
-     * @return mainController
-     */
-    public Controller getMainController() {
-        return mainController;
+        this.airportAnchorController = dataTabController.getAirportAnchorController();
+        this.airlineAnchorController = dataTabController.getAirlineAnchorController();
+        this.routeAnchorController = dataTabController.getRouteAnchorController();
     }
 
     /**
@@ -54,7 +40,7 @@ public class MenuBarController {
      * @throws IOException throws IOException error
      */
     public void loadAirline() throws IOException {
-        airlinePaneController.loadAirline();
+        airlineAnchorController.loadAirline();
     }
 
     /**
@@ -63,7 +49,7 @@ public class MenuBarController {
      * @throws IOException throws IOException error
      */
     public void loadAirport() throws IOException {
-        dataTabController.loadAirport();
+        airportAnchorController.loadAirport();
     }
 
     /**
@@ -72,7 +58,7 @@ public class MenuBarController {
      * @throws IOException throws IOException error
      */
     public void loadRoute() throws IOException {
-        dataTabController.loadRoute();
+        routeAnchorController.loadRoute();
     }
 
     /**
@@ -90,7 +76,7 @@ public class MenuBarController {
      * @throws IOException when default airline file cannot be read
      */
     public void resetAirline() throws IOException {
-        airlinePaneController.resetAirline();
+        airlineAnchorController.resetAirline();
     }
 
     /**
@@ -98,7 +84,7 @@ public class MenuBarController {
      * @throws IOException when default airport file cannot be read
      */
     public void resetAirport() throws IOException {
-        dataTabController.resetAirport();
+        airportAnchorController.resetAirport();
     }
 
     /**
@@ -106,19 +92,17 @@ public class MenuBarController {
      * @throws IOException when default route file cannot be read
      */
     public void resetRoute() throws IOException {
-        dataTabController.resetRoute();
+        routeAnchorController.resetRoute();
     }
 
     /**
      * Shows Aviation Information Reader's help page
      */
     public void getHelp() {
-        //System.out.println("help");
         try {
             FXMLLoader fxml = new FXMLLoader();
             fxml.setLocation(getClass().getClassLoader().getResource("help.fxml"));
             Parent root = fxml.load();
-            //Parent root = FXMLLoader.load(getClass().getResource("help.fxml"));
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setResizable(false);

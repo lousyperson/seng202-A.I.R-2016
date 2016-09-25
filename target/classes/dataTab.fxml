@@ -51,68 +51,17 @@
                 <RowConstraints maxHeight="178.72744750976562" minHeight="0.0" prefHeight="137.0878143310547" vgrow="SOMETIMES" />
                 <RowConstraints maxHeight="467.6553955078125" minHeight="0.0" prefHeight="442.296875" vgrow="SOMETIMES" />
                 <RowConstraints maxHeight="250.4117431640625" minHeight="10.0" prefHeight="75.81793212890625" vgrow="SOMETIMES" />
-                <RowConstraints />
             </rowConstraints>
             <children>
-                <AnchorPane maxWidth="220.0" minHeight="0.0" minWidth="0.0" prefHeight="152.0" prefWidth="220.0">
+                <fx:include source="airlineAnchor.fxml" fx:id="airlineAnchor" GridPane.columnSpan="7" GridPane.rowSpan="3"/>
+                <fx:include source="airportAnchor.fxml" fx:id="airportAnchor" visible="false" GridPane.columnSpan="7" GridPane.rowSpan="3"/>
+                <fx:include source="routeAnchor.fxml" fx:id="routeAnchor" visible="false" GridPane.columnSpan="7" GridPane.rowSpan="3"/>
+                <AnchorPane fx:id="dataSelector" maxWidth="220.0" minHeight="0.0" minWidth="0.0" prefHeight="152.0" prefWidth="220.0">
                     <children>
                         <ListView fx:id="datalist" layoutX="10.0" layoutY="36.0" prefHeight="99.0" prefWidth="200.0" />
                         <Text layoutX="14.0" layoutY="24.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select a data type:" />
                     </children>
                 </AnchorPane>
-                    <fx:include source="airlineTableID.fxml" fx:id="airlineTableID" prefHeight="200.0" prefWidth="200.0" tableMenuButtonVisible="true" GridPane.columnIndex="1" GridPane.columnSpan="6" GridPane.rowSpan="4"/>
-                    <fx:include source="airportTableID.fxml" fx:id="airportTableID" layoutX="230.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" tableMenuButtonVisible="true" GridPane.columnIndex="1" GridPane.columnSpan="6" GridPane.rowSpan="4"/>
-                    <fx:include source="routeTableID.fxml" fx:id="routeTableID" layoutX="230.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" tableMenuButtonVisible="true" GridPane.columnIndex="1" GridPane.columnSpan="6" GridPane.rowSpan="4" />
-                <StackPane fx:id="searchPanes" prefHeight="354.0" prefWidth="220.0" GridPane.rowIndex="1" GridPane.rowSpan="2">
-                    <children>
-
-                        <AnchorPane fx:id="airlinePane" minHeight="0.0" minWidth="0.0" prefHeight="172.0" prefWidth="220.0">
-                            <children>
-                                <TextField fx:id="airlineSearch" layoutX="12.0" layoutY="42.0"  prefHeight="25.0" prefWidth="196.0" promptText="Search Airline List..." />
-                                <Text layoutX="14.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Search" />
-                                <Text layoutX="15.0" layoutY="108.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Filter Options" />
-                                <CheckBox fx:id="active" layoutX="12.0" layoutY="124.0" mnemonicParsing="false" onAction="#selectActiveAirlines" text="Active" />
-                                <CheckBox fx:id="inactive" layoutX="122.0" layoutY="125.0" mnemonicParsing="false" onAction="#selectInactiveAirlines" text="Inactive" />
-                                <ComboBox fx:id="airlineCountryFilter" layoutX="12.0" layoutY="161.0" onAction="#filterAirlineCountry" prefHeight="25.0" prefWidth="197.0" promptText=" --ALL COUNTRIES--" />
-                                <Button alignment="TOP_CENTER" contentDisplay="CENTER" layoutX="37.0" layoutY="470.0" mnemonicParsing="false" onAction="#loadAirline" prefHeight="25.0" prefWidth="146.0" text="Import Airline" />
-                            </children>
-                        </AnchorPane>
-
-                        <AnchorPane fx:id="routePane" minHeight="0.0" minWidth="0.0" prefHeight="172.0" prefWidth="220.0" visible="false">
-                            <children>
-                                <TextField fx:id="routeSearch" layoutX="12.0" layoutY="42.0" prefHeight="25.0" prefWidth="196.0" promptText="Search Route List..." />
-                                <Text layoutX="14.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Search" />
-                                <Text layoutX="15.0" layoutY="108.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Filter Options" />
-                                <ComboBox fx:id="routeDepCountryFilter" layoutX="13.0" layoutY="201.0" onAction="#filterDepCountry" prefHeight="25.0" prefWidth="197.0" promptText=" --DEPART FROM-- " />
-                                <ComboBox fx:id="routeDestCountryFilter" layoutX="13.0" layoutY="241.0" onAction="#filterDestCountry" prefHeight="25.0" prefWidth="197.0" promptText=" --ARRIVE TO-- " />
-                                <CheckBox fx:id="direct" layoutX="12.0" layoutY="124.0" mnemonicParsing="false" onAction="#selectDirect" text="Direct" />
-                                <CheckBox fx:id="indirect" layoutX="122.0" layoutY="124.0" mnemonicParsing="false" onAction="#selectIndirect" text="Indirect" />
-                                <ComboBox fx:id="routeEquipFilter" layoutX="12.0" layoutY="161.0" onAction="#filterEquipment" prefHeight="25.0" prefWidth="197.0" promptText=" --ALL EQUIPMENTS-- " />
-                                <Button alignment="TOP_CENTER" contentDisplay="CENTER" layoutX="37.0" layoutY="470.0" mnemonicParsing="false" onAction="#loadRoute" prefHeight="25.0" prefWidth="146.0" text="Import Route" />
-                            </children>
-                        </AnchorPane>
-                        <AnchorPane fx:id="airportPane" minHeight="0.0" minWidth="0.0" prefHeight="269.0" prefWidth="220.0" visible="false">
-                            <children>
-                                <TextField fx:id="airportSearch" layoutX="12.0" layoutY="42.0" prefHeight="25.0" prefWidth="196.0" promptText="Search Airport List..." />
-                                <Text layoutX="14.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Search" />
-                                <Text layoutX="15.0" layoutY="108.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Filter Options" />
-                                <ComboBox fx:id="airportCountryFilter" layoutX="12.0" layoutY="123.0" onAction="#filterAirportCountry" prefHeight="25.0" prefWidth="197.0" promptText=" --ALL COUNTRIES--" />
-                                <Text layoutX="24.0" layoutY="241.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Airport A" />
-                                <TextField fx:id="airportA" editable="false" layoutX="24.0" layoutY="245.0" prefHeight="27.0" prefWidth="133.0" />
-                                <Text layoutX="24.0" layoutY="293.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Airport B" />
-                                <TextField fx:id="airportB" editable="false" layoutX="24.0" layoutY="298.0" prefHeight="27.0" prefWidth="133.0" />
-                                <Text layoutX="24.0" layoutY="345.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Distance:" />
-                                <TextField fx:id="calcdDistance" editable="false" layoutX="24.0" layoutY="351.0" prefHeight="25.0" prefWidth="134.0" />
-                                <Button fx:id="calc" layoutX="25.0" layoutY="391.0" mnemonicParsing="false" onAction="#calcDistance" text="Calculate Distance" />
-                                <Text layoutX="168.0" layoutY="369.0" strokeType="OUTSIDE" strokeWidth="0.0" text="km" wrappingWidth="35.30078125" />
-                                <Text layoutX="24.0" layoutY="192.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Right-click on an airport to" />
-                                <Text layoutX="37.0" layoutY="210.0" strokeType="OUTSIDE" strokeWidth="0.0" text=" add as Airport A or B." />
-                                <Button alignment="TOP_CENTER" contentDisplay="CENTER" layoutX="37.0" layoutY="470.0" mnemonicParsing="false" onAction="#loadAirport" prefHeight="25.0" prefWidth="146.0" text="Import Airport" />
-                                <Button layoutX="10.0" layoutY="430.0" mnemonicParsing="false" onAction="#getFlightPath" text="Get flight path from internet" />
-                            </children>
-                        </AnchorPane>
-                    </children>
-                </StackPane>
             </children>
         </GridPane>
     </content>

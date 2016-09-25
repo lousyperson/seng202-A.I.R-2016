@@ -29,22 +29,11 @@ import java.util.ResourceBundle;
  */
 public class FlightTabController implements Initializable{
 
-    Controller mainController;
-    //MenuBarController menuBarController;
-
-    private Tab flightTab;
-    private TabPane tabPane;
-
-    // testing for flight
-    private ObservableList<String> flightItems = FXCollections.observableArrayList();
-
-
-    private ObservableList<flightTable> flightTData = FXCollections.observableArrayList();
-
-
+    // flight map web view
     @FXML
     private WebView flightMap;
 
+    // instructions accordion
     @FXML
     private TitledPane instructions;
 
@@ -77,21 +66,26 @@ public class FlightTabController implements Initializable{
     @FXML
     private ListView<String> flightList;
 
+    // main controller
+    private Controller mainController;
+
+    // for variables from main controller
+    private Tab flightTab;
+    private TabPane tabPane;
+
+    // for flight table and list
+    private ObservableList<String> flightItems = FXCollections.observableArrayList();
+    private ObservableList<flightTable> flightTData = FXCollections.observableArrayList();
 
     /**
-     * Sets the main controller and retrieves private variables from the main controller
+     * Sets the main controller and retrieves variables from the main controller
      *
      * @param controller Controller
      */
     public void setMainController(Controller controller) {
-        System.out.println("in set main controller for fligth tab");
         this.mainController = controller;
-        //this.menuBarController = controller.getMenuBarController();
         this.flightTab = mainController.getFlightTab();
         this.tabPane = mainController.getTabPane();
-
-
-
     }
 
     /**
@@ -111,9 +105,8 @@ public class FlightTabController implements Initializable{
         updateFlightNameSearch();
 
         // listen to whats being selected in the flight list
-        flightList.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends String> ov, String old_val, String new_val) -> {
-            //System.out.println("Selected item from flight list: " + new_val);
-
+        flightList.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends String> ov,
+                                                                           String old_val, String new_val) -> {
             if (new_val != null) {
                 // clear table and populate it again with what's selected
                 updateFlightTable(new_val.toLowerCase());
@@ -122,6 +115,7 @@ public class FlightTabController implements Initializable{
 
         });
 
+        // enable search flight names listener
         searchFlightNames();
 
         // initialise route data table resources
@@ -131,8 +125,17 @@ public class FlightTabController implements Initializable{
         flightLatitude.setCellValueFactory(new PropertyValueFactory<>("flatitude"));
         flightLongitude.setCellValueFactory(new PropertyValueFactory<>("flongitude"));
 
+        // set items to flight table
         flightTableID.setItems(flightTData);
 
+        // enable delete flight
+        enableDeleteFlight();
+
+        // load default flight
+        loadDefaultFlight();
+    }
+
+    private void enableDeleteFlight(){
         flightList.setCellFactory(listView -> {
             final ListCell<String> cell = new ListCell<>();
             final ContextMenu contextMenu = new ContextMenu();
@@ -167,13 +170,11 @@ public class FlightTabController implements Initializable{
             });
             return cell;
         });
-
-        loadDefaultFlight();
-        noDataCheck();
-
     }
 
-    // update flight table view given the flight name
+    /**
+     * Update flight table view given the flight name
+     */
     private void updateFlightTable(String name){
 
         // access flight repository to get the flight positions array given the name
@@ -189,27 +190,18 @@ public class FlightTabController implements Initializable{
 
     }
 
-    // update map with flight path given the flight name
-    private void showFlightPath(String flightName) {
-        //String flightName = "lol";
 
+    /**
+     * Update map with flight path given the flight name
+     */
+    private void showFlightPath(String flightName) {
         if (flightMap.getEngine() != null) {
             flightMap.getEngine().executeScript("deleteFlights();");
-            // get the flight that is selected so we can get the flight name whic is a key to the flight repo
-            // so then we can get flight (info) now we have it yay its called flight
             Flight flight = Repository.flightRepository.getFlights().get(flightName);
-            // flight actually has an array list of positions and positions= array listof FLIGHT POSITISONS
-            // which is another object =.=
-
             for (int i = 0; i < flight.getFlightPositions().size(); i++) {
-                // the first row would be like
                 FlightPosition firstRow = flight.getFlightPositions().get(i);
-
-                // lat long first row
                 double lat = firstRow.getLatitude();
                 double lon = firstRow.getLongitude();
-                //flightMap.getEngine().executeScript("on();");
-
                 flightMap.getEngine().executeScript("addFlight(" + lat + ", " + lon + ");");
             }
             flightMap.getEngine().executeScript("makePath();");
@@ -241,58 +233,15 @@ public class FlightTabController implements Initializable{
         });
     }
 
-
-    private void noDataCheck() {
-        ArrayList<String> noData = new ArrayList<String>();
-        if (Repository.airlineRepository != null && Repository.airlineRepository.getAirlines().size() == 0) {
-            noData.add("airline");
-        }
-        if (Repository.airportRepository != null && Repository.airportRepository.getAirports().size() == 0) {
-            noData.add("airport");
-        }
-        if (Repository.routeRepository != null && Repository.routeRepository.getRoutes().size() == 0) {
-            noData.add("route");
-        }
-        if (noData.size() > 0) {
-            noDataWarning(noData);
-        }
-    }
-
-    private void noDataWarning(ArrayList<String> noData) {
-        String message = "";
-        String context = "Please go to \"Reset to Default\" under the file menu\nif you wish to load the default data.";
-        if (noData.size() == 1) {
-            message = noData.get(0);
-        } else if (noData.size() == 2) {
-            message = noData.get(0) + " or " + noData.get(1);
-        } else {
-            message = noData.get(0) + ", " + noData.get(1) + " or " + noData.get(2);
-        }
-        Alert warning = new Alert(Alert.AlertType.WARNING);
-        warning.setTitle("No " + message + " data found.");
-        warning.setHeaderText("You are about to load with empty data");
-        warning.setContentText(context);
-        warning.showAndWait();
-    }
-
+    /**
+     * Refresh the flight map
+     */
     public void refreshMap() {
         flightMap.getEngine().load(getClass().getClassLoader().getResource("map.html").toExternalForm());
         flightList.getSelectionModel().clearSelection();
         flightTData.clear();
     }
 
-
-//    /**
-//     * Allows the user to load a flight from a file
-//     * @throws IOException throws IOException error
-//     */
-//    public void loadFlight() throws IOException {
-//        try {
-//            menuBarController.loadFlight();
-//        } catch (NullPointerException e) {
-//            // Do nothing
-//        }
-//    }
 
     /**
      * Allows the user to load a flight from a file
@@ -307,7 +256,6 @@ public class FlightTabController implements Initializable{
         File in = fileChooser.showOpenDialog(stage);
         if (in != null && in.exists()) {
             InputStream file = new FileInputStream(in);
-            //System.out.println("oooo yah flights");
             // change tab to flight tab if its not on it already
             if (!tabPane.getSelectionModel().equals(flightTab)) {
                 tabPane.getSelectionModel().select(flightTab);
