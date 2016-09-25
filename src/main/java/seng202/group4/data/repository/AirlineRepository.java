@@ -18,12 +18,7 @@ public class AirlineRepository extends Repository implements Serializable {
      * @param airline Airline
      */
     public void addAirline(Airline airline) {
-        if (!airlines.containsKey(airline.getID())) {
-            airlines.put(airline.getID(), airline);
-        } else {
-            // Add something here
-            System.out.println("Error");
-        }
+        airlines.put(airline.getID(), airline);
     }
 
     /**

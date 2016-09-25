@@ -6,11 +6,11 @@ import javafx.beans.property.SimpleStringProperty;
 /**
  * Created by zyt10 on 25/09/16.
  */
-public class EquipAnalysisTable {
+public class equipAnalysisTable {
     private SimpleStringProperty equipment;
     private SimpleIntegerProperty number;
 
-    public EquipAnalysisTable(String equipment, Integer number){
+    public equipAnalysisTable(String equipment, Integer number){
         this.equipment = new SimpleStringProperty(equipment);
         this.number = new SimpleIntegerProperty(number);
     }
