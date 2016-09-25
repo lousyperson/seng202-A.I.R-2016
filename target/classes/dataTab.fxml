@@ -32,8 +32,6 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.web.WebView?>
 
-
-
 <Tab xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.group4.GUI.DataTabController">
     <content>
         <GridPane>
@@ -53,10 +51,10 @@
                 <RowConstraints maxHeight="250.4117431640625" minHeight="10.0" prefHeight="75.81793212890625" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-                <fx:include source="airlineAnchor.fxml" fx:id="airlineAnchor" GridPane.columnSpan="7" GridPane.rowSpan="3"/>
-                <fx:include source="airportAnchor.fxml" fx:id="airportAnchor" visible="false" GridPane.columnSpan="7" GridPane.rowSpan="3"/>
-                <fx:include source="routeAnchor.fxml" fx:id="routeAnchor" visible="false" GridPane.columnSpan="7" GridPane.rowSpan="3"/>
-                <AnchorPane fx:id="dataSelector" maxWidth="220.0" minHeight="0.0" minWidth="0.0" prefHeight="152.0" prefWidth="220.0">
+                <fx:include fx:id="airlineAnchor" source="airlineAnchor.fxml" GridPane.columnSpan="7" GridPane.rowSpan="3" />
+                <fx:include fx:id="airportAnchor" source="airportAnchor.fxml" visible="false" GridPane.columnSpan="7" GridPane.rowSpan="3" />
+                <fx:include fx:id="routeAnchor" source="routeAnchor.fxml" visible="false" GridPane.columnSpan="7" GridPane.rowSpan="3" />
+                <AnchorPane fx:id="dataSelector" maxHeight="152.0" maxWidth="220.0" minHeight="0.0" minWidth="0.0" prefHeight="152.0" prefWidth="220.0">
                     <children>
                         <ListView fx:id="datalist" layoutX="10.0" layoutY="36.0" prefHeight="99.0" prefWidth="200.0" />
                         <Text layoutX="14.0" layoutY="24.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select a data type:" />
