@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.CheckMenuItem?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.web.WebView?>
+
+<MenuBar xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.group4.GUI.MenuBarController">
+    <menus>
+        <Menu mnemonicParsing="false" text="File">
+            <items>
+                <Menu mnemonicParsing="false" text="Import">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#loadAirline" text="Airline" />
+                        <MenuItem mnemonicParsing="false" onAction="#loadAirport" text="Airport" />
+                        <MenuItem mnemonicParsing="false" onAction="#loadRoute" text="Route" />
+                        <MenuItem mnemonicParsing="false" onAction="#loadFlight" text="Flight" />
+                    </items>
+                </Menu>
+            <Menu mnemonicParsing="false" text="Reset to Default">
+              <items>
+                <MenuItem mnemonicParsing="false" onAction="#resetAirline" text="Airline" />
+                  <MenuItem mnemonicParsing="false" onAction="#resetAirport" text="Airport" />
+                  <MenuItem mnemonicParsing="false" onAction="#resetRoute" text="Route" />
+              </items>
+            </Menu>
+            </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Help">
+            <items>
+                <MenuItem mnemonicParsing="false" onAction="#getHelp" text="A.I.R. Help" />
+            </items>
+        </Menu>
+    </menus>
+</MenuBar>

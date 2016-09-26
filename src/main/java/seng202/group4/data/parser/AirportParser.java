@@ -9,24 +9,28 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * Created by jjg64 on 15/08/16.
+ * Reads through the airport data in the given list. No error checking is done here.
  */
 public class AirportParser {
-    private BufferedReader file;
+    private ArrayList<String> file;
     private Airport thisAirport;
     private String[] splitLine;
     private String splitBy = "\\s*\\,\\s*";
     private int ID;
-    private String currentLine;
     private HashMap<String, DaylightSavingsTime> DSTs = new HashMap<String, DaylightSavingsTime>();
     private ArrayList<Airport> airports = new ArrayList<Airport>();
     int index = 0; // Will be used to track the index corresponding to each comma
 
-    public AirportParser(BufferedReader file) {
+    /**
+     * Sets up the file to be parsed through.
+     * @param file ArrayList
+     */
+    public AirportParser(ArrayList file) {
         this.file = file;
         makeMap();
     }
 
+    /**Enum for the daylight saving stuff*/
     private void makeMap() {
         DSTs.put("E", DaylightSavingsTime.E);
         DSTs.put("A", DaylightSavingsTime.A);
@@ -38,32 +42,37 @@ public class AirportParser {
 
     }
 
+    /**Reads the string, removing all unnecessary characters*/
     private void readString(int i) {
         if (splitLine[i].equals("\\N")) {
             splitLine[i] = null;
         } else {
             // Remove quotation marks
-            splitLine[i] = splitLine[i].replaceAll("^\"|\"$", "");
+            splitLine[i] = splitLine[i].replaceAll("^\"|\"$", "");      // Remove quotation marks
         }
     }
 
+    /**Reads through a string, if it contains commas where the commas is a part of the string and not a separator
+    * of things within the super string, then this gets through the string
+    * @return name, where name is the string without invalid characters*/
     private String readStringWithCommas() {
         String name = "";
-        if (splitLine[index].equals("\\N")) {
-            name = null;
-        } else {
-            while (!splitLine[index].endsWith("\"")) {
-                name += splitLine[index] + ", ";
-                index++;
-            }
-            name += splitLine[index];
+        while (!splitLine[index].endsWith("\"")) {
+            name += splitLine[index] + ", ";
             index++;
-            name = name.replaceAll("^\"|\"$", "");  // Removes quotation marks
         }
+        name += splitLine[index];
+        index++;
+        name = name.replaceAll("^\"|\"$", "");  // Removes quotation mark
+        name = name.replaceAll("\\\\", "");     // Removes \\
         return name;
     }
 
-    private void addAirport() throws IOException {
+    /**Adds an individual airport to the data list, using readStringWithCommas so that if a comma is in the middle of an
+     * attribute it is not an issue
+     * @param takes in a singular line in the form of a string
+     * */
+    private void addAirport(String currentLine) throws IOException {
         splitLine = currentLine.split(splitBy);
         index = 1;
 
@@ -85,12 +94,14 @@ public class AirportParser {
         airports.add(thisAirport);
     }
 
+    /**
+     * Builds the singular airport from the current line in the data and adds it to the list of airports.
+     * @return airports
+     * @throws IOException Throws IOException error
+     */
     public ArrayList<Airport> makeAirports() throws IOException {
-        while ((currentLine = file.readLine()) != null) {
-            currentLine = currentLine.trim();
-            if (!currentLine.matches("\\w") && !currentLine.matches("")) {
-                addAirport();
-            }
+        for(String currentLine: file){
+            addAirport(currentLine);
         }
         return airports;
     }

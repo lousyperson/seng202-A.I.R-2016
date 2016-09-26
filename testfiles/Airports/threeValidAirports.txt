@@ -1,0 +1,3 @@
+119,"Comox","Comox","Canada","YQQ","CYQQ",49.710833,-124.886667,84,-8,"A","America/Vancouver"
+177,"North Bay","North Bay","Canada","YYB","CYYB",46.363611,-79.422778,1215,-5,"A","America/Toronto"
+5794,"Banja Luka International Airport","Banja Luka","Bosnia and Herzegovina","BNX","LQBK",44.941444,17.297501,400,1,"E","Europe/Sarajevo"

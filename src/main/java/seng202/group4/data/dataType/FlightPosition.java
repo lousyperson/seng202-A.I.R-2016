@@ -1,21 +1,25 @@
 package seng202.group4.data.dataType;
 
+import java.io.Serializable;
+
 /**
- * Created by jjg64 on 2/09/16.
+ * Stores a single flight position.
+ * The FlightPosition class gets the information from the specific row in the flight table which the flight exists in.
  */
-public class FlightPosition {
+public class FlightPosition implements Serializable {
     private String type;
     private String ID;
     private double altitude;
-    private double longitude;
     private double latitude;
+    private double longitude;
 
-    public FlightPosition(String type, String ID, double altitude, double longitude, double latitude) {
+
+    public FlightPosition(String type, String ID, double altitude, double latitude, double longitude) {
         this.type = type;
         this.ID = ID;
         this.altitude = altitude;
-        this.longitude = longitude;
         this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     public String getID() {

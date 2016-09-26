@@ -2,31 +2,43 @@ package seng202.group4.data.repository;
 
 import seng202.group4.data.dataType.Airline;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * Created by jjg64 on 15/08/16.
+ * Stores all the Airlines in exactly one HashMap and has methods that Airlines will use.
  */
-public class AirlineRepository extends Repository {
+public class AirlineRepository extends Repository implements Serializable {
 
-    private HashMap<Integer, Airline> Airlines = new HashMap<Integer, Airline>();
+    private HashMap<Integer, Airline> airlines = new HashMap<Integer, Airline>();
 
+    /**
+     * Adds an airline to the list of airlines.
+     * @param airline Airline
+     */
     public void addAirline(Airline airline) {
-        Airlines.put(airline.getID(), airline);
+        airlines.put(airline.getID(), airline);
     }
 
-
+    /**
+     * Returns a list of airlines.
+     * @return airlines
+     */
     public HashMap<Integer, Airline> getAirlines() {
-        return Airlines;
+        return airlines;
     }
 
 
-
+    /**
+     * Given a country, finds all airlines based in that country.
+     * @param country String
+     * @return AirlineCountry
+     */
     //given a country, finds all airlines based in that country
     public ArrayList<Airline> getCountry(String country) {
         ArrayList<Airline> AirlineCountry = new ArrayList<Airline>();
-        for (Airline airline : Airlines.values()) {
+        for (Airline airline : airlines.values()) {
             if (airline.getCountry().equals(country)) {
                 AirlineCountry.add(airline);
             }
@@ -34,10 +46,14 @@ public class AirlineRepository extends Repository {
         return AirlineCountry;
     }
 
+    /**
+     * Finds all operating airlines.
+     * @return ActiveAirlines
+     */
     //finds all the active (operating) airlines
     public ArrayList<Airline> getActive() {
         ArrayList<Airline> ActiveAirlines = new ArrayList<Airline>();
-        for (Airline airline : Airlines.values()) {
+        for (Airline airline : airlines.values()) {
             if (airline.getActive() == true) {
                 ActiveAirlines.add(airline);
             }
@@ -45,10 +61,14 @@ public class AirlineRepository extends Repository {
         return ActiveAirlines;
     }
 
+    /**
+     * Finds all inactive airlines
+     * @return InActiveAirlines
+     */
     //finds all inactive (no longer operating) airlines
     public ArrayList<Airline> getInActive() {
         ArrayList<Airline> InActiveAirlines = new ArrayList<Airline>();
-        for (Airline airline : Airlines.values()) {
+        for (Airline airline : airlines.values()) {
             if (airline.getActive() == false) {
                 InActiveAirlines.add(airline);
             }

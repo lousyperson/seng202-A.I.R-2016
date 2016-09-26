@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.web.*?>
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.CheckMenuItem?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.web.WebView?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.group4.GUI.AirlineAnchorController">
+    <children>
+        <TableView fx:id="airlineTableID" layoutX="220.0" prefHeight="706.0" prefWidth="804.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="220.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <columns>
+                <TableColumn fx:id="aid" minWidth="0.0" prefWidth="68.0" text="Airline ID" />
+                <TableColumn fx:id="aname" minWidth="100.0" prefWidth="240.0" text="Name" />
+                <TableColumn fx:id="aalias" prefWidth="82.0" text="Alias" visible="false" />
+                <TableColumn fx:id="aiata" prefWidth="72.0" text="IATA" visible="false" />
+                <TableColumn fx:id="aicao" prefWidth="68.0" text="ICAO" />
+                <TableColumn fx:id="acallsign" minWidth="0.0" prefWidth="131.0" text="Callsign" />
+                <TableColumn fx:id="acountry" prefWidth="150.0" text="Country" />
+                <TableColumn fx:id="aactive" prefWidth="72.0" text="Active" />
+            </columns>
+        </TableView>
+        <AnchorPane fx:id="airlinePane" layoutY="155.0" minHeight="0.0" minWidth="0.0" prefHeight="539.0" prefWidth="220.0">
+            <children>
+                <TextField fx:id="airlineSearch" layoutX="12.0" layoutY="42.0" prefHeight="25.0" prefWidth="196.0" promptText="Search Airline List..." />
+                <Text layoutX="14.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Search" />
+                <Text layoutX="15.0" layoutY="108.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Filter Options" />
+                <CheckBox fx:id="active" layoutX="12.0" layoutY="124.0" mnemonicParsing="false" onAction="#selectActiveAirlines" text="Active" />
+                <CheckBox fx:id="inactive" layoutX="122.0" layoutY="125.0" mnemonicParsing="false" onAction="#selectInactiveAirlines" text="Inactive" />
+                <ComboBox fx:id="airlineCountryFilter" layoutX="12.0" layoutY="161.0" onAction="#filterAirlineCountry" prefHeight="25.0" prefWidth="197.0" promptText=" --ALL COUNTRIES--" />
+                <Button alignment="TOP_CENTER" contentDisplay="CENTER" layoutX="37.0" layoutY="470.0" mnemonicParsing="false" onAction="#loadAirline" prefHeight="25.0" prefWidth="146.0" text="Import Airline" />
+            </children>
+        </AnchorPane>
+    </children>
+</AnchorPane>

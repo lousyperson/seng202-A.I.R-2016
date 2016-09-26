@@ -9,19 +9,21 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- * Created by jjg64 on 15/08/16.
+ * Reads through the flight data from the given list. No error checking is done here.
  */
 public class FlightParser {
-    private BufferedReader file;
+    private ArrayList<String> file;
     private final int ITEMS_PER_LINE = 5;
     private FlightPosition thisPosition;
     private String[] splitLine = new String[ITEMS_PER_LINE];
     private String splitBy = "\\s*\\,\\s*";
-    private String currentLine;
-    private ArrayList<FlightPosition> positions = new ArrayList<FlightPosition>();
+    private ArrayList<FlightPosition> positions = new ArrayList<>();
 
-
-    public FlightParser(BufferedReader file) {
+    /**
+     * Initializes the FlightParser variables.
+     * @param file ArrayList
+     */
+    public FlightParser(ArrayList file) {
         this.file = file;
     }
 
@@ -31,7 +33,7 @@ public class FlightParser {
         }
     }
 
-    private void addFlightPosition() throws IOException {
+    private void addFlightPosition(String currentLine) throws IOException {
         splitLine = currentLine.split(splitBy, ITEMS_PER_LINE);
         readString(0);  // Type
         readString(1);  // ID
@@ -41,12 +43,14 @@ public class FlightParser {
         positions.add(thisPosition);
     }
 
+    /**
+     * Makes a singular flight from the current line in the flight data.
+     * @return Flight
+     * @throws IOException throws IOException error
+     */
     public Flight makeFlight() throws IOException {
-        while ((currentLine = file.readLine()) != null) {
-            currentLine = currentLine.trim();
-            if (!currentLine.matches("\\w") && !currentLine.matches("")) {
-                addFlightPosition();
-            }
+        for(String currentLine: file){
+            addFlightPosition(currentLine);
         }
         Flight flight = new Flight(positions);
         return flight;

@@ -1,9 +1,12 @@
 package seng202.group4.data.dataType;
 
+import java.io.Serializable;
+
 /**
- * Created by jjg64 on 15/08/16.
+ * Stores information about an Airline.
+ * Airline class creates an airline object that is represented in the airline table.
  */
-public class Airline {
+public class Airline implements Serializable {
     private int ID;
     private String name;
     private String alias;
@@ -11,8 +14,21 @@ public class Airline {
     private String ICAO;
     private String callsign;
     private String country;
+
+
     private boolean active; // Can be active or not active
 
+    /**
+     * Initializes all the values for the variables of the airline class.
+     * @param ID An Integer for the airline ID
+     * @param name A String for the airline name
+     * @param alias A String for the airline alias
+     * @param IATA A String for the airline IATA
+     * @param ICAO A String for the airline ICAO
+     * @param callsign A String for the airline callsign
+     * @param country A String for the airline country
+     * @param active A String for the airline active
+     */
     public Airline(int ID, String name, String alias, String IATA, String ICAO, String callsign, String country, boolean active) {
         this.ID = ID;
         this.name = name;
@@ -23,6 +39,7 @@ public class Airline {
         this.country = country;
         this.active = active;
     }
+
 
     public int getID() {
         return ID;

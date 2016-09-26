@@ -8,11 +8,12 @@ import java.io.*;
 import java.util.ArrayList;
 
 /**
- * Created by jjg64 on 25/08/16.
+ * Ensures that the route data from the file is valid by reading and checking to ensure it meets formatting
+ * expectations. Error checks the file and uses RouteParser if valid.
  */
 public class RouteValidator {
     private final int ITEMS_PER_LINE = 9;
-    private File filepath;
+    private InputStream filepath;
     private BufferedReader file;
     private String[] splitLine = new String[ITEMS_PER_LINE + 1];
     private String splitBy = "\\s*\\,\\s*";
@@ -20,25 +21,33 @@ public class RouteValidator {
     private int lineNumber = 0;
     private Alert alert;
     private boolean hasError = false;
+    private ArrayList<String> stringArray = new ArrayList<>();
 
-    public RouteValidator(File filepath) throws FileNotFoundException {
+    public RouteValidator(InputStream filepath) throws FileNotFoundException {
         this.filepath = filepath;
-        this.file = new BufferedReader(new FileReader(filepath));
+        this.file = new BufferedReader(new InputStreamReader(filepath));
     }
 
+    /**
+     * Creates the routes from the given data file to check if they are of the correct format. Calls validateLine to
+     * ensure that the format is correct.
+     * @return Array list of routes
+     * @throws IOException Throws IOException error
+     */
     public ArrayList<Route> makeroutes() throws IOException {
         while ((currentLine = file.readLine()) != null) {
             lineNumber++;
             currentLine = currentLine.trim();
             if (!currentLine.matches("\\w") && !currentLine.equals("")) {
                 validateLine();
+                stringArray.add(currentLine);
             }
             if (hasError) {
-                return null;
+                return new ArrayList<Route>();
             }
         }
-
-        RouteParser parser = new RouteParser((new BufferedReader(new FileReader(filepath))));
+        // no errors so continue parsing
+        RouteParser parser = new RouteParser(stringArray);
         return parser.makeRoutes();
     }
 
@@ -95,7 +104,7 @@ public class RouteValidator {
         alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");
         alert.setHeaderText("There is an error in your file on line " + lineNumber);
-        alert.setContentText(message + "\nNo routes were added.\nPlease go to help drop down for file formatting help.");
+        alert.setContentText(message + "\n\nNo routes were added.\n\nPlease go to help drop down for file formatting help.");
         alert.showAndWait();
     }
 }

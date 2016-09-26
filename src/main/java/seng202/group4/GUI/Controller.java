@@ -1,742 +1,438 @@
 package seng202.group4.GUI;
 
-
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.MapChangeListener;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
+import javafx.collections.ObservableMap;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
+import javafx.scene.chart.*;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.web.WebView;
-import javafx.stage.FileChooser;
-import javafx.stage.Stage;
-import seng202.group4.data.dataType.Airline;
-import seng202.group4.data.dataType.Route;
-import seng202.group4.data.parser.validator.AirlineValidator;
-import seng202.group4.data.parser.validator.RouteValidator;
+import javafx.scene.layout.GridPane;
+import javafx.scene.text.Text;
+import seng202.group4.data.dataType.Airport;
+import seng202.group4.data.repository.AirportRepository;
+import seng202.group4.data.repository.FlightRepository;
+import seng202.group4.data.repository.Repository;
 
-
-import java.io.*;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.*;
-import java.util.stream.Collectors;
 
+//import com.aquafx_project.AquaFx;
 
-public class Controller implements Initializable{
-
-    // Map view
-    @FXML
-    WebView mapView;
-
-    // DEFINE TABLES
-
-    // Airline Table
-    @FXML
-    TableView<airlineTable> airlineTableID;
+/**
+ * The main controller implementing GUI functions.
+ */
+public class Controller implements Initializable {
 
     @FXML
-    TableColumn<airlineTable, String> aid;
+    private MenuBarController menuBarController;
 
     @FXML
-    TableColumn<airlineTable, String> aname;
+    private RouteAnchorController routeAnchorController;
 
     @FXML
-    TableColumn<airlineTable, String> aalias;
+    private DataTabController dataTabController;
 
     @FXML
-    TableColumn<airlineTable, String> aiata;
+    private FlightTabController flightTabController;
 
     @FXML
-    TableColumn<airlineTable, String> aicao;
+    private MapTabController mapTabController;
 
     @FXML
-    TableColumn<airlineTable, String> acallsign;
+    private AirportAnchorController airportAnchorController;
 
     @FXML
-    TableColumn<airlineTable, String> acountry;
+    private AirlineAnchorController airlineAnchorController;
 
     @FXML
-    TableColumn<airlineTable, String> aactive;
-
-    // Airport Table
-    @FXML
-    TableView<airportTable> airportTableID;
+    private MenuBar menuBar;
 
     @FXML
-    TableColumn<airportTable, String> apid;
+    private Tab mapTab;
 
     @FXML
-    TableColumn<airportTable, String> apname;
+    private TabPane tabPane;
 
     @FXML
-    TableColumn<airportTable, String> apcity;
+    private Tab dataTab;
 
     @FXML
-    TableColumn<airportTable, String> apcountry;
+    private Tab flightTab;
+
+    // labels for the user's data selection
+    private String airlineLabel = "Airlines";
+    private String airportLabel = "Airports";
+    private String routeLabel = "Routes";
+
+    // Used in flightAnalysis
+//    ObservableList<String> keys = FXCollections.observableArrayList();
+    CategoryAxis xAxis = new CategoryAxis();
+    NumberAxis yAxis = new NumberAxis();
+
+    // Used in equipmentAnalysis
+    ObservableMap<String, Integer> countEquipment = FXCollections.observableHashMap();
+    ObservableList<String> equipKeys = FXCollections.observableArrayList();
+    ObservableList<EquipAnalysisTable> equipAnalysisTData = FXCollections.observableArrayList();
+    ObservableList<PieChart.Data> equipPieChartData = FXCollections.observableArrayList();
+    ObservableList<XYChart.Series<String, Integer>> equipBarChartData = FXCollections.observableArrayList();
+
+    // airportCountrySet holds all the airport countries imported
+    private TreeSet<String> airportCountrySet = new TreeSet();
 
     @FXML
-    TableColumn<airportTable, String> apiata;
+    private ComboBox analysisDropdown;
 
     @FXML
-    TableColumn<airportTable, String> apicao;
+    private ComboBox countryDropdown;
+
+    // airport and routes FXML
+    @FXML
+    private GridPane airportPane;
 
     @FXML
-    TableColumn<airportTable, String> aplat;
+    private TableView<AnalysisTable> airportsAndRoutes;
 
     @FXML
-    TableColumn<airportTable, String> aplong;
+    private TableColumn<AnalysisTable, String> airport;
 
     @FXML
-    TableColumn<airportTable, String> apalt;
+    private TableColumn<AnalysisTable, Integer> airportCount;
 
     @FXML
-    TableColumn<airportTable, String> aptimezone;
+    private PieChart pieChart;
 
     @FXML
-    TableColumn<airportTable, String> apdst;
+    private BarChart<String,Number> barChart = new BarChart<String,Number>(xAxis,yAxis);
 
     @FXML
-    TableColumn<airportTable, String> aptz;
+    private Text rowSize;
 
-    // Route table
-
-    @FXML
-    TableView<routeTable> routeTableID;
-
-    @FXML
-    TableColumn<routeTable, String> airline;
-
-    @FXML
-    TableColumn<routeTable, Integer> airlineID;
-
-    @FXML
-    TableColumn<routeTable, String> source;
-
-    @FXML
-    TableColumn<routeTable, Integer> sourceID;
-
-    @FXML
-    TableColumn<routeTable, String> dest;
-
-    @FXML
-    TableColumn<routeTable, Integer> destID;
-
-    @FXML
-    TableColumn<routeTable, String> codeshare;
-
-    @FXML
-    TableColumn<routeTable, Integer> stops;
-
-    @FXML
-    TableColumn<routeTable, String> equipment;
-
-
-    // data list
-    @FXML
-    ListView<String> datalist;
-
-    // search field
-    @FXML
-    TextField airlineSearch;
-
-    // airlines inactive and active check boxes
-    @FXML
-    CheckBox active;
-
-    @FXML
-    CheckBox inactive;
-
-    // airline country filter
-    @FXML
-    ComboBox airlineCountryFilter;
-
-    // airport FXML
-    @FXML
-    TextField airportSearch;
-
-    @FXML
-    ComboBox airportCountryFilter;
-
-    // route FXML
-    @FXML
-    TextField routeSearch;
-
-    @FXML
-    ComboBox routeDepCountryFilter;
-
-    @FXML
-    ComboBox routeDestCountryFilter;
-
-    @FXML
-    CheckBox direct;
-
-    @FXML
-    CheckBox indirect;
-
-    @FXML
-    ComboBox routeEquipFilter;
-
-    // StackPane for search
-    @FXML
-    StackPane searchPanes;
-
-    @FXML
-    AnchorPane airlinePane;
-
-    @FXML
-    AnchorPane airportPane;
-
-    @FXML
-    AnchorPane routePane;
-
-    // create table data
-    private ObservableList<airlineTable> airlineTData = FXCollections.observableArrayList();
-
-    private ObservableList<airportTable> airportTData = FXCollections.observableArrayList();
-
-    private ObservableList<routeTable> routeTData = FXCollections.observableArrayList();
-
-    private ObservableList<String> items = FXCollections.observableArrayList("Default Airlines", "Default Airports", "Default Routes");
-
-    // airline repository
-    // countrySet holds all the countries uploaded to airline
-    private TreeSet countrySet = new TreeSet();
-
-    // equipmentSet holds all the equipment uploaded to route
-    private TreeSet equipmentSet = new TreeSet();
-
+    /**
+     * Initializes the controller
+     *
+     * @param location URL
+     * @param resources ResourceBundle
+     */
     public void initialize(URL location, ResourceBundle resources) {
-        mapView.getEngine().load(getClass().getClassLoader().getResource("map.html").toExternalForm());
-        // initialise data list
-        datalist.setItems(items);
+        // Passing MainController to the other controllers
+        menuBarController.setMainController(this);
+        mapTabController.setMainController(this);
+        dataTabController.setMainController(this);
+        flightTabController.setMainController(this);
 
-        // setting up view
-        updateAirlineSearch();
-        updateRouteSearch();
-        // select airline table on the side bar
-        datalist.getSelectionModel().clearAndSelect(0);
-        // show airline table
-        airlineTableID.toFront();
+        analysisDropdown.getItems().addAll(
+                "Airports with most routes",
+                "Equipment with most routes",
+                "Countries with most airports",
+                "Countries with most airlines"
+        );
 
-        datalist.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends  String> ov, String old_val, String new_val) -> {
-            System.out.println("Selected item: " + new_val);
-            if (new_val.equals("Default Airlines")) {
-                airlineTableID.toFront();
-                airlinePane.setVisible(true);
-                airportPane.setVisible(false);
-                routePane.setVisible(false);
-            } else if (new_val.equals("Default Airports")) {
-                airportTableID.toFront();
-                airlinePane.setVisible(false);
-                airportPane.setVisible(true);
-                routePane.setVisible(false);
-            } else if (new_val.equals("Default Routes")) {
-                routeTableID.toFront();
-                airlinePane.setVisible(false);
-                airportPane.setVisible(false);
-                routePane.setVisible(true);
-            }
-
-        });
-
-        // initialise airline table resources
-        aid.setCellValueFactory(new PropertyValueFactory<>("rid"));
-        aname.setCellValueFactory(new PropertyValueFactory<>("rname"));
-        aalias.setCellValueFactory(new PropertyValueFactory<>("ralias"));
-        aiata.setCellValueFactory(new PropertyValueFactory<>("riata"));
-        aicao.setCellValueFactory(new PropertyValueFactory<>("ricao"));
-        acallsign.setCellValueFactory(new PropertyValueFactory<>("rcallsign"));
-        acountry.setCellValueFactory(new PropertyValueFactory<>("rcountry"));
-        aactive.setCellValueFactory(new PropertyValueFactory<>("ractive"));
-
-        airlineTableID.setItems(airlineTData);
-
-        // loads default airline list
-        try {
-            loadDefaultAirline();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        }
-
-        // listen for airline search queries
-        searchAirlines();
-
-        // initialise airport table resources
-        apid.setCellValueFactory(new PropertyValueFactory<>("atid"));
-        apname.setCellValueFactory(new PropertyValueFactory<>("atname"));
-        apcity.setCellValueFactory(new PropertyValueFactory<>("atcity"));
-        apcountry.setCellValueFactory(new PropertyValueFactory<>("atcountry"));
-        apiata.setCellValueFactory(new PropertyValueFactory<>("atiata"));
-        apicao.setCellValueFactory(new PropertyValueFactory<>("aticao"));
-        aplat.setCellValueFactory(new PropertyValueFactory<>("atlatitude"));
-        aplong.setCellValueFactory(new PropertyValueFactory<>("atlongitude"));
-        apalt.setCellValueFactory(new PropertyValueFactory<>("ataltitude"));
-        aptimezone.setCellValueFactory(new PropertyValueFactory<>("attimezone"));
-        apdst.setCellValueFactory(new PropertyValueFactory<>("atdst"));
-        aptz.setCellValueFactory(new PropertyValueFactory<>("attzdatabase"));
-
-        airportTableID.setItems(airportTData);
-
-        // initialise route data table resources
-        airline.setCellValueFactory(new PropertyValueFactory<>("rairline"));
-        airlineID.setCellValueFactory(new PropertyValueFactory<>("rid"));
-        source.setCellValueFactory(new PropertyValueFactory<>("rsource"));
-        sourceID.setCellValueFactory(new PropertyValueFactory<>("rsourceid"));
-        dest.setCellValueFactory(new PropertyValueFactory<>("rdest"));
-        destID.setCellValueFactory(new PropertyValueFactory<>("rdestid"));
-        codeshare.setCellValueFactory(new PropertyValueFactory<>("rcodeshare"));
-        stops.setCellValueFactory(new PropertyValueFactory<>("rstops"));
-        equipment.setCellValueFactory(new PropertyValueFactory<>("requipment"));
-
-        routeTableID.setItems(routeTData);
-
-        //loads default route list
-        try {
-            loadDefaultRoute();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        }
-
-        // listen for route search queries
-        searchRoutes();
-
+        updateCountryDropdown();
     }
 
-
-
-
-    public void searchRoutes(){
-        // searching for route
-        FilteredList<routeTable> routeTableFiltered = new FilteredList<>(routeTData, p -> true);
-
-        routeSearch.textProperty().addListener((observable, oldValue, newValue) -> {
-            routeTableFiltered.setPredicate(route -> {
-                // All the columns in route table (rt)
-                String rtAirID = route.getRairline();
-                String rtID = route.getRid();
-                String rtSrcAirport = route.getRsource();
-                String rtSrcAirportId = route.getRsourceid();
-                String rtDestAirport = route.getRdest();
-                String rtDestAirportId = route.getRdestid();
-                String rtCodeshare = route.getRcodeshare();
-                String rtStops = route.getRstops();
-                String rtEquipment = route.getRequipment();
-                List<String> rtEquipmentArray = null;
-                Boolean toggled = false; // toggle to see if anything was matched in the search box
-
-                // set up for equipment drop down box
-                boolean emptyEquipFilter = routeEquipFilter.getSelectionModel().getSelectedItem() == null;
-
-                // selectedRouteEquip is a string to hold whats selected in the dropdown
-                // set to null unless a dropdown is selected
-                String selectedRouteEquip = null;
-                if (routeEquipFilter.getValue() != null) {
-                    rtEquipmentArray = Arrays.asList(rtEquipment.toLowerCase().split("\\s*,\\s*"));
-                    selectedRouteEquip = routeEquipFilter.getValue().toString();
-                }
-
-                // hold the string that's typed in the search bar in lowercase
-                String lowerCaseFilter = newValue.toLowerCase();
-
-                // The following returns true if the filter matches
-                if (newValue.isEmpty() && !direct.isSelected() && !indirect.isSelected()
-                        && selectedRouteEquip != null && selectedRouteEquip.equals(" --ALL EQUIPMENTS-- ")) {
-                    return true;    // display all data.
-                }
-
-                // Check if the search criteria matches the following columns
-                if (rtAirID != null && rtAirID.toLowerCase().contains(lowerCaseFilter)){
-                    toggled = true;
-                }
-                if (rtID != null && rtID.toLowerCase().contains(lowerCaseFilter)) {
-                    toggled = true;
-                }
-                if (rtSrcAirport != null && rtSrcAirport.toLowerCase().contains(lowerCaseFilter)){
-                    toggled = true;
-                }
-                if (rtSrcAirportId != null && rtSrcAirportId.toLowerCase().contains(lowerCaseFilter)) {
-                    toggled = true;
-                }
-                if (rtDestAirport != null && rtDestAirport.toLowerCase().contains(lowerCaseFilter)){
-                    toggled = true;
-                }
-                if (rtDestAirportId != null && rtDestAirportId.toLowerCase().contains(lowerCaseFilter)) {
-                    toggled = true;
-                }
-                if (rtCodeshare != null && rtCodeshare.toLowerCase().contains(lowerCaseFilter)){
-                    toggled = true;
-                }
-                if (rtStops != null && rtStops.toLowerCase().contains(lowerCaseFilter)) {
-                    toggled = true;
-                }
-                if (rtEquipment != null && rtEquipment.toLowerCase().contains(lowerCaseFilter)){
-                    toggled = true;
-                }
-
-                // For the following cases, return true if the equipment dropdown is empty, --ALL EQUIPMENTS-- or
-                // matches the equipment in the table
-                if (toggled && !direct.isSelected() && !indirect.isSelected()){
-                    if (emptyEquipFilter){
-                        return true;
-                    }
-                    if (selectedRouteEquip != null && selectedRouteEquip.equals(" --ALL EQUIPMENTS-- ")) {
-                        return true;
-                    }
-                    else if(selectedRouteEquip != null && rtEquipmentArray.contains(selectedRouteEquip.toLowerCase())){
-                        return true;
-                    }
-                }
-                if (direct.isSelected() && rtStops != null && rtStops.equals("0") && toggled){
-                    if (emptyEquipFilter){
-                        return true;
-                    }
-                    if (selectedRouteEquip != null && selectedRouteEquip.equals(" --ALL EQUIPMENTS-- ")) {
-                        return true;
-                    }
-                    else if(selectedRouteEquip != null && rtEquipmentArray.contains(selectedRouteEquip.toLowerCase())){
-                        return true;
-                    }
-                }
-                if (indirect.isSelected() && rtStops != null && !rtStops.equals("0") && toggled){
-                    if (emptyEquipFilter){
-                        return true;
-                    }
-                    if (selectedRouteEquip != null && selectedRouteEquip.equals(" --ALL EQUIPMENTS-- ")) {
-                        return true;
-                    }
-                    else if(selectedRouteEquip != null && rtEquipmentArray.contains(selectedRouteEquip.toLowerCase())){
-                        return true;
-                    }
-                }
-
-                return false;   // does not match
-            });
-
-        });
-
-        // Wrap the filtered list in a SortedList
-        SortedList<routeTable> routeTableSorted = new SortedList<>(routeTableFiltered);
-
-        // Bind the SortedList comparator to the TableView comparator
-        routeTableSorted.comparatorProperty().bind(routeTableID.comparatorProperty());
-
-        // Add sorted (and filtered) data to the table
-        routeTableID.setItems(routeTableSorted);
-
-    }
-
-
-
-    public void searchAirlines(){
-        // searching for airline
-        FilteredList<airlineTable> airlineTableFiltered = new FilteredList<>(airlineTData, p -> true);
-
-        airlineSearch.textProperty().addListener((observable, oldValue, newValue) -> {
-            airlineTableFiltered.setPredicate(airline -> {
-                // All the columns in airline table (at)
-                Integer atID = airline.getRid();
-                String atName = airline.getRname();
-                String atAlias = airline.getRalias();
-                String atIATA = airline.getRiata();
-                String atICAO = airline.getRicao();
-                String atCallsign = airline.getRcallsign();
-                String atCountry = airline.getRcountry();
-                Boolean atActive = airline.getRactive();
-                boolean toggled = false;    // toggle to see if anything was matched in the search box
-
-                // set up for country drop down box
-                boolean emptyCountryFilter = airlineCountryFilter.getSelectionModel().getSelectedItem() == null;
-                // selectedAirlineCountry is a string to hold whats selected in the dropdown
-                // set to null unless a dropdown is selected
-                String selectedAirlineCountry = null;
-                if (airlineCountryFilter.getValue() != null){
-                    selectedAirlineCountry = airlineCountryFilter.getValue().toString();
-                }
-
-                // hold the string that's typed in the search bar in lowercase
-                String lowerCaseFilter = newValue.toLowerCase();
-
-                // The following returns true if the filter matches
-                if (newValue.isEmpty() && !active.isSelected() && !inactive.isSelected()
-                        && selectedAirlineCountry != null && selectedAirlineCountry.equals(" --ALL COUNTRIES-- ")){
-                    return true; // display all data
-                }
-
-                // Check if the search criteria matches the following columns
-                if (lowerCaseFilter.matches("[0-9]+") && atID == Integer.parseInt(lowerCaseFilter)) {
-                    toggled = true;
-                }
-                if (atName != null && atName.toLowerCase().contains(lowerCaseFilter)){
-                    toggled = true;
-                }
-                if (atAlias != null && atAlias.toLowerCase().contains(lowerCaseFilter)){
-                    toggled = true;
-                }
-                if (atIATA != null && atIATA.toLowerCase().contains(lowerCaseFilter)){
-                    toggled = true;
-                }
-                if (atICAO != null &&  atICAO.toLowerCase().contains(lowerCaseFilter)){
-                    toggled = true;
-                }
-                if (atCallsign != null && atCallsign.toLowerCase().contains(lowerCaseFilter)){
-                    toggled = true;
-                }
-                if (atCountry != null && atCountry.toLowerCase().contains(lowerCaseFilter)){
-                    toggled = true;
-                }
-
-                // For the following cases, return true if the country dropdown is empty, --ALL COUNTRIES-- or
-                // matches the country in the table
-                if (!active.isSelected() && toggled && !inactive.isSelected()){
-                    if (emptyCountryFilter){
-                        return true;
-                    }
-                    if (selectedAirlineCountry != null && selectedAirlineCountry.equals(" --ALL COUNTRIES-- ")) {
-                        return true;
-                    }
-                    else if(selectedAirlineCountry != null && atCountry != null &&
-                            atCountry.toLowerCase().equals(selectedAirlineCountry.toLowerCase())){
-                        return true;
-                    }
-                }
-                if (active.isSelected() && atActive && toggled){
-                    if (emptyCountryFilter){
-                        return true;
-                    }
-                    if (selectedAirlineCountry != null && selectedAirlineCountry.equals(" --ALL COUNTRIES-- ")) {
-                        return true;
-
-                    }
-                    else if(selectedAirlineCountry != null && atCountry != null &&
-                            atCountry.toLowerCase().equals(selectedAirlineCountry.toLowerCase())){
-                        return true;
-                    }
-                }
-                if (toggled && inactive.isSelected() && !atActive){
-                    if (emptyCountryFilter){
-                        return true;
-                    }
-                    if (selectedAirlineCountry != null && selectedAirlineCountry.equals(" --ALL COUNTRIES-- ")) {
-                        return true;
-
-                    }
-                    else if(selectedAirlineCountry != null && atCountry != null &&
-                            atCountry.toLowerCase().equals(selectedAirlineCountry.toLowerCase())){
-                        return true;
-                    }
-                }
-                return false; // does not match
-            });
-
-        });
-
-        // Wrap the filtered list in a SortedList
-        SortedList<airlineTable> airlineTableSorted = new SortedList<>(airlineTableFiltered);
-
-        // Bind the SortedList comparator to the TableView comparator
-        airlineTableSorted.comparatorProperty().bind(airlineTableID.comparatorProperty());
-
-        // Add sorted (and filtered) data to the table
-        airlineTableID.setItems(airlineTableSorted);
-
-    }
-
-
-
-    private void updateCountryBox(){
+    private void updateCountryDropdown() {
         // clear the current combo box
-        airlineCountryFilter.getItems().clear();
-        // if the combo box doesn't have --ALL COUNTRIES-- then add one
-        if(!airlineCountryFilter.getItems().contains(" --ALL COUNTRIES-- ")){
-            airlineCountryFilter.getItems().add(" --ALL COUNTRIES-- ");
+        countryDropdown.getItems().clear();
+
+        // populate airportCountrySet for combobox use later
+        HashMap<Integer, Airport> airports = Repository.airportRepository.getAirports();
+        if (airports != null) {
+            for (Airport airport : airports.values()) {
+                if (airport != null && airport.getCountry() != null) {
+                    airportCountrySet.add(airport.getCountry());
+                }
+            }
         }
 
-        // loop through the current countrySet
-        Iterator itr = countrySet.iterator();
-        while(itr.hasNext()){
-            airlineCountryFilter.getItems().add(itr.next());
+        // if the combo box doesn't have --CHOOSE AIRPORT-- then add one
+        if (!countryDropdown.getItems().contains("--CHOOSE COUNTRY--")) {
+            countryDropdown.getItems().add("--CHOOSE COUNTRY--");
         }
+        if (!countryDropdown.getItems().contains("--ALL COUNTRIES--")) {
+            countryDropdown.getItems().add("--ALL COUNTRIES--");
+        }
+        // add countries from TreeSet as combobox options
+        Iterator<String> itr = airportCountrySet.iterator();
+        while (itr.hasNext()) {
+            countryDropdown.getItems().add(itr.next());
+        }
+        countryDropdown.getSelectionModel().select(0);
     }
 
-    private void updateEquipBox(){
-        // clear the current combo box
-        routeEquipFilter.getItems().clear();
-        // if the combo box doesn't have --ALL EQUIPMENTS-- then add one
-        if(!routeEquipFilter.getItems().contains(" --ALL EQUIPMENTS-- ")){
-            routeEquipFilter.getItems().add(" --ALL EQUIPMENTS-- ");
+    private void airportAnalysis(String country) {
+        ObservableList<AnalysisTable> analysisTData = FXCollections.observableArrayList();
+        ObservableMap<String, Integer> countAirport = FXCollections.observableHashMap();
+        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
+        xAxis.setLabel("Airports");
+        yAxis.setLabel("Routes Count");
+        ObservableList<XYChart.Series<String, Integer>> barChartData = FXCollections.observableArrayList();
+//        countAirport.addListener((MapChangeListener.Change<? extends String, ? extends Integer> change) -> {
+//            boolean added = change.wasAdded();
+//            if (added) {
+//                keys.add(change.getKey());
+//            }
+//        });
+
+        for (RouteTable airport : dataTabController.getRouteAnchorController().getRouteTData()) {
+            if (countAirport.containsKey(airport.getRsource())) {
+                countAirport.put(airport.getRsource(), countAirport.get(airport.getRsource()) + 1);
+            } else {
+//                keys.add(airport.getRsource());
+                countAirport.put(airport.getRsource(), 1);
+            }
         }
 
-        // loop through the current countrySet
-        Iterator itr = equipmentSet.iterator();
-        while(itr.hasNext()){
-            routeEquipFilter.getItems().add(itr.next());
-        }
-    }
+        XYChart.Series series1 = new XYChart.Series();
 
-    public void updateAirlineSearch(){
-        String text = airlineSearch.getText();
-        airlineSearch.setText(text + " ");
-        airlineSearch.setText(text);
-
-    }
-
-    public void updateRouteSearch(){
-        String text = routeSearch.getText();
-        routeSearch.setText(text + " ");
-        routeSearch.setText(text);
-
-    }
-
-
-    public void selectDirect() throws IOException {
-        updateRouteSearch();
-    }
-
-    public void selectIndirect() throws IOException {
-        updateRouteSearch();
-    }
-
-    public void filterCountry() throws IOException {
-        updateAirlineSearch();
-    }
-
-    public void filterEquipment() throws IOException {
-        updateRouteSearch();
-    }
-
-    public void selectActiveAirlines() throws IOException {
-        updateRouteSearch();
-    }
-
-    public void selectInactiveAirlines() throws IOException {
-        updateAirlineSearch();
-    }
-
-    // Insert the airlines in a given file into the airline table GUI
-    private void insertAirlineTable(File file) throws IOException {
-        AirlineValidator validator = new AirlineValidator(file);
-        ArrayList<Airline> airlines = validator.makeAirlines();
-        for(int i = 0; i < airlines.size(); i++) {
-            Airline airline = airlines.get(i);
-            airlineTData.add(new airlineTable(airline.getID(), airline.getName(),
-                    airline.getAlias(), airline.getIATA(),
-                    airline.getICAO(), airline.getCallsign(),
-                    airline.getCountry(), airline.getActive()));
-            if(airline.getCountry() != null){
-                countrySet.add(airline.getCountry());
+        if (!country.equals("--CHOOSE COUNTRY--") && !country.equals("--ALL COUNTRIES--")) {
+            Set<Integer> countryAirportID = Repository.airportRepository.airportIDsOfCountry(country.toLowerCase());
+            Set<String> countryAirport = new HashSet<>();
+            for (Integer id : countryAirportID) {
+                countryAirport.add(Repository.airportRepository.findAirportIATA(id));
             }
 
-            updateCountryBox();
-        }
-    }
-
-    public void loadAirline() throws IOException {
-            Stage stage = new Stage();
-            FileChooser fileChooser = new FileChooser();
-            fileChooser.setTitle("Open file");
-            File file = fileChooser.showOpenDialog(stage);
-            if (file != null && file.exists()) {
-                System.out.println("file opneedd");
-                insertAirlineTable(file);
+            for (String keyFiltered : countAirport.keySet()) {
+                if (countryAirport.contains(keyFiltered)) {
+                    analysisTData.add(new AnalysisTable(keyFiltered, countAirport.get(keyFiltered)));
+                    pieChartData.add(new PieChart.Data(keyFiltered, countAirport.get(keyFiltered)));
+                    series1.getData().add(new XYChart.Data(keyFiltered, countAirport.get(keyFiltered)));
+                }
             }
-    }
-
-    private void loadDefaultAirline() throws IOException, URISyntaxException {
-        File file = new File(getClass().getClassLoader().getResource("airlines.dat").toURI());
-        if (file.exists()) {
-            System.out.println("file opened yeah~");
-            insertAirlineTable(file);
+        } else if (country.equals("--ALL COUNTRIES--")) {
+            for (String key : countAirport.keySet()) {
+                analysisTData.add(new AnalysisTable(key, countAirport.get(key)));
+                pieChartData.add(new PieChart.Data(key, countAirport.get(key)));
+                series1.getData().add(new XYChart.Data(key, countAirport.get(key)));
+            }
+        } else {
+            analysisTData.add(new AnalysisTable("no data", 0)); // To be managed
         }
+
+        airport.setCellValueFactory(new PropertyValueFactory<>("airport"));
+        airport.setText("Airport");
+        airportCount.setCellValueFactory(new PropertyValueFactory<>("number"));
+        airportCount.setText("Number of Routes");
+        airportsAndRoutes.setItems(analysisTData);
+        airportCount.setSortType(TableColumn.SortType.DESCENDING);
+        airportsAndRoutes.getSortOrder().setAll(airportCount);
+
+        pieChart.setData(pieChartData);
+        pieChart.setTitle("Airports and Count Pie Chart");
+
+        barChart.getData().setAll(series1);
+        barChart.setTitle("Country Versus Count Bar Chart");
+
+        rowSize.setVisible(true);
+        rowSize.setText(Integer.toString(analysisTData.size()) + " airports found in " + country + ".");
     }
 
-    public void loadAirport() throws IOException {
-
-        Stage stage = new Stage();
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Open file");
-        File file = fileChooser.showOpenDialog(stage);
-//        if (file != null) {
-//            System.out.println("file opneeeddd");
+    private void equipmentAnalysis() {
+//        countEquipment.addListener((MapChangeListener.Change<? extends String, ? extends Integer> change) -> {
+//            boolean added = change.wasAdded();
+//            if (added) {
+//                equipKeys.add(change.getKey());
+//            }
+//        });
 //
-//            AirportValidator validator = new AirportValidator(file);
-//            ArrayList<Airport> airports = validator.makeAirports();
-//            for(int i = 0; i < airports.size(); i++) {
-//                Airport airport = airports.get(i);
-//                airportTData.add(new airportTable(airport.getID(), airport.getName(),
-//                        airport.getCity(), airport.getCountry(),
-//                        airport.getIATA(), airport.getICAO(),
-//                        airport.getLatitude(), airport.getLongitude(),
-//                        airport.getAltitude(), airport.getTimezone(),
-//                        airport.getDST(), airport.getTz()));
+//        for (RouteTable equipment : dataTabController.getRouteAnchorController().getRouteTData()) {
+//            String[] something = equipment.getRequipment().split(", ");
+//            if (something.length == 1) {
+//
 //            }
 //        }
+//
+//        XYChart.Series<String, Integer> series1 = new XYChart.Series<String, Integer>();
+//
+//        for (String key : countEquipment.keySet()) {
+//            equipAnalysisTData.add(new AnalysisTable(key, countEquipment.get(key)));
+//            equipPieChartData.add(new PieChart.Data(key, countEquipment.get(key)));
+//            series1.getData().add(new XYChart.Data(key, countEquipment.get(key)));
+//        }
+//
+//        airport.setCellValueFactory(new PropertyValueFactory<>("airport"));
+//        number.setCellValueFactory(new PropertyValueFactory<>("number"));
+//        airportsAndRoutes.setItems(equipAnalysisTData);
+//
+//        pieChart.setData(equipPieChartData);
+//        pieChart.setTitle("Airports and Count Pie Chart");
+//
+//        barChartData.addAll(series1);
+//        barChart.setData(barChartData);
+//        barChart.setTitle("Country Versus Count Bar Chart");
     }
-    public void insertRouteTable(File file) throws IOException{
-        RouteValidator validator = new RouteValidator(file);
-        ArrayList<Route> routes = validator.makeroutes();
-        for(int i = 0; i < routes.size(); i++) {
-            Route route = routes.get(i);
-//                System.out.println(route.getAirline() + route.getAirlineID() +
-//                        route.getSrcAirport() + route.getSrcAirportID() +
-//                        route.getDestAirport() + route.getDestAirportID()
-//                );
-            //System.out.println(route.getEquipment());
-            routeTData.add(new routeTable(route.getAirline(), String.valueOf(route.getAirlineID()),
-                    route.getSrcAirport(), String.valueOf(route.getSrcAirportID()),
-                    route.getDestAirport(), String.valueOf(route.getDestAirportID()),
-                    route.getCodeshare(), String.valueOf(route.getStops()),
-                    route.getEquipment().stream().collect(Collectors.joining(", "))));
-            for(String r: route.getEquipment()){
-                if(!r.isEmpty()) {
-                    equipmentSet.add(r);
-                }
+
+    public void airportCountryAnalysis() {
+        ObservableList<AnalysisTable> analysisTData = FXCollections.observableArrayList();
+        ObservableMap<String, Integer> countAirport = FXCollections.observableHashMap();
+        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
+        ObservableList<XYChart.Series<String, Integer>> barChartData = FXCollections.observableArrayList();
+        xAxis.setLabel("Country");
+        yAxis.setLabel("Count");
+
+        for (AirportTable airport : dataTabController.getAirportAnchorController().getAirportTData()) {
+            if (countAirport.containsKey(airport.getAtcountry())) {
+                countAirport.put(airport.getAtcountry(), countAirport.get(airport.getAtcountry()) + 1);
+            } else {
+                countAirport.put(airport.getAtcountry(), 1);
             }
-            updateEquipBox();
         }
-    }
-    public void loadRoute() throws IOException {
 
-        Stage stage = new Stage();
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Open file");
-        File file = fileChooser.showOpenDialog(stage);
-        if (file != null) {
-            System.out.println("file opneeeedddd");
-            insertRouteTable(file);
+        XYChart.Series series1 = new XYChart.Series();
+
+        for (String key : countAirport.keySet()) {
+                analysisTData.add(new AnalysisTable(key, countAirport.get(key)));
+                pieChartData.add(new PieChart.Data(key, countAirport.get(key)));
+                series1.getData().add(new XYChart.Data(key, countAirport.get(key)));
         }
-    }
 
-    public void loadDefaultRoute() throws IOException, URISyntaxException {
+        airport.setCellValueFactory(new PropertyValueFactory<>("airport"));
+        airport.setText("Country");
+        airportCount.setCellValueFactory(new PropertyValueFactory<>("number"));
+        airportCount.setText("Number of airports");
+        airportsAndRoutes.setItems(analysisTData);
+        airportCount.setSortType(TableColumn.SortType.DESCENDING);
+        airportsAndRoutes.getSortOrder().setAll(airportCount);
 
-        File file = new File(getClass().getClassLoader().getResource("routes.dat").toURI());
-        if (file.exists()) {
-            System.out.println("file opened oh yeah~");
-            insertRouteTable(file);
-        }
-    }
+        pieChart.setData(pieChartData);
+        pieChart.setTitle("Country and Airport Count Pie Chart");
 
-    public void loadFlight() throws FileNotFoundException {
+//        barChartData.addAll(series1);
+        barChart.getData().setAll(series1);
+        barChart.setTitle("Airport Count Versus Country Bar Chart");
 
-        Stage stage = new Stage();
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Open file");
-        File file = fileChooser.showOpenDialog(stage);
-        if (file != null) {
-            BufferedReader br = new BufferedReader(new FileReader(file));
-            //TODO
-        }
+        rowSize.setVisible(true);
+        rowSize.setText("There are " + Integer.toString(analysisTData.size()) + " countries in the airport table.");
     }
 
+    private void airlineCountryAnalysis() {
+        ObservableList<AnalysisTable> analysisTData = FXCollections.observableArrayList();
+        ObservableMap<String, Integer> countAirline = FXCollections.observableHashMap();
+        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
+        ObservableList<XYChart.Series<String, Integer>> barChartData = FXCollections.observableArrayList();
+        xAxis.setLabel("Country");
+        yAxis.setLabel("Value");
+
+
+        for (AirlineTable airline : dataTabController.getAirlineAnchorController().getAirlineTData()) {
+            if (countAirline.containsKey(airline.getRcountry())) {
+                countAirline.put(airline.getRcountry(), countAirline.get(airline.getRcountry()) + 1);
+            } else {
+                countAirline.put(airline.getRcountry(), 1);
+            }
+        }
+
+        XYChart.Series series1 = new XYChart.Series();
+        series1.setName("airline vs country");
+
+        for (String key : countAirline.keySet()) {
+            if (key != null) {
+                analysisTData.add(new AnalysisTable(key, countAirline.get(key)));
+                pieChartData.add(new PieChart.Data(key, countAirline.get(key)));
+//                System.out.println(key + " " + Integer.toString(countAirline.get(key)));
+            series1.getData().add(new XYChart.Data(key, countAirline.get(key)));
+            }
+        }
+
+        airport.setCellValueFactory(new PropertyValueFactory<>("airport"));
+        airport.setText("Country");
+        airportCount.setCellValueFactory(new PropertyValueFactory<>("number"));
+        airportCount.setText("Number of airlines");
+        airportsAndRoutes.setItems(analysisTData);
+        airportCount.setSortType(TableColumn.SortType.DESCENDING);
+        airportsAndRoutes.getSortOrder().setAll(airportCount);
+
+        pieChart.setData(pieChartData);
+        pieChart.setTitle("Country and Airline Count Pie Chart");
+
+//        barChartData.addAll(series1);
+        barChart.getData().setAll(series1);
+        barChart.setTitle("Airline Count Versus Country Bar Chart");
+
+        rowSize.setVisible(true);
+        rowSize.setText("There are " + Integer.toString(analysisTData.size()) + " airlines in the airline table.");
+    }
+
+    public void getAnalysis() {
+        String country = countryDropdown.getSelectionModel().getSelectedItem().toString();
+        if (analysisDropdown.getSelectionModel().getSelectedIndex() == 0) {
+            airportAnalysis(country);
+        } else if (analysisDropdown.getSelectionModel().getSelectedIndex() == 1) {
+            equipmentAnalysis();
+        } else if (analysisDropdown.getSelectionModel().getSelectedIndex() == 2) {
+            airportCountryAnalysis();
+        } else if (analysisDropdown.getSelectionModel().getSelectedIndex() == 3) {
+            airlineCountryAnalysis();
+        }
+    }
+
+    public void disableCountryDropdown() {
+        if (analysisDropdown.getSelectionModel().getSelectedIndex() == 0) {
+            countryDropdown.setVisible(true);
+        } else if (analysisDropdown.getSelectionModel().getSelectedIndex() == 1) {
+            countryDropdown.setVisible(true);
+        } else if (analysisDropdown.getSelectionModel().getSelectedIndex() == 2) {
+            countryDropdown.setVisible(false);
+        } else if (analysisDropdown.getSelectionModel().getSelectedIndex() == 3) {
+            countryDropdown.setVisible(false);
+        }
+    }
+
+    public String getAirlineLabel() {
+        return airlineLabel;
+    }
+
+    public String getAirportLabel() {
+        return airportLabel;
+    }
+
+    public String getRouteLabel() {
+        return routeLabel;
+    }
+
+
+    public Tab getFlightTab() {
+        return flightTab;
+    }
+
+    public TabPane getTabPane() {
+        return tabPane;
+    }
+
+    public Tab getDataTab() {
+        return dataTab;
+    }
+
+    public DataTabController getDataTabController() {
+        return dataTabController;
+    }
+
+    public RouteAnchorController getRouteAnchorController() {
+        return routeAnchorController;
+    }
+
+    public FlightTabController getFlightTabController() {
+        return flightTabController;
+    }
+
+    public AirportAnchorController getAirportAnchorController() {
+        return airportAnchorController;
+    }
+
+    public AirlineAnchorController getAirlineAnchorController() {
+        return airlineAnchorController;
+    }
+
+    public MenuBarController getMenuBarController() {
+        return menuBarController;
+    }
+
+    public MapTabController getMapTabController() {
+        return mapTabController;
+    }
 
 
 

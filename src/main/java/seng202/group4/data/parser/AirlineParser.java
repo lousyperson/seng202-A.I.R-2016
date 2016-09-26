@@ -9,20 +9,24 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * Created by jjg64 on 15/08/16.
+ * The airline parser parses through the airline data in the given list. No error checking is done here.
  */
 public class AirlineParser {
     private final int MAX_ITEMS_PER_LINE = 8;
-    private BufferedReader file;
+    private ArrayList<String> file;
     private Airline thisAirline;
     private String[] splitLine = new String[MAX_ITEMS_PER_LINE];
     private String splitBy = "\\s*\\,\\s*";
     private int ID;
     private boolean active;
     private String currentLine;
-    private ArrayList<Airline> airlines = new ArrayList<Airline>();
+    private ArrayList<Airline> airlines = new ArrayList<>();
 
-    public AirlineParser(BufferedReader file) {
+    /**
+     * Initializes the file for the parser to parse through.
+     * @param file ArrayList
+     */
+    public AirlineParser(ArrayList file) {
         this.file = file;
     }
 
@@ -32,10 +36,11 @@ public class AirlineParser {
             splitLine[i] = null;
         } else {
             splitLine[i] = splitLine[i].replaceAll("^\"|\"$", "");      // Remove quotation marks
+            splitLine[i] = splitLine[i].replace("\\\\", "");            // Remove \\
         }
     }
 
-    private void addAirline() throws IOException {
+    private void addAirline(String currentLine) throws IOException {
         splitLine = currentLine.split(splitBy, MAX_ITEMS_PER_LINE);
         ID = Integer.parseInt(splitLine[0]);
         for (int i = 1; i <= 7; i++) {      // Checks indices 1 to 7
@@ -53,13 +58,16 @@ public class AirlineParser {
         airlines.add(thisAirline);
     }
 
+    /**
+     * Makes an airline and returns a list of airlines.
+     * @return airlines
+     * @throws IOException throws IOException error
+     */
     public ArrayList<Airline> makeAirlines() throws IOException {
-        while ((currentLine = file.readLine()) != null) {
-            currentLine = currentLine.trim();
-            if (!currentLine.matches("\\w") && !currentLine.matches("")) {
-                addAirline();
-            }
+        for(String currentLine: file){
+            addAirline(currentLine);
         }
+
         return airlines;
     }
 

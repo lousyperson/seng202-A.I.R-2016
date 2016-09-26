@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.web.*?>
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.CheckMenuItem?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.web.WebView?>
+
+<Tab xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.group4.GUI.DataTabController">
+    <content>
+        <GridPane>
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="220.0" minWidth="10.0" prefWidth="220.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="311.0" minWidth="10.0" prefWidth="218.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="266.0" minWidth="10.0" prefWidth="168.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints maxHeight="178.72744750976562" minHeight="0.0" prefHeight="137.0878143310547" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="467.6553955078125" minHeight="0.0" prefHeight="442.296875" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="250.4117431640625" minHeight="10.0" prefHeight="75.81793212890625" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+                <fx:include fx:id="airlineAnchor" source="airlineAnchor.fxml" GridPane.columnSpan="7" GridPane.rowSpan="3" />
+                <fx:include fx:id="airportAnchor" source="airportAnchor.fxml" visible="false" GridPane.columnSpan="7" GridPane.rowSpan="3" />
+                <fx:include fx:id="routeAnchor" source="routeAnchor.fxml" visible="false" GridPane.columnSpan="7" GridPane.rowSpan="3" />
+                <AnchorPane fx:id="dataSelector" maxHeight="152.0" maxWidth="220.0" minHeight="0.0" minWidth="0.0" prefHeight="152.0" prefWidth="220.0">
+                    <children>
+                        <ListView fx:id="datalist" layoutX="10.0" layoutY="36.0" prefHeight="99.0" prefWidth="200.0" />
+                        <Text layoutX="14.0" layoutY="24.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select a data type:" />
+                    </children>
+                </AnchorPane>
+            </children>
+        </GridPane>
+    </content>
+</Tab>

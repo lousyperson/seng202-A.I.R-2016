@@ -9,11 +9,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
- * Created by jjg64 on 25/08/16.
+ * The AirlineValidator class ensures that the information parsed into the program by the data file meets the
+ * expected formatting criteria to ensure there are no representational issues. Error checks the files and
+ * uses the AirlineParser if valid.
  */
 public class AirlineValidator {
     private final int ITEMS_PER_LINE = 8;
-    private File filepath;
+    private InputStream filepath;
     private BufferedReader file;
     private String[] splitLine = new String[ITEMS_PER_LINE + 1];
     private String splitBy = "\\s*\\,\\s*";
@@ -21,25 +23,34 @@ public class AirlineValidator {
     private int lineNumber = 0;
     private Alert alert;
     private boolean hasError = false;
+    private ArrayList<String> stringArray = new ArrayList<>();
 
-    public AirlineValidator(File filepath) throws FileNotFoundException {
+    public AirlineValidator(InputStream filepath) throws FileNotFoundException {
         this.filepath = filepath;
-        this.file = new BufferedReader(new FileReader(filepath));
+        this.file = new BufferedReader(new InputStreamReader(filepath));
     }
 
+    /**
+     * Produces a list of airlines by checking each airline one by one from the data file and ensuring it is a valid
+     * airline.
+     * @return Array list of airlines
+     * @throws IOException Throws IOException error
+     */
     public ArrayList<Airline> makeAirlines() throws IOException {
         while ((currentLine = file.readLine()) != null) {
             lineNumber++;
             currentLine = currentLine.trim();
+            //System.out.println(currentLine);
             if (!currentLine.matches("\\w") && !currentLine.equals("")) {
                 validateLine();
+                stringArray.add(currentLine);
             }
             if (hasError) {
-                return null;
+                return new ArrayList<Airline>();
             }
         }
-
-        AirlineParser parser = new AirlineParser(new BufferedReader(new FileReader(filepath)));
+        // no errors so continue parsing
+        AirlineParser parser = new AirlineParser(stringArray);
         return parser.makeAirlines();
     }
 
@@ -101,7 +112,7 @@ public class AirlineValidator {
         alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");
         alert.setHeaderText("There is an error in your file on line " + lineNumber);
-        alert.setContentText(message + "\nNo airlines were added.\nPlease go to help drop down for file formatting help.");
+        alert.setContentText(message + "\n\nNo airlines were added.\n\nPlease go to help drop down for file formatting help.");
         alert.showAndWait();
     }
 }
