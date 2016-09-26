@@ -90,7 +90,7 @@ public class MapTabController implements Initializable{
     }
 
     public void showCountryRoutes() {
-        mapView.getEngine().executeScript("clearRoutes();");
+        refreshMap();
         String country = selectedCountry();
         ArrayList<Airport> airports = Repository.airportRepository.getAirportsFromCountry(country);
         for (Airport airport : airports) {
@@ -98,11 +98,17 @@ public class MapTabController implements Initializable{
             double srcLon = airport.getLongitude();
             HashMap<String, Route> routes = Repository.routeRepository.getRoutes();
             for (Route route : routes.values()) {
-                int destID = route.getDestAirportID();
-                Airport destPort = Repository.airportRepository.getAirports().get(destID);
-                double destLat = destPort.getLatitude();
-                double destLon = destPort.getLongitude();
-                mapView.getEngine().executeScript("addRoute(" + srcLat + ", " + srcLon + ", " + destLat + ", " + destLon + ");");
+                if (route != null) {
+                    if (route.getDestAirportID() != null && route.getSrcAirportID() != null && route.getSrcAirportID() == airport.getID()) {
+                        int destID = route.getDestAirportID();
+                        Airport destPort = Repository.airportRepository.getAirports().get(destID);
+                        if (destPort != null) {
+                            double destLat = destPort.getLatitude();
+                            double destLon = destPort.getLongitude();
+                            mapView.getEngine().executeScript("addRoute(" + srcLat + ", " + srcLon + ", " + destLat + ", " + destLon + ");");
+                        }
+                    }
+                }
             }
         }
     }
