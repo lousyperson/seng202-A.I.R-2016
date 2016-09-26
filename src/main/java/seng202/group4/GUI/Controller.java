@@ -11,6 +11,7 @@ import javafx.scene.chart.*;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
+import javafx.scene.text.Text;
 import seng202.group4.data.dataType.Airport;
 import seng202.group4.data.repository.AirportRepository;
 import seng202.group4.data.repository.FlightRepository;
@@ -68,11 +69,7 @@ public class Controller implements Initializable {
     private String routeLabel = "Routes";
 
     // Used in flightAnalysis
-
-    ObservableMap<Integer, Integer> countAirportID = FXCollections.observableHashMap();
     ObservableList<String> keys = FXCollections.observableArrayList();
-    ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
-    ObservableList<XYChart.Series<String, Integer>> barChartData = FXCollections.observableArrayList();
 
     // Used in equipmentAnalysis
     ObservableMap<String, Integer> countEquipment = FXCollections.observableHashMap();
@@ -108,6 +105,9 @@ public class Controller implements Initializable {
 
     @FXML
     private BarChart barChart;
+
+    @FXML
+    private Text rowSize;
 
     // equip and routes FXML
     @FXML
@@ -185,6 +185,8 @@ public class Controller implements Initializable {
     public void airportAnalysis(String country) {
         ObservableList<AnalysisTable> analysisTData = FXCollections.observableArrayList();
         ObservableMap<String, Integer> countAirport = FXCollections.observableHashMap();
+        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
+        ObservableList<XYChart.Series<String, Integer>> barChartData = FXCollections.observableArrayList();
         countAirport.addListener((MapChangeListener.Change<? extends String, ? extends Integer> change) -> {
             boolean added = change.wasAdded();
             if (added) {
@@ -230,6 +232,8 @@ public class Controller implements Initializable {
         airport.setCellValueFactory(new PropertyValueFactory<>("airport"));
         airportCount.setCellValueFactory(new PropertyValueFactory<>("number"));
         airportsAndRoutes.setItems(analysisTData);
+        airportCount.setSortType(TableColumn.SortType.DESCENDING);
+        airportsAndRoutes.getSortOrder().setAll(airportCount);
 
         pieChart.setData(pieChartData);
         pieChart.setTitle("Airports and Count Pie Chart");
@@ -237,6 +241,9 @@ public class Controller implements Initializable {
         barChartData.addAll(series1);
         barChart.setData(barChartData);
         barChart.setTitle("Country Versus Count Bar Chart");
+
+        rowSize.setVisible(true);
+        rowSize.setText(Integer.toString(analysisTData.size()) + " airports found in " + country + ".");
     }
 
     private void equipmentAnalysis() {

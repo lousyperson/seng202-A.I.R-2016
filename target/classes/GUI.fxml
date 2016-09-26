@@ -92,6 +92,7 @@
                                             </yAxis>
                                           </BarChart>
                                           <PieChart fx:id="pieChart" GridPane.columnIndex="2" GridPane.rowSpan="2" />
+                                          <Text fx:id="rowSize" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" visible="false" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="TOP" />
                                        </children>
                                     </GridPane>
                                     <GridPane fx:id="equipPane" layoutX="10.0" layoutY="10.0" visible="false">
