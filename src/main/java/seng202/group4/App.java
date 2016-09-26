@@ -30,17 +30,10 @@ public class App extends Application {
         fxml.setLocation(getClass().getClassLoader().getResource("GUI.fxml"));
         Parent root = fxml.load();
         Controller controller = fxml.getController();
-//
-//        System.out.println(controller);
-        //controller.getMenuBarController().setMainController(controller);
-        //controller.getSearchPanesController().setMainController(controller);
-        controller.getDataTabController().setMainController(controller);
-
-
-
         primaryStage.setTitle("Aviation Information Reader");
-        primaryStage.setScene(new Scene(root, 1050, 775));
-
+        primaryStage.setScene(new Scene(root, 1280, 799));
+        primaryStage.setMinHeight(799);
+        primaryStage.setMinWidth(1200);
         primaryStage.show();
     }
 

@@ -17,11 +17,8 @@ import java.util.*;
  */
 public class MapTabController implements Initializable{
 
-    Controller mainController;
-
     @FXML
     private WebView mapView;
-
 
     @FXML
     private ComboBox<String> chooseAirportFilter;
@@ -32,7 +29,10 @@ public class MapTabController implements Initializable{
     @FXML
     private CheckBox allRoutes;
 
+    // main controller
+    private Controller mainController;
 
+    // airportCountrySet holds all the airport countries imported
     private TreeSet<String> airportCountrySet = new TreeSet();
 
     /**
@@ -63,10 +63,9 @@ public class MapTabController implements Initializable{
         }
 
         updateChooseAirportFilter();
-        //onAction="#updateChooseAirportFilter
     }
 
-    public void updateChooseAirportFilter() {
+    private void updateChooseAirportFilter() {
         // clear the current combo box
         chooseAirportFilter.getItems().clear();
 
@@ -81,7 +80,7 @@ public class MapTabController implements Initializable{
         }
     }
 
-    public String selectedCountry() {
+    private String selectedCountry() {
         String selectedAirportCountry = null;
         if (chooseAirportFilter.getValue() != null) {
             selectedAirportCountry = chooseAirportFilter.getValue();
@@ -89,6 +88,9 @@ public class MapTabController implements Initializable{
         return selectedAirportCountry;
     }
 
+    /**
+     * Show all country routes in the map view
+     */
     public void showCountryRoutes() {
         refreshMap();
         String country = selectedCountry();
@@ -113,6 +115,9 @@ public class MapTabController implements Initializable{
         }
     }
 
+    /**
+     * Show all airports on the map view
+     */
     public void showAllAirports() {
         if (mapView.getEngine() != null) {
             HashMap<Integer, Airport> airports = Repository.airportRepository.getAirports();
@@ -128,7 +133,9 @@ public class MapTabController implements Initializable{
         }
     }
 
-
+    /**
+     * Show all routes on the map view
+     */
     public void showAllRoutes() {
         if (mapView.getEngine() != null) {
             mapView.getEngine().executeScript("showAllRoutes();");
@@ -138,6 +145,9 @@ public class MapTabController implements Initializable{
         }
     }
 
+    /**
+     * Refresh map view
+     */
     public void refreshMap() {
         mapView.getEngine().load(getClass().getClassLoader().getResource("map.html").toExternalForm());
     }

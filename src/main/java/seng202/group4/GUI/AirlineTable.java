@@ -8,7 +8,7 @@ import javafx.beans.property.StringProperty;
 /**
  * Used to make a row of information to populate the airline table based upon given data.
  */
-public class airlineTable {
+public class AirlineTable {
 
     private SimpleIntegerProperty rid;
     private SimpleStringProperty rname;
@@ -30,7 +30,7 @@ public class airlineTable {
      * @param tcountry String
      * @param tactive boolean
      */
-    public airlineTable(int tid, String tname, String talias, String tiata, String ticao, String tcallsign, String tcountry, boolean tactive){
+    public AirlineTable(int tid, String tname, String talias, String tiata, String ticao, String tcallsign, String tcountry, boolean tactive){
         this.rid = new SimpleIntegerProperty(tid);
         this.rname = new SimpleStringProperty(tname);
         this.ralias = new SimpleStringProperty(talias);
@@ -233,12 +233,5 @@ public class airlineTable {
     public void setRactive(boolean ractive) {
         this.ractive.set(ractive);
     }
-
-
-
-
-
-
-
 
 }

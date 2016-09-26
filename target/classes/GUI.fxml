@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
+<?import javafx.scene.chart.*?>
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
@@ -39,10 +41,126 @@
     <center>
         <TabPane fx:id="tabPane" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
             <tabs>
-                <fx:include source="dataTab.fxml" fx:id="dataTab" text="Data View"/>
-                <fx:include source="flightTab.fxml" fx:id="flightTab" text="Flight View"/>
-                <fx:include source="mapTab.fxml" fx:id="mapTab" text="Map View"/>
-
+                <fx:include fx:id="dataTab" source="dataTab.fxml" text="Data View" />
+                <fx:include fx:id="flightTab" source="flightTab.fxml" text="Flight View" />
+                <fx:include fx:id="mapTab" source="mapTab.fxml" text="Map View" />
+            <Tab text="Analysis">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <GridPane layoutX="278.0" layoutY="308.0" prefHeight="706.0" prefWidth="1024.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="750.0" minWidth="10.0" prefWidth="69.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="795.0" minWidth="10.0" prefWidth="580.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="576.0" minWidth="10.0" prefWidth="335.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                              <RowConstraints maxHeight="123.0" minHeight="10.0" prefHeight="46.0" vgrow="SOMETIMES" />
+                            <RowConstraints maxHeight="265.0" minHeight="10.0" prefHeight="265.0" vgrow="SOMETIMES" />
+                            <RowConstraints maxHeight="224.0" minHeight="10.0" prefHeight="126.0" vgrow="SOMETIMES" />
+                            <RowConstraints maxHeight="230.0" minHeight="10.0" prefHeight="230.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Analyse:" />
+                              <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnSpan="3" GridPane.rowIndex="1" GridPane.rowSpan="3">
+                                 <children>
+                                    <GridPane fx:id="airportPane">
+                                      <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="455.0" minWidth="10.0" prefWidth="346.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="736.0" minWidth="10.0" prefWidth="495.0" />
+                                      </columnConstraints>
+                                      <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints maxHeight="206.0" minHeight="10.0" prefHeight="126.0" vgrow="SOMETIMES" />
+                                        <RowConstraints maxHeight="202.0" minHeight="10.0" prefHeight="186.0" vgrow="SOMETIMES" />
+                                      </rowConstraints>
+                                       <children>
+                                          <TableView fx:id="airportsAndRoutes" prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowSpan="2">
+                                            <columns>
+                                              <TableColumn fx:id="airport" prefWidth="206.0" text="Airport" />
+                                              <TableColumn fx:id="airportCount" prefWidth="295.0" text="Number of Routes" />
+                                            </columns>
+                                          </TableView>
+                                          <BarChart fx:id="barChart" GridPane.columnSpan="3" GridPane.rowIndex="2">
+                                            <xAxis>
+                                              <CategoryAxis side="BOTTOM" />
+                                            </xAxis>
+                                            <yAxis>
+                                              <NumberAxis side="LEFT" />
+                                            </yAxis>
+                                          </BarChart>
+                                          <PieChart fx:id="pieChart" GridPane.columnIndex="2" GridPane.rowSpan="2" />
+                                       </children>
+                                    </GridPane>
+                                    <GridPane fx:id="equipPane" layoutX="10.0" layoutY="10.0" visible="false">
+                                       <children>
+                                          <TableView fx:id="equipAndRoutes" prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowSpan="2">
+                                             <columns>
+                                                <TableColumn fx:id="equipment" prefWidth="206.0" text="Equipment" />
+                                                <TableColumn fx:id="equipCount" prefWidth="295.0" text="Number of Routes" />
+                                             </columns>
+                                          </TableView>
+                                          <BarChart fx:id="equipBarChart" GridPane.columnSpan="3" GridPane.rowIndex="2">
+                                             <xAxis>
+                                                <CategoryAxis side="BOTTOM" />
+                                             </xAxis>
+                                             <yAxis>
+                                                <NumberAxis side="LEFT" />
+                                             </yAxis>
+                                          </BarChart>
+                                          <PieChart fx:id="equipPieChart" GridPane.columnIndex="2" GridPane.rowSpan="2" />
+                                       </children>
+                                       <columnConstraints>
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="455.0" minWidth="10.0" prefWidth="346.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="736.0" minWidth="10.0" prefWidth="495.0" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints maxHeight="206.0" minHeight="10.0" prefHeight="126.0" vgrow="SOMETIMES" />
+                                          <RowConstraints maxHeight="202.0" minHeight="10.0" prefHeight="186.0" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                    </GridPane>
+                                    <GridPane fx:id="countryPane" layoutX="10.0" layoutY="10.0" visible="false">
+                                       <children>
+                                          <TableView fx:id="equipAndRoutes1" prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowSpan="2">
+                                             <columns>
+                                                <TableColumn fx:id="equipment1" prefWidth="206.0" text="Equipment" />
+                                                <TableColumn fx:id="equipCount1" prefWidth="295.0" text="Number of Routes" />
+                                             </columns>
+                                          </TableView>
+                                          <BarChart fx:id="equipBarChart1" GridPane.columnSpan="3" GridPane.rowIndex="2">
+                                             <xAxis>
+                                                <CategoryAxis side="BOTTOM" />
+                                             </xAxis>
+                                             <yAxis>
+                                                <NumberAxis side="LEFT" />
+                                             </yAxis>
+                                          </BarChart>
+                                          <PieChart fx:id="equipPieChart1" GridPane.columnIndex="2" GridPane.rowSpan="2" />
+                                       </children>
+                                       <columnConstraints>
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="455.0" minWidth="10.0" prefWidth="346.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="736.0" minWidth="10.0" prefWidth="495.0" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints maxHeight="206.0" minHeight="10.0" prefHeight="126.0" vgrow="SOMETIMES" />
+                                          <RowConstraints maxHeight="202.0" minHeight="10.0" prefHeight="186.0" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                    </GridPane>
+                                 </children>
+                              </StackPane>
+                              <ComboBox fx:id="analysisDropdown" prefWidth="150.0" GridPane.columnIndex="1" />
+                              <Button mnemonicParsing="false" onAction="#getAnalysis" text="Get Analysis!" GridPane.columnIndex="2" />
+                           </children>
+                        </GridPane>
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
             </tabs>
         </TabPane>
     </center>

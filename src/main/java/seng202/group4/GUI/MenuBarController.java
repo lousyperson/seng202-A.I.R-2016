@@ -1,48 +1,27 @@
 package seng202.group4.GUI;
 
-import javafx.application.Platform;
-import javafx.concurrent.Task;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.scene.layout.VBoxBuilder;
-import javafx.scene.text.Text;
-import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import seng202.group4.App;
-import seng202.group4.data.dataType.Airline;
-import seng202.group4.data.repository.AirlineRepository;
-import seng202.group4.data.repository.AirportRepository;
-import seng202.group4.data.repository.Repository;
-import seng202.group4.data.repository.RouteRepository;
 
-import java.io.*;
-import java.net.URISyntaxException;
-import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
-import java.util.Optional;
+import java.io.IOException;
 
 /**
  * The MenuBarController with functions for importing data
  */
 public class MenuBarController {
 
-
-
     private Controller mainController;
     private DataTabController dataTabController;
     private FlightTabController flightTabController;
+    private AirlineAnchorController airlineAnchorController;
+    private AirportAnchorController airportAnchorController;
+    private RouteAnchorController routeAnchorController;
 
     /**
-     * Sets the main controller and retrieves variables from the main controller
+     * Sets the main controller and retrieves variables from other controllers
      *
      * @param controller Controller
      */
@@ -50,22 +29,9 @@ public class MenuBarController {
         this.mainController = controller;
         this.dataTabController = mainController.getDataTabController();
         this.flightTabController = mainController.getFlightTabController();
-    }
-
-    /**
-     * Sets the data tab controller to retrieve functions and variables from it
-     * @param dataTabController
-     */
-    public void setDataTabController(DataTabController dataTabController) {
-        this.dataTabController = dataTabController;
-    }
-    /**
-     * Getter for the main controller
-     *
-     * @return mainController
-     */
-    public Controller getMainController() {
-        return mainController;
+        this.airportAnchorController = dataTabController.getAirportAnchorController();
+        this.airlineAnchorController = dataTabController.getAirlineAnchorController();
+        this.routeAnchorController = dataTabController.getRouteAnchorController();
     }
 
     /**
@@ -74,7 +40,7 @@ public class MenuBarController {
      * @throws IOException throws IOException error
      */
     public void loadAirline() throws IOException {
-        dataTabController.loadAirline();
+        airlineAnchorController.loadAirline();
     }
 
     /**
@@ -83,7 +49,7 @@ public class MenuBarController {
      * @throws IOException throws IOException error
      */
     public void loadAirport() throws IOException {
-        dataTabController.loadAirport();
+        airportAnchorController.loadAirport();
     }
 
     /**
@@ -92,7 +58,7 @@ public class MenuBarController {
      * @throws IOException throws IOException error
      */
     public void loadRoute() throws IOException {
-        dataTabController.loadRoute();
+        routeAnchorController.loadRoute();
     }
 
     /**
@@ -110,7 +76,7 @@ public class MenuBarController {
      * @throws IOException when default airline file cannot be read
      */
     public void resetAirline() throws IOException {
-        dataTabController.resetAirline();
+        airlineAnchorController.resetAirline();
     }
 
     /**
@@ -118,7 +84,7 @@ public class MenuBarController {
      * @throws IOException when default airport file cannot be read
      */
     public void resetAirport() throws IOException {
-        dataTabController.resetAirport();
+        airportAnchorController.resetAirport();
     }
 
     /**
@@ -126,19 +92,17 @@ public class MenuBarController {
      * @throws IOException when default route file cannot be read
      */
     public void resetRoute() throws IOException {
-        dataTabController.resetRoute();
+        routeAnchorController.resetRoute();
     }
 
     /**
      * Shows Aviation Information Reader's help page
      */
     public void getHelp() {
-        //System.out.println("help");
         try {
             FXMLLoader fxml = new FXMLLoader();
             fxml.setLocation(getClass().getClassLoader().getResource("help.fxml"));
             Parent root = fxml.load();
-            //Parent root = FXMLLoader.load(getClass().getResource("help.fxml"));
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setResizable(false);
