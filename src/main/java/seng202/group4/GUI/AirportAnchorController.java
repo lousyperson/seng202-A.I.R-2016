@@ -103,6 +103,9 @@ public class AirportAnchorController implements Initializable{
     // create table data
     private ObservableList<AirportTable> airportTData = FXCollections.observableArrayList();
 
+    // create parallel hash map
+    private HashMap<Integer, AirportTable> airportTableMap = new HashMap<Integer, AirportTable>();
+
     // airportCountrySet holds all the countries uploaded to airport
     private TreeSet airportCountrySet = new TreeSet();
 
@@ -206,55 +209,6 @@ public class AirportAnchorController implements Initializable{
         this.mainController = controller;
         //this.flightTabController = mainController.getFlightTabController();
         this.allCountriesTag = mainController.getAllCountriesTag();
-
-
-    }
-
-    private void loadDefaultAirports() throws IOException, URISyntaxException {
-        if (Repository.airportRepository != null) {
-            loadSerializedAirport();
-        } else {
-            Repository.airportRepository = new AirportRepository();
-            InputStream file = getClass().getResourceAsStream("/airports.dat");
-            if (file != null) {
-                insertEmptyAirportTable(file);
-            }
-        }
-    }
-
-    private void loadSerializedAirport() {
-        Collection<Airport> airports = Repository.airportRepository.getAirports().values();
-        for (Airport airport : airports) {
-            airportTData.add(new AirportTable(airport.getID(), airport.getName(), airport.getCity(),
-                    airport.getCountry(), airport.getIATA(), airport.getICAO(), airport.getLatitude(),
-                    airport.getLongitude(), airport.getAltitude(), airport.getTimezone(), airport.getDST().toText(),
-                    airport.getTz()));
-            if (airport.getCountry() != null) {
-                airportCountrySet.add(airport.getCountry());
-            }
-            updateAirportCountryBox();
-        }
-    }
-
-    private void insertEmptyAirportTable(InputStream file) throws IOException {
-        AirportValidator validator = new AirportValidator(file);
-        ArrayList<Airport> airports = validator.makeAirports();
-        validator = null;
-        if (airports != null) {
-            for (int i = 0; i < airports.size(); i++) {
-                Airport airport = airports.get(i);
-                Repository.airportRepository.addAirport(airport);
-                airportTData.add(new AirportTable(airport.getID(), airport.getName(), airport.getCity(),
-                        airport.getCountry(), airport.getIATA(), airport.getICAO(), airport.getLatitude(),
-                        airport.getLongitude(), airport.getAltitude(), airport.getTimezone(), airport.getDST().toText(),
-                        airport.getTz()));
-                if (airport.getCountry() != null) {
-                    airportCountrySet.add(airport.getCountry());
-                }
-                updateAirportCountryBox();
-            }
-        }
-
     }
 
     /**
@@ -275,6 +229,42 @@ public class AirportAnchorController implements Initializable{
         }
     }
 
+    private void loadDefaultAirports() throws IOException, URISyntaxException {
+        if (Repository.airportRepository != null) {
+            loadSerializedAirport();
+        } else {
+            Repository.airportRepository = new AirportRepository();
+            InputStream file = getClass().getResourceAsStream("/airports.dat");
+            if (file != null) {
+                insertAirportTable(file);
+            }
+        }
+    }
+
+    private void addNewAirport(Airport airport) {
+        Repository.airportRepository.addAirport(airport);
+        AirportTable airportDataEntry = new AirportTable(airport.getID(), airport.getName(), airport.getCity(),
+                airport.getCountry(), airport.getIATA(), airport.getICAO(), airport.getLatitude(),
+                airport.getLongitude(), airport.getAltitude(), airport.getTimezone(), airport.getDST().toText(),
+                airport.getTz());
+        airportTData.add(airportDataEntry);
+        airportTableMap.put(airport.getID(), airportDataEntry);
+        if (airport.getCountry() != null) {
+            airportCountrySet.add(airport.getCountry());
+        }
+    }
+
+    /* -------------------------------------------------------------------------------------------------------------------------------------------------------------- */
+    /* Airport table methods below*/
+
+    private void loadSerializedAirport() {
+        Collection<Airport> airports = Repository.airportRepository.getAirports().values();
+        for (Airport airport : airports) {
+            addNewAirport(airport);
+        }
+        updateAirportCountryBox();
+    }
+
     /**Insert the airports in a given file into the airport table GUI checking for duplicates
      *
      * @param file InputStream
@@ -283,29 +273,96 @@ public class AirportAnchorController implements Initializable{
     private void insertAirportTable(InputStream file) throws IOException {
         AirportValidator validator = new AirportValidator(file);
         ArrayList<Airport> airports = validator.makeAirports();
-        validator = null;
-        if (airports != null) {
-            for (int i = 0; i < airports.size(); i++) {
-                Airport airport = airports.get(i);
-                if (!Repository.airportRepository.getAirports().containsKey(airport.getID())) {
-                    Repository.airportRepository.addAirport(airport);
-                    airportTData.add(new AirportTable(airport.getID(), airport.getName(), airport.getCity(),
-                            airport.getCountry(), airport.getIATA(), airport.getICAO(), airport.getLatitude(),
-                            airport.getLongitude(), airport.getAltitude(), airport.getTimezone(), airport.getDST().toText(),
-                            airport.getTz()));
-                    if (airport.getCountry() != null) {
-                        airportCountrySet.add(airport.getCountry());
+        ButtonResult buttonResult = null;
+        for (Airport airport : airports) {
+            if (!Repository.airportRepository.getAirports().containsKey(airport.getID())) {
+                addNewAirport(airport);
+            } else {
+                // Override data option
+                if (buttonResult == ButtonResult.OVERRIDEALL) {
+                    overrideAirport(airport);
+                } else if (buttonResult != ButtonResult.IGNOREALL) {
+                    buttonResult = dataOverridePopup(airport.getID());
+                    if (buttonResult == ButtonResult.OVERRIDE || buttonResult == ButtonResult.OVERRIDEALL) {
+                        overrideAirport(airport);
+                    } else if (buttonResult == ButtonResult.CANCEL) {
+                        break;
                     }
-                } else {
-                    mainController.duplicateIDAlert("Please fix the conflict and reupload the file.", airport.getID());
-                    break;
-                }
 
+                }
             }
-            updateAirportCountryBox();
+        }
+        updateAirportCountryBox();
+    }
+
+    private void overrideAirport(Airport airport) {
+        Repository.airportRepository.getAirports().put(airport.getID(), airport);
+        AirportTable oldAirport = airportTableMap.get(airport.getID());
+        oldAirport.setAtname(airport.getName());
+        oldAirport.setAtcity(airport.getCity());
+        oldAirport.setAtcountry(airport.getCountry());
+        oldAirport.setAtiata(airport.getIATA());
+        oldAirport.setAticao(airport.getICAO());
+        oldAirport.setAtlatitude(airport.getLatitude());
+        oldAirport.setAtlongitude(airport.getLongitude());
+        oldAirport.setAtaltitude(airport.getAltitude());
+        oldAirport.setAttimezone(airport.getTimezone());
+        oldAirport.setAtdst(airport.getDST().toText());
+        oldAirport.setAttzdatabase(airport.getTz());
+    }
+
+    private ButtonResult dataOverridePopup(int ID) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Clashing ID");
+        alert.setHeaderText("Airport with ID " + ID + " already exists in the system");
+        alert.setContentText("Choose your option.");
+
+        ButtonType override = new ButtonType("Override\n ");
+        ButtonType overrideAll = new ButtonType("Override\nAll");
+        ButtonType ignore = new ButtonType("Ignore\n ");
+        ButtonType ignoreAll = new ButtonType("Ignore\nAll");
+        ButtonType cancel = new ButtonType("Cancel\n ", ButtonBar.ButtonData.CANCEL_CLOSE);
+
+        alert.getButtonTypes().setAll(override, overrideAll, ignore, ignoreAll, cancel);
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == override) {
+            return ButtonResult.OVERRIDE;
+        } else if (result.get() == overrideAll) {
+            return ButtonResult.OVERRIDEALL;
+        } else if (result.get() == ignore) {
+            return ButtonResult.IGNORE;
+        } else if (result.get() == ignoreAll) {
+            return ButtonResult.IGNOREALL;
+        } else {
+            return ButtonResult.CANCEL;
         }
     }
 
+    /**
+     * Clears the airport table and AirportRepository then replaces them with the default airports
+     * @throws IOException when default airport file cannot be read
+     */
+    public void resetAirport() throws IOException {
+        boolean result = mainController.resetConformation();
+        if (result) {
+            clearAirportTable();
+            Repository.airportRepository = new AirportRepository();
+            InputStream file = getClass().getResourceAsStream("/airports.dat");
+            //File file = new File(getClass().getClassLoader().getResource("airlines.dat").toURI());
+            if (file != null) {
+                insertAirportTable(file);
+            }
+            Repository.serializeObject(Repository.airportRepository, "airport");
+        }
+    }
+
+    private void clearAirportTable() {
+        airportTData.removeAll(airportTData);
+    }
+
+    /* Airport table methods above*/
+    /* -------------------------------------------------------------------------------------------------------------------------------------------------------------- */
 
     /**
      * Calculates the distance between two coordinates on the map.
@@ -313,18 +370,83 @@ public class AirportAnchorController implements Initializable{
     public void calcDistance() {
         if (pointALat != null && pointALon != null &&
                 pointBLat != null && pointBLon != null) {
+            String distanceText = AirportRepository.calculateDistance(pointALat, pointALon, pointBLat, pointBLon);
+            calcdDistance.setText(distanceText);
+        }
+    }
 
-            final int R = 6371; // Radius of the earth in km
+    /**
+     * Gets flight path from flightplandatabase.com
+     * @throws UnirestException when an error occurs
+     * @throws IOException when an error occurs
+     * @throws InterruptedException when an error occurs
+     */
+    public void getFlightPath() throws UnirestException, IOException, InterruptedException {
+        // get the flight tab controller
+        flightTabController = mainController.getFlightTabController();
 
-            Double latDistance = Math.toRadians(pointBLat - pointALat);
-            Double lonDistance = Math.toRadians(pointBLon - pointALon);
-            Double a = Math.sin(latDistance / 2) * Math.sin(latDistance / 2)
-                    + Math.cos(Math.toRadians(pointALat)) * Math.cos(Math.toRadians(pointBLat))
-                    * Math.sin(lonDistance / 2) * Math.sin(lonDistance / 2);
-            Double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        if (!(pointAICAO == null) && !(pointBICAO == null)) {
+            HttpResponse<JsonNode> getID = Unirest.get("https://api.flightplandatabase.com/search/plans?fromICAO=" + pointAICAO + "&toICAO=" + pointBICAO + "&limit=1").asJson();
+            try {
+                Integer id = getID.getBody().getArray().getJSONObject(0).getInt("id");
+                String id2 = Integer.toString(id);
 
-            double distance = R * c; // convert to meters
-            calcdDistance.setText(String.format("%.2f", distance));
+                String something = Unirest.get("https://api.flightplandatabase.com/plan/" + id2).header("Accept", "text/csv").asString().getBody();
+
+                if (!something.contains("Bad Request")) {
+                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                    alert.setTitle("Confirmation Dialog");
+                    alert.setHeaderText("Flight plan found!");
+                    alert.setContentText("There was a matching plan (id: " + id2 + ")\nfrom FlightPlanDatabase.com." +
+                            "\n\nPress 'Simple path' to load point-to-point path." +
+                            "\nPress 'Online path' to load plan "+id2+".");
+
+                    ButtonType buttonTypeOne = new ButtonType("Simple path");
+                    ButtonType buttonTypeTwo = new ButtonType("Online path");
+                    ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+
+                    alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo, buttonTypeCancel);
+                    Optional<ButtonType> result = alert.showAndWait();
+                    if (result.get() == buttonTypeOne){
+                        String makeCSV = "APT,"+pointAICAO+",0,"+pointALat+","+pointALon+"\n" +
+                                "APT,"+pointBICAO+",0,"+pointBLat+","+pointBLon;
+                        loadFlight2(makeCSV);
+                    } else if (result.get() == buttonTypeTwo) {
+                        loadFlight2(something);
+                    }
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Error Dialog");
+                    alert.setHeaderText("Look, an Error Dialog");
+                    alert.setContentText("There is no flight path from " + pointAICAO + " to " + pointBICAO + "\nat FlightPlanDatabase.com.");
+
+                    alert.showAndWait();
+                }
+
+            } catch (Exception ex) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error Dialog");
+                alert.setHeaderText("There is no flight plan found on\nFlightPlanDatabase.com.");
+                alert.setContentText("Press OK to load a simple path.\nPress CANCEL to return to airport table.");
+
+                ButtonType buttonTypeOne = new ButtonType("OK");
+                ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+
+                alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeCancel);
+                Optional<ButtonType> result = alert.showAndWait();
+                if (result.get() == buttonTypeOne){
+                    String makeCSV = "APT,"+pointAICAO+",0,"+pointALat+","+pointALon+"\n" +
+                            "APT,"+pointBICAO+",0,"+pointBLat+","+pointBLon;
+                    loadFlight2(makeCSV);
+                }
+            }
+        } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Warning Dialog");
+            alert.setHeaderText("Whoops");
+            alert.setContentText("Please select Airport A and Airport B\nbefore continuing.");
+
+            alert.showAndWait();
         }
     }
 
@@ -437,103 +559,6 @@ public class AirportAnchorController implements Initializable{
         // Add sorted (and filtered) data to the table
         airportTableID.setItems(airportTableSorted);
 
-    }
-
-    /**
-     * Clears the airport table and AirportRepository then replaces them with the default airports
-     * @throws IOException when default airport file cannot be read
-     */
-    public void resetAirport() throws IOException {
-        boolean result = mainController.resetConformation();
-        if (result) {
-            clearAirportTable();
-            Repository.airportRepository = new AirportRepository();
-            InputStream file = getClass().getResourceAsStream("/airports.dat");
-            //File file = new File(getClass().getClassLoader().getResource("airlines.dat").toURI());
-            if (file != null) {
-                insertAirportTable(file);
-            }
-            Repository.serializeObject(Repository.airportRepository, "airport");
-        }
-    }
-
-    private void clearAirportTable() {
-        airportTData.removeAll(airportTData);
-    }
-
-    /**
-     * Gets flight path from flightplandatabase.com
-     * @throws UnirestException when an error occurs
-     * @throws IOException when an error occurs
-     * @throws InterruptedException when an error occurs
-     */
-    public void getFlightPath() throws UnirestException, IOException, InterruptedException {
-        // get the flight tab controller
-        flightTabController = mainController.getFlightTabController();
-
-        if (!(pointAICAO == null) && !(pointBICAO == null)) {
-            HttpResponse<JsonNode> getID = Unirest.get("https://api.flightplandatabase.com/search/plans?fromICAO=" + pointAICAO + "&toICAO=" + pointBICAO + "&limit=1").asJson();
-            try {
-                Integer id = getID.getBody().getArray().getJSONObject(0).getInt("id");
-                String id2 = Integer.toString(id);
-
-                String something = Unirest.get("https://api.flightplandatabase.com/plan/" + id2).header("Accept", "text/csv").asString().getBody();
-
-                if (!something.contains("Bad Request")) {
-                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                    alert.setTitle("Confirmation Dialog");
-                    alert.setHeaderText("Flight plan found!");
-                    alert.setContentText("There was a matching plan (id: " + id2 + ")\nfrom FlightPlanDatabase.com." +
-                            "\n\nPress 'Simple path' to load point-to-point path." +
-                            "\nPress 'Online path' to load plan "+id2+".");
-
-                    ButtonType buttonTypeOne = new ButtonType("Simple path");
-                    ButtonType buttonTypeTwo = new ButtonType("Online path");
-                    ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
-
-                    alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo, buttonTypeCancel);
-                    Optional<ButtonType> result = alert.showAndWait();
-                    if (result.get() == buttonTypeOne){
-                        String makeCSV = "APT,"+pointAICAO+",0,"+pointALat+","+pointALon+"\n" +
-                                "APT,"+pointBICAO+",0,"+pointBLat+","+pointBLon;
-                        loadFlight2(makeCSV);
-                    } else if (result.get() == buttonTypeTwo) {
-                        loadFlight2(something);
-                    }
-                } else {
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Error Dialog");
-                    alert.setHeaderText("Look, an Error Dialog");
-                    alert.setContentText("There is no flight path from " + pointAICAO + " to " + pointBICAO + "\nat FlightPlanDatabase.com.");
-
-                    alert.showAndWait();
-                }
-
-            } catch (Exception ex) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error Dialog");
-                alert.setHeaderText("There is no flight plan found on\nFlightPlanDatabase.com.");
-                alert.setContentText("Press OK to load a simple path.\nPress CANCEL to return to airport table.");
-
-                ButtonType buttonTypeOne = new ButtonType("OK");
-                ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
-
-                alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeCancel);
-                Optional<ButtonType> result = alert.showAndWait();
-                if (result.get() == buttonTypeOne){
-                    String makeCSV = "APT,"+pointAICAO+",0,"+pointALat+","+pointALon+"\n" +
-                            "APT,"+pointBICAO+",0,"+pointBLat+","+pointBLon;
-                    loadFlight2(makeCSV);
-                }
-            }
-        } else {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Warning Dialog");
-            alert.setHeaderText("Woops");
-            alert.setContentText("Please select Airport A and Airport B\nbefore continuing.");
-
-            alert.showAndWait();
-        }
     }
 
     private void loadFlight2(String someCSV) throws IOException {

@@ -91,4 +91,19 @@ public class AirportRepository extends Repository implements Serializable {
         }
         return null;
     }
+
+    public static String calculateDistance(Double pointALat, Double pointALon, Double pointBLat, Double pointBLon) {
+
+        final int R = 6371; // Radius of the earth in km
+
+        Double latDistance = Math.toRadians(pointBLat - pointALat);
+        Double lonDistance = Math.toRadians(pointBLon - pointALon);
+        Double a = Math.sin(latDistance / 2) * Math.sin(latDistance / 2)
+                + Math.cos(Math.toRadians(pointALat)) * Math.cos(Math.toRadians(pointBLat))
+                * Math.sin(lonDistance / 2) * Math.sin(lonDistance / 2);
+        Double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+        double distance = R * c; // convert to meters
+        return String.format("%.2f", distance);
+    }
 }
