@@ -85,6 +85,9 @@ public class AirlineAnchorController implements Initializable{
     // create table data
     private ObservableList<AirlineTable> airlineTData = FXCollections.observableArrayList();
 
+    // create parallel hash map
+    private HashMap<Integer, AirlineTable> airlineTableMap = new HashMap<Integer, AirlineTable>();
+
     // airlineCountrySet holds all the countries uploaded to airline
     private TreeSet airlineCountrySet = new TreeSet();
 
@@ -230,51 +233,6 @@ public class AirlineAnchorController implements Initializable{
         }
     }
 
-    /**Insert the airlines in a given file into the airline table GUI checking for duplicates
-     *
-     * @param file InputStream
-     * @throws IOException throws IOException error
-     */
-    private void insertAirlineTable(InputStream file) throws IOException {
-        AirlineValidator validator = new AirlineValidator(file);
-        ArrayList<Airline> airlines = validator.makeAirlines();
-        validator = null;
-        if (airlines != null) {
-            for (int i = 0; i < airlines.size(); i++) {
-                Airline airline = airlines.get(i);
-                // if the airline ID already exists in the repository, warn the user
-                if (!Repository.airlineRepository.getAirlines().containsKey(airline.getID())) {
-                    Repository.airlineRepository.addAirline(airline);
-                    airlineTData.add(new AirlineTable(airline.getID(), airline.getName(),
-                            airline.getAlias(), airline.getIATA(),
-                            airline.getICAO(), airline.getCallsign(),
-                            airline.getCountry(), airline.getActive()));
-                    if (airline.getCountry() != null) {
-                        airlineCountrySet.add(airline.getCountry());
-                    }
-                } else {
-                    mainController.duplicateIDAlert("Please fix the conflict and reupload the file.", airline.getID());
-                    break;
-                }
-                updateAirlineCountryBox();
-            }
-        }
-    }
-
-    private void updateAirlineCountryBox() {
-        // clear the current combo box
-        airlineCountryFilter.getItems().clear();
-        // if the combo box doesn't have --ALL COUNTRIES-- then add one
-        if (!airlineCountryFilter.getItems().contains(allCountriesTag)) {
-            airlineCountryFilter.getItems().add(allCountriesTag);
-        }
-
-        // loop through the current airlineCountrySet
-        Iterator itr = airlineCountrySet.iterator();
-        while (itr.hasNext()) {
-            airlineCountryFilter.getItems().add(itr.next());
-        }
-    }
 
     private void loadDefaultAirline() throws IOException, URISyntaxException {
         if (Repository.airlineRepository != null) {
@@ -284,43 +242,62 @@ public class AirlineAnchorController implements Initializable{
             InputStream file = getClass().getResourceAsStream("/airlines.dat");
             //File file = new File(getClass().getClassLoader().getResource("airlines.dat").toURI());
             if (file != null) {
-                insertEmptyAirlineTable(file);
+                insertAirlineTable(file);
             }
         }
     }
 
-    // Insert the airlines in a given file into the airline table GUI
-    private void insertEmptyAirlineTable(InputStream file) throws IOException {
+    private void addNewAirline(Airline airline) {
+        AirlineTable airlineEntryData = new AirlineTable(airline.getID(), airline.getName(),
+                airline.getAlias(), airline.getIATA(),
+                airline.getICAO(), airline.getCallsign(),
+                airline.getCountry(), airline.getActive());
+        airlineTData.add(airlineEntryData);
+        airlineTableMap.put(airline.getID(), airlineEntryData);
+        Repository.airlineRepository.getAirlines().put(airline.getID(), airline);
+        if (airline.getCountry() != null) {
+            airlineCountrySet.add(airline.getCountry());
+        }
+    }
+
+    /* -------------------------------------------------------------------------------------------------------------------------------------------------------------- */
+    /* Airline table loader methods below*/
+
+    /**Insert the airlines in a given file into the airline table GUI checking for duplicates
+     *
+     * @param file InputStream
+     * @throws IOException throws IOException error
+     */
+    private void insertAirlineTable(InputStream file) throws IOException {
         AirlineValidator validator = new AirlineValidator(file);
         ArrayList<Airline> airlines = validator.makeAirlines();
-        validator = null;
-        if (airlines != null) {
-            for (int i = 0; i < airlines.size(); i++) {
-                Airline airline = airlines.get(i);
-                Repository.airlineRepository.addAirline(airline);
-                airlineTData.add(new AirlineTable(airline.getID(), airline.getName(),
-                        airline.getAlias(), airline.getIATA(),
-                        airline.getICAO(), airline.getCallsign(),
-                        airline.getCountry(), airline.getActive()));
-                if (airline.getCountry() != null) {
-                    airlineCountrySet.add(airline.getCountry());
+        ButtonResult buttonResult = null;
+        for (Airline airline : airlines) {
+            // if the airline ID already exists in the repository, warn the user
+            if (!Repository.airlineRepository.getAirlines().containsKey(airline.getID())) {
+                addNewAirline(airline);
+            } else {
+                // Override data option popup
+                if (buttonResult == ButtonResult.OVERRIDEALL) {
+                    overrideAirline(airline);
+                } else if (buttonResult != ButtonResult.IGNOREALL) {
+                    buttonResult = dataOverridePopup(airline.getID());
+                    if (buttonResult == ButtonResult.OVERRIDE || buttonResult == ButtonResult.OVERRIDEALL) {
+                        overrideAirline(airline);
+                    } else if (buttonResult == ButtonResult.CANCEL) {
+                        break;
+                    }
                 }
-            }
-            updateAirlineCountryBox();
-        }
-    }
 
+            }
+        }
+        updateAirlineCountryBox();
+    }
 
     private void loadSerializedAirline() {
         Collection<Airline> airlines = Repository.airlineRepository.getAirlines().values();
         for (Airline airline : airlines) {
-            airlineTData.add(new AirlineTable(airline.getID(), airline.getName(),
-                    airline.getAlias(), airline.getIATA(),
-                    airline.getICAO(), airline.getCallsign(),
-                    airline.getCountry(), airline.getActive()));
-            if (airline.getCountry() != null) {
-                airlineCountrySet.add(airline.getCountry());
-            }
+            addNewAirline(airline);
         }
         updateAirlineCountryBox();
     }
@@ -335,7 +312,6 @@ public class AirlineAnchorController implements Initializable{
             clearAirlineTable();
             Repository.airlineRepository = new AirlineRepository();
             InputStream file = getClass().getResourceAsStream("/airlines.dat");
-            //File file = new File(getClass().getClassLoader().getResource("airlines.dat").toURI());
             if (file != null) {
                 insertAirlineTable(file);
             }
@@ -343,8 +319,69 @@ public class AirlineAnchorController implements Initializable{
         }
     }
 
+    private void overrideAirline(Airline airline) {
+        Repository.airlineRepository.getAirlines().put(airline.getID(), airline);
+        AirlineTable oldAirline = airlineTableMap.get(airline.getID());
+        oldAirline.setRname(airline.getName());
+        oldAirline.setRalias(airline.getAlias());
+        oldAirline.setRiata(airline.getIATA());
+        oldAirline.setRicao(airline.getICAO());
+        oldAirline.setRcallsign(airline.getCallsign());
+        oldAirline.setRcountry(airline.getCountry());
+        oldAirline.setRactive(airline.getActive());
+        if (airline.getCountry() != null) {
+            airlineCountrySet.add(airline.getCountry());
+        }
+    }
+
+    private ButtonResult dataOverridePopup(int ID) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Clashing ID");
+        alert.setHeaderText("Airline with ID " + ID + " already exists in the system");
+        alert.setContentText("Choose your option.");
+
+        ButtonType override = new ButtonType("Override\n ");
+        ButtonType overrideAll = new ButtonType("Override\nAll");
+        ButtonType ignore = new ButtonType("Ignore\n ");
+        ButtonType ignoreAll = new ButtonType("Ignore\nAll");
+        ButtonType cancel = new ButtonType("Cancel\n ", ButtonBar.ButtonData.CANCEL_CLOSE);
+
+        alert.getButtonTypes().setAll(override, overrideAll, ignore, ignoreAll, cancel);
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == override) {
+            return ButtonResult.OVERRIDE;
+        } else if (result.get() == overrideAll) {
+            return ButtonResult.OVERRIDEALL;
+        } else if (result.get() == ignore) {
+            return ButtonResult.IGNORE;
+        } else if (result.get() == ignoreAll) {
+            return ButtonResult.IGNOREALL;
+        } else {
+            return ButtonResult.CANCEL;
+        }
+    }
+
     private void clearAirlineTable() {
         airlineTData.removeAll(airlineTData);
+    }
+
+    /* Airline table methods above*/
+    /* -------------------------------------------------------------------------------------------------------------------------------------------------------------- */
+
+    private void updateAirlineCountryBox() {
+        // clear the current combo box
+        airlineCountryFilter.getItems().clear();
+        // if the combo box doesn't have --ALL COUNTRIES-- then add one
+        if (!airlineCountryFilter.getItems().contains(allCountriesTag)) {
+            airlineCountryFilter.getItems().add(allCountriesTag);
+        }
+
+        // loop through the current airlineCountrySet
+        Iterator itr = airlineCountrySet.iterator();
+        while (itr.hasNext()) {
+            airlineCountryFilter.getItems().add(itr.next());
+        }
     }
 
     private void searchAirlines() {
