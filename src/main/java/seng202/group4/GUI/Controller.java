@@ -6,13 +6,18 @@ import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.chart.*;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
+import seng202.group4.data.dataType.Airport;
+import seng202.group4.data.repository.AirportRepository;
+import seng202.group4.data.repository.FlightRepository;
+import seng202.group4.data.repository.Repository;
 
 import java.net.URL;
-import java.util.ResourceBundle;
+import java.util.*;
 
 //import com.aquafx_project.AquaFx;
 
@@ -63,9 +68,9 @@ public class Controller implements Initializable {
     private String routeLabel = "Routes";
 
     // Used in flightAnalysis
-    ObservableMap<String, Integer> countAirport = FXCollections.observableHashMap();
+
+    ObservableMap<Integer, Integer> countAirportID = FXCollections.observableHashMap();
     ObservableList<String> keys = FXCollections.observableArrayList();
-    ObservableList<AnalysisTable> analysisTData = FXCollections.observableArrayList();
     ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
     ObservableList<XYChart.Series<String, Integer>> barChartData = FXCollections.observableArrayList();
 
@@ -76,8 +81,14 @@ public class Controller implements Initializable {
     ObservableList<PieChart.Data> equipPieChartData = FXCollections.observableArrayList();
     ObservableList<XYChart.Series<String, Integer>> equipBarChartData = FXCollections.observableArrayList();
 
+    // airportCountrySet holds all the airport countries imported
+    private TreeSet<String> airportCountrySet = new TreeSet();
+
     @FXML
     private ComboBox analysisDropdown;
+
+    @FXML
+    private ComboBox countryDropdown;
 
     // airport and routes FXML
     @FXML
@@ -139,9 +150,41 @@ public class Controller implements Initializable {
                 "Equipment and Routes",
                 "Country"
         );
+
+        HashMap<Integer, Airport> airports = Repository.airportRepository.getAirports();
+        if (airports != null) {
+            for (Airport airport : airports.values()) {
+                if (airport != null && airport.getCountry() != null) {
+                    airportCountrySet.add(airport.getCountry());
+                }
+            }
+        }
+
+        updateCountryDropdown();
     }
 
-    public void airportAnalysis() {
+    private void updateCountryDropdown() {
+        // clear the current combo box
+        countryDropdown.getItems().clear();
+
+        // if the combo box doesn't have --CHOOSE AIRPORT-- then add one
+        if (!countryDropdown.getItems().contains("--CHOOSE COUNTRY--")) {
+            countryDropdown.getItems().add("--CHOOSE COUNTRY--");
+        }
+        if (!countryDropdown.getItems().contains("--ALL COUNTRIES--")) {
+            countryDropdown.getItems().add("--ALL COUNTRIES--");
+        }
+        // add countries from TreeSet as combobox options
+        Iterator<String> itr = airportCountrySet.iterator();
+        while (itr.hasNext()) {
+            countryDropdown.getItems().add(itr.next());
+        }
+        countryDropdown.getSelectionModel().select(0);
+    }
+
+    public void airportAnalysis(String country) {
+        ObservableList<AnalysisTable> analysisTData = FXCollections.observableArrayList();
+        ObservableMap<String, Integer> countAirport = FXCollections.observableHashMap();
         countAirport.addListener((MapChangeListener.Change<? extends String, ? extends Integer> change) -> {
             boolean added = change.wasAdded();
             if (added) {
@@ -160,10 +203,28 @@ public class Controller implements Initializable {
 
         XYChart.Series<String, Integer> series1 = new XYChart.Series<String, Integer>();
 
-        for (String key : countAirport.keySet()) {
-            analysisTData.add(new AnalysisTable(key, countAirport.get(key)));
-            pieChartData.add(new PieChart.Data(key, countAirport.get(key)));
-            series1.getData().add(new XYChart.Data(key, countAirport.get(key)));
+        if (!country.equals("--CHOOSE COUNTRY--") && !country.equals("--ALL COUNTRIES--")) {
+            Set<Integer> countryAirportID = Repository.airportRepository.airportIDsOfCountry(country.toLowerCase());
+            Set<String> countryAirport = new HashSet<>();
+            for (Integer id : countryAirportID) {
+                countryAirport.add(Repository.airportRepository.findAirportIATA(id));
+            }
+
+            for (String keyFiltered : countAirport.keySet()) {
+                if (countryAirport.contains(keyFiltered)) {
+                    analysisTData.add(new AnalysisTable(keyFiltered, countAirport.get(keyFiltered)));
+                    pieChartData.add(new PieChart.Data(keyFiltered, countAirport.get(keyFiltered)));
+                    series1.getData().add(new XYChart.Data(keyFiltered, countAirport.get(keyFiltered)));
+                }
+            }
+        } else if (country.equals("--ALL COUNTRIES--")) {
+            for (String key : countAirport.keySet()) {
+                analysisTData.add(new AnalysisTable(key, countAirport.get(key)));
+                pieChartData.add(new PieChart.Data(key, countAirport.get(key)));
+                series1.getData().add(new XYChart.Data(key, countAirport.get(key)));
+            }
+        } else {
+            analysisTData.add(new AnalysisTable("no data", 0)); // To be managed
         }
 
         airport.setCellValueFactory(new PropertyValueFactory<>("airport"));
@@ -179,21 +240,19 @@ public class Controller implements Initializable {
     }
 
     private void equipmentAnalysis() {
-//        countEquipment.addListener((MapChangeListener.Change<? extends String, ? extends Integer> change) -> {
-//            boolean added = change.wasAdded();
-//            if (added) {
-//                equipKeys.add(change.getKey());
-//            }
-//        });
-//
-//        for (RouteTable equipment : dataTabController.getRouteTData()) {
-//            if (countEquipment.containsKey(equipment.getRequipment())) {
-//                countEquipment.put(equipment.getRequipment(), countEquipment.get(equipment.getRequipment()) + 1);
-//            } else {
-//                keys.add(equipment.getRequipment());
-//                countEquipment.put(equipment.getRequipment(), 1);
-//            }
-//        }
+        countEquipment.addListener((MapChangeListener.Change<? extends String, ? extends Integer> change) -> {
+            boolean added = change.wasAdded();
+            if (added) {
+                equipKeys.add(change.getKey());
+            }
+        });
+
+        for (RouteTable equipment : dataTabController.getRouteAnchorController().getRouteTData()) {
+            String[] something = equipment.getRequipment().split(", ");
+            if (something.length == 1) {
+
+            }
+        }
 //
 //        XYChart.Series<String, Integer> series1 = new XYChart.Series<String, Integer>();
 //
@@ -220,11 +279,21 @@ public class Controller implements Initializable {
     }
 
     public void getAnalysis() {
+        String country = countryDropdown.getSelectionModel().getSelectedItem().toString();
         if (analysisDropdown.getSelectionModel().getSelectedIndex() == 0) {
-            airportAnalysis();
+            airportPane.setVisible(true);
+            equipPane.setVisible(false);
+            countryPane.setVisible(false);
+            airportAnalysis(country);
         } else if (analysisDropdown.getSelectionModel().getSelectedIndex() == 1) {
+            airportPane.setVisible(false);
+            equipPane.setVisible(true);
+            countryPane.setVisible(false);
             equipmentAnalysis();
         } else if (analysisDropdown.getSelectionModel().getSelectedIndex() == 2) {
+            airportPane.setVisible(false);
+            equipPane.setVisible(false);
+            countryPane.setVisible(true);
             countryAnalysis();
         }
     }

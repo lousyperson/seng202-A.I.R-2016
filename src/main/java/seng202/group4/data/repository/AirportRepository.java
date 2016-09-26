@@ -78,14 +78,14 @@ public class AirportRepository extends Repository implements Serializable {
     }
 
     /**
-     * Finds the country of an airport with a given IATA.
-     * @param id String
+     * Finds the country of an airport with a given airport ID.
+     * @param id Integer
      * @return airport country if it exists otherwise null
      */
-    // finds the country of an airport given IATA
-    public String findCountry(String id) {
+    // finds the country of an airport given airport ID
+    public String findCountry(Integer id) {
         for (Airport airport : airports.values()) {
-            if (airport.getIATA().equals(id)) {
+            if (airport.getID() == id) {
                 return airport.getCountry();
             }
         }
@@ -105,5 +105,20 @@ public class AirportRepository extends Repository implements Serializable {
 
         double distance = R * c; // convert to meters
         return String.format("%.2f", distance);
+    }
+
+    /**
+     * Finds an airport IATA with a given airport ID.
+     * @param id Integer
+     * @return airport IATA if it exists otherwise null
+     */
+    // finds the airport IATA given airport ID
+    public String findAirportIATA(Integer id) {
+        for (Airport airport : airports.values()) {
+            if (airport.getID() == id) {
+                return airport.getIATA();
+            }
+        }
+        return null;
     }
 }
