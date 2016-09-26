@@ -6,7 +6,7 @@ import javafx.beans.property.SimpleStringProperty;
 /**
  * Used to make a row of information to populate the flight table based upon given data.
  */
-public class flightTable {
+public class FlightTable {
     private SimpleStringProperty fid;
     private SimpleStringProperty ftype;
     private SimpleDoubleProperty faltitude;
@@ -14,14 +14,14 @@ public class flightTable {
     private SimpleDoubleProperty flongitude;
 
     /**
-     * Initializes all the variable values in flightTable, making a row in the table..
+     * Initializes all the variable values in FlightTable, making a row in the table..
      * @param source String
      * @param destination String
      * @param altitude Double
      * @param latitude Double
      * @param longitude Double
      */
-    public flightTable(String source, String destination, Double altitude, Double latitude, Double longitude){
+    public FlightTable(String source, String destination, Double altitude, Double latitude, Double longitude){
         this.fid = new SimpleStringProperty(source);
         this.ftype = new SimpleStringProperty(destination);
         this.faltitude = new SimpleDoubleProperty(altitude);

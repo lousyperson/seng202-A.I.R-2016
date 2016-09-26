@@ -4,10 +4,10 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 /**
- * The routeTable class is called for singular pieces of flight data to enable information that has been parsed in from
+ * The RouteTable class is called for singular pieces of flight data to enable information that has been parsed in from
  * a data file to be used in populating a route table.
  */
-public class routeTable {
+public class RouteTable {
     private SimpleStringProperty rairline;
     private SimpleStringProperty rid;
     private SimpleStringProperty rsource;
@@ -18,7 +18,7 @@ public class routeTable {
     private SimpleStringProperty rstops;
     private SimpleStringProperty requipment;
 
-    public routeTable(String airline, String id, String source, String sourceid, String dest, String destid, String codeshare, String stops, String equipment){
+    public RouteTable(String airline, String id, String source, String sourceid, String dest, String destid, String codeshare, String stops, String equipment){
         this.rairline = new SimpleStringProperty(airline);
         this.rid = new SimpleStringProperty(id);
         this.rsource = new SimpleStringProperty(source);

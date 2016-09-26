@@ -64,31 +64,31 @@ public class RouteAnchorController implements Initializable {
     private ComboBox routeEquipFilter;
 
     @FXML
-    private TableColumn<routeTable, String> airline;
+    private TableColumn<RouteTable, String> airline;
 
     @FXML
-    private TableColumn<routeTable, Integer> airlineID;
+    private TableColumn<RouteTable, Integer> airlineID;
 
     @FXML
-    private TableColumn<routeTable, String> source;
+    private TableColumn<RouteTable, String> source;
 
     @FXML
-    private TableColumn<routeTable, Integer> sourceID;
+    private TableColumn<RouteTable, Integer> sourceID;
 
     @FXML
-    private TableColumn<routeTable, String> dest;
+    private TableColumn<RouteTable, String> dest;
 
     @FXML
-    private TableColumn<routeTable, Integer> destID;
+    private TableColumn<RouteTable, Integer> destID;
 
     @FXML
-    private TableColumn<routeTable, String> codeshare;
+    private TableColumn<RouteTable, String> codeshare;
 
     @FXML
-    private TableColumn<routeTable, Integer> stops;
+    private TableColumn<RouteTable, Integer> stops;
 
     @FXML
-    private TableColumn<routeTable, String> equipment;
+    private TableColumn<RouteTable, String> equipment;
 
     // controllers
     private DataTabController mainController;
@@ -113,7 +113,7 @@ public class RouteAnchorController implements Initializable {
     private TreeSet equipmentSet = new TreeSet();
 
     // create route data
-    private ObservableList<routeTable> routeTData = FXCollections.observableArrayList();
+    private ObservableList<RouteTable> routeTData = FXCollections.observableArrayList();
 
     /**
      * Sets the main controller and retrieves private variables from the main controller
@@ -170,7 +170,7 @@ public class RouteAnchorController implements Initializable {
 
     private void enableDeleteRoute(){
         routeTableID.setRowFactory(tableView -> {
-            final TableRow<routeTable> row = new TableRow<>();
+            final TableRow<RouteTable> row = new TableRow<>();
             final ContextMenu rowMenu = new ContextMenu();
             MenuItem removeItem = new MenuItem("Delete");
             row.setOnMouseClicked(event -> {
@@ -192,8 +192,8 @@ public class RouteAnchorController implements Initializable {
 
                     Optional<ButtonType> result = alert.showAndWait();
                     if (result.get() == ButtonType.OK) {
-                        ObservableList<routeTable> selectedItems = routeTableID.getSelectionModel().getSelectedItems();
-                        for (routeTable route : selectedItems) {
+                        ObservableList<RouteTable> selectedItems = routeTableID.getSelectionModel().getSelectedItems();
+                        for (RouteTable route : selectedItems) {
                             String key = route.getRairline() + route.getRid() + route.getRsource() + route.getRsourceid()
                                     + route.getRdest() + route.getRdestid() + route.getRcodeshare() + route.getRstops();
                             String[] equipment = route.getRequipment().split(", ");
@@ -250,7 +250,7 @@ public class RouteAnchorController implements Initializable {
                 Route route = routes.get(i);
                 if (diffRoutes(route)) {
                     Repository.routeRepository.addRoute(route);
-                    routeTData.add(new routeTable(route.getAirline(), String.valueOf(route.getAirlineID()),
+                    routeTData.add(new RouteTable(route.getAirline(), String.valueOf(route.getAirlineID()),
                             route.getSrcAirport(), String.valueOf(route.getSrcAirportID()),
                             route.getDestAirport(), String.valueOf(route.getDestAirportID()),
                             route.getCodeshare(), String.valueOf(route.getStops()),
@@ -338,7 +338,7 @@ public class RouteAnchorController implements Initializable {
 
     private void searchRoutes() {
         // searching for route
-        FilteredList<routeTable> routeTableFiltered = new FilteredList<>(routeTData, p -> true);
+        FilteredList<RouteTable> routeTableFiltered = new FilteredList<>(routeTData, p -> true);
 
         routeSearch.textProperty().addListener((observable, oldValue, newValue) -> {
             routeTableFiltered.setPredicate(route -> {
@@ -426,7 +426,7 @@ public class RouteAnchorController implements Initializable {
         });
 
         // Wrap the filtered list in a SortedList
-        SortedList<routeTable> routeTableSorted = new SortedList<>(routeTableFiltered);
+        SortedList<RouteTable> routeTableSorted = new SortedList<>(routeTableFiltered);
 
         // Bind the SortedList comparator to the TableView comparator
         routeTableSorted.comparatorProperty().bind(routeTableID.comparatorProperty());
@@ -663,7 +663,7 @@ public class RouteAnchorController implements Initializable {
             for (int i = 0; i < routes.size(); i++) {
                 Route route = routes.get(i);
                 Repository.routeRepository.addRoute(route);
-                routeTData.add(new routeTable(route.getAirline(), String.valueOf(route.getAirlineID()),
+                routeTData.add(new RouteTable(route.getAirline(), String.valueOf(route.getAirlineID()),
                         route.getSrcAirport(), String.valueOf(route.getSrcAirportID()),
                         route.getDestAirport(), String.valueOf(route.getDestAirportID()),
                         route.getCodeshare(), String.valueOf(route.getStops()),
@@ -701,7 +701,7 @@ public class RouteAnchorController implements Initializable {
     private void loadSerializedRoute() {
         Collection<Route> routes = Repository.routeRepository.getRoutes().values();
         for (Route route : routes) {
-            routeTData.add(new routeTable(route.getAirline(), String.valueOf(route.getAirlineID()),
+            routeTData.add(new RouteTable(route.getAirline(), String.valueOf(route.getAirlineID()),
                     route.getSrcAirport(), String.valueOf(route.getSrcAirportID()),
                     route.getDestAirport(), String.valueOf(route.getDestAirportID()),
                     route.getCodeshare(), String.valueOf(route.getStops()),
@@ -785,7 +785,7 @@ public class RouteAnchorController implements Initializable {
         updateRouteSearch();
     }
 
-    public ObservableList<routeTable> getRouteTData() {
+    public ObservableList<RouteTable> getRouteTData() {
         return routeTData;
     }
 

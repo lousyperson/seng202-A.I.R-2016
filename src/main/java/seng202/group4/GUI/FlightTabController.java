@@ -45,22 +45,22 @@ public class FlightTabController implements Initializable{
     private TextField flightNameSearch;
 
     @FXML
-    private TableView<flightTable> flightTableID;
+    private TableView<FlightTable> flightTableID;
 
     @FXML
-    private TableColumn<flightTable, String> flightID;
+    private TableColumn<FlightTable, String> flightID;
 
     @FXML
-    private TableColumn<flightTable, String> flightType;
+    private TableColumn<FlightTable, String> flightType;
 
     @FXML
-    private TableColumn<flightTable, Integer> flightAltitude;
+    private TableColumn<FlightTable, Integer> flightAltitude;
 
     @FXML
-    private TableColumn<flightTable, Double> flightLatitude;
+    private TableColumn<FlightTable, Double> flightLatitude;
 
     @FXML
-    private TableColumn<flightTable, Double> flightLongitude;
+    private TableColumn<FlightTable, Double> flightLongitude;
 
     @FXML
     private ListView<String> flightList;
@@ -74,7 +74,7 @@ public class FlightTabController implements Initializable{
 
     // for flight table and list
     private ObservableList<String> flightItems = FXCollections.observableArrayList();
-    private ObservableList<flightTable> flightTData = FXCollections.observableArrayList();
+    private ObservableList<FlightTable> flightTData = FXCollections.observableArrayList();
 
     /**
      * Sets the main controller and retrieves variables from the main controller
@@ -183,7 +183,7 @@ public class FlightTabController implements Initializable{
         flightTData.clear();
         // loop through array of flight positions
         for(FlightPosition position: flight.getFlightPositions()){
-            flightTData.add(new flightTable(position.getID(), position.getType(), position.getAltitude(),
+            flightTData.add(new FlightTable(position.getID(), position.getType(), position.getAltitude(),
                     position.getLatitude(), position.getLongitude()));
         }
 
