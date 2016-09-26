@@ -69,7 +69,9 @@ public class Controller implements Initializable {
     private String routeLabel = "Routes";
 
     // Used in flightAnalysis
-    ObservableList<String> keys = FXCollections.observableArrayList();
+//    ObservableList<String> keys = FXCollections.observableArrayList();
+    CategoryAxis xAxis = new CategoryAxis();
+    NumberAxis yAxis = new NumberAxis();
 
     // Used in equipmentAnalysis
     ObservableMap<String, Integer> countEquipment = FXCollections.observableHashMap();
@@ -104,33 +106,10 @@ public class Controller implements Initializable {
     private PieChart pieChart;
 
     @FXML
-    private BarChart barChart;
+    private BarChart<String,Number> barChart = new BarChart<String,Number>(xAxis,yAxis);
 
     @FXML
     private Text rowSize;
-
-    // equip and routes FXML
-    @FXML
-    private GridPane equipPane;
-
-    @FXML
-    private TableView<EquipAnalysisTable> equipAndRoutes;
-
-    @FXML
-    private TableColumn<EquipAnalysisTable, String> equipment;
-
-    @FXML
-    private TableColumn<EquipAnalysisTable, Integer> equipCount;
-
-    @FXML
-    private PieChart equipPieChart;
-
-    @FXML
-    private BarChart equipBarChart;
-
-    // equip and routes FXML
-    @FXML
-    private GridPane countryPane;
 
     /**
      * Initializes the controller
@@ -146,11 +125,20 @@ public class Controller implements Initializable {
         flightTabController.setMainController(this);
 
         analysisDropdown.getItems().addAll(
-                "Airports and Routes",
-                "Equipment and Routes",
-                "Country"
+                "Airports with most routes",
+                "Equipment with most routes",
+                "Countries with most airports",
+                "Countries with most airlines"
         );
 
+        updateCountryDropdown();
+    }
+
+    private void updateCountryDropdown() {
+        // clear the current combo box
+        countryDropdown.getItems().clear();
+
+        // populate airportCountrySet for combobox use later
         HashMap<Integer, Airport> airports = Repository.airportRepository.getAirports();
         if (airports != null) {
             for (Airport airport : airports.values()) {
@@ -159,13 +147,6 @@ public class Controller implements Initializable {
                 }
             }
         }
-
-        updateCountryDropdown();
-    }
-
-    private void updateCountryDropdown() {
-        // clear the current combo box
-        countryDropdown.getItems().clear();
 
         // if the combo box doesn't have --CHOOSE AIRPORT-- then add one
         if (!countryDropdown.getItems().contains("--CHOOSE COUNTRY--")) {
@@ -182,28 +163,30 @@ public class Controller implements Initializable {
         countryDropdown.getSelectionModel().select(0);
     }
 
-    public void airportAnalysis(String country) {
+    private void airportAnalysis(String country) {
         ObservableList<AnalysisTable> analysisTData = FXCollections.observableArrayList();
         ObservableMap<String, Integer> countAirport = FXCollections.observableHashMap();
         ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
+        xAxis.setLabel("Airports");
+        yAxis.setLabel("Routes Count");
         ObservableList<XYChart.Series<String, Integer>> barChartData = FXCollections.observableArrayList();
-        countAirport.addListener((MapChangeListener.Change<? extends String, ? extends Integer> change) -> {
-            boolean added = change.wasAdded();
-            if (added) {
-                keys.add(change.getKey());
-            }
-        });
+//        countAirport.addListener((MapChangeListener.Change<? extends String, ? extends Integer> change) -> {
+//            boolean added = change.wasAdded();
+//            if (added) {
+//                keys.add(change.getKey());
+//            }
+//        });
 
         for (RouteTable airport : dataTabController.getRouteAnchorController().getRouteTData()) {
             if (countAirport.containsKey(airport.getRsource())) {
                 countAirport.put(airport.getRsource(), countAirport.get(airport.getRsource()) + 1);
             } else {
-                keys.add(airport.getRsource());
+//                keys.add(airport.getRsource());
                 countAirport.put(airport.getRsource(), 1);
             }
         }
 
-        XYChart.Series<String, Integer> series1 = new XYChart.Series<String, Integer>();
+        XYChart.Series series1 = new XYChart.Series();
 
         if (!country.equals("--CHOOSE COUNTRY--") && !country.equals("--ALL COUNTRIES--")) {
             Set<Integer> countryAirportID = Repository.airportRepository.airportIDsOfCountry(country.toLowerCase());
@@ -230,7 +213,9 @@ public class Controller implements Initializable {
         }
 
         airport.setCellValueFactory(new PropertyValueFactory<>("airport"));
+        airport.setText("Airport");
         airportCount.setCellValueFactory(new PropertyValueFactory<>("number"));
+        airportCount.setText("Number of Routes");
         airportsAndRoutes.setItems(analysisTData);
         airportCount.setSortType(TableColumn.SortType.DESCENDING);
         airportsAndRoutes.getSortOrder().setAll(airportCount);
@@ -238,8 +223,7 @@ public class Controller implements Initializable {
         pieChart.setData(pieChartData);
         pieChart.setTitle("Airports and Count Pie Chart");
 
-        barChartData.addAll(series1);
-        barChart.setData(barChartData);
+        barChart.getData().setAll(series1);
         barChart.setTitle("Country Versus Count Bar Chart");
 
         rowSize.setVisible(true);
@@ -247,19 +231,19 @@ public class Controller implements Initializable {
     }
 
     private void equipmentAnalysis() {
-        countEquipment.addListener((MapChangeListener.Change<? extends String, ? extends Integer> change) -> {
-            boolean added = change.wasAdded();
-            if (added) {
-                equipKeys.add(change.getKey());
-            }
-        });
-
-        for (RouteTable equipment : dataTabController.getRouteAnchorController().getRouteTData()) {
-            String[] something = equipment.getRequipment().split(", ");
-            if (something.length == 1) {
-
-            }
-        }
+//        countEquipment.addListener((MapChangeListener.Change<? extends String, ? extends Integer> change) -> {
+//            boolean added = change.wasAdded();
+//            if (added) {
+//                equipKeys.add(change.getKey());
+//            }
+//        });
+//
+//        for (RouteTable equipment : dataTabController.getRouteAnchorController().getRouteTData()) {
+//            String[] something = equipment.getRequipment().split(", ");
+//            if (something.length == 1) {
+//
+//            }
+//        }
 //
 //        XYChart.Series<String, Integer> series1 = new XYChart.Series<String, Integer>();
 //
@@ -281,27 +265,119 @@ public class Controller implements Initializable {
 //        barChart.setTitle("Country Versus Count Bar Chart");
     }
 
-    private void countryAnalysis() {
+    public void airportCountryAnalysis() {
+        ObservableList<AnalysisTable> analysisTData = FXCollections.observableArrayList();
+        ObservableMap<String, Integer> countAirport = FXCollections.observableHashMap();
+        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
+        ObservableList<XYChart.Series<String, Integer>> barChartData = FXCollections.observableArrayList();
+        xAxis.setLabel("Country");
+        yAxis.setLabel("Count");
 
+        for (AirportTable airport : dataTabController.getAirportAnchorController().getAirportTData()) {
+            if (countAirport.containsKey(airport.getAtcountry())) {
+                countAirport.put(airport.getAtcountry(), countAirport.get(airport.getAtcountry()) + 1);
+            } else {
+                countAirport.put(airport.getAtcountry(), 1);
+            }
+        }
+
+        XYChart.Series series1 = new XYChart.Series();
+
+        for (String key : countAirport.keySet()) {
+                analysisTData.add(new AnalysisTable(key, countAirport.get(key)));
+                pieChartData.add(new PieChart.Data(key, countAirport.get(key)));
+                series1.getData().add(new XYChart.Data(key, countAirport.get(key)));
+        }
+
+        airport.setCellValueFactory(new PropertyValueFactory<>("airport"));
+        airport.setText("Country");
+        airportCount.setCellValueFactory(new PropertyValueFactory<>("number"));
+        airportCount.setText("Number of airports");
+        airportsAndRoutes.setItems(analysisTData);
+        airportCount.setSortType(TableColumn.SortType.DESCENDING);
+        airportsAndRoutes.getSortOrder().setAll(airportCount);
+
+        pieChart.setData(pieChartData);
+        pieChart.setTitle("Country and Airport Count Pie Chart");
+
+//        barChartData.addAll(series1);
+        barChart.getData().setAll(series1);
+        barChart.setTitle("Airport Count Versus Country Bar Chart");
+
+        rowSize.setVisible(true);
+        rowSize.setText("There are " + Integer.toString(analysisTData.size()) + " countries in the airport table.");
+    }
+
+    private void airlineCountryAnalysis() {
+        ObservableList<AnalysisTable> analysisTData = FXCollections.observableArrayList();
+        ObservableMap<String, Integer> countAirline = FXCollections.observableHashMap();
+        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
+        ObservableList<XYChart.Series<String, Integer>> barChartData = FXCollections.observableArrayList();
+        xAxis.setLabel("Country");
+        yAxis.setLabel("Value");
+
+
+        for (AirlineTable airline : dataTabController.getAirlineAnchorController().getAirlineTData()) {
+            if (countAirline.containsKey(airline.getRcountry())) {
+                countAirline.put(airline.getRcountry(), countAirline.get(airline.getRcountry()) + 1);
+            } else {
+                countAirline.put(airline.getRcountry(), 1);
+            }
+        }
+
+        XYChart.Series series1 = new XYChart.Series();
+        series1.setName("airline vs country");
+
+        for (String key : countAirline.keySet()) {
+            if (key != null) {
+                analysisTData.add(new AnalysisTable(key, countAirline.get(key)));
+                pieChartData.add(new PieChart.Data(key, countAirline.get(key)));
+//                System.out.println(key + " " + Integer.toString(countAirline.get(key)));
+            series1.getData().add(new XYChart.Data(key, countAirline.get(key)));
+            }
+        }
+
+        airport.setCellValueFactory(new PropertyValueFactory<>("airport"));
+        airport.setText("Country");
+        airportCount.setCellValueFactory(new PropertyValueFactory<>("number"));
+        airportCount.setText("Number of airlines");
+        airportsAndRoutes.setItems(analysisTData);
+        airportCount.setSortType(TableColumn.SortType.DESCENDING);
+        airportsAndRoutes.getSortOrder().setAll(airportCount);
+
+        pieChart.setData(pieChartData);
+        pieChart.setTitle("Country and Airline Count Pie Chart");
+
+//        barChartData.addAll(series1);
+        barChart.getData().setAll(series1);
+        barChart.setTitle("Airline Count Versus Country Bar Chart");
+
+        rowSize.setVisible(true);
+        rowSize.setText("There are " + Integer.toString(analysisTData.size()) + " airlines in the airline table.");
     }
 
     public void getAnalysis() {
         String country = countryDropdown.getSelectionModel().getSelectedItem().toString();
         if (analysisDropdown.getSelectionModel().getSelectedIndex() == 0) {
-            airportPane.setVisible(true);
-            equipPane.setVisible(false);
-            countryPane.setVisible(false);
             airportAnalysis(country);
         } else if (analysisDropdown.getSelectionModel().getSelectedIndex() == 1) {
-            airportPane.setVisible(false);
-            equipPane.setVisible(true);
-            countryPane.setVisible(false);
             equipmentAnalysis();
         } else if (analysisDropdown.getSelectionModel().getSelectedIndex() == 2) {
-            airportPane.setVisible(false);
-            equipPane.setVisible(false);
-            countryPane.setVisible(true);
-            countryAnalysis();
+            airportCountryAnalysis();
+        } else if (analysisDropdown.getSelectionModel().getSelectedIndex() == 3) {
+            airlineCountryAnalysis();
+        }
+    }
+
+    public void disableCountryDropdown() {
+        if (analysisDropdown.getSelectionModel().getSelectedIndex() == 0) {
+            countryDropdown.setVisible(true);
+        } else if (analysisDropdown.getSelectionModel().getSelectedIndex() == 1) {
+            countryDropdown.setVisible(true);
+        } else if (analysisDropdown.getSelectionModel().getSelectedIndex() == 2) {
+            countryDropdown.setVisible(false);
+        } else if (analysisDropdown.getSelectionModel().getSelectedIndex() == 3) {
+            countryDropdown.setVisible(false);
         }
     }
 

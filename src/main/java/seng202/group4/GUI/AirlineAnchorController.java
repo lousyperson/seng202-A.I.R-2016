@@ -460,5 +460,7 @@ public class AirlineAnchorController implements Initializable{
         airlineTableID.setItems(airlineTableSorted);
     }
 
-
+    public ObservableList<AirlineTable> getAirlineTData() {
+        return airlineTData;
+    }
 }
