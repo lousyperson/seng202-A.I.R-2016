@@ -35,6 +35,11 @@ public class Repository implements Serializable {
         serializeObject(flightRepository, "flight");
     }
 
+    /**
+     * Serialize the object given the repository and type
+     * @param repository Repository
+     * @param type String
+     */
     public static void serializeObject(Repository repository, String type) {
         try {
             FileOutputStream fileOut = new FileOutputStream(type + "s.ser");
@@ -48,7 +53,7 @@ public class Repository implements Serializable {
     }
 
     /**
-     * Deserializes the repositories.
+     * Deserialise the repositories.
      */
     public static void deserialize() {
         checkSerFile(airlineRepository, "airline");

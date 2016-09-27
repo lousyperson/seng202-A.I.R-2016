@@ -15,12 +15,13 @@ import seng202.group4.data.repository.*;
  *
  */
 public class App extends Application {
-    public static Stage primaryStage;
+    private static Stage primaryStage;
 
-    // create data list
-    ObservableList<String> items = FXCollections.observableArrayList("Default Airlines", "Default Airports", "Default Routes");
-
-
+    /**
+     * Starts application, loads FXML and controllers
+     * @param primaryStage Stage
+     * @throws Exception when there is an error loading the stage
+     */
     @Override
     public void start(Stage primaryStage) throws Exception{
 
@@ -37,7 +38,10 @@ public class App extends Application {
         primaryStage.show();
     }
 
-
+    /**
+     * The main function, initialises repository and serialises it
+     * @param args String[]
+     */
     public static void main(String[] args) {
         Repository.initRepository();
         launch(args);

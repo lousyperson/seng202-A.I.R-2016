@@ -63,10 +63,6 @@ public class Controller implements Initializable {
     @FXML
     private Tab flightTab;
 
-    // labels for the user's data selection
-    private String airlineLabel = "Airlines";
-    private String airportLabel = "Airports";
-    private String routeLabel = "Routes";
 
     // Used in flightAnalysis
 //    ObservableList<String> keys = FXCollections.observableArrayList();
@@ -385,55 +381,83 @@ public class Controller implements Initializable {
         }
     }
 
-    public String getAirlineLabel() {
-        return airlineLabel;
-    }
 
-    public String getAirportLabel() {
-        return airportLabel;
-    }
-
-    public String getRouteLabel() {
-        return routeLabel;
-    }
-
-
+    /**
+     * Getter for flight tab
+     * @return Tab
+     */
     public Tab getFlightTab() {
         return flightTab;
     }
 
+    /**
+     * Getting for tab pane
+     * @return TabPane
+     */
     public TabPane getTabPane() {
         return tabPane;
     }
 
+    /**
+     * Getter for data tab
+     * @return Tab
+     */
     public Tab getDataTab() {
         return dataTab;
     }
 
+    /**
+     * Getter for dataTabController
+     * @return DataTabController
+     */
     public DataTabController getDataTabController() {
         return dataTabController;
     }
 
+    /**
+     * Getter for routeAnchorController
+     * @return RouteAnchorController
+     */
     public RouteAnchorController getRouteAnchorController() {
         return routeAnchorController;
     }
 
+    /**
+     * Getter for flightTabController
+     * @return FlightTabController
+     */
     public FlightTabController getFlightTabController() {
         return flightTabController;
     }
 
+    /**
+     * Getter for airportAnchorController
+     * @return AirportAnchorController
+     */
     public AirportAnchorController getAirportAnchorController() {
         return airportAnchorController;
     }
 
+    /**
+     * Getter for airlineAnchorController
+     * @return AirlineAnchorController
+     */
     public AirlineAnchorController getAirlineAnchorController() {
         return airlineAnchorController;
     }
 
+    /**
+     * Getter for menuBarController
+     * @return MenuBarController
+     */
     public MenuBarController getMenuBarController() {
         return menuBarController;
     }
 
+    /**
+     * Getter for mapTabController
+     * @return MapTabController
+     */
     public MapTabController getMapTabController() {
         return mapTabController;
     }

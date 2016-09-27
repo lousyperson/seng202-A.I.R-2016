@@ -50,7 +50,6 @@ public class AirlineRepository extends Repository implements Serializable {
      * Finds all operating airlines.
      * @return ActiveAirlines
      */
-    //finds all the active (operating) airlines
     public ArrayList<Airline> getActive() {
         ArrayList<Airline> ActiveAirlines = new ArrayList<Airline>();
         for (Airline airline : airlines.values()) {
@@ -65,7 +64,6 @@ public class AirlineRepository extends Repository implements Serializable {
      * Finds all inactive airlines
      * @return InActiveAirlines
      */
-    //finds all inactive (no longer operating) airlines
     public ArrayList<Airline> getInActive() {
         ArrayList<Airline> InActiveAirlines = new ArrayList<Airline>();
         for (Airline airline : airlines.values()) {

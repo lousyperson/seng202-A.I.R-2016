@@ -179,8 +179,6 @@ public class AirlineAnchorController implements Initializable{
         });
     }
 
-
-
     private void updateAirlineSearch() {
         String text = airlineSearch.getText();
         airlineSearch.setText(text + " ");

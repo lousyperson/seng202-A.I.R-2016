@@ -158,16 +158,9 @@ public class DataTabController implements Initializable{
         warning.showAndWait();
     }
 
-
-    public void duplicateIDAlert(String message, Integer id) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Error");
-        alert.setHeaderText("ID: " + id + " already exists in the system.");
-        alert.setContentText(message);
-        alert.showAndWait();
-    }
-
-    // change tab to data tab if its not on it already and switch the selection tab to the given name
+    /**
+     * Change tab to data tab if its not on it already and switch the selection tab to the given name.
+     */
     public void goToDataTab(String name) {
         if (!tabPane.getSelectionModel().equals(dataTab)) {
             tabPane.getSelectionModel().select(dataTab);
@@ -175,7 +168,10 @@ public class DataTabController implements Initializable{
         datalist.getSelectionModel().select(name);
     }
 
-
+    /**
+     * Calls the dialog box to confirm that the user wants to reset their selected data.
+     * @return true if they select OK otherwise false
+     */
     public boolean resetConformation() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmation Dialog");
@@ -191,34 +187,66 @@ public class DataTabController implements Initializable{
         }
     }
 
+    /**
+     * Getter for airline label
+     * @return String
+     */
     public String getAirlineLabel() {
         return airlineLabel;
     }
 
+    /**
+     * Getter for airport label
+     * @return String
+     */
     public String getAirportLabel() {
         return airportLabel;
     }
 
+    /**
+     * Getter for route label
+     * @return String
+     */
     public String getRouteLabel() {
         return routeLabel;
     }
 
+    /**
+     * Getter for all countries tag
+     * @return String
+     */
     public String getAllCountriesTag() {
         return allCountriesTag;
     }
 
+    /**
+     * Getter for airlineAnchorController
+     * @return AirlineAnchorController
+     */
     public AirlineAnchorController getAirlineAnchorController() {
         return airlineAnchorController;
     }
 
+    /**
+     * Getter for airportAnchorController
+     * @return AirportAnchorController
+     */
     public AirportAnchorController getAirportAnchorController() {
         return airportAnchorController;
     }
 
+    /**
+     * Getter for routeAnchorController
+     * @return RouteAnchorController
+     */
     public RouteAnchorController getRouteAnchorController() {
         return routeAnchorController;
     }
 
+    /**
+     * Getter for flightTabController
+     * @return FlightTabController
+     */
     public FlightTabController getFlightTabController() {
         return flightTabController;
     }

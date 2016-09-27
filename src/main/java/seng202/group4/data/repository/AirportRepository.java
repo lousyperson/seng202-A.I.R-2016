@@ -53,7 +53,6 @@ public class AirportRepository extends Repository implements Serializable {
      * @param country String
      * @return Set
      */
-    // takes a country and returns all the airports IDs of that country
     public Set airportIDsOfCountry(String country){
         if(countryAirports.get(country) == null){
             return Collections.emptySet();
@@ -66,7 +65,6 @@ public class AirportRepository extends Repository implements Serializable {
      * @param country String
      * @return AirportCountry
      */
-    // finds and returns all airports in a given country
     public ArrayList<Airport> getAirportsFromCountry(String country) {
         ArrayList<Airport> AirportCountry = new ArrayList<Airport>();
         for (Airport airport : airports.values()) {
@@ -82,7 +80,6 @@ public class AirportRepository extends Repository implements Serializable {
      * @param id Integer
      * @return airport country if it exists otherwise null
      */
-    // finds the country of an airport given airport ID
     public String findCountry(Integer id) {
         for (Airport airport : airports.values()) {
             if (airport.getID() == id) {
@@ -92,8 +89,15 @@ public class AirportRepository extends Repository implements Serializable {
         return null;
     }
 
+    /**
+     * Calculates the distance given two points (with latitude and longitudes)
+     * @param pointALat Double: Point A latitude
+     * @param pointALon Double: Point A longitude
+     * @param pointBLat Double: Point B latitude
+     * @param pointBLon Double: Point B longitude
+     * @return String
+     */
     public static String calculateDistance(Double pointALat, Double pointALon, Double pointBLat, Double pointBLon) {
-
         final int R = 6371; // Radius of the earth in km
 
         Double latDistance = Math.toRadians(pointBLat - pointALat);
@@ -112,7 +116,6 @@ public class AirportRepository extends Repository implements Serializable {
      * @param id Integer
      * @return airport IATA if it exists otherwise null
      */
-    // finds the airport IATA given airport ID
     public String findAirportIATA(Integer id) {
         for (Airport airport : airports.values()) {
             if (airport.getID() == id) {

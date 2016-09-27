@@ -10,7 +10,6 @@ import java.util.HashMap;
  * Stores all the Flights in exactly one HashMap and has methods that Flights will use.
  */
 public class FlightRepository extends Repository implements Serializable {
-    //private ArrayList<Flight> flights = new ArrayList<>();
     private HashMap<String, Flight> flights = new HashMap<>();
 
     /**
@@ -19,7 +18,6 @@ public class FlightRepository extends Repository implements Serializable {
      * @param flight Flight
      */
     public void addFlight(String name, Flight flight) {
-        //flights.add(flight);
         flights.put(name, flight);
     }
 
