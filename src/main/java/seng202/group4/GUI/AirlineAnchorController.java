@@ -238,7 +238,6 @@ public class AirlineAnchorController implements Initializable{
         } else {
             Repository.airlineRepository = new AirlineRepository();
             InputStream file = getClass().getResourceAsStream("/airlines.dat");
-            //File file = new File(getClass().getClassLoader().getResource("airlines.dat").toURI());
             if (file != null) {
                 insertAirlineTable(file);
             }

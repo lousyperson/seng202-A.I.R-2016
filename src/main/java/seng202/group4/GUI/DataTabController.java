@@ -117,14 +117,6 @@ public class DataTabController implements Initializable{
         this.dataTab = mainController.getDataTab();
     }
 
-    /**
-     * Gets the main controller
-     * @return Controller
-     */
-    public Controller getMainController() {
-        return mainController;
-    }
-
     private void noDataCheck() {
         ArrayList<String> noData = new ArrayList<>();
         if (Repository.airlineRepository != null && Repository.airlineRepository.getAirlines().size() == 0) {
