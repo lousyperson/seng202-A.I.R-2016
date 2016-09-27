@@ -2,8 +2,10 @@ package seng202.group4.GUI;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Accordion;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TitledPane;
 import javafx.scene.web.WebView;
 import seng202.group4.data.dataType.Airport;
 import seng202.group4.data.dataType.Route;
@@ -29,6 +31,12 @@ public class MapTabController implements Initializable{
     @FXML
     private CheckBox allRoutes;
 
+    @FXML
+    private Accordion accord1;
+
+    @FXML
+    private TitledPane instructions1;
+
     // main controller
     private Controller mainController;
 
@@ -52,7 +60,7 @@ public class MapTabController implements Initializable{
      */
     public void initialize(URL location, ResourceBundle resources) {
         mapView.getEngine().load(getClass().getClassLoader().getResource("map.html").toExternalForm());
-
+        accord1.setExpandedPane(instructions1);
         HashMap<Integer, Airport> airports = Repository.airportRepository.getAirports();
         if (airports != null) {
             for (Airport airport : airports.values()) {
@@ -92,7 +100,7 @@ public class MapTabController implements Initializable{
      * Show all country routes in the map view
      */
     public void showCountryRoutes() {
-        refreshMap();
+//        refreshMap();
         String country = selectedCountry();
         ArrayList<Airport> airports = Repository.airportRepository.getAirportsFromCountry(country);
         for (Airport airport : airports) {

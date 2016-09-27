@@ -149,9 +149,6 @@ public class Controller implements Initializable {
         }
 
         // if the combo box doesn't have --CHOOSE AIRPORT-- then add one
-        if (!countryDropdown.getItems().contains("--CHOOSE COUNTRY--")) {
-            countryDropdown.getItems().add("--CHOOSE COUNTRY--");
-        }
         if (!countryDropdown.getItems().contains("--ALL COUNTRIES--")) {
             countryDropdown.getItems().add("--ALL COUNTRIES--");
         }
@@ -188,7 +185,7 @@ public class Controller implements Initializable {
 
         XYChart.Series series1 = new XYChart.Series();
 
-        if (!country.equals("--CHOOSE COUNTRY--") && !country.equals("--ALL COUNTRIES--")) {
+        if (!country.equals("--ALL COUNTRIES--")) {
             Set<Integer> countryAirportID = Repository.airportRepository.airportIDsOfCountry(country.toLowerCase());
             Set<String> countryAirport = new HashSet<>();
             for (Integer id : countryAirportID) {
@@ -205,8 +202,8 @@ public class Controller implements Initializable {
         } else if (country.equals("--ALL COUNTRIES--")) {
             for (String key : countAirport.keySet()) {
                 analysisTData.add(new AnalysisTable(key, countAirport.get(key)));
-                pieChartData.add(new PieChart.Data(key, countAirport.get(key)));
-                series1.getData().add(new XYChart.Data(key, countAirport.get(key)));
+//                pieChartData.add(new PieChart.Data(key, countAirport.get(key)));
+//                series1.getData().add(new XYChart.Data(key, countAirport.get(key)));
             }
         } else {
             analysisTData.add(new AnalysisTable("no data", 0)); // To be managed
@@ -231,38 +228,45 @@ public class Controller implements Initializable {
     }
 
     private void equipmentAnalysis() {
-//        countEquipment.addListener((MapChangeListener.Change<? extends String, ? extends Integer> change) -> {
-//            boolean added = change.wasAdded();
-//            if (added) {
-//                equipKeys.add(change.getKey());
-//            }
-//        });
-//
-//        for (RouteTable equipment : dataTabController.getRouteAnchorController().getRouteTData()) {
-//            String[] something = equipment.getRequipment().split(", ");
-//            if (something.length == 1) {
-//
-//            }
-//        }
-//
-//        XYChart.Series<String, Integer> series1 = new XYChart.Series<String, Integer>();
-//
-//        for (String key : countEquipment.keySet()) {
-//            equipAnalysisTData.add(new AnalysisTable(key, countEquipment.get(key)));
-//            equipPieChartData.add(new PieChart.Data(key, countEquipment.get(key)));
-//            series1.getData().add(new XYChart.Data(key, countEquipment.get(key)));
-//        }
-//
-//        airport.setCellValueFactory(new PropertyValueFactory<>("airport"));
-//        number.setCellValueFactory(new PropertyValueFactory<>("number"));
-//        airportsAndRoutes.setItems(equipAnalysisTData);
-//
-//        pieChart.setData(equipPieChartData);
-//        pieChart.setTitle("Airports and Count Pie Chart");
-//
-//        barChartData.addAll(series1);
-//        barChart.setData(barChartData);
-//        barChart.setTitle("Country Versus Count Bar Chart");
+        ObservableList<AnalysisTable> analysisTData = FXCollections.observableArrayList();
+        ObservableMap<String, Integer> countEquip = FXCollections.observableHashMap();
+        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
+
+        for (RouteTable airport : dataTabController.getRouteAnchorController().getRouteTData()) {
+            List<String> items = Arrays.asList(airport.getRequipment().split("\\s*,\\s*"));
+            for (String equip : items) {
+                if (countEquip.containsKey(equip)) {
+                    countEquip.put(equip, countEquip.get(equip) + 1);
+                } else {
+                    countEquip.put(equip, 1);
+                }
+            }
+        }
+
+//        XYChart.Series series1 = new XYChart.Series();
+
+        for (String key : countEquip.keySet()) {
+            analysisTData.add(new AnalysisTable(key, countEquip.get(key)));
+            pieChartData.add(new PieChart.Data(key, countEquip.get(key)));
+//            series1.getData().add(new XYChart.Data(key, countEquip.get(key)));
+        }
+
+        airport.setCellValueFactory(new PropertyValueFactory<>("airport"));
+        airport.setText("Equipment");
+        airportCount.setCellValueFactory(new PropertyValueFactory<>("number"));
+        airportCount.setText("Number of Routes");
+        airportsAndRoutes.setItems(analysisTData);
+        airportCount.setSortType(TableColumn.SortType.DESCENDING);
+        airportsAndRoutes.getSortOrder().setAll(airportCount);
+
+        pieChart.setData(pieChartData);
+        pieChart.setTitle("Equipment and Count Pie Chart");
+
+//        barChart.getData().setAll(series1);
+//        barChart.setTitle("Equipment Versus Count Bar Chart");
+
+        rowSize.setVisible(true);
+        rowSize.setText(Integer.toString(analysisTData.size()) + " equipments found in route table.");
     }
 
     public void airportCountryAnalysis() {
