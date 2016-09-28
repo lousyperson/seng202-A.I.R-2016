@@ -1,20 +1,15 @@
 package seng202.group4.GUI;
 
 import javafx.collections.FXCollections;
-import javafx.collections.MapChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.chart.*;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import seng202.group4.data.dataType.Airport;
-import seng202.group4.data.repository.AirportRepository;
-import seng202.group4.data.repository.FlightRepository;
 import seng202.group4.data.repository.Repository;
 
 import java.net.URL;
@@ -224,9 +219,9 @@ public class Controller implements Initializable {
 
         rowSize.setVisible(true);
         if (!country.equals("--ALL COUNTRIES--")) {
-            rowSize.setText(Integer.toString(analysisTData.size()) + " airport(s) found in " + country + ".");
+            rowSize.setText(Integer.toString(analysisTData.size()) + " airport(s) found in " + country + "with routes.");
         } else {
-            rowSize.setText(Integer.toString(analysisTData.size()) + " airport(s) found at route table.");
+            rowSize.setText(Integer.toString(analysisTData.size()) + " airports are shown in the table.");
         }
     }
 
@@ -269,7 +264,7 @@ public class Controller implements Initializable {
         warningBarChart.setText("Bar chart not available for this analysis.");
 
         rowSize.setVisible(true);
-        rowSize.setText(Integer.toString(analysisTData.size()) + " equipments found in route table.");
+        rowSize.setText(Integer.toString(analysisTData.size()) + " equipments are shown in the table.");
     }
 
     public void airportCountryAnalysis() {
@@ -309,7 +304,7 @@ public class Controller implements Initializable {
         warningBarChart.setText("Bar chart not available for this analysis.");
 
         rowSize.setVisible(true);
-        rowSize.setText("There are " + Integer.toString(analysisTData.size()) + " countries in the airport table.");
+        rowSize.setText(Integer.toString(analysisTData.size()) + " countries are shown in the table.");
     }
 
     private void airlineCountryAnalysis() {
@@ -353,7 +348,7 @@ public class Controller implements Initializable {
         warningBarChart.setText("Bar chart not available for this analysis.");
 
         rowSize.setVisible(true);
-        rowSize.setText("There are " + Integer.toString(analysisTData.size()) + " airlines in the airline table.");
+        rowSize.setText(Integer.toString(analysisTData.size()) + " airlines are shown in the table.");
     }
 
     public void getAnalysis() {
@@ -371,17 +366,17 @@ public class Controller implements Initializable {
 
     public void disableCountryDropdown() {
         if (analysisDropdown.getSelectionModel().getSelectedIndex() == 0) {
-            selectCountryText.setVisible(true);
-            countryDropdown.setVisible(true);
+            selectCountryText.setDisable(false);
+            countryDropdown.setDisable(false);
         } else if (analysisDropdown.getSelectionModel().getSelectedIndex() == 1) {
-            selectCountryText.setVisible(false);
-            countryDropdown.setVisible(false);
+            selectCountryText.setDisable(true);
+            countryDropdown.setDisable(true);
         } else if (analysisDropdown.getSelectionModel().getSelectedIndex() == 2) {
-            selectCountryText.setVisible(false);
-            countryDropdown.setVisible(false);
+            selectCountryText.setDisable(true);
+            countryDropdown.setDisable(true);
         } else if (analysisDropdown.getSelectionModel().getSelectedIndex() == 3) {
-            selectCountryText.setVisible(false);
-            countryDropdown.setVisible(false);
+            selectCountryText.setDisable(true);
+            countryDropdown.setDisable(true);
         }
     }
 
