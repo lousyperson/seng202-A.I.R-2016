@@ -113,11 +113,13 @@ public class Controller implements Initializable {
         flightTabController.setMainController(this);
 
         analysisDropdown.getItems().addAll(
-                "Airports with most routes",
-                "Equipment with most routes",
-                "Countries with most airports",
-                "Countries with most airlines"
+                "Airports with routes",
+                "Equipment used on routes",
+                "Airports per country",
+                "Airlines per country"
         );
+
+        countryDropdown.setDisable(true);
 
         updateCountryDropdown();
     }
@@ -203,10 +205,10 @@ public class Controller implements Initializable {
             warningBarChart.setVisible(false);
 
             pieChart.setData(pieChartData);
-            pieChart.setTitle("Airports with Most Routes in a Country Pie Chart");
+            pieChart.setTitle("Routes by Airports in " + country);
 
             barChart.getData().setAll(airportMostRoutes);
-            barChart.setTitle("Airports with Most Routes in a Country Bar Chart");
+            barChart.setTitle("Routes by Airports in " + country);
         } else {
             pieChart.setVisible(false);
             warningPieChart.setVisible(true);
@@ -257,7 +259,7 @@ public class Controller implements Initializable {
         pieChart.setVisible(true);
         warningPieChart.setVisible(false);
         pieChart.setData(pieChartData);
-        pieChart.setTitle("Equipment Used on Routes");
+        pieChart.setTitle("Routes by equipment");
 
         barChart.setVisible(false);
         warningBarChart.setVisible(true);
@@ -296,7 +298,7 @@ public class Controller implements Initializable {
         pieChart.setVisible(true);
         warningPieChart.setVisible(false);
         pieChart.setData(pieChartData);
-        pieChart.setTitle("Countries with Most Airports");
+        pieChart.setTitle("Airports by Country");
 
 
         barChart.setVisible(false);
@@ -341,14 +343,14 @@ public class Controller implements Initializable {
         pieChart.setVisible(true);
         warningPieChart.setVisible(false);
         pieChart.setData(pieChartData);
-        pieChart.setTitle("Countries with Most Airlines");
+        pieChart.setTitle("Airlines by Country");
 
         barChart.setVisible(false);
         warningBarChart.setVisible(true);
         warningBarChart.setText("Bar chart not available for this analysis.");
 
         rowSize.setVisible(true);
-        rowSize.setText(Integer.toString(analysisTData.size()) + " airlines are shown in the table.");
+        rowSize.setText(Integer.toString(analysisTData.size()) + " countries are shown in the table.");
     }
 
     public void getAnalysis() {
