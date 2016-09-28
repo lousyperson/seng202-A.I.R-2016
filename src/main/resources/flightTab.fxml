@@ -49,11 +49,11 @@
                         </TitledPane>
                     </panes>
                 </Accordion>
-                <AnchorPane maxWidth="220.0" minHeight="0.0" minWidth="0.0" prefHeight="706.0" prefWidth="220.0" GridPane.rowIndex="2" GridPane.rowSpan="2">
+                <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#loadFlight" prefHeight="25.0" prefWidth="146.0" text="Import Flight" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+                <AnchorPane maxWidth="220.0" minHeight="0.0" minWidth="0.0" prefHeight="706.0" prefWidth="220.0" GridPane.rowIndex="2">
                     <children>
                         <ListView fx:id="flightList" layoutX="10.0" layoutY="108.0" prefHeight="237.0" prefWidth="200.0" />
                         <Text layoutX="14.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Flights" />
-                        <Button alignment="TOP_CENTER" contentDisplay="CENTER" layoutX="37.0" layoutY="408.0" mnemonicParsing="false" onAction="#loadFlight" prefHeight="25.0" prefWidth="146.0" text="Import Flight" />
                         <TextField fx:id="flightNameSearch" layoutX="12.0" layoutY="41.0" prefHeight="25.0" prefWidth="196.0" promptText="Search Flights..." />
                         <Text layoutX="14.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Search" />
                     </children>
