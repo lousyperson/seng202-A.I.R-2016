@@ -7,24 +7,24 @@ import javafx.beans.property.SimpleStringProperty;
  * Created by zyt10 on 25/09/16.
  */
 public class AnalysisTable {
-    private SimpleStringProperty airport;
+    private SimpleStringProperty column1;
     private SimpleIntegerProperty number;
 
-    public AnalysisTable(String airport, Integer number){
-        this.airport = new SimpleStringProperty(airport);
+    public AnalysisTable(String column1, Integer number){
+        this.column1 = new SimpleStringProperty(column1);
         this.number = new SimpleIntegerProperty(number);
     }
 
-    public String getAirport() {
-        return airport.get();
+    public String getColumn1() {
+        return column1.get();
     }
 
-    public SimpleStringProperty airportProperty() {
-        return airport;
+    public SimpleStringProperty column1Property() {
+        return column1;
     }
 
-    public void setAirport(String airport) {
-        this.airport.set(airport);
+    public void setColumn1(String column1) {
+        this.column1.set(column1);
     }
 
     public int getNumber() {
