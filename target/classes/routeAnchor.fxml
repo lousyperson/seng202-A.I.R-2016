@@ -58,8 +58,8 @@
                 <CheckBox fx:id="direct" layoutX="12.0" layoutY="124.0" mnemonicParsing="false" onAction="#selectDirect" text="Direct" />
                 <CheckBox fx:id="indirect" layoutX="122.0" layoutY="124.0" mnemonicParsing="false" onAction="#selectIndirect" text="Indirect" />
                 <ComboBox fx:id="routeEquipFilter" layoutX="12.0" layoutY="161.0" onAction="#filterEquipment" prefHeight="25.0" prefWidth="197.0" promptText=" --ALL EQUIPMENTS-- " />
-                <Button alignment="TOP_CENTER" contentDisplay="CENTER" layoutX="37.0" layoutY="470.0" mnemonicParsing="false" onAction="#loadRoute" prefHeight="25.0" prefWidth="146.0" text="Import Route" />
             </children>
         </AnchorPane>
+        <Button alignment="TOP_CENTER" contentDisplay="CENTER" layoutX="37.0" layoutY="623.0" mnemonicParsing="false" onAction="#loadRoute" prefHeight="25.0" prefWidth="146.0" text="Import Route" AnchorPane.bottomAnchor="58.0" AnchorPane.leftAnchor="37.0" />
     </children>
 </AnchorPane>

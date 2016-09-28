@@ -46,7 +46,7 @@
                 <TableColumn fx:id="aactive" prefWidth="72.0" text="Active" />
             </columns>
         </TableView>
-        <AnchorPane fx:id="airlinePane" layoutY="155.0" minHeight="0.0" minWidth="0.0" prefHeight="539.0" prefWidth="220.0">
+        <AnchorPane fx:id="airlinePane" layoutY="155.0" minHeight="0.0" minWidth="0.0" prefHeight="391.0" prefWidth="220.0">
             <children>
                 <TextField fx:id="airlineSearch" layoutX="12.0" layoutY="42.0" prefHeight="25.0" prefWidth="196.0" promptText="Search Airline List..." />
                 <Text layoutX="14.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Search" />
@@ -54,8 +54,8 @@
                 <CheckBox fx:id="active" layoutX="12.0" layoutY="124.0" mnemonicParsing="false" onAction="#selectActiveAirlines" text="Active" />
                 <CheckBox fx:id="inactive" layoutX="122.0" layoutY="125.0" mnemonicParsing="false" onAction="#selectInactiveAirlines" text="Inactive" />
                 <ComboBox fx:id="airlineCountryFilter" layoutX="12.0" layoutY="161.0" onAction="#filterAirlineCountry" prefHeight="25.0" prefWidth="197.0" promptText=" --ALL COUNTRIES--" />
-                <Button alignment="TOP_CENTER" contentDisplay="CENTER" layoutX="37.0" layoutY="470.0" mnemonicParsing="false" onAction="#loadAirline" prefHeight="25.0" prefWidth="146.0" text="Import Airline" />
             </children>
         </AnchorPane>
+          <Button alignment="TOP_CENTER" contentDisplay="CENTER" layoutX="37.0" layoutY="623.0" mnemonicParsing="false" onAction="#loadAirline" prefHeight="25.0" prefWidth="146.0" text="Import Airline" AnchorPane.bottomAnchor="58.0" AnchorPane.leftAnchor="37.0" />
     </children>
 </AnchorPane>
