@@ -219,7 +219,7 @@ public class Controller implements Initializable {
 
         rowSize.setVisible(true);
         if (!country.equals("--ALL COUNTRIES--")) {
-            rowSize.setText(Integer.toString(analysisTData.size()) + " airport(s) found in " + country + "with routes.");
+            rowSize.setText(Integer.toString(analysisTData.size()) + " airport(s) found in " + country + " with routes.");
         } else {
             rowSize.setText(Integer.toString(analysisTData.size()) + " airports are shown in the table.");
         }
