@@ -1,7 +1,9 @@
 package seng202.group4.GUI;
 
+import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.event.EventHandler;
@@ -141,6 +143,8 @@ public class Controller implements Initializable {
 
     // Used in Map View
     private TreeSet<String> mapCountrySet = new TreeSet();
+    private int mapAirportListIndex = -1;
+    private int mapAirportRouteListIndex = -1;
 
     /**
      * Initializes the controller.
@@ -472,9 +476,8 @@ public class Controller implements Initializable {
         }
 
         // add countries from TreeSet as combobox options
-        Iterator<String> itr = mapCountrySet.iterator();
-        while (itr.hasNext()) {
-            mapAirportFilter.getItems().add(itr.next());
+        for (String aMapCountrySet : mapCountrySet) {
+            mapAirportFilter.getItems().add(aMapCountrySet);
         }
         mapAirportFilter.getSelectionModel().select(0);
 
@@ -489,24 +492,16 @@ public class Controller implements Initializable {
         });
 
         // unselects upon clicking again
-//        mapAirportList.setCellFactory(new Callback<ListView<String>, ListCell<String>>() {
-//            @Override
-//            public ListCell<String> call(ListView<String> param) {
-//                ListView<String> row = new ListView<>();
-//                row.addEventFilter(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
-//                    @Override
-//                    public void handle(MouseEvent event) {
-//                        final int index = row.getSelectionModel().getSelectedIndex();
-//                        if (index >= 0 && index < mapAirportList.getItems().size() && mapAirportList.getSelectionModel().isSelected(index)  ) {
-//                            mapAirportList.getSelectionModel().clearSelection();
-//                            event.consume();
-//                        }
-//                        mapView.getEngine().executeScript("initMap()");
-//                    }
-//                });
-//                return null;
-//            }
-//        });
+        mapAirportList.setOnMouseClicked(event -> {
+            final int index = mapAirportList.getSelectionModel().getSelectedIndex();
+            if (mapAirportListIndex == index) {
+                mapAirportList.getSelectionModel().clearSelection();
+                mapAirportListIndex = -1;
+                refreshMap();
+            } else {
+                mapAirportListIndex = index;
+            }
+        });
 
         // listen to whats being selected in the mapAirportRouteList
         mapAirportRouteList.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends String> ov,
@@ -516,6 +511,18 @@ public class Controller implements Initializable {
                 showRoutes(new_val.toLowerCase());
             }
 
+        });
+
+        // unselects upon clicking again
+        mapAirportRouteList.setOnMouseClicked(event -> {
+            final int index = mapAirportRouteList.getSelectionModel().getSelectedIndex();
+            if (mapAirportRouteListIndex == index) {
+                mapAirportRouteList.getSelectionModel().clearSelection();
+                mapAirportRouteListIndex = -1;
+                refreshMap();
+            } else {
+                mapAirportRouteListIndex = index;
+            }
         });
 
     }
@@ -530,35 +537,49 @@ public class Controller implements Initializable {
     }
 
     public void airportSearch() {
-        // List View items
-        ObservableList<String> airportItems = FXCollections.observableArrayList();
-
         HashMap<Integer, Airport> airports = Repository.airportRepository.getAirports();
         String inputAirportString = mapAirportSearch.getText();
         Pattern pattern = Pattern.compile(".*" + inputAirportString + ".*", Pattern.CASE_INSENSITIVE);
 
         if (inputAirportString.length() > 4) {
-            updateMapAirportListString(airports, pattern, airportItems);  // Only string search for now
+            updateMapAirportListString(airports, pattern);  // Only string search for now
         } else if (inputAirportString.length() > 3) {
-            updateMapAirportListString(airports, pattern, airportItems);
+            updateMapAirportListString(airports, pattern);
 //            updateMapAirportListIATA(airports, pattern, airportItems);
         } else {
-            updateMapAirportListString(airports, pattern, airportItems);
+            updateMapAirportListString(airports, pattern);
 //            updateMapAirportListIATA(airports, pattern, airportItems);
 //            updateMapAirportListICAO(airports, pattern, airportItems);
         }
     }
 
-    private void updateMapAirportListString(HashMap<Integer, Airport> airports, Pattern pattern, ObservableList<String> airportItems) {
+    private void updateMapAirportListString(HashMap<Integer, Airport> airports, Pattern pattern) {
+        // List View items
+        ObservableList<String> airportItems = FXCollections.observableArrayList();
+
         if (airports != null) {
             for (Airport airport : airports.values()) {
                 Matcher matcher = pattern.matcher(airport.getName());
                 if (matcher.matches()) {
                     airportItems.add(airport.getName());
-                    mapAirportList.setItems(airportItems);
                 }
             }
+            mapAirportList.setItems(airportItems);
         }
+
+//        mapAirportList.setCellFactory(new Callback<ListView<String>, ListCell<String>>() {
+//            @Override
+//            public ListCell<String> call(ListView<String> mapAirportList) {
+//                final ListCell<String> cell = new ListCell<String>();
+//                cell.addEventFilter(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+//                    @Override
+//                    public void handle(MouseEvent event) {
+//                        System.out.println(mapAirportList.getSelectionModel().getSelectedIndex());
+//                    }
+//                });
+//                return null;
+//            }
+//        });
     }
 
 //    private void updateMapAirportListIATA(HashMap<Integer, Airport> airports, Pattern pattern, ObservableList<String> airportItems) {
@@ -620,34 +641,34 @@ public class Controller implements Initializable {
     }
 
     public void airportRouteSearch() {
-        // List View items
-        ObservableList<String> airportItems = FXCollections.observableArrayList();
-
         HashMap<Integer, Airport> airports = Repository.airportRepository.getAirports();
         String inputAirportString = mapAirportRouteSearch.getText();
         Pattern pattern = Pattern.compile(".*" + inputAirportString + ".*", Pattern.CASE_INSENSITIVE);
 
         if (inputAirportString.length() > 4) {
-            updateMapAirportRouteListString(airports, pattern, airportItems);  // Only string search for now
+            updateMapAirportRouteListString(airports, pattern);  // Only string search for now
         } else if (inputAirportString.length() > 3) {
-            updateMapAirportRouteListString(airports, pattern, airportItems);
+            updateMapAirportRouteListString(airports, pattern);
 //            updateMapAirportListIATA(airports, pattern, airportItems);
         } else {
-            updateMapAirportRouteListString(airports, pattern, airportItems);
+            updateMapAirportRouteListString(airports, pattern);
 //            updateMapAirportListIATA(airports, pattern, airportItems);
 //            updateMapAirportListICAO(airports, pattern, airportItems);
         }
     }
 
-    private void updateMapAirportRouteListString(HashMap<Integer, Airport> airports, Pattern pattern, ObservableList<String> airportItems) {
+    private void updateMapAirportRouteListString(HashMap<Integer, Airport> airports, Pattern pattern) {
+        // List View items
+        ObservableList<String> airportItems = FXCollections.observableArrayList();
+
         if (airports != null) {
             for (Airport airport : airports.values()) {
                 Matcher matcher = pattern.matcher(airport.getName());
                 if (matcher.matches()) {
                     airportItems.add(airport.getName());
-                    mapAirportRouteList.setItems(airportItems);
                 }
             }
+            mapAirportRouteList.setItems(airportItems);
         }
     }
 
