@@ -332,31 +332,7 @@ public class AirlineAnchorController implements Initializable{
     }
 
     private ButtonResult dataOverridePopup(int ID) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Clashing ID");
-        alert.setHeaderText("Airline with ID " + ID + " already exists in the system");
-        alert.setContentText("Choose your option.");
-
-        ButtonType override = new ButtonType("Override\n ");
-        ButtonType overrideAll = new ButtonType("Override\nAll");
-        ButtonType ignore = new ButtonType("Ignore\n ");
-        ButtonType ignoreAll = new ButtonType("Ignore\nAll");
-        ButtonType cancel = new ButtonType("Cancel\n ", ButtonBar.ButtonData.CANCEL_CLOSE);
-
-        alert.getButtonTypes().setAll(override, overrideAll, ignore, ignoreAll, cancel);
-
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == override) {
-            return ButtonResult.OVERRIDE;
-        } else if (result.get() == overrideAll) {
-            return ButtonResult.OVERRIDEALL;
-        } else if (result.get() == ignore) {
-            return ButtonResult.IGNORE;
-        } else if (result.get() == ignoreAll) {
-            return ButtonResult.IGNOREALL;
-        } else {
-            return ButtonResult.CANCEL;
-        }
+        return OverrideDataController.getPopUpResult("Airline with ID " + ID + " already exists in the system");
     }
 
     private void clearAirlineTable() {
