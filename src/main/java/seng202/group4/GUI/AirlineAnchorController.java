@@ -435,6 +435,11 @@ public class AirlineAnchorController implements Initializable{
         airlineTableID.setItems(airlineTableSorted);
     }
 
+    /**
+     * Returns airlineTData to be used on other class.
+     *
+     * @return ObservableList<AirlineTable>
+     */
     public ObservableList<AirlineTable> getAirlineTData() {
         return airlineTData;
     }
