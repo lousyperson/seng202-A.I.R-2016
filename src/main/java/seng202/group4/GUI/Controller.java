@@ -461,10 +461,16 @@ public class Controller implements Initializable {
             }
         }
 
-        // if the combo box doesn't have --ALL AIRPORT-- then add one
+        // if the combo box doesn't have --SELECT COUNTRIES-- then add one
+        if (!mapAirportFilter.getItems().contains("--SELECT COUNTRIES--")) {
+            mapAirportFilter.getItems().add("--SELECT COUNTRIES--");
+        }
+
+        // if the combo box doesn't have --ALL COUNTRIES-- then add one
         if (!mapAirportFilter.getItems().contains("--ALL COUNTRIES--")) {
             mapAirportFilter.getItems().add("--ALL COUNTRIES--");
         }
+
         // add countries from TreeSet as combobox options
         Iterator<String> itr = mapCountrySet.iterator();
         while (itr.hasNext()) {
@@ -582,7 +588,7 @@ public class Controller implements Initializable {
     public void showCountryAirports() {
         String country = mapAirportFilter.getSelectionModel().getSelectedItem().toString();  // Not yet check for all countries
         mapView.getEngine().executeScript("initMap()");
-        if (!country.equals("--ALL COUNTRIES--")) {
+        if (!country.equals("--ALL COUNTRIES--") && !country.equals("Antarctica")) {
             ArrayList<Airport> airports = Repository.airportRepository.getAirportsFromCountry(country);
             if (airports.size() > 0) {
                 for (Airport airport : airports) {
@@ -592,10 +598,9 @@ public class Controller implements Initializable {
                 }
                 mapView.getEngine().executeScript("mapClusterer()");
                 mapView.getEngine().executeScript("repositionMap()");
-            } else {
-                mapView.getEngine().executeScript("initMap()");
             }
-        } else if (country.equals("Antarctica")) {  // Special case where camp reposition doesn't work
+        } else if (country.equals("Antarctica")) {  // Special case where reposition doesn't work
+            mapView.getEngine().executeScript("refreshMap(" + -50 + "," + 0 + ")");  // Make nicer map position
             ArrayList<Airport> airports = Repository.airportRepository.getAirportsFromCountry(country);
             for (Airport airport : airports) {
                 double lat = airport.getLatitude();
@@ -610,7 +615,7 @@ public class Controller implements Initializable {
                 double lon = airport.getLongitude();
                 mapView.getEngine().executeScript("addFlight(" + lat + ", " + lon + ");");
             }
-            mapView.getEngine().executeScript("mapClusterer()");  // CATERPILLAR
+            mapView.getEngine().executeScript("mapClusterer()");
         }
     }
 

@@ -197,7 +197,7 @@ public class FlightTabController implements Initializable{
      */
     private void showFlightPath(String flightName) {
         if (flightMap.getEngine() != null) {
-//            flightMap.getEngine().executeScript("deleteFlights();");
+            flightMap.getEngine().executeScript("deleteFlights();");
             Flight flight = Repository.flightRepository.getFlights().get(flightName);
             for (int i = 0; i < flight.getFlightPositions().size(); i++) {
                 FlightPosition firstRow = flight.getFlightPositions().get(i);
