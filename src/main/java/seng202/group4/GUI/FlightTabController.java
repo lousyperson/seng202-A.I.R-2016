@@ -10,6 +10,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.web.WebView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import seng202.group4.App;
 import seng202.group4.data.dataType.Flight;
 import seng202.group4.data.dataType.FlightPosition;
 import seng202.group4.data.parser.validator.FlightValidator;
@@ -248,11 +249,9 @@ public class FlightTabController implements Initializable{
      * @throws IOException throws IOException error
      */
     public void loadFlight() throws IOException {
-
-        Stage stage = new Stage();
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open file");
-        File in = fileChooser.showOpenDialog(stage);
+        File in = fileChooser.showOpenDialog(App.primaryStage);
         if (in != null && in.exists()) {
             InputStream file = new FileInputStream(in);
             // change tab to flight tab if its not on it already

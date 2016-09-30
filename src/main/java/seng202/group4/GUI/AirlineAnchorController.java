@@ -11,7 +11,9 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import seng202.group4.App;
 import seng202.group4.data.dataType.Airline;
 import seng202.group4.data.parser.validator.AirlineValidator;
 import seng202.group4.data.repository.AirlineRepository;
@@ -90,6 +92,7 @@ public class AirlineAnchorController implements Initializable{
 
     // airlineCountrySet holds all the countries uploaded to airline
     private TreeSet airlineCountrySet = new TreeSet();
+
 
 
     /**
@@ -220,10 +223,9 @@ public class AirlineAnchorController implements Initializable{
      * @throws IOException throws IOException error
      */
     public void loadAirline() throws IOException {
-        Stage stage = new Stage();
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open file");
-        File in = fileChooser.showOpenDialog(stage);
+        File in = fileChooser.showOpenDialog(App.primaryStage);
         if (in != null && in.exists()) {
             InputStream file = new FileInputStream(in);
             mainController.goToDataTab(mainController.getAirlineLabel());

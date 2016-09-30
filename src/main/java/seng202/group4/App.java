@@ -15,7 +15,7 @@ import seng202.group4.data.repository.*;
  *
  */
 public class App extends Application {
-    private static Stage primaryStage;
+    public static Stage primaryStage;
 
     /**
      * Starts application, loads FXML and controllers

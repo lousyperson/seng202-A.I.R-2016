@@ -16,6 +16,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import seng202.group4.App;
 import seng202.group4.data.dataType.Airport;
 import seng202.group4.data.parser.validator.AirportValidator;
 import seng202.group4.data.repository.AirportRepository;
@@ -217,11 +218,9 @@ public class AirportAnchorController implements Initializable{
      * @throws IOException throws IOException error
      */
     public void loadAirport() throws IOException {
-
-        Stage stage = new Stage();
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open file");
-        File in = fileChooser.showOpenDialog(stage);
+        File in = fileChooser.showOpenDialog(App.primaryStage);
         if (in != null && in.exists()) {
             InputStream file = new FileInputStream(in);
             mainController.goToDataTab(mainController.getAirportLabel());

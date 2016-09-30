@@ -19,6 +19,7 @@ import javafx.scene.layout.VBoxBuilder;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import seng202.group4.App;
 import seng202.group4.data.dataType.Route;
 import seng202.group4.data.parser.validator.RouteValidator;
 import seng202.group4.data.repository.Repository;
@@ -224,11 +225,9 @@ public class RouteAnchorController implements Initializable {
      * @throws IOException throws IOException error
      */
     public void loadRoute() throws IOException {
-
-        Stage stage = new Stage();
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open file");
-        File in = fileChooser.showOpenDialog(stage);
+        File in = fileChooser.showOpenDialog(App.primaryStage);
         if (in != null && in.exists()) {
             InputStream file = new FileInputStream(in);
             mainController.goToDataTab(routeLabel);
