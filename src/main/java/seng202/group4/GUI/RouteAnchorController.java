@@ -180,7 +180,7 @@ public class RouteAnchorController implements Initializable {
                 if (routeTableID.getSelectionModel().getSelectedItems().size() > 5000) {
                     Alert warning = new Alert(Alert.AlertType.WARNING);
                     warning.setTitle("Warning Dialog");
-                    warning.setHeaderText("Cannot delete more than 5000 lines at a time.");
+                    warning.setHeaderText("Cannot delete more than 5000 routes at a time.");
                     warning.setContentText("You selected " + routeTableID.getSelectionModel().getSelectedItems().size() + " lines.");
 
                     warning.showAndWait();
@@ -580,7 +580,6 @@ public class RouteAnchorController implements Initializable {
                 public Void call() {
                     // process long-running computation, data retrieval, etc...
                     clearRouteTable();
-                    Repository.routeRepository = new RouteRepository();
                     InputStream file = getClass().getResourceAsStream("/routes.dat");
                     if (file != null) {
                         try {
@@ -626,6 +625,17 @@ public class RouteAnchorController implements Initializable {
         }
     }
 
+    /**
+     * Clears the route table and routeRepository
+     */
+    public void deleteAllRoutes() {
+        boolean result = mainController.deleteAllConformation();
+        if (result) {
+            clearRouteTable();
+            Repository.serializeObject(Repository.routeRepository, "route");
+        }
+    }
+
 
     // Compare routes, return true if the routes are different otherwise false
     private boolean diffRoutes(Route route) {
@@ -637,7 +647,8 @@ public class RouteAnchorController implements Initializable {
     }
 
     private void clearRouteTable() {
-        routeTData.removeAll(routeTData);
+        routeTData.clear();
+        Repository.routeRepository = new RouteRepository();
     }
 
     private void loadDefaultRoute() throws IOException, URISyntaxException {

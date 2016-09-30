@@ -14,6 +14,7 @@ import seng202.group4.App;
 import seng202.group4.data.dataType.Flight;
 import seng202.group4.data.dataType.FlightPosition;
 import seng202.group4.data.parser.validator.FlightValidator;
+import seng202.group4.data.repository.FlightRepository;
 import seng202.group4.data.repository.Repository;
 
 import java.io.File;
@@ -313,6 +314,24 @@ public class FlightTabController implements Initializable{
 
         }
         tabPane.getSelectionModel().select(1);
+    }
+
+    /**
+     * Clears the flight table and AirportRepository
+     */
+    public void deleteAllFlights() {
+        boolean result = mainController.getDataTabController().deleteAllConformation();
+        if (result) {
+            clearFlightTable();
+            Repository.serializeObject(Repository.flightRepository, "flight");
+        }
+    }
+
+    private void clearFlightTable() {
+        flightTData.clear();
+        flightItems.clear();
+        flightMap.getEngine().executeScript("initMap();");
+        Repository.flightRepository = new FlightRepository();
     }
 
     private void updateFlightNameSearch() {

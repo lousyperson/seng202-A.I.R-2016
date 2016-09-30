@@ -161,15 +161,34 @@ public class DataTabController implements Initializable{
     }
 
     /**
-     * Calls the dialog box to confirm that the user wants to reset their selected data.
+     * Calls the dialog box to confirm that the user wants to reset their selected data type.
      * @return true if they select OK otherwise false
      */
     public boolean resetConformation() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmation Dialog");
-        alert.setHeaderText("Are you sure you want to reset your selected data?");
+        alert.setHeaderText("Are you sure you want to reset your select data type?");
         alert.setContentText("This will replace the data with the default data.\nThis may take a few moments" +
                 "\n\nWARNING: The action cannot be undone and may take a while.\n");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Calls the dialog box to confirm that the user wants to delete their selected data type.
+     * @return true if they select OK otherwise false
+     */
+    public boolean deleteAllConformation() {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation Dialog");
+        alert.setHeaderText("Are you sure you want to delete your selected data type?");
+        alert.setContentText("This will DELETE ALL OF YOUR DATA\nof the selected data type" +
+                "\n\nWARNING: The action cannot be undone.\n");
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK) {

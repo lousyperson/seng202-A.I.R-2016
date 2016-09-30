@@ -322,7 +322,6 @@ public class AirportAnchorController implements Initializable{
         boolean result = mainController.resetConformation();
         if (result) {
             clearAirportTable();
-            Repository.airportRepository = new AirportRepository();
             InputStream file = getClass().getResourceAsStream("/airports.dat");
             //File file = new File(getClass().getClassLoader().getResource("airlines.dat").toURI());
             if (file != null) {
@@ -332,8 +331,20 @@ public class AirportAnchorController implements Initializable{
         }
     }
 
+    /**
+     * Clears the airport table and AirportRepository
+     */
+    public void deleteAllAirports() {
+        boolean result = mainController.deleteAllConformation();
+        if (result) {
+            clearAirportTable();
+            Repository.serializeObject(Repository.airportRepository, "airport");
+        }
+    }
+
     private void clearAirportTable() {
-        airportTData.removeAll(airportTData);
+        airportTData.clear();
+        Repository.airportRepository = new AirportRepository();
     }
 
     /* Airport table methods above*/

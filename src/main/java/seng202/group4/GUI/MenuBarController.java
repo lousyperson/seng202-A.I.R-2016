@@ -96,6 +96,34 @@ public class MenuBarController {
     }
 
     /**
+     * Deletes all entries from the airline table and airlineRepository
+     */
+    public void deleteAllAirlines() {
+        airlineAnchorController.deleteAllAirlines();
+    }
+
+    /**
+     * Deletes all entries from the airline table and airportRepository
+     */
+    public void deleteAllAirports() {
+        airportAnchorController.deleteAllAirports();
+    }
+
+    /**
+     * Deletes all entries from the airline table and routeRepository
+     */
+    public void deleteAllRoutes() {
+        routeAnchorController.deleteAllRoutes();
+    }
+
+    /**
+     * Deletes all entries from the airline table and flightRepository
+     */
+    public void deleteAllFlights() {
+        flightTabController.deleteAllFlights();
+    }
+
+    /**
      * Shows Aviation Information Reader's help page
      */
     public void getHelp() {

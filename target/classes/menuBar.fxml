@@ -41,13 +41,21 @@
                         <MenuItem mnemonicParsing="false" onAction="#loadFlight" text="Flight" />
                     </items>
                 </Menu>
-            <Menu mnemonicParsing="false" text="Reset to Default">
-              <items>
-                <MenuItem mnemonicParsing="false" onAction="#resetAirline" text="Airline" />
-                  <MenuItem mnemonicParsing="false" onAction="#resetAirport" text="Airport" />
-                  <MenuItem mnemonicParsing="false" onAction="#resetRoute" text="Route" />
-              </items>
-            </Menu>
+                <Menu mnemonicParsing="false" text="Reset to Default">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#resetAirline" text="Airline" />
+                        <MenuItem mnemonicParsing="false" onAction="#resetAirport" text="Airport" />
+                        <MenuItem mnemonicParsing="false" onAction="#resetRoute" text="Route" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Delete all">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#deleteAllAirlines" text="Airline" />
+                        <MenuItem mnemonicParsing="false" onAction="#deleteAllAirports" text="Airport" />
+                        <MenuItem mnemonicParsing="false" onAction="#deleteAllRoutes" text="Route" />
+                        <MenuItem mnemonicParsing="false" onAction="#deleteAllFlights" text="Flight" />
+                    </items>
+                </Menu>
             </items>
         </Menu>
         <Menu mnemonicParsing="false" text="Help">

@@ -309,11 +309,20 @@ public class AirlineAnchorController implements Initializable{
         boolean result = mainController.resetConformation();
         if (result) {
             clearAirlineTable();
-            Repository.airlineRepository = new AirlineRepository();
             InputStream file = getClass().getResourceAsStream("/airlines.dat");
             if (file != null) {
                 insertAirlineTable(file);
             }
+            Repository.serializeObject(Repository.airlineRepository, "airline");
+        }
+    }
+    /**
+     * Clears the airline table and AirlineRepository
+     */
+    public void deleteAllAirlines() {
+        boolean result = mainController.deleteAllConformation();
+        if (result) {
+            clearAirlineTable();
             Repository.serializeObject(Repository.airlineRepository, "airline");
         }
     }
@@ -338,7 +347,8 @@ public class AirlineAnchorController implements Initializable{
     }
 
     private void clearAirlineTable() {
-        airlineTData.removeAll(airlineTData);
+        airlineTData.clear();
+        Repository.airlineRepository = new AirlineRepository();
     }
 
     /* Airline table methods above*/
