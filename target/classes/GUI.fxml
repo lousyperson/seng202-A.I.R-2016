@@ -46,7 +46,7 @@
             <tabs>
                 <fx:include fx:id="dataTab" source="dataTab.fxml" text="Data View" />
                 <fx:include fx:id="flightTab" source="flightTab.fxml" text="Flight View" />
-                <Tab text="Map View 2">
+                <Tab text="Map View">
                     <content>
                         <GridPane>
                             <children>
@@ -190,7 +190,7 @@
                         </GridPane>
                     </content>
                 </Tab>
-                <fx:include fx:id="mapTab" source="mapTab.fxml" text="Map View" />
+                <fx:include fx:id="mapTab" source="mapTab.fxml" text="Map View" disable="true"/>
             </tabs>
         </TabPane>
     </center>

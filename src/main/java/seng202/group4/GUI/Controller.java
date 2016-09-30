@@ -580,16 +580,38 @@ public class Controller implements Initializable {
 //    }
 
     public void showCountryAirports() {
-        String country = mapAirportFilter.getSelectionModel().getSelectedItem().toString();
-        ArrayList<Airport> airports = Repository.airportRepository.getAirportsFromCountry(country);
+        String country = mapAirportFilter.getSelectionModel().getSelectedItem().toString();  // Not yet check for all countries
         mapView.getEngine().executeScript("initMap()");
-        for (Airport airport : airports) {
-            double lat = airport.getLatitude();
-            double lon = airport.getLongitude();
-            mapView.getEngine().executeScript("addFlight(" + lat + ", " + lon + ");");
+        if (!country.equals("--ALL COUNTRIES--")) {
+            ArrayList<Airport> airports = Repository.airportRepository.getAirportsFromCountry(country);
+            if (airports.size() > 0) {
+                for (Airport airport : airports) {
+                    double lat = airport.getLatitude();
+                    double lon = airport.getLongitude();
+                    mapView.getEngine().executeScript("addFlight(" + lat + ", " + lon + ");");
+                }
+                mapView.getEngine().executeScript("mapClusterer()");
+                mapView.getEngine().executeScript("repositionMap()");
+            } else {
+                mapView.getEngine().executeScript("initMap()");
+            }
+        } else if (country.equals("Antarctica")) {  // Special case where camp reposition doesn't work
+            ArrayList<Airport> airports = Repository.airportRepository.getAirportsFromCountry(country);
+            for (Airport airport : airports) {
+                double lat = airport.getLatitude();
+                double lon = airport.getLongitude();
+                mapView.getEngine().executeScript("addFlight(" + lat + ", " + lon + ");");
+            }
+            mapView.getEngine().executeScript("mapClusterer()");
+        } else {
+            HashMap<Integer, Airport> airports = Repository.airportRepository.getAirports();
+            for (Airport airport : airports.values()) {
+                double lat = airport.getLatitude();
+                double lon = airport.getLongitude();
+                mapView.getEngine().executeScript("addFlight(" + lat + ", " + lon + ");");
+            }
+            mapView.getEngine().executeScript("mapClusterer()");  // CATERPILLAR
         }
-//        mapView.getEngine().executeScript("mapClusterer()");  // CATERPILLAR
-        mapView.getEngine().executeScript("repositionMap()");
     }
 
     public void airportRouteSearch() {

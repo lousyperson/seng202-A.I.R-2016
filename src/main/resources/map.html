@@ -24,7 +24,7 @@
     var flightPath = [];
     var bounds = new google.maps.LatLngBounds();
     var routes = [];
-//    var markerCluster;
+    var markerCluster;
 
     function initMap() {
         map = new google.maps.Map(document.getElementById('map'), {
@@ -34,7 +34,8 @@
             streetViewControl: false
         });
         map.setOptions({ minZoom: 1, maxZoom: 15 });
-//        markerCluster = new MarkerClusterer(map);
+        markerCluster = new MarkerClusterer(map);
+        deleteFlights();
     }
 
     function off() {
@@ -63,6 +64,7 @@
         }
         markers = [];
         flightPath = [];
+        markerCluster.clearMarkers();
     }
 
     function addFlight(lat, lon) {
@@ -85,8 +87,8 @@
         });
         initMap();
         path.setMap(map);
-        markers[0].setMap(map);
-        markers[markers.length - 1].setMap(map);
+//        markers[0].setMap(map);  // Not working for now
+//        markers[markers.length - 1].setMap(map);
         repositionMap();
     }
 
@@ -130,11 +132,9 @@
         }
     }
 
-//    function mapClusterer() {
-//        markerCluster.clearMarkers();
-//        markerCluster.setMap(null);
-//        markerCluster = new MarkerClusterer(map, markers);
-//    }
+    function mapClusterer() {
+        markerCluster = new MarkerClusterer(map, markers);
+    }
 
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDveyGvSTsiUJK9jpfyBYYSvx0uUT9raWs&callback=initMap"
