@@ -795,6 +795,11 @@ public class RouteAnchorController implements Initializable {
         updateRouteSearch();
     }
 
+    /**
+     * Returns routeTData to be used on other class.
+     *
+     * @return ObservableList<RouteTable>
+     */
     public ObservableList<RouteTable> getRouteTData() {
         return routeTData;
     }

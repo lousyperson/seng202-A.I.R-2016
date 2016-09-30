@@ -101,11 +101,7 @@ public class Airline implements Serializable {
         return active;
     }
 
-    public void setActive(String active) {
-        if (active == "Y") {
-            this.active = true;
-        } else {
-            this.active = false;
-        }
+    public void setActive(boolean active) {
+       this.active = active;
     }
 }

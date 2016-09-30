@@ -552,6 +552,11 @@ public class AirportAnchorController implements Initializable{
         flightTabController.insertFlightTable(file);
     }
 
+    /**
+     * Returns airportTData to be used on other class.
+     *
+     * @return ObservableList<AirportTable>
+     */
     public ObservableList<AirportTable> getAirportTData() {
         return airportTData;
     }

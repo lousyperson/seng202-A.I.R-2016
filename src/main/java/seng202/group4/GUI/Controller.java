@@ -60,9 +60,6 @@ public class Controller implements Initializable {
 
 
     // Used in flightAnalysis
-    CategoryAxis xAxis = new CategoryAxis();
-    NumberAxis yAxis = new NumberAxis();
-
     private TreeSet<String> airportCountrySet = new TreeSet();
 
     // FXML for analysis tab
@@ -85,7 +82,7 @@ public class Controller implements Initializable {
     private PieChart pieChart;
 
     @FXML
-    private BarChart<String,Number> barChart = new BarChart<String,Number>(xAxis,yAxis);
+    private BarChart<String,Number> barChart;
 
     @FXML
     private Text selectCountryText;
@@ -100,7 +97,7 @@ public class Controller implements Initializable {
     private Text rowSize;
 
     /**
-     * Initializes the controller
+     * Initializes the controller.
      *
      * @param location URL
      * @param resources ResourceBundle
@@ -154,8 +151,6 @@ public class Controller implements Initializable {
         ObservableList<AnalysisTable> analysisTData = FXCollections.observableArrayList();
         ObservableMap<String, Integer> countAirport = FXCollections.observableHashMap();
         ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
-//        xAxis.setLabel("Airports");
-//        yAxis.setLabel("Routes Count");
 
         for (RouteTable airport : dataTabController.getRouteAnchorController().getRouteTData()) {
             if (countAirport.containsKey(airport.getRsource())) {
@@ -269,7 +264,7 @@ public class Controller implements Initializable {
         rowSize.setText(Integer.toString(analysisTData.size()) + " equipments are shown in the table.");
     }
 
-    public void airportCountryAnalysis() {
+    private void airportCountryAnalysis() {
         ObservableList<AnalysisTable> analysisTData = FXCollections.observableArrayList();
         ObservableMap<String, Integer> countAirport = FXCollections.observableHashMap();
         ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
@@ -313,9 +308,6 @@ public class Controller implements Initializable {
         ObservableList<AnalysisTable> analysisTData = FXCollections.observableArrayList();
         ObservableMap<String, Integer> countAirline = FXCollections.observableHashMap();
         ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
-//        xAxis.setLabel("Country");
-//        yAxis.setLabel("Value");
-
 
         for (AirlineTable airline : dataTabController.getAirlineAnchorController().getAirlineTData()) {
             if (countAirline.containsKey(airline.getRcountry())) {
@@ -353,6 +345,10 @@ public class Controller implements Initializable {
         rowSize.setText(Integer.toString(analysisTData.size()) + " countries are shown in the table.");
     }
 
+    /**
+     * Button action function when 'Get Analysis!' button is pressed.
+     *
+     */
     public void getAnalysis() {
         String country = countryDropdown.getSelectionModel().getSelectedItem().toString();
         if (analysisDropdown.getSelectionModel().getSelectedIndex() == 0) {
@@ -366,6 +362,10 @@ public class Controller implements Initializable {
         }
     }
 
+    /**
+     * Disables country dropdown when analysisDropdown is pressed.
+     *
+     */
     public void disableCountryDropdown() {
         if (analysisDropdown.getSelectionModel().getSelectedIndex() == 0) {
             selectCountryText.setDisable(false);
