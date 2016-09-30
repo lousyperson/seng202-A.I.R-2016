@@ -24,6 +24,7 @@
     var flightPath = [];
     var bounds = new google.maps.LatLngBounds();
     var routes = [];
+//    var markerCluster;
 
     function initMap() {
         map = new google.maps.Map(document.getElementById('map'), {
@@ -33,6 +34,7 @@
             streetViewControl: false
         });
         map.setOptions({ minZoom: 1, maxZoom: 15 });
+//        markerCluster = new MarkerClusterer(map);
     }
 
     function off() {
@@ -85,10 +87,10 @@
         path.setMap(map);
         markers[0].setMap(map);
         markers[markers.length - 1].setMap(map);
-        repositionMap(flightPath);
+        repositionMap();
     }
 
-    function repositionMap(flightPath) {
+    function repositionMap() {
         bounds = new google.maps.LatLngBounds(null);
         for (var i = 0; i < flightPath.length; i++) {
             bounds.extend(flightPath[i]);
@@ -109,6 +111,30 @@
         route.setMap(map);
     }
 
+    function makeOnePath(srcLat, srcLon, destLat, destLon) {
+        path = new google.maps.Polyline({
+            path: [{lat: srcLat, lng: srcLon}, {lat: destLat, lng: destLon}],
+            geodesic: true,
+            strokeColor: '#FF0000',
+            strokeOpacity: 1.0,
+            strokeWeight: 2
+        });
+        path.setMap(map);
+        coord = new google.maps.LatLng({lat: srcLat, lng: srcLon});
+        if (flightPath.indexOf(coord) == -1) {
+            flightPath.push(coord);
+        }
+        coord = new google.maps.LatLng({lat: destLat, lng: destLon});
+        if (flightPath.indexOf(coord) == -1) {
+            flightPath.push(coord);
+        }
+    }
+
+//    function mapClusterer() {
+//        markerCluster.clearMarkers();
+//        markerCluster.setMap(null);
+//        markerCluster = new MarkerClusterer(map, markers);
+//    }
 
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDveyGvSTsiUJK9jpfyBYYSvx0uUT9raWs&callback=initMap"

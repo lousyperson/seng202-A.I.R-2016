@@ -46,70 +46,151 @@
             <tabs>
                 <fx:include fx:id="dataTab" source="dataTab.fxml" text="Data View" />
                 <fx:include fx:id="flightTab" source="flightTab.fxml" text="Flight View" />
-                <fx:include fx:id="mapTab" source="mapTab.fxml" text="Map View" />
-            <Tab text="Analysis">
-               <content>
-                  <GridPane alignment="BASELINE_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
-                    <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="554.0" minWidth="10.0" prefWidth="520.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="409.0" />
-                    </columnConstraints>
-                    <rowConstraints>
-                      <RowConstraints fillHeight="false" maxHeight="279.0" minHeight="10.0" prefHeight="75.0" vgrow="NEVER" />
-                      <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-                      <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-                    </rowConstraints>
-                     <children>
-                        <PieChart fx:id="pieChart" minHeight="-Infinity" minWidth="-Infinity" prefHeight="386.0" prefWidth="135.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <Text fx:id="warningPieChart" fill="RED" strokeType="INSIDE" strokeWidth="0.0" text="Warning pie chart" visible="false" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-                        <TableView fx:id="airportsAndRoutes" maxWidth="539.0" prefHeight="450.0" prefWidth="539.0" GridPane.rowIndex="1">
-                          <columns>
-                            <TableColumn fx:id="column1" maxWidth="330.0" minWidth="100.0" prefWidth="296.0" text="Airport" />
-                            <TableColumn fx:id="airportCount" maxWidth="300.0" minWidth="100.0" prefWidth="242.0" sortType="DESCENDING" text="Number of Routes" />
-                          </columns>
-                           <GridPane.margin>
-                              <Insets bottom="10.0" left="10.0" top="10.0" />
-                           </GridPane.margin>
-                        </TableView>
-                        <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="2">
+                <Tab text="Map View 2">
+                    <content>
+                        <GridPane>
+                            <children>
+                        <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.rowIndex="3">
                            <children>
-                              <Text fx:id="warningBarChart" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="Warning bar chart" textAlignment="CENTER" visible="false" wrappingWidth="700.0" StackPane.alignment="CENTER" />
-                              <BarChart fx:id="barChart" prefHeight="400.0" prefWidth="1024.0">
-                                <xAxis>
-                                  <CategoryAxis side="BOTTOM" />
-                                </xAxis>
-                                <yAxis>
-                                  <NumberAxis side="LEFT" />
-                                </yAxis>
-                              </BarChart>
+                              <AnchorPane fx:id="mapRouteAnchor" prefHeight="200.0" prefWidth="200.0" visible="false">
+                                 <children>
+                                    <Text layoutX="5.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Search Airport" />
+                                    <TextField fx:id="mapAirportRouteSearch" layoutX="13.0" layoutY="54.0" prefHeight="25.0" prefWidth="194.0" promptText="IATA/ICAO/Airport name..." />
+                                    <Button layoutX="128.0" layoutY="88.0" mnemonicParsing="false" onAction="#airportRouteSearch" text="Search" />
+                                    <Text layoutX="13.0" layoutY="144.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Result" />
+                                    <ListView fx:id="mapAirportRouteList" layoutX="10.0" layoutY="166.0" prefHeight="174.0" prefWidth="200.0" />
+                                 </children>
+                              </AnchorPane>
+                                      <AnchorPane fx:id="mapAirportAnchor" maxWidth="220.0" minHeight="0.0" minWidth="0.0" prefHeight="486.0" prefWidth="220.0">
+                                          <children>
+                                              <ComboBox fx:id="mapAirportFilter" layoutX="9.0" layoutY="35.0" onAction="#showCountryAirports" prefWidth="200.0" promptText="--CHOOSE COUNTRIES--" />
+                                    <Text layoutX="14.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Filter Country:" />
+                                    <Text layoutX="14.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Search Airport" />
+                                    <TextField fx:id="mapAirportSearch" layoutX="14.0" layoutY="113.0" prefHeight="25.0" prefWidth="194.0" promptText="IATA/ICAO/Airport name..." />
+                                    <Text layoutX="14.0" layoutY="178.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Result" />
+                                    <ListView fx:id="mapAirportList" layoutX="10.0" layoutY="186.0" prefHeight="156.0" prefWidth="200.0" />
+                                    <Button layoutX="144.0" layoutY="149.0" mnemonicParsing="false" onAction="#airportSearch" text="Search" />
+                                          </children>
+                                      </AnchorPane>
                            </children>
                         </StackPane>
-                        <AnchorPane GridPane.columnSpan="2147483647">
-                           <children>
-                              <Text layoutX="38.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select analysis:" />
-                              <ComboBox fx:id="analysisDropdown" layoutX="154.0" layoutY="13.0" onAction="#disableCountryDropdown" prefHeight="25.0" prefWidth="237.0">
-                                 <cursor>
-                                    <Cursor fx:constant="HAND" />
-                                 </cursor>
-                              </ComboBox>
-                              <Button layoutX="821.0" layoutY="13.0" mnemonicParsing="false" onAction="#getAnalysis" text="Get Analysis!">
-                                 <cursor>
-                                    <Cursor fx:constant="HAND" />
-                                 </cursor>
-                              </Button>
-                              <ComboBox fx:id="countryDropdown" layoutX="568.0" layoutY="13.0" prefHeight="25.0" prefWidth="194.0">
-                                 <cursor>
-                                    <Cursor fx:constant="HAND" />
-                                 </cursor>
-                              </ComboBox>
-                              <Text fx:id="selectCountryText" layoutX="454.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select country:" />
-                              <Text fx:id="rowSize" layoutX="14.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="439.7294921875" />
-                           </children>
+                                <Accordion fx:id="mapViewAccord">
+                                    <panes>
+                                        <TitledPane fx:id="mapInstructions" animated="false" text="Map Instructions">
+                                            <content>
+                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                    <children>
+                                                        <TextArea editable="false" layoutX="-60.0" layoutY="-63.0" prefHeight="141.0" prefWidth="218.0" text="Please use arrow keys to move the map and scroll to zoom." wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                    </children>
+                                                </AnchorPane>
+                                            </content>
+                                        </TitledPane>
+                                    </panes>
+                                </Accordion>
+                                <SplitPane orientation="VERTICAL" prefHeight="317.0" prefWidth="221.0" GridPane.columnIndex="1" GridPane.columnSpan="6" GridPane.rowSpan="4">
+                                    <items>
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                                            <children>
+                                                <WebView fx:id="mapView" prefHeight="348.0" prefWidth="802.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                            </children>
+                                        </AnchorPane>
+                                    </items>
+                                </SplitPane>
+                                <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
+                                    <children>
+                                        <Button alignment="TOP_CENTER" contentDisplay="CENTER" layoutX="50.0" layoutY="16.0" mnemonicParsing="false" onAction="#refreshMap" prefHeight="25.0" prefWidth="120.0" text="Refresh Map" />
+                                    </children>
+                                </AnchorPane>
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
+                            <children>
+                                <ListView fx:id="viewSelect" layoutX="10.0" layoutY="36.0" prefHeight="99.0" prefWidth="200.0" />
+                                <Text layoutX="14.0" layoutY="24.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select a view type:" />
+                            </children>
                         </AnchorPane>
-                     </children>
-                  </GridPane>
-               </content>
-            </Tab>
+                            </children>
+                            <columnConstraints>
+                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="220.0" minWidth="10.0" prefWidth="220.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="311.0" minWidth="10.0" prefWidth="218.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="266.0" minWidth="10.0" prefWidth="168.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints maxHeight="181.60398864746094" minHeight="0.0" prefHeight="169.9619598388672" vgrow="SOMETIMES" />
+                                <RowConstraints maxHeight="320.78773498535156" minHeight="0.0" prefHeight="47.0" vgrow="SOMETIMES" />
+                                <RowConstraints maxHeight="398.2533874511719" minHeight="20.0" prefHeight="135.0" vgrow="SOMETIMES" />
+                                <RowConstraints maxHeight="358.0" minHeight="10.0" prefHeight="355.0" vgrow="SOMETIMES" />
+                        <RowConstraints />
+                            </rowConstraints>
+                        </GridPane>
+                    </content>
+                </Tab>
+                <Tab text="Analysis">
+                    <content>
+                        <GridPane alignment="BASELINE_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+                            <columnConstraints>
+                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="554.0" minWidth="10.0" prefWidth="520.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="409.0" />
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints fillHeight="false" maxHeight="279.0" minHeight="10.0" prefHeight="75.0" vgrow="NEVER" />
+                                <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                            </rowConstraints>
+                            <children>
+                                <PieChart fx:id="pieChart" minHeight="-Infinity" minWidth="-Infinity" prefHeight="386.0" prefWidth="135.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                <Text fx:id="warningPieChart" fill="RED" strokeType="INSIDE" strokeWidth="0.0" text="Warning pie chart" visible="false" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                                <TableView fx:id="airportsAndRoutes" maxWidth="539.0" prefHeight="450.0" prefWidth="539.0" GridPane.rowIndex="1">
+                                    <columns>
+                                        <TableColumn fx:id="column1" maxWidth="330.0" minWidth="100.0" prefWidth="296.0" text="Airport" />
+                                        <TableColumn fx:id="airportCount" maxWidth="300.0" minWidth="100.0" prefWidth="242.0" sortType="DESCENDING" text="Number of Routes" />
+                                    </columns>
+                                    <GridPane.margin>
+                                        <Insets bottom="10.0" left="10.0" top="10.0" />
+                                    </GridPane.margin>
+                                </TableView>
+                                <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="2">
+                                    <children>
+                                        <Text fx:id="warningBarChart" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="Warning bar chart" textAlignment="CENTER" visible="false" wrappingWidth="700.0" StackPane.alignment="CENTER" />
+                                        <BarChart fx:id="barChart" prefHeight="400.0" prefWidth="1024.0">
+                                            <xAxis>
+                                                <CategoryAxis side="BOTTOM" />
+                                            </xAxis>
+                                            <yAxis>
+                                                <NumberAxis side="LEFT" />
+                                            </yAxis>
+                                        </BarChart>
+                                    </children>
+                                </StackPane>
+                                <AnchorPane GridPane.columnSpan="2147483647">
+                                    <children>
+                                        <Text layoutX="38.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select analysis:" />
+                                        <ComboBox fx:id="analysisDropdown" layoutX="154.0" layoutY="13.0" onAction="#disableCountryDropdown" prefHeight="25.0" prefWidth="237.0">
+                                            <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                            </cursor>
+                                        </ComboBox>
+                                        <Button layoutX="821.0" layoutY="13.0" mnemonicParsing="false" onAction="#getAnalysis" text="Get Analysis!">
+                                            <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                            </cursor>
+                                        </Button>
+                                        <ComboBox fx:id="countryDropdown" layoutX="568.0" layoutY="13.0" prefHeight="25.0" prefWidth="194.0">
+                                            <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                            </cursor>
+                                        </ComboBox>
+                                        <Text fx:id="selectCountryText" layoutX="454.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select country:" />
+                                        <Text fx:id="rowSize" layoutX="14.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="439.7294921875" />
+                                    </children>
+                                </AnchorPane>
+                            </children>
+                        </GridPane>
+                    </content>
+                </Tab>
+                <fx:include fx:id="mapTab" source="mapTab.fxml" text="Map View" />
             </tabs>
         </TabPane>
     </center>

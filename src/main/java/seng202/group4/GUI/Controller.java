@@ -1,19 +1,28 @@
 package seng202.group4.GUI;
 
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.*;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
+import javafx.scene.web.WebView;
+import javafx.util.Callback;
 import seng202.group4.data.dataType.Airport;
+import seng202.group4.data.dataType.Route;
 import seng202.group4.data.repository.Repository;
 
 import java.net.URL;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 //import com.aquafx_project.AquaFx;
 
@@ -96,6 +105,43 @@ public class Controller implements Initializable {
     @FXML
     private Text rowSize;
 
+    // Map View
+    @FXML
+    private Accordion mapViewAccord;
+
+    @FXML
+    private TitledPane mapInstructions;
+
+    @FXML
+    private ListView<String> viewSelect;
+
+    @FXML
+    private AnchorPane mapAirportAnchor;
+
+    @FXML
+    private AnchorPane mapRouteAnchor;
+
+    @FXML
+    private ComboBox mapAirportFilter;
+
+    @FXML
+    private WebView mapView;
+
+    @FXML
+    private TextField mapAirportSearch;
+
+    @FXML
+    private ListView<String> mapAirportList;
+
+    @FXML
+    private TextField mapAirportRouteSearch;
+
+    @FXML
+    private ListView<String> mapAirportRouteList;
+
+    // Used in Map View
+    private TreeSet<String> mapCountrySet = new TreeSet();
+
     /**
      * Initializes the controller.
      *
@@ -119,6 +165,8 @@ public class Controller implements Initializable {
         countryDropdown.setDisable(true);
 
         updateCountryDropdown();
+
+        doMapViewThingy();  // Gonna be the map view initialiser
     }
 
     private void updateCountryDropdown() {
@@ -135,7 +183,7 @@ public class Controller implements Initializable {
             }
         }
 
-        // if the combo box doesn't have --ALL AIRPORT-- then add one
+        // if the combo box doesn't have --ALL COUNTRIES-- then add one
         if (!countryDropdown.getItems().contains("--ALL COUNTRIES--")) {
             countryDropdown.getItems().add("--ALL COUNTRIES--");
         }
@@ -380,6 +428,226 @@ public class Controller implements Initializable {
             selectCountryText.setDisable(true);
             countryDropdown.setDisable(true);
         }
+    }
+
+    private void doMapViewThingy() {  // Gonna be the map view initialiser
+        mapView.getEngine().load(getClass().getClassLoader().getResource("map.html").toExternalForm());
+        mapViewAccord.setExpandedPane(mapInstructions);
+
+        // selection listview
+        ObservableList<String> items = FXCollections.observableArrayList("Airports", "Airport routes");
+        viewSelect.setItems(items);
+        viewSelect.getSelectionModel().clearAndSelect(0);
+
+        viewSelect.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends String> ov, String old_val, String new_val) -> {
+            if (new_val.equals("Airports")) {
+                mapAirportAnchor.toFront();
+                mapAirportAnchor.setVisible(true);
+                mapRouteAnchor.setVisible(false);
+            } else if (new_val.equals("Airport routes")) {
+                mapRouteAnchor.toFront();
+                mapRouteAnchor.setVisible(true);
+                mapAirportAnchor.setVisible(false);
+            }
+        });
+
+        // populate airportCountrySet for combobox
+        HashMap<Integer, Airport> airports = Repository.airportRepository.getAirports();
+        if (airports != null) {
+            for (Airport airport : airports.values()) {
+                if (airport != null && airport.getCountry() != null) {
+                    mapCountrySet.add(airport.getCountry());
+                }
+            }
+        }
+
+        // if the combo box doesn't have --ALL AIRPORT-- then add one
+        if (!mapAirportFilter.getItems().contains("--ALL COUNTRIES--")) {
+            mapAirportFilter.getItems().add("--ALL COUNTRIES--");
+        }
+        // add countries from TreeSet as combobox options
+        Iterator<String> itr = mapCountrySet.iterator();
+        while (itr.hasNext()) {
+            mapAirportFilter.getItems().add(itr.next());
+        }
+        mapAirportFilter.getSelectionModel().select(0);
+
+        // listen to whats being selected in the mapAirportList
+        mapAirportList.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends String> ov,
+                                                                           String old_val, String new_val) -> {
+            if (new_val != null) {
+                // clear table and populate it again with what's selected
+                showAirport(new_val.toLowerCase());
+            }
+
+        });
+
+        // unselects upon clicking again
+//        mapAirportList.setCellFactory(new Callback<ListView<String>, ListCell<String>>() {
+//            @Override
+//            public ListCell<String> call(ListView<String> param) {
+//                ListView<String> row = new ListView<>();
+//                row.addEventFilter(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
+//                    @Override
+//                    public void handle(MouseEvent event) {
+//                        final int index = row.getSelectionModel().getSelectedIndex();
+//                        if (index >= 0 && index < mapAirportList.getItems().size() && mapAirportList.getSelectionModel().isSelected(index)  ) {
+//                            mapAirportList.getSelectionModel().clearSelection();
+//                            event.consume();
+//                        }
+//                        mapView.getEngine().executeScript("initMap()");
+//                    }
+//                });
+//                return null;
+//            }
+//        });
+
+        // listen to whats being selected in the mapAirportRouteList
+        mapAirportRouteList.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends String> ov,
+                                                                               String old_val, String new_val) -> {
+            if (new_val != null) {
+                // clear table and populate it again with what's selected
+                showRoutes(new_val.toLowerCase());
+            }
+
+        });
+
+    }
+
+    private void showAirport(String inputAirportString) {  // Reposition not quite right yet
+        Airport airport = Repository.airportRepository.getAirport(inputAirportString);
+        mapView.getEngine().executeScript("initMap()");
+        double lat = airport.getLatitude();
+        double lon = airport.getLongitude();
+        mapView.getEngine().executeScript("addFlight(" + lat + ", " + lon + ");");
+        mapView.getEngine().executeScript("repositionMap()");
+    }
+
+    public void airportSearch() {
+        // List View items
+        ObservableList<String> airportItems = FXCollections.observableArrayList();
+
+        HashMap<Integer, Airport> airports = Repository.airportRepository.getAirports();
+        String inputAirportString = mapAirportSearch.getText();
+        Pattern pattern = Pattern.compile(".*" + inputAirportString + ".*", Pattern.CASE_INSENSITIVE);
+
+        if (inputAirportString.length() > 4) {
+            updateMapAirportListString(airports, pattern, airportItems);  // Only string search for now
+        } else if (inputAirportString.length() > 3) {
+            updateMapAirportListString(airports, pattern, airportItems);
+//            updateMapAirportListIATA(airports, pattern, airportItems);
+        } else {
+            updateMapAirportListString(airports, pattern, airportItems);
+//            updateMapAirportListIATA(airports, pattern, airportItems);
+//            updateMapAirportListICAO(airports, pattern, airportItems);
+        }
+    }
+
+    private void updateMapAirportListString(HashMap<Integer, Airport> airports, Pattern pattern, ObservableList<String> airportItems) {
+        if (airports != null) {
+            for (Airport airport : airports.values()) {
+                Matcher matcher = pattern.matcher(airport.getName());
+                if (matcher.matches()) {
+                    airportItems.add(airport.getName());
+                    mapAirportList.setItems(airportItems);
+                }
+            }
+        }
+    }
+
+//    private void updateMapAirportListIATA(HashMap<Integer, Airport> airports, Pattern pattern, ObservableList<String> airportItems) {
+//        if (airports != null) {
+//            for (Airport airport : airports.values()) {
+//                Matcher matcher = pattern.matcher(airport.getName());
+//                if (matcher.matches()) {
+//                    airportItems.add(airport.getName());
+//                    mapAirportList.setItems(airportItems);
+//                }
+//            }
+//        }
+//    }
+//
+//    private void updateMapAirportListICAO(HashMap<Integer, Airport> airports, Pattern pattern, ObservableList<String> airportItems) {
+//        if (airports != null) {
+//            for (Airport airport : airports.values()) {
+//                Matcher matcher = pattern.matcher(airport.getName());
+//                if (matcher.matches()) {
+//                    airportItems.add(airport.getName());
+//                    mapAirportList.setItems(airportItems);
+//                }
+//            }
+//        }
+//    }
+
+    public void showCountryAirports() {
+        String country = mapAirportFilter.getSelectionModel().getSelectedItem().toString();
+        ArrayList<Airport> airports = Repository.airportRepository.getAirportsFromCountry(country);
+        mapView.getEngine().executeScript("initMap()");
+        for (Airport airport : airports) {
+            double lat = airport.getLatitude();
+            double lon = airport.getLongitude();
+            mapView.getEngine().executeScript("addFlight(" + lat + ", " + lon + ");");
+        }
+//        mapView.getEngine().executeScript("mapClusterer()");  // CATERPILLAR
+        mapView.getEngine().executeScript("repositionMap()");
+    }
+
+    public void airportRouteSearch() {
+        // List View items
+        ObservableList<String> airportItems = FXCollections.observableArrayList();
+
+        HashMap<Integer, Airport> airports = Repository.airportRepository.getAirports();
+        String inputAirportString = mapAirportRouteSearch.getText();
+        Pattern pattern = Pattern.compile(".*" + inputAirportString + ".*", Pattern.CASE_INSENSITIVE);
+
+        if (inputAirportString.length() > 4) {
+            updateMapAirportRouteListString(airports, pattern, airportItems);  // Only string search for now
+        } else if (inputAirportString.length() > 3) {
+            updateMapAirportRouteListString(airports, pattern, airportItems);
+//            updateMapAirportListIATA(airports, pattern, airportItems);
+        } else {
+            updateMapAirportRouteListString(airports, pattern, airportItems);
+//            updateMapAirportListIATA(airports, pattern, airportItems);
+//            updateMapAirportListICAO(airports, pattern, airportItems);
+        }
+    }
+
+    private void updateMapAirportRouteListString(HashMap<Integer, Airport> airports, Pattern pattern, ObservableList<String> airportItems) {
+        if (airports != null) {
+            for (Airport airport : airports.values()) {
+                Matcher matcher = pattern.matcher(airport.getName());
+                if (matcher.matches()) {
+                    airportItems.add(airport.getName());
+                    mapAirportRouteList.setItems(airportItems);
+                }
+            }
+        }
+    }
+
+    private void showRoutes(String inputAirportString) {
+        Airport aAirport = Repository.airportRepository.getAirport(inputAirportString);
+        Integer inputAirportID = aAirport.getID();
+        HashMap<String, Route> routes = Repository.routeRepository.getRoutes();
+        mapView.getEngine().executeScript("initMap()");
+        for (Route route : routes.values()) {
+            if (Objects.equals(route.getSrcAirportID(), inputAirportID)) {
+                int destID = route.getDestAirportID();
+                Airport airport = Repository.airportRepository.getAirports().get(destID);
+                double lat = airport.getLatitude();
+                double lon = airport.getLongitude();
+                mapView.getEngine().executeScript("makeOnePath(" + aAirport.getLatitude() + ", " + aAirport.getLongitude()
+                        + ", " + lat + ", " + lon + ");");
+            }
+        }
+        mapView.getEngine().executeScript("addFlight(" + aAirport.getLatitude() + ", " + aAirport.getLongitude() + ");");
+        mapView.getEngine().executeScript("repositionMap()");
+    }
+
+    /**
+     * Refresh map view
+     */
+    public void refreshMap() {
+        mapView.getEngine().load(getClass().getClassLoader().getResource("map.html").toExternalForm());
     }
 
 

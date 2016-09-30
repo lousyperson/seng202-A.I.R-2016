@@ -98,7 +98,6 @@ public class DataTabController implements Initializable{
                 airportAnchor.setVisible(false);
             }
             dataSelector.toFront();
-
         });
 
         // check if there is data in the tables

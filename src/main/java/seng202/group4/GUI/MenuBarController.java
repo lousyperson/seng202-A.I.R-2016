@@ -132,7 +132,7 @@ public class MenuBarController {
             fxml.setLocation(getClass().getClassLoader().getResource("help.fxml"));
             Parent root = fxml.load();
             Stage stage = new Stage();
-            stage.initModality(Modality.APPLICATION_MODAL);
+//            stage.initModality(Modality.APPLICATION_MODAL);
             stage.setResizable(false);
             stage.setTitle("Aviation Information Reader Help");
             stage.setScene(new Scene(root, 600, 400));

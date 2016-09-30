@@ -124,4 +124,18 @@ public class AirportRepository extends Repository implements Serializable {
         }
         return null;
     }
+
+    /**
+     * Returns airport given airport name in string.
+     * @param airportName String
+     * @return airport if it exists otherwise null
+     */
+    public Airport getAirport(String airportName) {
+        for (Airport airport : airports.values()) {
+            if (airport.getName().toLowerCase().equals(airportName)) {
+                return airport;
+            }
+        }
+        return null;
+    }
 }
