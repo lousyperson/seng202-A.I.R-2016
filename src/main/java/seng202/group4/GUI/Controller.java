@@ -439,16 +439,13 @@ public class Controller implements Initializable {
         mapViewAccord.setExpandedPane(mapInstructions);
 
         // retest
-        mapView.setOnMouseExited(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                mapView.getEngine().executeScript("off();");
-                System.out.println("off");            }
-        });        mapView.setOnMouseEntered(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                mapView.getEngine().executeScript("on();");
-                System.out.println("on");            }
+        mapView.setOnMouseExited(mouseEvent -> {
+            mapView.getEngine().executeScript("off();");
+            System.out.println("off");
+        });
+        mapView.setOnMouseEntered(mouseEvent -> {
+            mapView.getEngine().executeScript("on();");
+            System.out.println("on");
         });
 
         // selection listview
