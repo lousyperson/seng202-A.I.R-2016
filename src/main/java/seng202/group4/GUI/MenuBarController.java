@@ -5,6 +5,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import seng202.group4.App;
 
 import java.io.IOException;
 
@@ -132,10 +133,11 @@ public class MenuBarController {
             fxml.setLocation(getClass().getClassLoader().getResource("help.fxml"));
             Parent root = fxml.load();
             Stage stage = new Stage();
-//            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.initOwner(App.primaryStage);
+            stage.initModality(Modality.APPLICATION_MODAL);
             stage.setResizable(false);
             stage.setTitle("Aviation Information Reader Help");
-            stage.setScene(new Scene(root, 600, 400));
+            stage.setScene(new Scene(root, 743, 600));
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
