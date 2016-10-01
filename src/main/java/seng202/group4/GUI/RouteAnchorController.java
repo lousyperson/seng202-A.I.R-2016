@@ -18,6 +18,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBoxBuilder;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import seng202.group4.App;
 import seng202.group4.data.dataType.Route;
@@ -580,14 +581,8 @@ public class RouteAnchorController implements Initializable {
                 public Void call() {
                     // process long-running computation, data retrieval, etc...
                     clearRouteTable();
-                    InputStream file = getClass().getResourceAsStream("/routes.dat");
-                    if (file != null) {
-                        try {
-                            insertRouteTable(file);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
+                    Repository.routeRepository = (RouteRepository) Repository.deserializeObject("defaultRoute");
+                    loadSerializedRoute();
                     Repository.serializeObject(Repository.routeRepository, "route");
                     return null;
                 }
@@ -610,6 +605,8 @@ public class RouteAnchorController implements Initializable {
             hb.getChildren().addAll(label, pb, pin);
 
             Stage stage = new Stage();
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.initOwner(App.primaryStage);
             Scene scene = new Scene(VBoxBuilder.create()
                     .children(hb, text, toClose)
                     .alignment(Pos.CENTER)
