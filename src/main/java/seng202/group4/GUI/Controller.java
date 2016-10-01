@@ -438,6 +438,19 @@ public class Controller implements Initializable {
         mapView.getEngine().load(getClass().getClassLoader().getResource("map.html").toExternalForm());
         mapViewAccord.setExpandedPane(mapInstructions);
 
+        // retest
+        mapView.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                mapView.getEngine().executeScript("off();");
+                System.out.println("off");            }
+        });        mapView.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                mapView.getEngine().executeScript("on();");
+                System.out.println("on");            }
+        });
+
         // selection listview
         ObservableList<String> items = FXCollections.observableArrayList("Airports", "Airport routes");
         viewSelect.setItems(items);
