@@ -52,22 +52,22 @@
                             <children>
                                 <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.rowIndex="3">
                                     <children>
-                                        <AnchorPane fx:id="mapRouteAnchor" prefHeight="200.0" prefWidth="200.0" visible="false">
+                                        <AnchorPane fx:id="mapRouteAnchor" prefHeight="200.0" prefWidth="200.0">
                                             <children>
-                                                <Text layoutX="5.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Search Airport by Name" />
-                                                <TextField fx:id="mapAirportRouteSearch" layoutX="13.0" layoutY="54.0" prefHeight="25.0" prefWidth="194.0" promptText="Airport name..." />
-                                                <Button layoutX="128.0" layoutY="88.0" mnemonicParsing="false" onAction="#airportRouteSearch" text="Search" />
-                                                <Text layoutX="13.0" layoutY="144.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Result" />
-                                                <ListView fx:id="mapAirportRouteList" layoutX="10.0" layoutY="166.0" prefHeight="174.0" prefWidth="200.0" />
+                                                <Text layoutX="13.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Search Airport by Name" />
+                                                <TextField fx:id="mapAirportRouteSearch" layoutX="13.0" layoutY="36.0" prefHeight="25.0" prefWidth="194.0" promptText="Airport name..." />
+                                                <Button layoutX="144.0" layoutY="69.0" mnemonicParsing="false" onAction="#airportRouteSearch" text="Search" />
+                                                <Text layoutX="13.0" layoutY="104.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Result" />
+                                                <ListView fx:id="mapAirportRouteList" layoutX="10.0" layoutY="114.0" prefHeight="226.0" prefWidth="200.0" />
                                             </children>
                                         </AnchorPane>
-                                        <AnchorPane fx:id="mapAirportAnchor" maxWidth="220.0" minHeight="0.0" minWidth="0.0" prefHeight="486.0" prefWidth="220.0">
+                                        <AnchorPane fx:id="mapAirportAnchor" maxWidth="220.0" minHeight="0.0" minWidth="0.0" prefHeight="486.0" prefWidth="220.0" visible="false">
                                             <children>
                                                 <ComboBox fx:id="mapAirportFilter" layoutX="9.0" layoutY="35.0" onAction="#showCountryAirports" prefWidth="200.0" promptText="--CHOOSE COUNTRIES--" />
                                                 <Text layoutX="14.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Filter Country:" />
-                                                <Text layoutX="14.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Search Airport by Name" />
+                                                <Text layoutX="14.0" layoutY="104.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Search Airport by Name" />
                                                 <TextField fx:id="mapAirportSearch" layoutX="14.0" layoutY="113.0" prefHeight="25.0" prefWidth="194.0" promptText="Airport name..." />
-                                                <Text layoutX="14.0" layoutY="178.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Result" />
+                                                <Text layoutX="14.0" layoutY="179.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Result" />
                                                 <ListView fx:id="mapAirportList" layoutX="10.0" layoutY="186.0" prefHeight="156.0" prefWidth="200.0" />
                                                 <Button layoutX="144.0" layoutY="149.0" mnemonicParsing="false" onAction="#airportSearch" text="Search" />
                                             </children>
@@ -127,7 +127,7 @@
                         </GridPane>
                     </content>
                 </Tab>
-                <fx:include fx:id="analysisTab" source="analysisTab.fxml" text="Analysis"/>
+                <fx:include fx:id="analysisTab" source="analysisTab.fxml" text="Analysis" />
                 <!--<fx:include fx:id="mapTab" disable="true" source="mapTab.fxml" text="Map View" />-->
             </tabs>
         </TabPane>
