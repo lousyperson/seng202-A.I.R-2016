@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.group4.GUI.controller.OverrideDataController">
+  <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints maxHeight="262.0" minHeight="10.0" prefHeight="104.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="303.0" minHeight="10.0" prefHeight="86.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="213.0" minHeight="10.0" prefHeight="74.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+   <children>
+      <Button mnemonicParsing="false" onAction="#overrideData" text="Override Existing" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+      <Button mnemonicParsing="false" onAction="#ignoreData" prefHeight="25.0" prefWidth="131.0" text="Keep Existing" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+      <Button mnemonicParsing="false" onAction="#cancelData" prefHeight="25.0" prefWidth="131.0" text="Cancel Rest" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+      <CheckBox fx:id="doAllButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="191.0" text="Do this for all occurences" translateX="12.0" GridPane.columnSpan="2" GridPane.rowIndex="1" />
+      <Text fx:id="overrideMessage" strokeType="OUTSIDE" strokeWidth="0.0" text="Airline with ID 1 already exists" translateX="12.0" wrappingWidth="431.97705078125">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Text>
+   </children>
+</GridPane>
