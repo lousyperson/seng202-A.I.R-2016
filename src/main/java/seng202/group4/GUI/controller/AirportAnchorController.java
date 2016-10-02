@@ -252,7 +252,9 @@ public class AirportAnchorController implements Initializable{
                 airport.getTz());
         airportTData.add(airportDataEntry);
         airportTableMap.put(airport.getID(), airportDataEntry);
-        IATASet.add(airport.getIATA());
+        if (!(airport.getIATA() == null || airport.getIATA().equals(""))) {
+            IATASet.add(airport.getIATA());
+        }
         if (airport.getCountry() != null) {
             airportCountrySet.add(airport.getCountry());
         }
@@ -280,7 +282,7 @@ public class AirportAnchorController implements Initializable{
         ButtonResult buttonResult = null;
         for (Airport airport : airports) {
             if (!Repository.airportRepository.getAirports().containsKey(airport.getID()) &&
-                    (!IATASet.contains(airport.getIATA()) || airport.getIATA() == null || airport.getIATA().equals(""))) {
+                    (!IATASet.contains(airport.getIATA()))) {
                 addNewAirport(airport);
             } else {
                 // Override data option
@@ -290,7 +292,7 @@ public class AirportAnchorController implements Initializable{
                     if (!Repository.airportRepository.getAirports().containsKey(airport.getID())) {
                         // Not clashing ID => only IATA clashing
                         buttonResult = dataOverridePopup(airport.getIATA());
-                    } else if (!IATASet.contains(airport.getIATA()) || airport.getIATA() == null || airport.getIATA().equals("")) {
+                    } else if (!IATASet.contains(airport.getIATA())) {
                         // Not clashing IATA => only ID clashing
                         buttonResult = dataOverridePopup(airport.getID());
                     } else {
