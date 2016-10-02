@@ -267,8 +267,19 @@
         }
 
         for (var i = 0, size; size = this.sizes[i]; i++) {
+            if (i == 0) {
+                clusterImgURL = 'https://raw.githubusercontent.com/googlemaps/v3-utility-library/master/markerclustererplus/images/m1.png';
+            } else if (i == 1) {
+                clusterImgURL = 'https://raw.githubusercontent.com/googlemaps/v3-utility-library/master/markerclustererplus/images/m2.png';
+            } else if (i == 2) {
+                clusterImgURL = 'https://raw.githubusercontent.com/googlemaps/v3-utility-library/master/markerclustererplus/images/m3.png';
+            } else if (i == 3) {
+                clusterImgURL = 'https://raw.githubusercontent.com/googlemaps/v3-utility-library/master/markerclustererplus/images/m4.png';
+            } else if (i == 4) {
+                clusterImgURL = 'https://raw.githubusercontent.com/googlemaps/v3-utility-library/master/markerclustererplus/images/m5.png';
+            }
             this.styles_.push({
-                url: this.imagePath_ + (i + 1) + '.' + this.imageExtension_,
+                url: clusterImgURL,
                 height: size,
                 width: size
             });
@@ -1462,10 +1473,10 @@
     }
 
     function mapClusterer() {
-        var myOptions = {
-            imagePath: 'images/m'
-        };
-        myMarkerCluster = new MarkerClusterer(myMap, myMarkers, myOptions);
+        <!--var myOptions = {-->
+            <!--imagePath: 'images/m'-->
+        <!--};-->
+        myMarkerCluster = new MarkerClusterer(myMap, myMarkers);
     }
 </script>
 <!--<script src="map.js"></script>-->
