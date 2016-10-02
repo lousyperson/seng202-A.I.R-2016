@@ -80,7 +80,7 @@
                                             <content>
                                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                                     <children>
-                                                        <TextArea editable="false" layoutX="-60.0" layoutY="-63.0" prefHeight="141.0" prefWidth="218.0" text="Please use arrow keys to move the map and scroll to zoom." wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                        <TextArea editable="false" layoutX="10.0" layoutY="10.0" prefHeight="124.0" prefWidth="200.0" text="Please use arrow keys or click and drag to move the map and scroll wheel to zoom." wrapText="true" />
                                                     </children>
                                                 </AnchorPane>
                                             </content>
@@ -190,7 +190,7 @@
                         </GridPane>
                     </content>
                 </Tab>
-                <fx:include fx:id="mapTab" disable="true" source="mapTab.fxml" text="Map View" />
+                <!--<fx:include fx:id="mapTab" disable="true" source="mapTab.fxml" text="Map View" />-->
             </tabs>
         </TabPane>
     </center>
