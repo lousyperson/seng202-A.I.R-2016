@@ -57,7 +57,7 @@ public class AirportAnchorController implements Initializable{
     private TextField calcdDistance;
 
     @FXML
-    private Button calc;
+    private Button createFlightButton;
 
     @FXML
     private TableColumn<AirportTable, String> apid;
@@ -170,12 +170,14 @@ public class AirportAnchorController implements Initializable{
                 pointALat = row.getItem().getAtlatitude();
                 pointALon = row.getItem().getAtlongitude();
                 pointAICAO = row.getItem().getAticao();
+                calcDistance();
             });
             addB.setOnAction(event -> {
                 airportB.setText(row.getItem().getAtname());
                 pointBLat = row.getItem().getAtlatitude();
                 pointBLon = row.getItem().getAtlongitude();
                 pointBICAO = row.getItem().getAticao();
+                calcDistance();
             });
             removeItem.setOnAction(event -> {
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -384,6 +386,7 @@ public class AirportAnchorController implements Initializable{
     public void calcDistance() {
         if (pointALat != null && pointALon != null &&
                 pointBLat != null && pointBLon != null) {
+            createFlightButton.setDisable(false);
             String distanceText = AirportRepository.calculateDistance(pointALat, pointALon, pointBLat, pointBLon);
             calcdDistance.setText(distanceText);
         }
