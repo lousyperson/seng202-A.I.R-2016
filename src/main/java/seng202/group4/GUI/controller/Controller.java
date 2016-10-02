@@ -331,8 +331,8 @@ public class Controller implements Initializable {
         }
 
         for (String key : countAirport.keySet()) {
-                analysisTData.add(new AnalysisTable(key, countAirport.get(key)));
-                pieChartData.add(new PieChart.Data(key, countAirport.get(key)));
+            analysisTData.add(new AnalysisTable(key, countAirport.get(key)));
+            pieChartData.add(new PieChart.Data(key, countAirport.get(key)));
         }
 
         column1.setCellValueFactory(new PropertyValueFactory<>("column1"));
@@ -494,7 +494,7 @@ public class Controller implements Initializable {
 
         // listen to whats being selected in the mapAirportList
         mapAirportList.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends String> ov,
-                                                                           String old_val, String new_val) -> {
+                                                                               String old_val, String new_val) -> {
             if (new_val != null) {
                 // clear table and populate it again with what's selected
                 showAirport(new_val.toLowerCase());
@@ -516,7 +516,7 @@ public class Controller implements Initializable {
 
         // listen to whats being selected in the mapAirportRouteList
         mapAirportRouteList.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends String> ov,
-                                                                               String old_val, String new_val) -> {
+                                                                                    String old_val, String new_val) -> {
             if (new_val != null) {
                 // clear table and populate it again with what's selected
                 showRoutes(new_val.toLowerCase());

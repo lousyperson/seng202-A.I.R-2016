@@ -7,6 +7,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TitledPane;
 import javafx.scene.web.WebView;
+import seng202.group4.GUI.controller.Controller;
 import seng202.group4.data.dataType.Airport;
 import seng202.group4.data.dataType.Route;
 import seng202.group4.data.repository.Repository;

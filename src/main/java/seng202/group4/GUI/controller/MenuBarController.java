@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import seng202.group4.App;
+import seng202.group4.GUI.controller.Controller;
 
 import java.io.IOException;
 

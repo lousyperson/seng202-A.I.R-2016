@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import seng202.group4.GUI.controller.Controller;
 import seng202.group4.data.repository.Repository;
 
 import java.net.URL;

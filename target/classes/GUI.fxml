@@ -50,30 +50,30 @@
                     <content>
                         <GridPane>
                             <children>
-                        <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.rowIndex="3">
-                           <children>
-                              <AnchorPane fx:id="mapRouteAnchor" prefHeight="200.0" prefWidth="200.0" visible="false">
-                                 <children>
-                                    <Text layoutX="5.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Search Airport by Name" />
-                                    <TextField fx:id="mapAirportRouteSearch" layoutX="13.0" layoutY="54.0" prefHeight="25.0" prefWidth="194.0" promptText="Airport name..." />
-                                    <Button layoutX="128.0" layoutY="88.0" mnemonicParsing="false" onAction="#airportRouteSearch" text="Search" />
-                                    <Text layoutX="13.0" layoutY="144.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Result" />
-                                    <ListView fx:id="mapAirportRouteList" layoutX="10.0" layoutY="166.0" prefHeight="174.0" prefWidth="200.0" />
-                                 </children>
-                              </AnchorPane>
-                                      <AnchorPane fx:id="mapAirportAnchor" maxWidth="220.0" minHeight="0.0" minWidth="0.0" prefHeight="486.0" prefWidth="220.0">
-                                          <children>
-                                              <ComboBox fx:id="mapAirportFilter" layoutX="9.0" layoutY="35.0" onAction="#showCountryAirports" prefWidth="200.0" promptText="--CHOOSE COUNTRIES--" />
-                                    <Text layoutX="14.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Filter Country:" />
-                                    <Text layoutX="14.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Search Airport by Name" />
-                                    <TextField fx:id="mapAirportSearch" layoutX="14.0" layoutY="113.0" prefHeight="25.0" prefWidth="194.0" promptText="Airport name..." />
-                                    <Text layoutX="14.0" layoutY="178.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Result" />
-                                    <ListView fx:id="mapAirportList" layoutX="10.0" layoutY="186.0" prefHeight="156.0" prefWidth="200.0" />
-                                    <Button layoutX="144.0" layoutY="149.0" mnemonicParsing="false" onAction="#airportSearch" text="Search" />
-                                          </children>
-                                      </AnchorPane>
-                           </children>
-                        </StackPane>
+                                <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.rowIndex="3">
+                                    <children>
+                                        <AnchorPane fx:id="mapRouteAnchor" prefHeight="200.0" prefWidth="200.0" visible="false">
+                                            <children>
+                                                <Text layoutX="5.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Search Airport by Name" />
+                                                <TextField fx:id="mapAirportRouteSearch" layoutX="13.0" layoutY="54.0" prefHeight="25.0" prefWidth="194.0" promptText="Airport name..." />
+                                                <Button layoutX="128.0" layoutY="88.0" mnemonicParsing="false" onAction="#airportRouteSearch" text="Search" />
+                                                <Text layoutX="13.0" layoutY="144.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Result" />
+                                                <ListView fx:id="mapAirportRouteList" layoutX="10.0" layoutY="166.0" prefHeight="174.0" prefWidth="200.0" />
+                                            </children>
+                                        </AnchorPane>
+                                        <AnchorPane fx:id="mapAirportAnchor" maxWidth="220.0" minHeight="0.0" minWidth="0.0" prefHeight="486.0" prefWidth="220.0">
+                                            <children>
+                                                <ComboBox fx:id="mapAirportFilter" layoutX="9.0" layoutY="35.0" onAction="#showCountryAirports" prefWidth="200.0" promptText="--CHOOSE COUNTRIES--" />
+                                                <Text layoutX="14.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Filter Country:" />
+                                                <Text layoutX="14.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Search Airport by Name" />
+                                                <TextField fx:id="mapAirportSearch" layoutX="14.0" layoutY="113.0" prefHeight="25.0" prefWidth="194.0" promptText="Airport name..." />
+                                                <Text layoutX="14.0" layoutY="178.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Result" />
+                                                <ListView fx:id="mapAirportList" layoutX="10.0" layoutY="186.0" prefHeight="156.0" prefWidth="200.0" />
+                                                <Button layoutX="144.0" layoutY="149.0" mnemonicParsing="false" onAction="#airportSearch" text="Search" />
+                                            </children>
+                                        </AnchorPane>
+                                    </children>
+                                </StackPane>
                                 <Accordion fx:id="mapViewAccord">
                                     <panes>
                                         <TitledPane fx:id="mapInstructions" animated="false" text="Map Instructions">
@@ -101,12 +101,12 @@
                                         <Button alignment="TOP_CENTER" contentDisplay="CENTER" layoutX="50.0" layoutY="16.0" mnemonicParsing="false" onAction="#refreshMap" prefHeight="25.0" prefWidth="120.0" text="Refresh Map" />
                                     </children>
                                 </AnchorPane>
-                        <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
-                            <children>
-                                <ListView fx:id="viewSelect" layoutX="10.0" layoutY="36.0" prefHeight="99.0" prefWidth="200.0" />
-                                <Text layoutX="14.0" layoutY="24.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select a view type:" />
-                            </children>
-                        </AnchorPane>
+                                <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
+                                    <children>
+                                        <ListView fx:id="viewSelect" layoutX="10.0" layoutY="36.0" prefHeight="99.0" prefWidth="200.0" />
+                                        <Text layoutX="14.0" layoutY="24.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select a view type:" />
+                                    </children>
+                                </AnchorPane>
                             </children>
                             <columnConstraints>
                                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="220.0" minWidth="10.0" prefWidth="220.0" />
@@ -122,7 +122,7 @@
                                 <RowConstraints maxHeight="320.78773498535156" minHeight="0.0" prefHeight="47.0" vgrow="SOMETIMES" />
                                 <RowConstraints maxHeight="398.2533874511719" minHeight="20.0" prefHeight="135.0" vgrow="SOMETIMES" />
                                 <RowConstraints maxHeight="358.0" minHeight="10.0" prefHeight="355.0" vgrow="SOMETIMES" />
-                        <RowConstraints />
+                                <RowConstraints />
                             </rowConstraints>
                         </GridPane>
                     </content>

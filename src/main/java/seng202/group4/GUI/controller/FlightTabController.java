@@ -10,6 +10,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.web.WebView;
 import javafx.stage.FileChooser;
 import seng202.group4.App;
+import seng202.group4.GUI.controller.Controller;
 import seng202.group4.GUI.table.FlightTable;
 import seng202.group4.data.dataType.Flight;
 import seng202.group4.data.dataType.FlightPosition;
