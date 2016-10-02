@@ -2,8 +2,6 @@ A.I.R. - AVIATION INFORMATION READER
 ---
 SENG202 Project 2016
 
-*Please go to __insert link here__ to import the project.*
-
 How to run Aviation Information Reader:
 ---
 The application can be run from the JAR file seng202-project-1.0-SNAPSHOT.jar.
