@@ -93,13 +93,13 @@ public class MapTabController implements Initializable{
         mapView.getEngine().load(getClass().getClassLoader().getResource("map.html").toExternalForm());
         mapViewAccord.setExpandedPane(mapInstructions);
 
-        // retest
-        mapView.setOnMouseExited(mouseEvent -> {
-            mapView.getEngine().executeScript("off();");
-        });
-        mapView.setOnMouseEntered(mouseEvent -> {
-            mapView.getEngine().executeScript("on();");
-        });
+        // draggable on and off
+//        mapView.setOnMouseExited(mouseEvent -> {
+//            mapView.getEngine().executeScript("off();");
+//        });
+//        mapView.setOnMouseEntered(mouseEvent -> {
+//            mapView.getEngine().executeScript("on();");
+//        });
 
         // selection listview
         ObservableList<String> items = FXCollections.observableArrayList("Airports", "Airport routes");
