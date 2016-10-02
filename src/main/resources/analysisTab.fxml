@@ -77,8 +77,8 @@
                 </StackPane>
                 <AnchorPane GridPane.columnSpan="2147483647">
                     <children>
-                        <Text layoutX="38.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select analysis:" />
-                        <ComboBox fx:id="analysisDropdown" layoutX="154.0" layoutY="13.0" onAction="#disableCountryDropdown" prefHeight="25.0" prefWidth="237.0">
+                        <Text layoutX="30.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please select analysis:" />
+                        <ComboBox fx:id="analysisDropdown" layoutX="184.0" layoutY="13.0" onAction="#disableCountryDropdown" prefHeight="25.0" prefWidth="237.0">
                             <cursor>
                                 <Cursor fx:constant="HAND" />
                             </cursor>
