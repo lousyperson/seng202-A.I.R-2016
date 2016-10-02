@@ -348,6 +348,7 @@ public class AirlineAnchorController implements Initializable{
 
     private void clearAirlineTable() {
         airlineTData.clear();
+        airlineTableMap = new HashMap<>();
         Repository.airlineRepository = new AirlineRepository();
     }
 
