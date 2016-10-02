@@ -93,8 +93,6 @@ public class AirlineAnchorController implements Initializable{
     // airlineCountrySet holds all the countries uploaded to airline
     private TreeSet airlineCountrySet = new TreeSet();
 
-
-
     /**
      * Where the program starts, initializes things like listeners and starts running the GUI.
      *
@@ -135,12 +133,10 @@ public class AirlineAnchorController implements Initializable{
 
         // enable deleting on table
         enableDeleteAirlines();
-
-
     }
 
     /**
-     * Sets the main controller and retrieves variables from other controllers
+     * Sets the main controller and retrieves variables from other controllers.
      *
      * @param controller Controller
      */
@@ -186,7 +182,6 @@ public class AirlineAnchorController implements Initializable{
         String text = airlineSearch.getText();
         airlineSearch.setText(text + " ");
         airlineSearch.setText(text);
-
     }
 
     /**
@@ -218,7 +213,7 @@ public class AirlineAnchorController implements Initializable{
 
 
     /**
-     * Allows the user to load airline data from a file
+     * Allows the user to load airline data from a file.
      *
      * @throws IOException throws IOException error
      */
@@ -302,7 +297,8 @@ public class AirlineAnchorController implements Initializable{
     }
 
     /**
-     * Clears the airline table and AirlineRepository then replaces them with the default airlines
+     * Clears the airline table and AirlineRepository then replaces them with the default airlines.
+     *
      * @throws IOException when default airline file cannot be read
      */
     public void resetAirline() throws IOException {
@@ -316,8 +312,9 @@ public class AirlineAnchorController implements Initializable{
             Repository.serializeObject(Repository.airlineRepository, "airline");
         }
     }
+
     /**
-     * Clears the airline table and AirlineRepository
+     * Clears the airline table and AirlineRepository.
      */
     public void deleteAllAirlines() {
         boolean result = mainController.deleteAllConformation();
@@ -454,4 +451,5 @@ public class AirlineAnchorController implements Initializable{
     public ObservableList<AirlineTable> getAirlineTData() {
         return airlineTData;
     }
+
 }

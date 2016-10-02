@@ -119,7 +119,7 @@ public class RouteAnchorController implements Initializable {
     private ObservableList<RouteTable> routeTData = FXCollections.observableArrayList();
 
     /**
-     * Sets the main controller and retrieves private variables from the main controller
+     * Sets the main controller and retrieves private variables from the main controller.
      *
      * @param controller Controller
      */
@@ -167,7 +167,6 @@ public class RouteAnchorController implements Initializable {
 
         // listen for route search queries
         searchRoutes();
-
     }
 
 
@@ -222,7 +221,7 @@ public class RouteAnchorController implements Initializable {
     }
 
     /**
-     * Allows the user to load route data from a file
+     * Allows the user to load route data from a file.
      *
      * @throws IOException throws IOException error
      */
@@ -237,7 +236,8 @@ public class RouteAnchorController implements Initializable {
         }
     }
 
-    /**Insert the routes in a given file into the route table GUI checking for duplicates
+    /**
+     * Insert the routes in a given file into the route table GUI checking for duplicates.
      *
      * @param file InputStream
      * @throws IOException throws IOException error
@@ -288,7 +288,6 @@ public class RouteAnchorController implements Initializable {
                 //updateMapCountryBox(); // add this back once mapp allgood
             }
         }
-
     }
 
     private void duplicateAlert(String message) {
@@ -423,7 +422,6 @@ public class RouteAnchorController implements Initializable {
                 }
                 return false;   // does not match
             });
-
         });
 
         // Wrap the filtered list in a SortedList
@@ -434,7 +432,6 @@ public class RouteAnchorController implements Initializable {
 
         // Add sorted (and filtered) data to the table
         routeTableID.setItems(routeTableSorted);
-
     }
 
 
@@ -442,6 +439,7 @@ public class RouteAnchorController implements Initializable {
                                        String selectedRouteEquip, String selectedDepartCountry,
                                        String selectedDestCountry, List<String> rtEquipmentArray,
                                        String rtDestAirportId, String rtSrcAirportId) {
+
         // empty cases when no filters are selected
         if ((emptyEquipFilter && emptyDepartFilter && emptyDestFilter) || (selectedRouteEquip != null
                 && selectedRouteEquip.equals(allEquipmentsTag) && selectedDepartCountry != null &&
@@ -461,6 +459,7 @@ public class RouteAnchorController implements Initializable {
                 return true;
             }
         }
+
         // filter only destination country
         else if (((emptyEquipFilter && emptyDepartFilter) || (selectedRouteEquip != null
                 && selectedRouteEquip.equals(allEquipmentsTag) && selectedDepartCountry != null &&
@@ -473,6 +472,7 @@ public class RouteAnchorController implements Initializable {
                 return true;
             }
         }
+
         // filter only departure country
         else if (((emptyEquipFilter && emptyDestFilter) || (selectedRouteEquip != null
                 && selectedRouteEquip.equals(allEquipmentsTag) && selectedDestCountry != null &&
@@ -505,6 +505,7 @@ public class RouteAnchorController implements Initializable {
                 return true;
             }
         }
+
         //filter equipment and departure country
         else if ((emptyDestFilter || (selectedDestCountry != null &&
                 selectedDestCountry.equals(destinationCountryTag))) && selectedDepartCountry != null &&
@@ -523,6 +524,7 @@ public class RouteAnchorController implements Initializable {
                 return true;
             }
         }
+
         //filter departure country and destination country
         else if ((emptyEquipFilter || (selectedRouteEquip != null &&
                 selectedRouteEquip.equals(allEquipmentsTag))) && selectedDepartCountry != null &&
@@ -560,7 +562,8 @@ public class RouteAnchorController implements Initializable {
     }
 
     /**
-     * Clears the route table and routeRepository then replaces them with the default routes
+     * Clears the route table and routeRepository then replaces them with the default routes.
+     *
      * @throws IOException when default route file cannot be read
      */
     public void resetRoute() throws IOException {
@@ -624,7 +627,7 @@ public class RouteAnchorController implements Initializable {
     }
 
     /**
-     * Clears the route table and routeRepository
+     * Clears the route table and routeRepository.
      */
     public void deleteAllRoutes() {
         boolean result = mainController.deleteAllConformation();
@@ -633,7 +636,6 @@ public class RouteAnchorController implements Initializable {
             Repository.serializeObject(Repository.routeRepository, "route");
         }
     }
-
 
     // Compare routes, return true if the routes are different otherwise false
     private boolean diffRoutes(Route route) {
@@ -660,7 +662,6 @@ public class RouteAnchorController implements Initializable {
             }
         }
     }
-
 
     // insert the given routes in a file into route table that's empty so dont check for duplicates
     private void insertEmptyRouteTable(InputStream file) throws IOException {
@@ -702,8 +703,6 @@ public class RouteAnchorController implements Initializable {
             updateDepCountryBox();
             updateDestCountryBox();
         }
-
-
     }
 
     private void loadSerializedRoute() {
@@ -773,7 +772,6 @@ public class RouteAnchorController implements Initializable {
         String text = routeSearch.getText();
         routeSearch.setText(text + " ");
         routeSearch.setText(text);
-
     }
     /**
      * Allows the user to select the direct flight filter option.

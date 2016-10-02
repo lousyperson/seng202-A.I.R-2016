@@ -68,7 +68,7 @@ public class MapTabController implements Initializable{
 
 
     /**
-     * Sets the main controller
+     * Sets the main controller.
      *
      * @param controller Controller
      */
@@ -88,7 +88,7 @@ public class MapTabController implements Initializable{
 
 
     /**
-     *  Map view initialiser
+     *  Map view initializer.
      */
     private void initialiseMap() {
         mapView.getEngine().load(getClass().getClassLoader().getResource("map.html").toExternalForm());
@@ -152,7 +152,6 @@ public class MapTabController implements Initializable{
                 // clear table and populate it again with what's selected
                 showAirport(new_val.toLowerCase());
             }
-
         });
 
         // unselects upon clicking again
@@ -174,7 +173,6 @@ public class MapTabController implements Initializable{
                 // clear table and populate it again with what's selected
                 showRoutes(new_val.toLowerCase());
             }
-
         });
 
         // unselects upon clicking again
@@ -188,7 +186,6 @@ public class MapTabController implements Initializable{
                 mapAirportRouteListIndex = index;
             }
         });
-
     }
 
     private void showAirport(String inputAirportString) {  // Reposition not quite right yet
@@ -200,6 +197,9 @@ public class MapTabController implements Initializable{
         mapView.getEngine().executeScript("repositionMap()");
     }
 
+    /**
+     * Reads text from mapAirportSearch and finds the matching airports then updates mapAirportList with the airports found.
+     */
     public void airportSearch() {
         HashMap<Integer, Airport> airports = Repository.airportRepository.getAirports();
         String inputAirportString = mapAirportSearch.getText();
@@ -256,6 +256,9 @@ public class MapTabController implements Initializable{
 //        }
 //    }
 
+    /**
+     * Updates Map View with every airports in the country selected.
+     */
     public void showCountryAirports() {
         String country = mapAirportFilter.getSelectionModel().getSelectedItem().toString();  // Not yet check for all countries
         mapView.getEngine().executeScript("initMap()");
@@ -290,6 +293,9 @@ public class MapTabController implements Initializable{
         }
     }
 
+    /**
+     * Reads text from mapAirportRouteSearch and finds the matching airports then updates mapAirportRouteList with the airports found.
+     */
     public void airportRouteSearch() {
         HashMap<Integer, Airport> airports = Repository.airportRepository.getAirports();
         String inputAirportString = mapAirportRouteSearch.getText();
@@ -342,12 +348,10 @@ public class MapTabController implements Initializable{
     }
 
     /**
-     * Refresh map view
+     * Refresh map view.
      */
     public void refreshMap() {
         mapView.getEngine().load(getClass().getClassLoader().getResource("map.html").toExternalForm());
     }
-
-
 
 }

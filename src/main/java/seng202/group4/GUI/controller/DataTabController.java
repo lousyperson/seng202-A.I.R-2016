@@ -106,7 +106,7 @@ public class DataTabController implements Initializable{
     }
 
     /**
-     * Sets the main controller and retrieves private variables from the main controller
+     * Sets the main controller and retrieves private variables from the main controller.
      *
      * @param controller Controller
      */
@@ -162,6 +162,7 @@ public class DataTabController implements Initializable{
 
     /**
      * Calls the dialog box to confirm that the user wants to reset their selected data type.
+     *
      * @return true if they select OK otherwise false
      */
     public boolean resetConformation() {
@@ -181,6 +182,7 @@ public class DataTabController implements Initializable{
 
     /**
      * Calls the dialog box to confirm that the user wants to delete their selected data type.
+     *
      * @return true if they select OK otherwise false
      */
     public boolean deleteAllConformation() {
@@ -199,7 +201,8 @@ public class DataTabController implements Initializable{
     }
 
     /**
-     * Getter for airline label
+     * Getter for airline label.
+     *
      * @return String
      */
     public String getAirlineLabel() {
@@ -207,7 +210,8 @@ public class DataTabController implements Initializable{
     }
 
     /**
-     * Getter for airport label
+     * Getter for airport label.
+     *
      * @return String
      */
     public String getAirportLabel() {
@@ -215,7 +219,8 @@ public class DataTabController implements Initializable{
     }
 
     /**
-     * Getter for route label
+     * Getter for route label.
+     *
      * @return String
      */
     public String getRouteLabel() {
@@ -223,7 +228,8 @@ public class DataTabController implements Initializable{
     }
 
     /**
-     * Getter for all countries tag
+     * Getter for all countries tag.
+     *
      * @return String
      */
     public String getAllCountriesTag() {
@@ -231,7 +237,8 @@ public class DataTabController implements Initializable{
     }
 
     /**
-     * Getter for airlineAnchorController
+     * Getter for airlineAnchorController.
+     *
      * @return AirlineAnchorController
      */
     public AirlineAnchorController getAirlineAnchorController() {
@@ -239,7 +246,8 @@ public class DataTabController implements Initializable{
     }
 
     /**
-     * Getter for airportAnchorController
+     * Getter for airportAnchorController.
+     *
      * @return AirportAnchorController
      */
     public AirportAnchorController getAirportAnchorController() {
@@ -247,7 +255,8 @@ public class DataTabController implements Initializable{
     }
 
     /**
-     * Getter for routeAnchorController
+     * Getter for routeAnchorController.
+     *
      * @return RouteAnchorController
      */
     public RouteAnchorController getRouteAnchorController() {
@@ -255,12 +264,12 @@ public class DataTabController implements Initializable{
     }
 
     /**
-     * Getter for flightTabController
+     * Getter for flightTabController.
+     *
      * @return FlightTabController
      */
     public FlightTabController getFlightTabController() {
         return flightTabController;
     }
-
 
 }

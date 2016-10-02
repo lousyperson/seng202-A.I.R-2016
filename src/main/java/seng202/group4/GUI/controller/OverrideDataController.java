@@ -26,6 +26,12 @@ public class OverrideDataController {
     private ButtonResult result;
     private Stage stage;
 
+    /**
+     * Shows a popup menu for overriding data when ID clashes.
+     *
+     * @param message
+     * @return ButtonResult
+     */
     public static ButtonResult getPopUpResult(String message) {
         try {
             FXMLLoader fxml = new FXMLLoader();
@@ -45,6 +51,9 @@ public class OverrideDataController {
         }
     }
 
+    /**
+     * Overrides the old data with current clashing data.
+     */
     public void overrideData() {
         if (doAllButton.isSelected()) {
             this.result = ButtonResult.OVERRIDEALL;
@@ -54,6 +63,9 @@ public class OverrideDataController {
         stage.close();
     }
 
+    /**
+     * Ignores the current clashing data and retains the old data.
+     */
     public void ignoreData() {
         if (doAllButton.isSelected()) {
             this.result = ButtonResult.IGNOREALL;
@@ -63,6 +75,9 @@ public class OverrideDataController {
         stage.close();
     }
 
+    /**
+     * Cancels the check and closes the popup.
+     */
     public void cancelData() {
         this.result = ButtonResult.CANCEL;
         stage.close();

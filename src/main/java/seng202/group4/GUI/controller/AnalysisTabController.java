@@ -71,10 +71,6 @@ public class AnalysisTabController implements Initializable{
     // Used in flightAnalysis
     private TreeSet<String> airportCountrySet = new TreeSet();
 
-    public Controller getMainController() {
-        return mainController;
-    }
-
     /**
      * Initializes the controller.
      *
@@ -97,7 +93,7 @@ public class AnalysisTabController implements Initializable{
     }
 
     /**
-     * Sets the main controller and retrieves private variables from the main controller
+     * Sets the main controller and retrieves private variables from the main controller.
      *
      * @param controller Controller
      */
@@ -332,7 +328,6 @@ public class AnalysisTabController implements Initializable{
 
     /**
      * Button action function when 'Get Analysis!' button is pressed.
-     *
      */
     public void getAnalysis() {
         String country = countryDropdown.getSelectionModel().getSelectedItem().toString();
@@ -349,7 +344,6 @@ public class AnalysisTabController implements Initializable{
 
     /**
      * Disables country dropdown when analysisDropdown is pressed.
-     *
      */
     public void disableCountryDropdown() {
         if (analysisDropdown.getSelectionModel().getSelectedIndex() == 0) {

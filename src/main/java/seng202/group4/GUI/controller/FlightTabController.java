@@ -80,7 +80,7 @@ public class FlightTabController implements Initializable{
     private ObservableList<FlightTable> flightTData = FXCollections.observableArrayList();
 
     /**
-     * Sets the main controller and retrieves variables from the main controller
+     * Sets the main controller and retrieves variables from the main controller.
      *
      * @param controller Controller
      */
@@ -114,7 +114,6 @@ public class FlightTabController implements Initializable{
                 updateFlightTable(new_val.toLowerCase());
                 showFlightPath(new_val.toLowerCase());
             }
-
         });
 
         // enable search flight names listener
@@ -175,7 +174,7 @@ public class FlightTabController implements Initializable{
     }
 
     /**
-     * Update flight table view given the flight name
+     * Update flight table view given the flight name.
      */
     private void updateFlightTable(String name){
 
@@ -194,7 +193,7 @@ public class FlightTabController implements Initializable{
 
 
     /**
-     * Update map with flight path given the flight name
+     * Update map with flight path given the flight name.
      */
     private void showFlightPath(String flightName) {
         if (flightMap.getEngine() != null) {
@@ -236,7 +235,7 @@ public class FlightTabController implements Initializable{
     }
 
     /**
-     * Refresh the flight map
+     * Refresh the flight map.
      */
     public void refreshMap() {
         flightMap.getEngine().load(getClass().getClassLoader().getResource("map.html").toExternalForm());
@@ -244,9 +243,8 @@ public class FlightTabController implements Initializable{
         flightTData.clear();
     }
 
-
     /**
-     * Allows the user to load a flight from a file
+     * Allows the user to load a flight from a file.
      *
      * @throws IOException throws IOException error
      */
@@ -264,7 +262,8 @@ public class FlightTabController implements Initializable{
         }
     }
 
-    /**Insert the flight in a given file into the flight table
+    /**
+     * Insert the flight in a given file into the flight table.
      *
      * @param file InputStream
      * @throws IOException throws IOException error
@@ -312,13 +311,12 @@ public class FlightTabController implements Initializable{
                     gotName = true;
                 }
             }
-
         }
         tabPane.getSelectionModel().select(1);
     }
 
     /**
-     * Clears the flight table and AirportRepository
+     * Clears the flight table and AirportRepository.
      */
     public void deleteAllFlights() {
         boolean result = mainController.getDataTabController().deleteAllConformation();

@@ -80,12 +80,11 @@ public class Controller implements Initializable {
         dataTabController.setMainController(this);
         flightTabController.setMainController(this);
         analysisTabController.setMainController(this);
-
     }
 
-
     /**
-     * Getter for flight tab
+     * Getter for flight tab.
+     *
      * @return Tab
      */
     public Tab getFlightTab() {
@@ -93,7 +92,8 @@ public class Controller implements Initializable {
     }
 
     /**
-     * Getting for tab pane
+     * Getting for tab pane.
+     *
      * @return TabPane
      */
     public TabPane getTabPane() {
@@ -101,7 +101,8 @@ public class Controller implements Initializable {
     }
 
     /**
-     * Getter for data tab
+     * Getter for data tab.
+     *
      * @return Tab
      */
     public Tab getDataTab() {
@@ -109,7 +110,8 @@ public class Controller implements Initializable {
     }
 
     /**
-     * Getter for dataTabController
+     * Getter for dataTabController.
+     *
      * @return DataTabController
      */
     public DataTabController getDataTabController() {
@@ -117,7 +119,8 @@ public class Controller implements Initializable {
     }
 
     /**
-     * Getter for routeAnchorController
+     * Getter for routeAnchorController.
+     *
      * @return RouteAnchorController
      */
     public RouteAnchorController getRouteAnchorController() {
@@ -125,7 +128,8 @@ public class Controller implements Initializable {
     }
 
     /**
-     * Getter for flightTabController
+     * Getter for flightTabController.
+     *
      * @return FlightTabController
      */
     public FlightTabController getFlightTabController() {
@@ -133,7 +137,8 @@ public class Controller implements Initializable {
     }
 
     /**
-     * Getter for airportAnchorController
+     * Getter for airportAnchorController.
+     *
      * @return AirportAnchorController
      */
     public AirportAnchorController getAirportAnchorController() {
@@ -141,7 +146,8 @@ public class Controller implements Initializable {
     }
 
     /**
-     * Getter for airlineAnchorController
+     * Getter for airlineAnchorController.
+     *
      * @return AirlineAnchorController
      */
     public AirlineAnchorController getAirlineAnchorController() {
@@ -149,7 +155,8 @@ public class Controller implements Initializable {
     }
 
     /**
-     * Getter for menuBarController
+     * Getter for menuBarController.
+     *
      * @return MenuBarController
      */
     public MenuBarController getMenuBarController() {
@@ -157,7 +164,8 @@ public class Controller implements Initializable {
     }
 
     /**
-     * Getter for analysisTabController
+     * Getter for analysisTabController.
+     *
      * @return AnalysisTabController
      */
     public AnalysisTabController getAnalysisTabController() {
@@ -165,13 +173,12 @@ public class Controller implements Initializable {
     }
 
     /**
-     * Getter for mapTabController
+     * Getter for mapTabController.
+     *
      * @return MapTabController
      */
     public MapTabController getMapTabController() {
         return mapTabController;
     }
-
-
 
 }

@@ -121,7 +121,6 @@ public class AirportAnchorController implements Initializable{
     private String pointAICAO;
     private String pointBICAO;
 
-
     /**
      * Where the program starts, initializes things like listeners and starts running the GUI.
      *
@@ -129,7 +128,6 @@ public class AirportAnchorController implements Initializable{
      * @param resources ResourceBundle
      */
     public void initialize(URL location, ResourceBundle resources) {
-
         // initialise airport table resources
         apid.setCellValueFactory(new PropertyValueFactory<>("atid"));
         apname.setCellValueFactory(new PropertyValueFactory<>("atname"));
@@ -202,11 +200,10 @@ public class AirportAnchorController implements Initializable{
             );
             return row;
         });
-
     }
 
     /**
-     * Sets the main controller and retrieves private variables from the main controller
+     * Sets the main controller and retrieves private variables from the main controller.
      *
      * @param controller Controller
      */
@@ -217,7 +214,7 @@ public class AirportAnchorController implements Initializable{
     }
 
     /**
-     * Allows the user to load airport data from a file
+     * Allows the user to load airport data from a file.
      *
      * @throws IOException throws IOException error
      */
@@ -343,7 +340,8 @@ public class AirportAnchorController implements Initializable{
     }
 
     /**
-     * Clears the airport table and AirportRepository then replaces them with the default airports
+     * Clears the airport table and AirportRepository then replaces them with the default airports.
+     *
      * @throws IOException when default airport file cannot be read
      */
     public void resetAirport() throws IOException {
@@ -360,7 +358,7 @@ public class AirportAnchorController implements Initializable{
     }
 
     /**
-     * Clears the airport table and AirportRepository
+     * Clears the airport table and AirportRepository.
      */
     public void deleteAllAirports() {
         boolean result = mainController.deleteAllConformation();
@@ -392,7 +390,8 @@ public class AirportAnchorController implements Initializable{
     }
 
     /**
-     * Gets flight path from flightplandatabase.com
+     * Gets flight path from flightplandatabase.
+     *
      * @throws UnirestException when an error occurs
      * @throws IOException when an error occurs
      * @throws InterruptedException when an error occurs
@@ -490,7 +489,6 @@ public class AirportAnchorController implements Initializable{
         String text = airportSearch.getText();
         airportSearch.setText(text + " ");
         airportSearch.setText(text);
-
     }
 
 
@@ -590,4 +588,5 @@ public class AirportAnchorController implements Initializable{
     public ObservableList<AirportTable> getAirportTData() {
         return airportTData;
     }
+
 }
