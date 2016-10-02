@@ -190,7 +190,7 @@
                         </GridPane>
                     </content>
                 </Tab>
-                <fx:include fx:id="mapTab" disable="true" source="mapTab.fxml" text="Map View" />
+                <!--<fx:include fx:id="mapTab" disable="true" source="mapTab.fxml" text="Map View" />-->
             </tabs>
         </TabPane>
     </center>

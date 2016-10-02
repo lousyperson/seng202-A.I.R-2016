@@ -46,8 +46,8 @@ public class Controller implements Initializable {
     @FXML
     private FlightTabController flightTabController;
 
-    @FXML
-    private MapTabController mapTabController;
+    //@FXML
+    //private MapTabController mapTabController;
 
     @FXML
     private AirportAnchorController airportAnchorController;
@@ -156,7 +156,7 @@ public class Controller implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         // Passing MainController to the other controllers
         menuBarController.setMainController(this);
-        mapTabController.setMainController(this);
+        //mapTabController.setMainController(this);
         dataTabController.setMainController(this);
         flightTabController.setMainController(this);
 
@@ -782,13 +782,13 @@ public class Controller implements Initializable {
         return menuBarController;
     }
 
-    /**
-     * Getter for mapTabController
-     * @return MapTabController
-     */
-    public MapTabController getMapTabController() {
-        return mapTabController;
-    }
+//    /**
+//     * Getter for mapTabController
+//     * @return MapTabController
+//     */
+//    public MapTabController getMapTabController() {
+//        return mapTabController;
+//    }
 
 
 
