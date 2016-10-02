@@ -1,4 +1,4 @@
-package seng202.group4.GUI;
+package seng202.group4.GUI.controller;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -8,6 +8,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import seng202.group4.GUI.ButtonResult;
 
 import java.io.IOException;
 

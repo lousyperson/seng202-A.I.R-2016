@@ -32,7 +32,7 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.web.WebView?>
 
-<Tab xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.group4.GUI.DataTabController">
+<Tab xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.group4.GUI.controller.DataTabController">
     <content>
         <GridPane>
             <columnConstraints>

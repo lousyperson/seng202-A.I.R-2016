@@ -1,4 +1,4 @@
-package seng202.group4.GUI;
+package seng202.group4.GUI.table;
 
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;

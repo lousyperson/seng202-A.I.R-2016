@@ -32,7 +32,7 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.web.WebView?>
 
-<Tab xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.group4.GUI.FlightTabController">
+<Tab xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.group4.GUI.controller.FlightTabController">
     <content>
         <GridPane>
             <children>
@@ -42,7 +42,7 @@
                             <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                     <children>
-                                        <TextArea editable="false" layoutX="10.0" layoutY="13.0" prefHeight="117.0" prefWidth="199.0" text="Please use arrow keys or hold left click to move the map and scroll wheel to zoom." wrapText="true" />
+                                        <TextArea editable="false" layoutX="-60.0" layoutY="-63.0" prefHeight="141.0" prefWidth="218.0" text="By selecting a flight, the map will show the flight path.&#10;&#10;Please use arrow keys to move the map and scroll to zoom." wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                     </children>
                                 </AnchorPane>
                             </content>

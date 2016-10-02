@@ -1,4 +1,4 @@
-package seng202.group4.GUI;
+package seng202.group4.GUI.controller;
 
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
@@ -15,8 +15,9 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 import seng202.group4.App;
+import seng202.group4.GUI.table.AirportTable;
+import seng202.group4.GUI.ButtonResult;
 import seng202.group4.data.dataType.Airport;
 import seng202.group4.data.parser.validator.AirportValidator;
 import seng202.group4.data.repository.AirportRepository;

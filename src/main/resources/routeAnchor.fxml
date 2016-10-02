@@ -33,7 +33,7 @@
 <?import javafx.scene.web.WebView?>
 
 
-<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.group4.GUI.RouteAnchorController">
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.group4.GUI.controller.RouteAnchorController">
     <children>
         <TableView fx:id="routeTableID" layoutX="220.0" prefHeight="706.0" prefWidth="1024.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="220.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <columns>

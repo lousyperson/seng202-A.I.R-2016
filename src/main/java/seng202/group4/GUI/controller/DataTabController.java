@@ -1,4 +1,4 @@
-package seng202.group4.GUI;
+package seng202.group4.GUI.controller;
 
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;

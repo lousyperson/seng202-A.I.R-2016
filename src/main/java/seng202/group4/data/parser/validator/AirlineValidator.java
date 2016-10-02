@@ -1,6 +1,7 @@
 package seng202.group4.data.parser.validator;
 
 import javafx.scene.control.Alert;
+import seng202.group4.GUI.AlertPopup;
 import seng202.group4.data.dataType.Airline;
 import seng202.group4.data.parser.AirlineParser;
 
@@ -109,10 +110,7 @@ public class AirlineValidator {
 
     private void makeAlert(String message) {
         hasError = true;
-        alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Error");
-        alert.setHeaderText("There is an error in your file on line " + lineNumber);
-        alert.setContentText(message + "\n\nNo airlines were added.\n\nPlease go to help drop down for file formatting help.");
-        alert.showAndWait();
+        AlertPopup.makeError("There is an error in your file on line " + lineNumber,
+                message + "\n\nNo airlines were added.\n\nPlease go to help drop down for file formatting help.");
     }
 }

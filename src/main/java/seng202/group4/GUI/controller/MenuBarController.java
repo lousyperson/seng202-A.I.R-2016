@@ -1,4 +1,4 @@
-package seng202.group4.GUI;
+package seng202.group4.GUI.controller;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

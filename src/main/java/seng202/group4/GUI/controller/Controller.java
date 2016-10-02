@@ -1,9 +1,7 @@
-package seng202.group4.GUI;
+package seng202.group4.GUI.controller;
 
-import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.event.EventHandler;
@@ -16,7 +14,10 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.scene.web.WebView;
-import javafx.util.Callback;
+import seng202.group4.GUI.table.AirlineTable;
+import seng202.group4.GUI.table.AirportTable;
+import seng202.group4.GUI.table.AnalysisTable;
+import seng202.group4.GUI.table.RouteTable;
 import seng202.group4.data.dataType.Airport;
 import seng202.group4.data.dataType.Route;
 import seng202.group4.data.repository.Repository;

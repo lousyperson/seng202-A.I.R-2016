@@ -1,4 +1,4 @@
-package seng202.group4.GUI;
+package seng202.group4.GUI.controller;
 
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
@@ -21,6 +21,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import seng202.group4.App;
+import seng202.group4.GUI.table.RouteTable;
 import seng202.group4.data.dataType.Route;
 import seng202.group4.data.parser.validator.RouteValidator;
 import seng202.group4.data.repository.Repository;

@@ -1,4 +1,4 @@
-package seng202.group4.GUI;
+package seng202.group4.GUI.controller;
 
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
@@ -11,9 +11,9 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 import seng202.group4.App;
+import seng202.group4.GUI.table.AirlineTable;
+import seng202.group4.GUI.ButtonResult;
 import seng202.group4.data.dataType.Airline;
 import seng202.group4.data.parser.validator.AirlineValidator;
 import seng202.group4.data.repository.AirlineRepository;

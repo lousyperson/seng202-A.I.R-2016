@@ -1,13 +1,11 @@
 package seng202.group4;
 
 import javafx.application.Application;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import seng202.group4.GUI.Controller;
+import seng202.group4.GUI.controller.Controller;
 import seng202.group4.data.repository.*;
 
 /**
