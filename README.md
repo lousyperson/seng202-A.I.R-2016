@@ -6,7 +6,7 @@ How to run Aviation Information Reader:
 ---
 The application can be run from the JAR file seng202-project-1.0-SNAPSHOT.jar.
 
-Open Terminal.
+Open Terminal (Command Prompt on Windows).
 
 Navigate to the directory where seng202-project-1.0-SNAPSHOT.jar is located.
 
@@ -34,7 +34,7 @@ A.I.R. Features:
 - Can search and filter airline, airport and route data in the table
 - Filter routes by : Equipment, source and destination country
 - Filter airports by: Country
-- Filter airlines by: Country, active/inactive
+- Filter airlines by: Country, active/inactive, direct/indirect
 - Can generate a flight path given two airports
 - Map view of flights, airports and routes
 - Representation of a selection of data as a pie and/or bar graph
