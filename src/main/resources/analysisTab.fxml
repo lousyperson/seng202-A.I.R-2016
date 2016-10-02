@@ -52,9 +52,9 @@
             </rowConstraints>
             <children>
                 <PieChart fx:id="pieChart" minHeight="-Infinity" minWidth="-Infinity" prefHeight="386.0" prefWidth="135.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                <Text fx:id="warningPieChart" fill="RED" strokeType="INSIDE" strokeWidth="0.0" text="Warning pie chart" visible="false" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                <Text fx:id="warningPieChart" fill="#1b8ed0" strokeType="INSIDE" strokeWidth="0.0" text="Warning pie chart" visible="false" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                     <font>
-                        <Font size="24.0" />
+                        <Font size="18.0" />
                     </font></Text>
                 <TableView fx:id="airportsAndRoutes" maxWidth="539.0" prefHeight="450.0" prefWidth="539.0" GridPane.rowIndex="1">
                     <columns>
@@ -67,9 +67,9 @@
                 </TableView>
                 <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="2">
                     <children>
-                        <Text fx:id="warningBarChart" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="Warning bar chart" textAlignment="CENTER" visible="false" wrappingWidth="700.0" StackPane.alignment="CENTER">
+                        <Text fx:id="warningBarChart" fill="#1b8ed0" strokeType="OUTSIDE" strokeWidth="0.0" text="Warning bar chart" textAlignment="CENTER" visible="false" wrappingWidth="700.0" StackPane.alignment="CENTER">
                             <font>
-                                <Font size="24.0" />
+                                <Font size="18.0" />
                             </font></Text>
                         <BarChart fx:id="barChart" prefHeight="400.0" prefWidth="1024.0">
                             <xAxis>
