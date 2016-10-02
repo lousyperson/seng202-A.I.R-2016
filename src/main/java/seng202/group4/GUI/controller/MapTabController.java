@@ -8,7 +8,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.web.WebView;
-import seng202.group4.GUI.controller.Controller;
 import seng202.group4.data.dataType.Airport;
 import seng202.group4.data.dataType.Route;
 import seng202.group4.data.repository.Repository;
@@ -232,30 +231,6 @@ public class MapTabController implements Initializable{
         }
     }
 
-//    private void updateMapAirportListIATA(HashMap<Integer, Airport> airports, Pattern pattern, ObservableList<String> airportItems) {
-//        if (airports != null) {
-//            for (Airport airport : airports.values()) {
-//                Matcher matcher = pattern.matcher(airport.getName());
-//                if (matcher.matches()) {
-//                    airportItems.add(airport.getName());
-//                    mapAirportList.setItems(airportItems);
-//                }
-//            }
-//        }
-//    }
-//
-//    private void updateMapAirportListICAO(HashMap<Integer, Airport> airports, Pattern pattern, ObservableList<String> airportItems) {
-//        if (airports != null) {
-//            for (Airport airport : airports.values()) {
-//                Matcher matcher = pattern.matcher(airport.getName());
-//                if (matcher.matches()) {
-//                    airportItems.add(airport.getName());
-//                    mapAirportList.setItems(airportItems);
-//                }
-//            }
-//        }
-//    }
-
     /**
      * Updates Map View with every airports in the country selected.
      */
@@ -305,11 +280,9 @@ public class MapTabController implements Initializable{
             updateMapAirportRouteListString(airports, pattern);  // Only string search for now
         } else if (inputAirportString.length() > 3) {
             updateMapAirportRouteListString(airports, pattern);
-//            updateMapAirportListIATA(airports, pattern, airportItems);
         } else {
             updateMapAirportRouteListString(airports, pattern);
-//            updateMapAirportListIATA(airports, pattern, airportItems);
-//            updateMapAirportListICAO(airports, pattern, airportItems);
+
         }
     }
 
