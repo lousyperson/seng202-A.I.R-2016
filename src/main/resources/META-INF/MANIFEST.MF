@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
-Class-Path: httpcore-nio-4.3.2.jar gson-2.5.jar aquafx-0.2.jar commons
- -logging-1.1.3.jar httpasyncclient-4.0.2.jar httpmime-4.3.6.jar httpc
- lient-4.3.6.jar stylemanager-0.1b2.jar httpcore-4.3.3.jar json-201401
- 07.jar unirest-java-1.4.9.jar commons-codec-1.6.jar
+Class-Path: httpmime-4.5.2.jar httpcore-4.4.4.jar unirest-java-1.4.8.j
+ ar httpcore-nio-4.4.4.jar gson-2.5.jar stylemanager-0.1b2.jar commons
+ -codec-1.9.jar httpclient-4.5.2.jar commons-logging-1.2.jar httpasync
+ client-4.1.1.jar aquafx-0.2.jar json-20160810.jar
 Main-Class: seng202.group4.App
 
