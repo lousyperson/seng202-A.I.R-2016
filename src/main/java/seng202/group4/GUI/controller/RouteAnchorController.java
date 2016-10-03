@@ -622,6 +622,8 @@ public class RouteAnchorController implements Initializable {
                     .build(), 300, 170);
             stage.setScene(scene);
             stage.setTitle("Progress Controls");
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.initOwner(App.primaryStage);
 
             stage.show();
             toClose.setOnAction( event ->
