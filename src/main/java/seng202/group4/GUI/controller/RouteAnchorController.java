@@ -585,8 +585,14 @@ public class RouteAnchorController implements Initializable {
                 public Void call() {
                     // process long-running computation, data retrieval, etc...
                     clearRouteTable();
-                    Repository.routeRepository = (RouteRepository) Repository.deserializeObject("defaultRoute");
-                    loadSerializedRoute();
+                    InputStream file = getClass().getResourceAsStream("/routes.dat");
+                    if (file != null) {
+                        try {
+                            insertRouteTable(file);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
                     Repository.serializeObject(Repository.routeRepository, "route");
                     return null;
                 }
@@ -609,8 +615,6 @@ public class RouteAnchorController implements Initializable {
             hb.getChildren().addAll(label, pb, pin);
 
             Stage stage = new Stage();
-            stage.initModality(Modality.WINDOW_MODAL);
-            stage.initOwner(App.primaryStage);
             Scene scene = new Scene(VBoxBuilder.create()
                     .children(hb, text, toClose)
                     .alignment(Pos.CENTER)
