@@ -34,6 +34,7 @@ public class AirlineValidator {
     /**
      * Produces a list of airlines by checking each airline one by one from the data file and ensuring it is a valid
      * airline.
+     *
      * @return Array list of airlines
      * @throws IOException Throws IOException error
      */

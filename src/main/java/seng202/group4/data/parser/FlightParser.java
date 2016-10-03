@@ -21,6 +21,7 @@ public class FlightParser {
 
     /**
      * Initializes the FlightParser variables.
+     *
      * @param file ArrayList
      */
     public FlightParser(ArrayList file) {
@@ -45,6 +46,7 @@ public class FlightParser {
 
     /**
      * Makes a singular flight from the current line in the flight data.
+     *
      * @return Flight
      * @throws IOException throws IOException error
      */

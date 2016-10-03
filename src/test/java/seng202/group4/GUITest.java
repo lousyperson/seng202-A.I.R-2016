@@ -16,6 +16,7 @@ public class GUITest extends Application{
 
     /**
      * Initializes everything for the GUITest class.
+     *
      * @param primaryStage a stage parameter
      * @throws Exception throws an exception
      */
@@ -50,7 +51,8 @@ public class GUITest extends Application{
     }
 
     /**
-     * The main class
+     * The main class.
+     *
      * @param args a String argument parameter
      */
     public static void main(String[] args) {

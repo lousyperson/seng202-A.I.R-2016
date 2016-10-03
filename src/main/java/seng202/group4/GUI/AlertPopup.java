@@ -3,7 +3,7 @@ package seng202.group4.GUI;
 import javafx.scene.control.Alert;
 
 /**
- * Shows error messages
+ * Shows error messages.
  */
 public class AlertPopup {
 

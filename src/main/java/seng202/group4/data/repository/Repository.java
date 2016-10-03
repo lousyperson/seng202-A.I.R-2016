@@ -36,7 +36,8 @@ public class Repository implements Serializable {
     }
 
     /**
-     * Serialize the object given the repository and type
+     * Serialize the object given the repository and type.
+     *
      * @param repository Repository
      * @param type String
      */
@@ -47,7 +48,7 @@ public class Repository implements Serializable {
             out.writeObject(repository);
             out.close();
             fileOut.close();
-        }catch(IOException i) {
+        } catch(IOException i) {
             i.printStackTrace();
         }
     }
@@ -72,6 +73,12 @@ public class Repository implements Serializable {
         }
     }
 
+    /**
+     * Deserialises the serialisable file.
+     *
+     * @param type String
+     * @return an object repository
+     */
     public static Object deserializeObject(String type) {
         try {
             Object repository;
@@ -81,10 +88,10 @@ public class Repository implements Serializable {
             in.close();
             fileIn.close();
             return repository;
-        }catch(IOException i) {
+        } catch(IOException i) {
             i.printStackTrace();
             return null;
-        }catch(ClassNotFoundException c) {
+        } catch(ClassNotFoundException c) {
             System.out.println(type + " class not found");
             c.printStackTrace();
             return null;

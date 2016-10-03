@@ -14,6 +14,7 @@ public class AirportRepository extends Repository implements Serializable {
 
     /**
      * Adds an airport to the list of airports.
+     *
      * @param airport Airport
      */
     public void addAirport(Airport airport) {
@@ -34,6 +35,7 @@ public class AirportRepository extends Repository implements Serializable {
 
     /**
      * Gets a list of all the airports.
+     *
      * @return airports
      */
     public HashMap<Integer, Airport> getAirports() {
@@ -42,6 +44,7 @@ public class AirportRepository extends Repository implements Serializable {
 
     /**
      * Gets the list of airports in a country.
+     *
      * @return countryAirports
      */
     public HashMap<String, HashSet> getCountryAirports(){
@@ -50,6 +53,7 @@ public class AirportRepository extends Repository implements Serializable {
 
     /**
      * Takes a country and returns all the airport identification numbers of that country.
+     *
      * @param country String
      * @return Set
      */
@@ -62,6 +66,7 @@ public class AirportRepository extends Repository implements Serializable {
 
     /**
      * Finds and returns all airports in a given country.
+     *
      * @param country String
      * @return AirportCountry
      */
@@ -77,6 +82,7 @@ public class AirportRepository extends Repository implements Serializable {
 
     /**
      * Finds the country of an airport with a given airport ID.
+     *
      * @param id Integer
      * @return airport country if it exists otherwise null
      */
@@ -90,7 +96,8 @@ public class AirportRepository extends Repository implements Serializable {
     }
 
     /**
-     * Calculates the distance given two points (with latitude and longitudes)
+     * Calculates the distance given two points (with latitude and longitudes).
+     *
      * @param pointALat Double: Point A latitude
      * @param pointALon Double: Point A longitude
      * @param pointBLat Double: Point B latitude
@@ -113,6 +120,7 @@ public class AirportRepository extends Repository implements Serializable {
 
     /**
      * Finds an airport IATA with a given airport ID.
+     *
      * @param id Integer
      * @return airport IATA if it exists otherwise null
      */
@@ -127,6 +135,7 @@ public class AirportRepository extends Repository implements Serializable {
 
     /**
      * Returns airport given airport name in string.
+     *
      * @param airportName String
      * @return airport if it exists otherwise null
      */

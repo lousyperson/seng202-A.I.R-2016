@@ -25,6 +25,7 @@ public class RouteParser {
 
     /**
      * Initializes the route parser variables.
+     *
      * @param file ArrayList
      */
     public RouteParser(ArrayList file) {
@@ -71,7 +72,8 @@ public class RouteParser {
     }
 
     /**
-     * Makes the singular routes and adds them to the list of routes
+     * Makes the singular routes and adds them to the list of routes.
+     *
      * @return routes
      * @throws IOException throws IOException error
      */

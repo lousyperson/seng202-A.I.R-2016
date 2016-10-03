@@ -29,7 +29,8 @@ import static org.junit.Assert.assertTrue;
 public class ParserTest {
 
     /**
-     * Given a file path convert file lines into an array of strings
+     * Given a file path convert file lines into an array of strings.
+     *
      * @param path String
      * @return stringArray if the file exists otherwise null
      * @throws IOException throws IOException error

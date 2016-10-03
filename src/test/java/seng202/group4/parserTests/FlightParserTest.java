@@ -18,7 +18,7 @@ public class FlightParserTest extends ParserTest {
     private String path = "testfiles/Flights/";
 
     /**
-     * Gets the string of the flight position that is used for testing
+     * Gets the string of the flight position that is used for testing.
      */
     private String getString(FlightPosition position) {
         String s = "";
@@ -28,7 +28,8 @@ public class FlightParserTest extends ParserTest {
     }
 
     /**
-     * Check that an empty file is parsed and does not make any flights
+     * Check that an empty file is parsed and does not make any flights.
+     *
      * @throws IOException throws IOException error
      */
     @Test
@@ -40,7 +41,8 @@ public class FlightParserTest extends ParserTest {
     }
 
     /**
-     * Check that each row from a valid flight file is parsed by checking if the 1 flight postions is stored
+     * Check that each row from a valid flight file is parsed by checking if the 1 flight postions is stored.
+     *
      * @throws IOException throws IOException error
      */
     @Test
@@ -52,7 +54,8 @@ public class FlightParserTest extends ParserTest {
     }
 
     /**
-     * Check that each row from a valid flight file is parsed by checking if all 2 flight postions are stored
+     * Check that each row from a valid flight file is parsed by checking if all 2 flight postions are stored.
+     *
      * @throws IOException throws IOException error
      */
     @Test
@@ -64,7 +67,8 @@ public class FlightParserTest extends ParserTest {
     }
 
     /**
-     * Check that each row from a valid flight file is parsed by checking if all 3 flight postions are stored
+     * Check that each row from a valid flight file is parsed by checking if all 3 flight postions are stored.
+     *
      * @throws IOException throws IOException error
      */
     @Test
@@ -76,7 +80,8 @@ public class FlightParserTest extends ParserTest {
     }
 
     /**
-     * Check that each row from a valid flight file is parsed by checking if all 31 flight postions are stored
+     * Check that each row from a valid flight file is parsed by checking if all 31 flight postions are stored.
+     *
      * @throws IOException throws IOException error
      */
     @Test
@@ -89,7 +94,8 @@ public class FlightParserTest extends ParserTest {
 
 
     /**
-     * Check that the parser can read one line correctly
+     * Check that the parser can read one line correctly.
+     *
      * @throws IOException throws IOException error
      */
     @Test
@@ -102,7 +108,8 @@ public class FlightParserTest extends ParserTest {
     }
 
     /**
-     * Checks if the parser can read a consecutive line
+     * Checks if the parser can read a consecutive line.
+     *
      * @throws IOException throws IOException error
      */
     @Test
@@ -117,7 +124,8 @@ public class FlightParserTest extends ParserTest {
     }
 
     /**
-     * Checks if the parser can read multiple lines
+     * Checks if the parser can read multiple lines.
+     *
      * @throws IOException throws IOException error
      */
     @Test

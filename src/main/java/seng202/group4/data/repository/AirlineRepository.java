@@ -15,6 +15,7 @@ public class AirlineRepository extends Repository implements Serializable {
 
     /**
      * Adds an airline to the list of airlines.
+     *
      * @param airline Airline
      */
     public void addAirline(Airline airline) {
@@ -23,6 +24,7 @@ public class AirlineRepository extends Repository implements Serializable {
 
     /**
      * Returns a list of airlines.
+     *
      * @return airlines
      */
     public HashMap<Integer, Airline> getAirlines() {
@@ -32,6 +34,7 @@ public class AirlineRepository extends Repository implements Serializable {
 
     /**
      * Given a country, finds all airlines based in that country.
+     *
      * @param country String
      * @return AirlineCountry
      */
@@ -48,6 +51,7 @@ public class AirlineRepository extends Repository implements Serializable {
 
     /**
      * Finds all operating airlines.
+     *
      * @return ActiveAirlines
      */
     public ArrayList<Airline> getActive() {
@@ -61,7 +65,8 @@ public class AirlineRepository extends Repository implements Serializable {
     }
 
     /**
-     * Finds all inactive airlines
+     * Finds all inactive airlines.
+     *
      * @return InActiveAirlines
      */
     public ArrayList<Airline> getInActive() {

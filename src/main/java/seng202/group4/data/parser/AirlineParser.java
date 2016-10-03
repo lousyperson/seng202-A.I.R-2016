@@ -24,6 +24,7 @@ public class AirlineParser {
 
     /**
      * Initializes the file for the parser to parse through.
+     *
      * @param file ArrayList
      */
     public AirlineParser(ArrayList file) {
@@ -60,6 +61,7 @@ public class AirlineParser {
 
     /**
      * Makes an airline and returns a list of airlines.
+     *
      * @return airlines
      * @throws IOException throws IOException error
      */
@@ -67,9 +69,7 @@ public class AirlineParser {
         for(String currentLine: file){
             addAirline(currentLine);
         }
-
         return airlines;
     }
-
 }
 

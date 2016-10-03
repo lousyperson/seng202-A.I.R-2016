@@ -43,14 +43,14 @@
                                 <Text layoutX="13.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Search Airport by Name" />
                                 <TextField fx:id="mapAirportRouteSearch" layoutX="13.0" layoutY="36.0" prefHeight="25.0" prefWidth="194.0" promptText="Airport name..." />
                                 <Button layoutX="144.0" layoutY="69.0" mnemonicParsing="false" onAction="#airportRouteSearch" text="Search" />
-                                <Text layoutX="13.0" layoutY="104.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Result" />
+                                <Text layoutX="13.0" layoutY="104.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select an Airport" />
                                 <ListView fx:id="mapAirportRouteList" layoutX="10.0" layoutY="114.0" prefHeight="226.0" prefWidth="200.0" />
                             </children>
                         </AnchorPane>
                         <AnchorPane fx:id="mapAirportAnchor" maxWidth="220.0" minHeight="0.0" minWidth="0.0" prefHeight="486.0" prefWidth="220.0">
                             <children>
                                 <ComboBox fx:id="mapAirportFilter" layoutX="9.0" layoutY="35.0" onAction="#showCountryAirports" prefWidth="200.0" promptText="--CHOOSE COUNTRIES--" />
-                                <Text layoutX="14.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Show Airports by Country:" />
+                                <Text layoutX="14.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Show Airports by Country" />
                                 <Text layoutX="14.0" layoutY="104.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Search Airport by Name" />
                                 <TextField fx:id="mapAirportSearch" layoutX="14.0" layoutY="113.0" prefHeight="25.0" prefWidth="194.0" promptText="Airport name..." />
                                 <Text layoutX="14.0" layoutY="179.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select an Airport" />
@@ -90,7 +90,7 @@
                 <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
                     <children>
                         <ListView fx:id="viewSelect" layoutX="10.0" layoutY="36.0" prefHeight="99.0" prefWidth="200.0" />
-                        <Text layoutX="14.0" layoutY="24.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select a view type:" />
+                        <Text layoutX="14.0" layoutY="24.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select a view type" />
                     </children>
                 </AnchorPane>
             </children>

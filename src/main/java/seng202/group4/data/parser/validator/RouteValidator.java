@@ -24,6 +24,12 @@ public class RouteValidator {
     private boolean hasError = false;
     private ArrayList<String> stringArray = new ArrayList<>();
 
+    /**
+     * Parses in the route data to be validated so that it is can be read and checked.
+     *
+     * @param filepath InputStream
+     * @throws FileNotFoundException Throws error when file is not found
+     */
     public RouteValidator(InputStream filepath) throws FileNotFoundException {
         this.filepath = filepath;
         this.file = new BufferedReader(new InputStreamReader(filepath));
@@ -32,6 +38,7 @@ public class RouteValidator {
     /**
      * Creates the routes from the given data file to check if they are of the correct format. Calls validateLine to
      * ensure that the format is correct.
+     *
      * @return Array list of routes
      * @throws IOException Throws IOException error
      */
@@ -84,7 +91,6 @@ public class RouteValidator {
         }
     }
 
-
     // Returns true if integer is valid
     private boolean checkInt(int i) {
         if (splitLine[i].equals("\\N")) {
@@ -98,7 +104,6 @@ public class RouteValidator {
             }
         }
     }
-
 
     private void makeAlert(String message) {
         hasError = true;

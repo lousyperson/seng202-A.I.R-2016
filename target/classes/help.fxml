@@ -104,7 +104,7 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TextArea editable="false" layoutX="10.0" layoutY="10.0" prefHeight="236.0" prefWidth="721.0" text="From the Airport table, right click a row and select “Add to airport A” then right click another row and select “Add to airport B”. Then press the button “Calculate Distance” in the left-hand column. Distances are in kilometres and are formatted to 2 decimal places." wrapText="true" />
+                        <TextArea editable="false" layoutX="10.0" layoutY="10.0" prefHeight="236.0" prefWidth="721.0" text="From the Airport table, right click a row and select “Add to airport A” then right click another row and select “Add to airport B”. Then distance will be calculated automatically and displayed in the distance text field. Distances are in kilometres and are formatted to 2 decimal places." wrapText="true" />
                      </children>
                   </AnchorPane>
                </content>
@@ -118,7 +118,7 @@
                   </AnchorPane>
                </content>
             </TitledPane>
-            <TitledPane animated="false" layoutX="10.0" layoutY="199.0" text="How do I hide/show table columns to view  detailed/simple data?">
+            <TitledPane animated="false" layoutX="10.0" layoutY="199.0" text="How do I hide/show table columns to view detailed/simple data?">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>

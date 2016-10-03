@@ -16,7 +16,7 @@ public class AirlineParserTest extends ParserTest {
     String path = "testfiles/Airlines/";
 
     /**
-     * Gets the string of the flight position that is used for testing
+     * Gets the string of the flight position that is used for testing.
      */
     private String getString(Airline airline) {
         String s = "";
@@ -27,7 +27,8 @@ public class AirlineParserTest extends ParserTest {
     }
 
     /**
-     * Check that if the airline parser parses an empty file, 0 airlines are parsed
+     * Check that if the airline parser parses an empty file, 0 airlines are parsed.
+     *
      * @throws IOException throws IOException error
      */
     @Test
@@ -39,7 +40,8 @@ public class AirlineParserTest extends ParserTest {
     }
 
     /**
-     * Given one valid airline, check that the size is 1
+     * Given one valid airline, check that the size is 1.
+     *
      * @throws IOException throws IOException error
      */
     @Test
@@ -50,7 +52,8 @@ public class AirlineParserTest extends ParserTest {
     }
 
     /**
-     * Given two valid airlines, check that the size is 2
+     * Given two valid airlines, check that the size is 2.
+     *
      * @throws IOException throws IOException error
      */
     @Test
@@ -61,7 +64,8 @@ public class AirlineParserTest extends ParserTest {
     }
 
     /**
-     * Given three valid airlines, check that the size is 3
+     * Given three valid airlines, check that the size is 3.
+     *
      * @throws IOException throws IOException error
      */
     @Test
@@ -72,7 +76,8 @@ public class AirlineParserTest extends ParserTest {
     }
 
     /**
-     * Check that a valid airline with null is read by the parser
+     * Check that a valid airline with null is read by the parser.
+     *
      * @throws IOException throws IOException error
      */
     @Test
@@ -83,7 +88,8 @@ public class AirlineParserTest extends ParserTest {
     }
 
     /**
-     * Check that every airline in the 6048Airlines.txt has been read by the parser, check the size is 6048
+     * Check that every airline in the 6048Airlines.txt has been read by the parser, check the size is 6048.
+     *
      * @throws IOException throws IOException error
      */
     @Test
@@ -95,7 +101,8 @@ public class AirlineParserTest extends ParserTest {
     }
 
     /**
-     * Given one valid airline, check that the content has been parsed correctly
+     * Given one valid airline, check that the content has been parsed correctly.
+     *
      * @throws IOException throws IOException error
      */
     @Test
@@ -107,7 +114,8 @@ public class AirlineParserTest extends ParserTest {
     }
 
     /**
-     * Given one valid airline, check that the content has been parsed correctly
+     * Given one valid airline, check that the content has been parsed correctly.
+     *
      * @throws IOException throws IOException error
      */
     @Test
@@ -121,7 +129,8 @@ public class AirlineParserTest extends ParserTest {
     }
 
     /**
-     * Given one valid airline, check that the content has been parsed correctly
+     * Given one valid airline, check that the content has been parsed correctly.
+     *
      * @throws IOException throws IOException error
      */
     @Test
@@ -137,7 +146,8 @@ public class AirlineParserTest extends ParserTest {
     }
 
     /**
-     * Given one valid airline, check that the content has been parsed correctly
+     * Given one valid airline, check that the content has been parsed correctly.
+     *
      * @throws IOException throws IOException error
      */
     @Test

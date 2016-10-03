@@ -16,7 +16,7 @@ public class RouteParserTest extends ParserTest {
     private String path = "testfiles/Routes/";
 
     /**
-     * Gets the string of the route that is used for testing
+     * Gets the string of the route that is used for testing.
      */
     private String getString(Route route) {
         int i = 0;
@@ -32,7 +32,8 @@ public class RouteParserTest extends ParserTest {
     }
 
     /**
-     * Check that an empty text file does not make any routes when parsed
+     * Check that an empty text file does not make any routes when parsed.
+     *
      * @throws IOException throws IOException error
      */
     @Test
@@ -44,7 +45,8 @@ public class RouteParserTest extends ParserTest {
     }
 
     /**
-     * Checks that one valid route can be parsed
+     * Checks that one valid route can be parsed.
+     *
      * @throws IOException throws IOException error
      */
     @Test
@@ -56,7 +58,8 @@ public class RouteParserTest extends ParserTest {
     }
 
     /**
-     * Checks that two valid routes can be parsed
+     * Checks that two valid routes can be parsed.
+     *
      * @throws IOException throws IOException error
      */
     @Test
@@ -68,7 +71,8 @@ public class RouteParserTest extends ParserTest {
     }
 
     /**
-     * Checks that three valid routes can be parsed
+     * Checks that three valid routes can be parsed.
+     *
      * @throws IOException throws IOException error
      */
     @Test
@@ -80,7 +84,8 @@ public class RouteParserTest extends ParserTest {
     }
 
     /**
-     * Checks that one valid route with null can be parsed
+     * Checks that one valid route with null can be parsed.
+     *
      * @throws IOException throws IOException error
      */
     @Test
@@ -92,7 +97,8 @@ public class RouteParserTest extends ParserTest {
     }
 
     /**
-     * Check that all routes in a valid route file are parsed by seeing if all 67663 routes are there
+     * Check that all routes in a valid route file are parsed by seeing if all 67663 routes are there.
+     *
      * @throws IOException throws IOException error
      */
     @Test
@@ -104,7 +110,8 @@ public class RouteParserTest extends ParserTest {
     }
 
     /**
-     * Checks that one valid route with multiple equipments can be parsed
+     * Checks that one valid route with multiple equipments can be parsed.
+     *
      * @throws IOException throws IOException error
      */
     @Test
@@ -116,7 +123,8 @@ public class RouteParserTest extends ParserTest {
     }
 
     /**
-     * Checks that one valid route with three equipments are parsed
+     * Checks that one valid route with three equipments are parsed.
+     *
      * @throws IOException throws IOException error
      */
     @Test
@@ -128,7 +136,8 @@ public class RouteParserTest extends ParserTest {
     }
 
     /**
-     * Check that the contents of a valid route file are parsed correctly
+     * Check that the contents of a valid route file are parsed correctly.
+     *
      * @throws IOException throws IOException error
      */
     @Test
@@ -140,7 +149,8 @@ public class RouteParserTest extends ParserTest {
     }
 
     /**
-     * Check that the contents of a valid route file are parsed correctly with a consecutive route
+     * Check that the contents of a valid route file are parsed correctly with a consecutive route.
+     *
      * @throws IOException throws IOException error
      */
     @Test
@@ -154,7 +164,8 @@ public class RouteParserTest extends ParserTest {
     }
 
     /**
-     * Check that the contents of a valid route file are parsed correctly with multiple routes
+     * Check that the contents of a valid route file are parsed correctly with multiple routes.
+     *
      * @throws IOException throws IOException error
      */
     @Test
@@ -170,7 +181,8 @@ public class RouteParserTest extends ParserTest {
     }
 
     /**
-     * Checks that one valid route with null can be parsed, and the contents are correct
+     * Checks that one valid route with null can be parsed, and the contents are correct.
+     *
      * @throws IOException throws IOException error
      */
     @Test
@@ -182,7 +194,8 @@ public class RouteParserTest extends ParserTest {
     }
 
     /**
-     * Check that a valid route with multiple equipments are parsed correctly with the correct contents
+     * Check that a valid route with multiple equipments are parsed correctly with the correct contents.
+     *
      * @throws IOException throws IOException error
      */
     @Test

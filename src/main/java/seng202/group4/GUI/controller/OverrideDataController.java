@@ -13,7 +13,7 @@ import seng202.group4.GUI.ButtonResult;
 import java.io.IOException;
 
 /**
- *
+ * Shows a popup menu for overriding data when ID clashes.
  */
 public class OverrideDataController {
 
@@ -29,7 +29,7 @@ public class OverrideDataController {
     /**
      * Shows a popup menu for overriding data when ID clashes.
      *
-     * @param message
+     * @param message the message the user sees
      * @return ButtonResult
      */
     public static ButtonResult getPopUpResult(String message) {

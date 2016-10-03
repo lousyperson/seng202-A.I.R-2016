@@ -27,6 +27,7 @@ public class FlightValidator {
 
     /**
      * Parses in the flight data to be validated so that it is can be read and checked.
+     *
      * @param filepath InputStream
      * @throws FileNotFoundException Throws error when file is not found
      */
@@ -37,6 +38,7 @@ public class FlightValidator {
 
     /**
      * Creates the flights one by one, checking that each is valid as it is created.
+     *
      * @return Flight
      * @throws IOException Throws IOException error
      */
@@ -60,6 +62,7 @@ public class FlightValidator {
 
     /**
      * Checks to see if a single line is valid.
+     *
      * @throws IOException
      */
     private void validateLine() throws IOException {
@@ -73,6 +76,7 @@ public class FlightValidator {
 
     /**
      * Ensures that every individual part of the line is valid.
+     *
      * @throws IOException
      */
     private void checkLine() throws IOException {
@@ -93,7 +97,8 @@ public class FlightValidator {
 
     /**
      * Checks that was is pointed o is a string.
-     * @param i
+     *
+     * @param i int
      * @return if a string, returns true, else, false.
      */
     private boolean checkString(int i) {
@@ -128,7 +133,7 @@ public class FlightValidator {
 
     /**
      * Makes an alert to the user if there is an error in the formatting of the raw data.
-     * @param message
+     * @param message String
      */
     private void makeAlert(String message) {
         hasError = true;

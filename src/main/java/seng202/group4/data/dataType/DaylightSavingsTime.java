@@ -20,6 +20,7 @@ public enum DaylightSavingsTime {
 
     /**
      * Gets the DayListSavingsTime String value from the DayListSavingsTime.
+     *
      * @return The string corresponding the the DayLightSavingTime value.
      */
     public String toText() {

@@ -30,6 +30,7 @@ public class AirportValidator {
 
     /**
      * Builds the daylight saving time enum and checks that the line meets the minimum number of items per line.
+     *
      * @throws IOException
      */
     private void validateLine() throws IOException {
@@ -44,6 +45,7 @@ public class AirportValidator {
 
     /**
      * Makes a list of airports, by making the airports and checking that each is a valid airport along the way.
+     *
      * @return Array list of airports
      * @throws IOException Throws IOException error
      */
@@ -77,6 +79,7 @@ public class AirportValidator {
 
     /**
      * Checks that the singular line contains data of the expected format.
+     *
      * @throws IOException
      */
     private void checkLine() throws IOException {
@@ -125,6 +128,7 @@ public class AirportValidator {
 
     /**
      * Checks that the string with commas is valid.
+     *
      * @return isValid, a boolean, depending on whether on not the string is valid, true if valid, false if not.
      */
     private boolean checkStringWithCommas() {
@@ -167,7 +171,8 @@ public class AirportValidator {
 
     /**
      * Checks to see if the given index points to a string.
-     * @param i
+     *
+     * @param i int
      * @return a boolean, true if it points to a string, false if not.
      */
     private boolean checkString(int i) {
@@ -180,6 +185,7 @@ public class AirportValidator {
 
     /**
      * Builds the reader so that each line can be read and an airport bult for that line.
+     *
      * @param filepath InputStream
      * @throws FileNotFoundException Throws error when file is not found
      */

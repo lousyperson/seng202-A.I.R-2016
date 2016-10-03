@@ -16,7 +16,7 @@ public class AirportParserTest extends ParserTest {
     String path = "testfiles/Airports/";
 
     /**
-     * Gets the string of the flight position that is used for testing
+     * Gets the string of the flight position that is used for testing.
      */
     private String getString(Airport airport) {
         String s = "";
@@ -28,7 +28,8 @@ public class AirportParserTest extends ParserTest {
     }
 
     /**
-     * Check that an empty text file does not make any airports when parsed
+     * Check that an empty text file does not make any airports when parsed.
+     *
      * @throws IOException throws IOException error
      */
     @Test
@@ -40,7 +41,8 @@ public class AirportParserTest extends ParserTest {
     }
 
     /**
-     * Check that one valid airport is parsed when loading a file with two valid airports
+     * Check that one valid airport is parsed when loading a file with two valid airports.
+     *
      * @throws IOException throws IOException error
      */
     @Test
@@ -52,7 +54,8 @@ public class AirportParserTest extends ParserTest {
     }
 
     /**
-     * Check that one valid airport is parsed when loading a file with three valid airports
+     * Check that one valid airport is parsed when loading a file with three valid airports.
+     *
      * @throws IOException throws IOException error
      */
     @Test
@@ -64,7 +67,8 @@ public class AirportParserTest extends ParserTest {
     }
 
     /**
-     * Check that one valid airport is parsed when loading a file with only one valid airport
+     * Check that one valid airport is parsed when loading a file with only one valid airport.
+     *
      * @throws IOException throws IOException error
      */
     @Test
@@ -76,7 +80,8 @@ public class AirportParserTest extends ParserTest {
     }
 
     /**
-     * Checks that a file with one valid airport with null can be parsed
+     * Checks that a file with one valid airport with null can be parsed.
+     *
      * @throws IOException throws IOException error
      */
     @Test
@@ -88,7 +93,8 @@ public class AirportParserTest extends ParserTest {
     }
 
     /**
-     * Checks that a valid airport with comma can be parsed
+     * Checks that a valid airport with comma can be parsed.
+     *
      * @throws IOException throws IOException error
      */
     @Test public void oneValidAirportWithCommaSize() throws IOException {
@@ -98,7 +104,8 @@ public class AirportParserTest extends ParserTest {
     }
 
     /**
-     * Checks that all airports in the valid airport file has been parsed, checks if all 8106 airports are parsed
+     * Checks that all airports in the valid airport file has been parsed, checks if all 8106 airports are parsed.
+     *
      * @throws IOException throws IOException error
      */
     @Test
@@ -109,7 +116,8 @@ public class AirportParserTest extends ParserTest {
     }
 
     /**
-     * Check that the correct contents have been parsed given a valid airport
+     * Check that the correct contents have been parsed given a valid airport.
+     *
      * @throws IOException throws IOException error
      */
     @Test
@@ -121,7 +129,8 @@ public class AirportParserTest extends ParserTest {
     }
 
     /**
-     * Check that the correct contents have been parsed given a consecutive valid airport
+     * Check that the correct contents have been parsed given a consecutive valid airport.
+     *
      * @throws IOException throws IOException error
      */
     @Test
@@ -135,7 +144,8 @@ public class AirportParserTest extends ParserTest {
     }
 
     /**
-     * Check that the correct contents have been parsed given multiple valid airport
+     * Check that the correct contents have been parsed given multiple valid airport.
+     *
      * @throws IOException throws IOException error
      */
     @Test
@@ -151,7 +161,8 @@ public class AirportParserTest extends ParserTest {
     }
 
     /**
-     * Check that the correct contents have been parsed given a valid airport with a null
+     * Check that the correct contents have been parsed given a valid airport with a null.
+     *
      * @throws IOException throws IOException error
      */
     @Test
@@ -163,7 +174,8 @@ public class AirportParserTest extends ParserTest {
     }
 
     /**
-     * Check that the correct contents have been parsed given a valid airport with a comma
+     * Check that the correct contents have been parsed given a valid airport with a comma.
+     *
      * @throws IOException throws IOException error
      */
     @Test

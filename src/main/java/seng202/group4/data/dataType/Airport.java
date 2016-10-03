@@ -162,7 +162,7 @@ public class Airport implements Serializable {
 
     /**
      * Add route where this airport is the source
-     * @param route
+     * @param route Route
      */
     public void addRoute(Route route) {
         routes.add(route);

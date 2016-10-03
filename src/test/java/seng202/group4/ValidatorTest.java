@@ -37,6 +37,7 @@ public class ValidatorTest {
 
     /**
      * Checks if one valid airline is parsed in, one valid airline is read.
+     *
      *  @throws IOException throws an IOException error
      */
     @Test
@@ -49,6 +50,7 @@ public class ValidatorTest {
 
     /**
      * Checks if multiple valid airlines are entered, the correct number of airlines is read.
+     *
      * @throws IOException throws an IOException error
      */
     @Test
@@ -62,6 +64,7 @@ public class ValidatorTest {
     /**
      * Checks that if one airline is entered with a null value, that the airline data is still parsed through as a valid
      * airline.
+     *
      * @throws IOException throws an IOException error
      */
     @Test
@@ -73,6 +76,7 @@ public class ValidatorTest {
 
     /**
      * Checks to see if the validator handles an empty file correctly.
+     *
      * @throws IOException throws an IOException error
      */
     @Test

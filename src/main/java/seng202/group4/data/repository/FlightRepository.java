@@ -14,6 +14,7 @@ public class FlightRepository extends Repository implements Serializable {
 
     /**
      * Adds a flight to the HashMap of flights.
+     *
      * @param name String
      * @param flight Flight
      */
@@ -24,6 +25,7 @@ public class FlightRepository extends Repository implements Serializable {
 
     /**
      * Gets a list of all the flights.
+     *
      * @return flights
      */
     public HashMap<String, Flight> getFlights() {

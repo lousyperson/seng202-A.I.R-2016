@@ -23,6 +23,7 @@ public class AirportParser {
 
     /**
      * Sets up the file to be parsed through.
+     *
      * @param file ArrayList
      */
     public AirportParser(ArrayList file) {
@@ -30,7 +31,9 @@ public class AirportParser {
         makeMap();
     }
 
-    /**Enum for the daylight saving stuff*/
+    /**
+     * Enum for the daylight saving stuff
+     */
     private void makeMap() {
         DSTs.put("E", DaylightSavingsTime.E);
         DSTs.put("A", DaylightSavingsTime.A);
@@ -42,7 +45,9 @@ public class AirportParser {
 
     }
 
-    /**Reads the string, removing all unnecessary characters*/
+    /**
+     * Reads the string, removing all unnecessary characters
+     */
     private void readString(int i) {
         if (splitLine[i].equals("\\N")) {
             splitLine[i] = null;
@@ -52,9 +57,12 @@ public class AirportParser {
         }
     }
 
-    /**Reads through a string, if it contains commas where the commas is a part of the string and not a separator
-    * of things within the super string, then this gets through the string
-    * @return name, where name is the string without invalid characters*/
+    /**
+     * Reads through a string, if it contains commas where the commas is a part of the string and not a separator
+     * of things within the super string, then this gets through the string.
+     *
+     * @return name, where name is the string without invalid characters
+     */
     private String readStringWithCommas() {
         String name = "";
         while (!splitLine[index].endsWith("\"")) {
@@ -68,10 +76,12 @@ public class AirportParser {
         return name;
     }
 
-    /**Adds an individual airport to the data list, using readStringWithCommas so that if a comma is in the middle of an
-     * attribute it is not an issue
-     * @param takes in a singular line in the form of a string
-     * */
+    /**
+     * Adds an individual airport to the data list, using readStringWithCommas so that if a comma is in the middle of an
+     * attribute it is not an issue.
+     *
+     * @param currentLine takes in a singular line in the form of a string
+     */
     private void addAirport(String currentLine) throws IOException {
         splitLine = currentLine.split(splitBy);
         index = 1;
@@ -96,6 +106,7 @@ public class AirportParser {
 
     /**
      * Builds the singular airport from the current line in the data and adds it to the list of airports.
+     *
      * @return airports
      * @throws IOException Throws IOException error
      */

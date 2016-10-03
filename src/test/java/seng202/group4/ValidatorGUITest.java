@@ -26,6 +26,7 @@ public class ValidatorGUITest {
 
     /**
      * Tests an invalid airline file to ensure the GUI responds as anticipated, by producing a pop-up dialog.
+     *
      * @param file the filename
      * @throws IOException when file cannot be read
      */
@@ -37,6 +38,7 @@ public class ValidatorGUITest {
 
     /**
      * Tests an invalid route file to ensure the GUI acts as anticipated, by producing a pop-up dialog.
+     *
      * @param file the name of the file
      * @throws IOException when file cannot be read
      */
@@ -48,6 +50,7 @@ public class ValidatorGUITest {
 
     /**
      * Tests a valid airport file to see that the GUI responds as anticipated, by happily accepting the file.
+     *
      * @param file the filename
      * @throws IOException when file cannot be read
      */
@@ -59,6 +62,7 @@ public class ValidatorGUITest {
 
     /**
      * Tests an invalid aiport file to see that the GUI responds appropriately, by producing a pop-up dialog.
+     *
      * @param file Filepath in string format
      * @throws IOException when file cannot be read
      */
