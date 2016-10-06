@@ -1,0 +1,244 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: AirlineParserTest</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">seng202.group4</a> ]
+</div>
+
+<h1>Coverage Summary for Class: AirlineParserTest (seng202.group4)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">AirlineParserTest</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (12/ 12)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (59/ 59)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package seng202.group4;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import org.junit.Test;
+<i>4</i>&nbsp;import seng202.group4.data.dataType.Airline;
+<i>5</i>&nbsp;import seng202.group4.data.parser.AirlineParser;
+<i>6</i>&nbsp;
+<i>7</i>&nbsp;import java.io.IOException;
+<i>8</i>&nbsp;import java.util.ArrayList;
+<i>9</i>&nbsp;
+<i>10</i>&nbsp;import static org.junit.Assert.assertTrue;
+<i>11</i>&nbsp;
+<i>12</i>&nbsp;/**
+<i>13</i>&nbsp; * Tests the AirlineParser class with valid Airline files.
+<i>14</i>&nbsp; */
+<b class="fc"><i>15</i>&nbsp;public class AirlineParserTest extends ParserTest {</b>
+<b class="fc"><i>16</i>&nbsp;    String path = &quot;testfiles/Airlines/&quot;;</b>
+<i>17</i>&nbsp;
+<i>18</i>&nbsp;    /**
+<i>19</i>&nbsp;     * Gets the string of the flight position that is used for testing.
+<i>20</i>&nbsp;     */
+<i>21</i>&nbsp;    private String getString(Airline airline) {
+<b class="fc"><i>22</i>&nbsp;        String s = &quot;&quot;;</b>
+<b class="fc"><i>23</i>&nbsp;        s += airline.getID() + &quot;,&quot; + airline.getName() + &quot;,&quot; + airline.getAlias() + &quot;,&quot; +</b>
+<b class="fc"><i>24</i>&nbsp;                airline.getIATA() + &quot;,&quot; + airline.getICAO() + &quot;,&quot; + airline.getCallsign() + &quot;,&quot; +</b>
+<b class="fc"><i>25</i>&nbsp;                airline.getCountry() + &quot;,&quot;  + airline.getActive();</b>
+<b class="fc"><i>26</i>&nbsp;        return s;</b>
+<i>27</i>&nbsp;    }
+<i>28</i>&nbsp;
+<i>29</i>&nbsp;    /**
+<i>30</i>&nbsp;     * Check that if the airline parser parses an empty file, 0 airlines are parsed.
+<i>31</i>&nbsp;     *
+<i>32</i>&nbsp;     * @throws IOException throws IOException error
+<i>33</i>&nbsp;     */
+<i>34</i>&nbsp;    @Test
+<i>35</i>&nbsp;    public void emptyFileAirline() throws IOException {
+<b class="fc"><i>36</i>&nbsp;        AirlineParser parser = new AirlineParser(fileArray(&quot;testfiles/empty.txt&quot;));</b>
+<b class="fc"><i>37</i>&nbsp;        ArrayList&lt;Airline&gt; airlines = parser.makeAirlines();</b>
+<b class="fc"><i>38</i>&nbsp;        int size = airlines.size();</b>
+<b class="fc"><i>39</i>&nbsp;        assertTrue(size == 0);</b>
+<b class="fc"><i>40</i>&nbsp;    }</b>
+<i>41</i>&nbsp;
+<i>42</i>&nbsp;    /**
+<i>43</i>&nbsp;     * Given one valid airline, check that the size is 1.
+<i>44</i>&nbsp;     *
+<i>45</i>&nbsp;     * @throws IOException throws IOException error
+<i>46</i>&nbsp;     */
+<i>47</i>&nbsp;    @Test
+<i>48</i>&nbsp;    public void oneValidAirlineSize() throws IOException {
+<b class="fc"><i>49</i>&nbsp;        AirlineParser parser = new AirlineParser(fileArray(path + &quot;oneValidAirline.txt&quot;));</b>
+<b class="fc"><i>50</i>&nbsp;        ArrayList&lt;Airline&gt; airlines = parser.makeAirlines();</b>
+<b class="fc"><i>51</i>&nbsp;        assertTrue(airlines.size() == 1);</b>
+<b class="fc"><i>52</i>&nbsp;    }</b>
+<i>53</i>&nbsp;
+<i>54</i>&nbsp;    /**
+<i>55</i>&nbsp;     * Given two valid airlines, check that the size is 2.
+<i>56</i>&nbsp;     *
+<i>57</i>&nbsp;     * @throws IOException throws IOException error
+<i>58</i>&nbsp;     */
+<i>59</i>&nbsp;    @Test
+<i>60</i>&nbsp;    public void twoValidAirlineSize() throws IOException {
+<b class="fc"><i>61</i>&nbsp;        AirlineParser parser = new AirlineParser(fileArray(path + &quot;twoValidAirlines.txt&quot;));</b>
+<b class="fc"><i>62</i>&nbsp;        ArrayList&lt;Airline&gt; airlines = parser.makeAirlines();</b>
+<b class="fc"><i>63</i>&nbsp;        assertTrue(airlines.size() == 2);</b>
+<b class="fc"><i>64</i>&nbsp;    }</b>
+<i>65</i>&nbsp;
+<i>66</i>&nbsp;    /**
+<i>67</i>&nbsp;     * Given three valid airlines, check that the size is 3.
+<i>68</i>&nbsp;     *
+<i>69</i>&nbsp;     * @throws IOException throws IOException error
+<i>70</i>&nbsp;     */
+<i>71</i>&nbsp;    @Test
+<i>72</i>&nbsp;    public void threeValidAirlineSize() throws IOException {
+<b class="fc"><i>73</i>&nbsp;        AirlineParser parser = new AirlineParser(fileArray(path + &quot;threeValidAirlines.txt&quot;));</b>
+<b class="fc"><i>74</i>&nbsp;        ArrayList&lt;Airline&gt; airlines = parser.makeAirlines();</b>
+<b class="fc"><i>75</i>&nbsp;        assertTrue(airlines.size() == 3);</b>
+<b class="fc"><i>76</i>&nbsp;    }</b>
+<i>77</i>&nbsp;
+<i>78</i>&nbsp;    /**
+<i>79</i>&nbsp;     * Check that a valid airline with null is read by the parser.
+<i>80</i>&nbsp;     *
+<i>81</i>&nbsp;     * @throws IOException throws IOException error
+<i>82</i>&nbsp;     */
+<i>83</i>&nbsp;    @Test
+<i>84</i>&nbsp;    public void oneValidAirlineWithNullSize() throws IOException {
+<b class="fc"><i>85</i>&nbsp;        AirlineParser parser = new AirlineParser(fileArray(path + &quot;oneValidAirlineWithNull.txt&quot;));</b>
+<b class="fc"><i>86</i>&nbsp;        ArrayList&lt;Airline&gt; airlines = parser.makeAirlines();</b>
+<b class="fc"><i>87</i>&nbsp;        assertTrue(airlines.size() == 1);</b>
+<b class="fc"><i>88</i>&nbsp;    }</b>
+<i>89</i>&nbsp;
+<i>90</i>&nbsp;    /**
+<i>91</i>&nbsp;     * Check that every airline in the 6048Airlines.txt has been read by the parser, check the size is 6048.
+<i>92</i>&nbsp;     *
+<i>93</i>&nbsp;     * @throws IOException throws IOException error
+<i>94</i>&nbsp;     */
+<i>95</i>&nbsp;    @Test
+<i>96</i>&nbsp;    public void Airlines6048Size() throws IOException {
+<b class="fc"><i>97</i>&nbsp;        AirlineParser parser = new AirlineParser(fileArray(path + &quot;6048Airlines.txt&quot;));</b>
+<b class="fc"><i>98</i>&nbsp;        ArrayList&lt;Airline&gt; airlines = parser.makeAirlines();</b>
+<b class="fc"><i>99</i>&nbsp;        assertTrue(airlines.size() == 6048);</b>
+<i>100</i>&nbsp;
+<b class="fc"><i>101</i>&nbsp;    }</b>
+<i>102</i>&nbsp;
+<i>103</i>&nbsp;    /**
+<i>104</i>&nbsp;     * Given one valid airline, check that the content has been parsed correctly.
+<i>105</i>&nbsp;     *
+<i>106</i>&nbsp;     * @throws IOException throws IOException error
+<i>107</i>&nbsp;     */
+<i>108</i>&nbsp;    @Test
+<i>109</i>&nbsp;    public void oneValidAirlineContents() throws IOException {
+<b class="fc"><i>110</i>&nbsp;        AirlineParser parser = new AirlineParser(fileArray(path + &quot;oneValidAirline.txt&quot;));</b>
+<b class="fc"><i>111</i>&nbsp;        ArrayList&lt;Airline&gt; airlines = parser.makeAirlines();</b>
+<b class="fc"><i>112</i>&nbsp;        String airline0 = getString(airlines.get(0));</b>
+<b class="fc"><i>113</i>&nbsp;        assertTrue(airline0.equals(&quot;324,All Nippon Airways,ANA All Nippon Airways,NH,ANA,ALL NIPPON,Japan,true&quot;));</b>
+<b class="fc"><i>114</i>&nbsp;    }</b>
+<i>115</i>&nbsp;
+<i>116</i>&nbsp;    /**
+<i>117</i>&nbsp;     * Given one valid airline, check that the content has been parsed correctly.
+<i>118</i>&nbsp;     *
+<i>119</i>&nbsp;     * @throws IOException throws IOException error
+<i>120</i>&nbsp;     */
+<i>121</i>&nbsp;    @Test
+<i>122</i>&nbsp;    public void twoValidAirlineContents() throws IOException {
+<b class="fc"><i>123</i>&nbsp;        AirlineParser parser = new AirlineParser(fileArray(path + &quot;twoValidAirlines.txt&quot;));</b>
+<b class="fc"><i>124</i>&nbsp;        ArrayList&lt;Airline&gt; airlines = parser.makeAirlines();</b>
+<b class="fc"><i>125</i>&nbsp;        String airline0 = getString(airlines.get(0));</b>
+<b class="fc"><i>126</i>&nbsp;        String airline1 = getString(airlines.get(1));</b>
+<b class="fc"><i>127</i>&nbsp;        assertTrue(airline0.equals(&quot;334,Alajnihah for Air Transport,null,,ANH,ALAJNIHAH,Libya,false&quot;) &amp;&amp;</b>
+<b class="fc"><i>128</i>&nbsp;                airline1.equals(&quot;335,Air Atlantic (Nig) Limited,null,,ANI,NIGALANTIC,Nigeria,false&quot;));</b>
+<b class="fc"><i>129</i>&nbsp;    }</b>
+<i>130</i>&nbsp;
+<i>131</i>&nbsp;    /**
+<i>132</i>&nbsp;     * Given one valid airline, check that the content has been parsed correctly.
+<i>133</i>&nbsp;     *
+<i>134</i>&nbsp;     * @throws IOException throws IOException error
+<i>135</i>&nbsp;     */
+<i>136</i>&nbsp;    @Test
+<i>137</i>&nbsp;    public void threeValidAirlineContents() throws IOException {
+<b class="fc"><i>138</i>&nbsp;        AirlineParser parser = new AirlineParser(fileArray(path + &quot;threeValidAirlines.txt&quot;));</b>
+<b class="fc"><i>139</i>&nbsp;        ArrayList&lt;Airline&gt; airlines = parser.makeAirlines();</b>
+<b class="fc"><i>140</i>&nbsp;        String airline0 = getString(airlines.get(0));</b>
+<b class="fc"><i>141</i>&nbsp;        String airline1 = getString(airlines.get(1));</b>
+<b class="fc"><i>142</i>&nbsp;        String airline2 = getString(airlines.get(2));</b>
+<b class="fc"><i>143</i>&nbsp;        assertTrue(airline0.equals(&quot;86,Airdeal Oy,null,,ADU,AIRDEAL,Finland,false&quot;) &amp;&amp;</b>
+<b class="fc"><i>144</i>&nbsp;                airline1.equals(&quot;87,Advance Air Charters,null,,ADV,ADVANCE,Canada,false&quot;) &amp;&amp;</b>
+<b class="fc"><i>145</i>&nbsp;                airline2.equals(&quot;88,Air Andaman,null,,ADW,AIR ANDAMAN,Thailand,false&quot;));</b>
+<b class="fc"><i>146</i>&nbsp;    }</b>
+<i>147</i>&nbsp;
+<i>148</i>&nbsp;    /**
+<i>149</i>&nbsp;     * Given one valid airline, check that the content has been parsed correctly.
+<i>150</i>&nbsp;     *
+<i>151</i>&nbsp;     * @throws IOException throws IOException error
+<i>152</i>&nbsp;     */
+<i>153</i>&nbsp;    @Test
+<i>154</i>&nbsp;    public void oneValidAirlineWithNullContents() throws IOException {
+<b class="fc"><i>155</i>&nbsp;        AirlineParser parser = new AirlineParser(fileArray(path + &quot;oneValidAirlineWithNull.txt&quot;));</b>
+<b class="fc"><i>156</i>&nbsp;        ArrayList&lt;Airline&gt; airlines = parser.makeAirlines();</b>
+<b class="fc"><i>157</i>&nbsp;        String airline0 = getString(airlines.get(0));</b>
+<b class="fc"><i>158</i>&nbsp;        System.out.println(airline0);</b>
+<b class="fc"><i>159</i>&nbsp;        assertTrue(airline0.equals(&quot;412,Aerolineas Argentinas,null,AR,ARG,ARGENTINA,Argentina,true&quot;));</b>
+<b class="fc"><i>160</i>&nbsp;    }</b>
+<i>161</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2016-10-06 13:18</div>
+</div>
+</body>
+</html>

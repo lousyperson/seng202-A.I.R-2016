@@ -1,0 +1,918 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: RouteAnchorController</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">seng202.group4.GUI.controller</a> ]
+</div>
+
+<h1>Coverage Summary for Class: RouteAnchorController (seng202.group4.GUI.controller)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">RouteAnchorController</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 34)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 363)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">RouteAnchorController$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 10)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 36)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 373)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package seng202.group4.GUI.controller;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import javafx.beans.binding.Bindings;
+<i>4</i>&nbsp;import javafx.collections.FXCollections;
+<i>5</i>&nbsp;import javafx.collections.ObservableList;
+<i>6</i>&nbsp;import javafx.collections.transformation.FilteredList;
+<i>7</i>&nbsp;import javafx.collections.transformation.SortedList;
+<i>8</i>&nbsp;import javafx.concurrent.Task;
+<i>9</i>&nbsp;import javafx.fxml.FXML;
+<i>10</i>&nbsp;import javafx.fxml.Initializable;
+<i>11</i>&nbsp;import javafx.geometry.Insets;
+<i>12</i>&nbsp;import javafx.geometry.Pos;
+<i>13</i>&nbsp;import javafx.scene.Scene;
+<i>14</i>&nbsp;import javafx.scene.control.*;
+<i>15</i>&nbsp;import javafx.scene.control.cell.PropertyValueFactory;
+<i>16</i>&nbsp;import javafx.scene.layout.AnchorPane;
+<i>17</i>&nbsp;import javafx.scene.layout.HBox;
+<i>18</i>&nbsp;import javafx.scene.layout.VBoxBuilder;
+<i>19</i>&nbsp;import javafx.scene.text.Text;
+<i>20</i>&nbsp;import javafx.stage.FileChooser;
+<i>21</i>&nbsp;import javafx.stage.Modality;
+<i>22</i>&nbsp;import javafx.stage.Stage;
+<i>23</i>&nbsp;import seng202.group4.App;
+<i>24</i>&nbsp;import seng202.group4.GUI.table.RouteTable;
+<i>25</i>&nbsp;import seng202.group4.data.dataType.Route;
+<i>26</i>&nbsp;import seng202.group4.data.parser.validator.RouteValidator;
+<i>27</i>&nbsp;import seng202.group4.data.repository.Repository;
+<i>28</i>&nbsp;import seng202.group4.data.repository.RouteRepository;
+<i>29</i>&nbsp;
+<i>30</i>&nbsp;import java.io.File;
+<i>31</i>&nbsp;import java.io.FileInputStream;
+<i>32</i>&nbsp;import java.io.IOException;
+<i>33</i>&nbsp;import java.io.InputStream;
+<i>34</i>&nbsp;import java.net.URISyntaxException;
+<i>35</i>&nbsp;import java.net.URL;
+<i>36</i>&nbsp;import java.util.*;
+<i>37</i>&nbsp;import java.util.stream.Collectors;
+<i>38</i>&nbsp;
+<i>39</i>&nbsp;/**
+<i>40</i>&nbsp; * Created by Pang on 26/09/16.
+<i>41</i>&nbsp; */
+<b class="nc"><i>42</i>&nbsp;public class RouteAnchorController implements Initializable {</b>
+<i>43</i>&nbsp;
+<i>44</i>&nbsp;    @FXML
+<i>45</i>&nbsp;    private TableView routeTableID;
+<i>46</i>&nbsp;
+<i>47</i>&nbsp;    @FXML
+<i>48</i>&nbsp;    private AnchorPane routePane;
+<i>49</i>&nbsp;
+<i>50</i>&nbsp;    // route FXML
+<i>51</i>&nbsp;    @FXML
+<i>52</i>&nbsp;    private TextField routeSearch;
+<i>53</i>&nbsp;
+<i>54</i>&nbsp;    @FXML
+<i>55</i>&nbsp;    private ComboBox routeDepCountryFilter;
+<i>56</i>&nbsp;
+<i>57</i>&nbsp;    @FXML
+<i>58</i>&nbsp;    private ComboBox routeDestCountryFilter;
+<i>59</i>&nbsp;
+<i>60</i>&nbsp;    @FXML
+<i>61</i>&nbsp;    private CheckBox direct;
+<i>62</i>&nbsp;
+<i>63</i>&nbsp;    @FXML
+<i>64</i>&nbsp;    private CheckBox indirect;
+<i>65</i>&nbsp;
+<i>66</i>&nbsp;    @FXML
+<i>67</i>&nbsp;    private ComboBox routeEquipFilter;
+<i>68</i>&nbsp;
+<i>69</i>&nbsp;    @FXML
+<i>70</i>&nbsp;    private TableColumn&lt;RouteTable, String&gt; airline;
+<i>71</i>&nbsp;
+<i>72</i>&nbsp;    @FXML
+<i>73</i>&nbsp;    private TableColumn&lt;RouteTable, Integer&gt; airlineID;
+<i>74</i>&nbsp;
+<i>75</i>&nbsp;    @FXML
+<i>76</i>&nbsp;    private TableColumn&lt;RouteTable, String&gt; source;
+<i>77</i>&nbsp;
+<i>78</i>&nbsp;    @FXML
+<i>79</i>&nbsp;    private TableColumn&lt;RouteTable, Integer&gt; sourceID;
+<i>80</i>&nbsp;
+<i>81</i>&nbsp;    @FXML
+<i>82</i>&nbsp;    private TableColumn&lt;RouteTable, String&gt; dest;
+<i>83</i>&nbsp;
+<i>84</i>&nbsp;    @FXML
+<i>85</i>&nbsp;    private TableColumn&lt;RouteTable, Integer&gt; destID;
+<i>86</i>&nbsp;
+<i>87</i>&nbsp;    @FXML
+<i>88</i>&nbsp;    private TableColumn&lt;RouteTable, String&gt; codeshare;
+<i>89</i>&nbsp;
+<i>90</i>&nbsp;    @FXML
+<i>91</i>&nbsp;    private TableColumn&lt;RouteTable, Integer&gt; stops;
+<i>92</i>&nbsp;
+<i>93</i>&nbsp;    @FXML
+<i>94</i>&nbsp;    private TableColumn&lt;RouteTable, String&gt; equipment;
+<i>95</i>&nbsp;
+<i>96</i>&nbsp;    // controllers
+<i>97</i>&nbsp;    private DataTabController mainController;
+<i>98</i>&nbsp;
+<i>99</i>&nbsp;    // variables from other controllers
+<i>100</i>&nbsp;    private String allCountriesTag;
+<i>101</i>&nbsp;    private String routeLabel;
+<i>102</i>&nbsp;
+<i>103</i>&nbsp;    // initial text in the combo boxes
+<b class="nc"><i>104</i>&nbsp;    private String allEquipmentsTag = &quot; --ALL EQUIPMENTS-- &quot;;</b>
+<b class="nc"><i>105</i>&nbsp;    private String departureCountryTag = &quot; --DEPART FROM-- &quot;;</b>
+<b class="nc"><i>106</i>&nbsp;    private String destinationCountryTag = &quot; --ARRIVE TO-- &quot;;</b>
+<i>107</i>&nbsp;
+<i>108</i>&nbsp;
+<i>109</i>&nbsp;    // depSet holds all the departure country names uploaded to routes
+<b class="nc"><i>110</i>&nbsp;    private TreeSet depSet = new TreeSet();</b>
+<i>111</i>&nbsp;
+<i>112</i>&nbsp;    // dest holds all the destination country names uploaded to routes
+<b class="nc"><i>113</i>&nbsp;    private TreeSet destSet = new TreeSet();</b>
+<i>114</i>&nbsp;
+<i>115</i>&nbsp;    // equipmentSet holds all the equipment uploaded to route
+<b class="nc"><i>116</i>&nbsp;    private TreeSet equipmentSet = new TreeSet();</b>
+<i>117</i>&nbsp;
+<i>118</i>&nbsp;    // create route data
+<b class="nc"><i>119</i>&nbsp;    private ObservableList&lt;RouteTable&gt; routeTData = FXCollections.observableArrayList();</b>
+<i>120</i>&nbsp;
+<i>121</i>&nbsp;    /**
+<i>122</i>&nbsp;     * Sets the main controller and retrieves private variables from the main controller.
+<i>123</i>&nbsp;     *
+<i>124</i>&nbsp;     * @param controller Controller
+<i>125</i>&nbsp;     */
+<i>126</i>&nbsp;    public void setMainController(DataTabController controller) {
+<b class="nc"><i>127</i>&nbsp;        this.mainController = controller;</b>
+<b class="nc"><i>128</i>&nbsp;        this.allCountriesTag = mainController.getAllCountriesTag();</b>
+<b class="nc"><i>129</i>&nbsp;        this.routeLabel = mainController.getRouteLabel();</b>
+<i>130</i>&nbsp;    }
+<i>131</i>&nbsp;
+<i>132</i>&nbsp;    /**
+<i>133</i>&nbsp;     * Where the program starts, initializes things like listeners and starts running the GUI.
+<i>134</i>&nbsp;     *
+<i>135</i>&nbsp;     * @param location URL
+<i>136</i>&nbsp;     * @param resources ResourceBundle
+<i>137</i>&nbsp;     */
+<i>138</i>&nbsp;    public void initialize(URL location, ResourceBundle resources) {
+<i>139</i>&nbsp;        // initialise route data table resources
+<b class="nc"><i>140</i>&nbsp;        airline.setCellValueFactory(new PropertyValueFactory&lt;&gt;(&quot;rairline&quot;));</b>
+<b class="nc"><i>141</i>&nbsp;        airlineID.setCellValueFactory(new PropertyValueFactory&lt;&gt;(&quot;rid&quot;));</b>
+<b class="nc"><i>142</i>&nbsp;        source.setCellValueFactory(new PropertyValueFactory&lt;&gt;(&quot;rsource&quot;));</b>
+<b class="nc"><i>143</i>&nbsp;        sourceID.setCellValueFactory(new PropertyValueFactory&lt;&gt;(&quot;rsourceid&quot;));</b>
+<b class="nc"><i>144</i>&nbsp;        dest.setCellValueFactory(new PropertyValueFactory&lt;&gt;(&quot;rdest&quot;));</b>
+<b class="nc"><i>145</i>&nbsp;        destID.setCellValueFactory(new PropertyValueFactory&lt;&gt;(&quot;rdestid&quot;));</b>
+<b class="nc"><i>146</i>&nbsp;        codeshare.setCellValueFactory(new PropertyValueFactory&lt;&gt;(&quot;rcodeshare&quot;));</b>
+<b class="nc"><i>147</i>&nbsp;        stops.setCellValueFactory(new PropertyValueFactory&lt;&gt;(&quot;rstops&quot;));</b>
+<b class="nc"><i>148</i>&nbsp;        equipment.setCellValueFactory(new PropertyValueFactory&lt;&gt;(&quot;requipment&quot;));</b>
+<i>149</i>&nbsp;
+<i>150</i>&nbsp;        // set items to route table
+<b class="nc"><i>151</i>&nbsp;        routeTableID.setItems(routeTData);</b>
+<i>152</i>&nbsp;
+<i>153</i>&nbsp;        // load default route list
+<i>154</i>&nbsp;        try {
+<b class="nc"><i>155</i>&nbsp;            loadDefaultRoute();</b>
+<b class="nc"><i>156</i>&nbsp;        } catch (IOException e) {</b>
+<b class="nc"><i>157</i>&nbsp;            e.printStackTrace();</b>
+<b class="nc"><i>158</i>&nbsp;        } catch (URISyntaxException e) {</b>
+<b class="nc"><i>159</i>&nbsp;            e.printStackTrace();</b>
+<b class="nc"><i>160</i>&nbsp;        }</b>
+<i>161</i>&nbsp;
+<i>162</i>&nbsp;        // enable multi select on table
+<b class="nc"><i>163</i>&nbsp;        routeTableID.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);</b>
+<i>164</i>&nbsp;
+<i>165</i>&nbsp;        // enable delete on table
+<b class="nc"><i>166</i>&nbsp;        enableDeleteRoute();</b>
+<i>167</i>&nbsp;
+<i>168</i>&nbsp;        // listen for route search queries
+<b class="nc"><i>169</i>&nbsp;        searchRoutes();</b>
+<i>170</i>&nbsp;    }
+<i>171</i>&nbsp;
+<i>172</i>&nbsp;
+<i>173</i>&nbsp;    private void enableDeleteRoute(){
+<b class="nc"><i>174</i>&nbsp;        routeTableID.setRowFactory(tableView -&gt; {</b>
+<b class="nc"><i>175</i>&nbsp;            final TableRow&lt;RouteTable&gt; row = new TableRow&lt;&gt;();</b>
+<b class="nc"><i>176</i>&nbsp;            final ContextMenu rowMenu = new ContextMenu();</b>
+<b class="nc"><i>177</i>&nbsp;            MenuItem removeItem = new MenuItem(&quot;Delete&quot;);</b>
+<b class="nc"><i>178</i>&nbsp;            row.setOnMouseClicked(event -&gt; {</b>
+<i>179</i>&nbsp;            });
+<b class="nc"><i>180</i>&nbsp;            removeItem.setOnAction(event -&gt; {</b>
+<b class="nc"><i>181</i>&nbsp;                if (routeTableID.getSelectionModel().getSelectedItems().size() &gt; 5000) {</b>
+<b class="nc"><i>182</i>&nbsp;                    Alert warning = new Alert(Alert.AlertType.WARNING);</b>
+<b class="nc"><i>183</i>&nbsp;                    warning.setTitle(&quot;Warning Dialog&quot;);</b>
+<b class="nc"><i>184</i>&nbsp;                    warning.setHeaderText(&quot;Cannot delete more than 5000 routes at a time.&quot;);</b>
+<b class="nc"><i>185</i>&nbsp;                    warning.setContentText(&quot;You selected &quot; + routeTableID.getSelectionModel().getSelectedItems().size() + &quot; lines.&quot;);</b>
+<i>186</i>&nbsp;
+<b class="nc"><i>187</i>&nbsp;                    warning.showAndWait();</b>
+<i>188</i>&nbsp;
+<b class="nc"><i>189</i>&nbsp;                } else {</b>
+<b class="nc"><i>190</i>&nbsp;                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);</b>
+<b class="nc"><i>191</i>&nbsp;                    alert.setTitle(&quot;Confirmation Dialog&quot;);</b>
+<b class="nc"><i>192</i>&nbsp;                    alert.setHeaderText(&quot;Are you sure you want to delete?&quot;);</b>
+<b class="nc"><i>193</i>&nbsp;                    alert.setContentText(&quot;Pressing OK will delete the row(s).\nWARNING: The action cannot be undone.\n&quot;);</b>
+<i>194</i>&nbsp;
+<b class="nc"><i>195</i>&nbsp;                    Optional&lt;ButtonType&gt; result = alert.showAndWait();</b>
+<b class="nc"><i>196</i>&nbsp;                    if (result.get() == ButtonType.OK) {</b>
+<b class="nc"><i>197</i>&nbsp;                        ObservableList&lt;RouteTable&gt; selectedItems = routeTableID.getSelectionModel().getSelectedItems();</b>
+<b class="nc"><i>198</i>&nbsp;                        for (RouteTable route : selectedItems) {</b>
+<b class="nc"><i>199</i>&nbsp;                            String key = route.getRairline() + route.getRid() + route.getRsource() + route.getRsourceid()</b>
+<b class="nc"><i>200</i>&nbsp;                                    + route.getRdest() + route.getRdestid() + route.getRcodeshare() + route.getRstops();</b>
+<b class="nc"><i>201</i>&nbsp;                            String[] equipment = route.getRequipment().split(&quot;, &quot;);</b>
+<b class="nc"><i>202</i>&nbsp;                            for (String item : equipment) {</b>
+<b class="nc"><i>203</i>&nbsp;                                key += item;</b>
+<i>204</i>&nbsp;                            }
+<b class="nc"><i>205</i>&nbsp;                            Repository.routeRepository.getRoutes().remove(key);</b>
+<b class="nc"><i>206</i>&nbsp;                        }</b>
+<b class="nc"><i>207</i>&nbsp;                        routeTData.removeAll(selectedItems);</b>
+<b class="nc"><i>208</i>&nbsp;                        routeTableID.getSelectionModel().clearSelection();</b>
+<i>209</i>&nbsp;                    }
+<i>210</i>&nbsp;                }
+<i>211</i>&nbsp;
+<i>212</i>&nbsp;            });
+<b class="nc"><i>213</i>&nbsp;            rowMenu.getItems().addAll(removeItem);</b>
+<b class="nc"><i>214</i>&nbsp;            row.contextMenuProperty().bind(</b>
+<b class="nc"><i>215</i>&nbsp;                    Bindings.when(Bindings.isNotNull(row.itemProperty()))</b>
+<b class="nc"><i>216</i>&nbsp;                            .then(rowMenu)</b>
+<b class="nc"><i>217</i>&nbsp;                            .otherwise((ContextMenu) null)</b>
+<i>218</i>&nbsp;            );
+<b class="nc"><i>219</i>&nbsp;            return row;</b>
+<i>220</i>&nbsp;        });
+<i>221</i>&nbsp;    }
+<i>222</i>&nbsp;
+<i>223</i>&nbsp;    /**
+<i>224</i>&nbsp;     * Allows the user to load route data from a file.
+<i>225</i>&nbsp;     *
+<i>226</i>&nbsp;     * @throws IOException throws IOException error
+<i>227</i>&nbsp;     */
+<i>228</i>&nbsp;    public void loadRoute() throws IOException {
+<b class="nc"><i>229</i>&nbsp;        FileChooser fileChooser = new FileChooser();</b>
+<b class="nc"><i>230</i>&nbsp;        fileChooser.setTitle(&quot;Open file&quot;);</b>
+<b class="nc"><i>231</i>&nbsp;        File in = fileChooser.showOpenDialog(App.primaryStage);</b>
+<b class="nc"><i>232</i>&nbsp;        if (in != null &amp;&amp; in.exists()) {</b>
+<b class="nc"><i>233</i>&nbsp;            InputStream file = new FileInputStream(in);</b>
+<b class="nc"><i>234</i>&nbsp;            mainController.goToDataTab(routeLabel);</b>
+<b class="nc"><i>235</i>&nbsp;            insertRouteTable(file);</b>
+<i>236</i>&nbsp;        }
+<i>237</i>&nbsp;    }
+<i>238</i>&nbsp;
+<i>239</i>&nbsp;    /**
+<i>240</i>&nbsp;     * Insert the routes in a given file into the route table GUI checking for duplicates.
+<i>241</i>&nbsp;     *
+<i>242</i>&nbsp;     * @param file InputStream
+<i>243</i>&nbsp;     * @throws IOException throws IOException error
+<i>244</i>&nbsp;     */
+<i>245</i>&nbsp;    private void insertRouteTable(InputStream file) throws IOException {
+<b class="nc"><i>246</i>&nbsp;        RouteValidator validator = new RouteValidator(file);</b>
+<b class="nc"><i>247</i>&nbsp;        ArrayList&lt;Route&gt; routes = validator.makeroutes();</b>
+<b class="nc"><i>248</i>&nbsp;        validator = null;</b>
+<b class="nc"><i>249</i>&nbsp;        if (routes != null) {</b>
+<b class="nc"><i>250</i>&nbsp;            for (int i = 0; i &lt; routes.size(); i++) {</b>
+<b class="nc"><i>251</i>&nbsp;                Route route = routes.get(i);</b>
+<b class="nc"><i>252</i>&nbsp;                if (diffRoutes(route)) {</b>
+<b class="nc"><i>253</i>&nbsp;                    Repository.routeRepository.addRoute(route);</b>
+<b class="nc"><i>254</i>&nbsp;                    routeTData.add(new RouteTable(route.getAirline(), String.valueOf(route.getAirlineID()),</b>
+<b class="nc"><i>255</i>&nbsp;                            route.getSrcAirport(), String.valueOf(route.getSrcAirportID()),</b>
+<b class="nc"><i>256</i>&nbsp;                            route.getDestAirport(), String.valueOf(route.getDestAirportID()),</b>
+<b class="nc"><i>257</i>&nbsp;                            route.getCodeshare(), String.valueOf(route.getStops()),</b>
+<b class="nc"><i>258</i>&nbsp;                            route.getEquipment().stream().collect(Collectors.joining(&quot;, &quot;))));</b>
+<i>259</i>&nbsp;
+<i>260</i>&nbsp;                    // if destination country id is not null then add it to destSet
+<b class="nc"><i>261</i>&nbsp;                    if (route.getDestAirportID() != null) {</b>
+<i>262</i>&nbsp;                        // also check that the airport of that id exists in the repository
+<b class="nc"><i>263</i>&nbsp;                        if (Repository.airportRepository.getAirports().get(route.getDestAirportID()) != null) {</b>
+<b class="nc"><i>264</i>&nbsp;                            destSet.add(Repository.airportRepository.getAirports().get(route.getDestAirportID()).getCountry());</b>
+<i>265</i>&nbsp;                        }
+<i>266</i>&nbsp;                    }
+<i>267</i>&nbsp;                    // if departure country id is not null then add it to depSet
+<b class="nc"><i>268</i>&nbsp;                    if (route.getSrcAirportID() != null) {</b>
+<i>269</i>&nbsp;                        // also check that the airport of that id exists in the repository
+<b class="nc"><i>270</i>&nbsp;                        if (Repository.airportRepository.getAirports().get(route.getSrcAirportID()) != null) {</b>
+<b class="nc"><i>271</i>&nbsp;                            depSet.add(Repository.airportRepository.getAirports().get(route.getSrcAirportID()).getCountry());</b>
+<i>272</i>&nbsp;                        }
+<i>273</i>&nbsp;                    }
+<i>274</i>&nbsp;
+<i>275</i>&nbsp;                    // loop through the equipments given and add it to the equipmentSet
+<b class="nc"><i>276</i>&nbsp;                    for (String r : route.getEquipment()) {</b>
+<b class="nc"><i>277</i>&nbsp;                        if (!r.isEmpty()) {</b>
+<b class="nc"><i>278</i>&nbsp;                            equipmentSet.add(r);</b>
+<i>279</i>&nbsp;                        }
+<b class="nc"><i>280</i>&nbsp;                    }</b>
+<i>281</i>&nbsp;                } else {
+<b class="nc"><i>282</i>&nbsp;                    duplicateAlert(&quot;The system has read &quot; + i + &quot; route(s) from your file.\nPlease upload a file with different routes.&quot;);</b>
+<b class="nc"><i>283</i>&nbsp;                    break;</b>
+<i>284</i>&nbsp;                }
+<b class="nc"><i>285</i>&nbsp;                updateEquipBox();</b>
+<b class="nc"><i>286</i>&nbsp;                updateDepCountryBox();</b>
+<b class="nc"><i>287</i>&nbsp;                updateDestCountryBox();</b>
+<i>288</i>&nbsp;                //updateMapCountryBox(); // add this back once mapp allgood
+<i>289</i>&nbsp;            }
+<i>290</i>&nbsp;        }
+<i>291</i>&nbsp;    }
+<i>292</i>&nbsp;
+<i>293</i>&nbsp;    private void duplicateAlert(String message) {
+<b class="nc"><i>294</i>&nbsp;        Alert alert = new Alert(Alert.AlertType.ERROR);</b>
+<b class="nc"><i>295</i>&nbsp;        alert.setTitle(&quot;Error&quot;);</b>
+<b class="nc"><i>296</i>&nbsp;        alert.setHeaderText(&quot;The route already exists in the system.&quot;);</b>
+<b class="nc"><i>297</i>&nbsp;        alert.setContentText(message);</b>
+<b class="nc"><i>298</i>&nbsp;        alert.showAndWait();</b>
+<i>299</i>&nbsp;    }
+<i>300</i>&nbsp;
+<i>301</i>&nbsp;    private void updateEquipBox() {
+<i>302</i>&nbsp;        // clear the current combo box
+<b class="nc"><i>303</i>&nbsp;        routeEquipFilter.getItems().clear();</b>
+<i>304</i>&nbsp;        // if the combo box doesn&#39;t have --ALL EQUIPMENTS-- then add one
+<b class="nc"><i>305</i>&nbsp;        if (!routeEquipFilter.getItems().contains(allEquipmentsTag)) {</b>
+<b class="nc"><i>306</i>&nbsp;            routeEquipFilter.getItems().add(allEquipmentsTag);</b>
+<i>307</i>&nbsp;        }
+<i>308</i>&nbsp;
+<i>309</i>&nbsp;        // loop through the current airlineCountrySet
+<b class="nc"><i>310</i>&nbsp;        Iterator itr = equipmentSet.iterator();</b>
+<b class="nc"><i>311</i>&nbsp;        while (itr.hasNext()) {</b>
+<b class="nc"><i>312</i>&nbsp;            routeEquipFilter.getItems().add(itr.next());</b>
+<i>313</i>&nbsp;        }
+<i>314</i>&nbsp;    }
+<i>315</i>&nbsp;
+<i>316</i>&nbsp;    private void updateDepCountryBox() {
+<b class="nc"><i>317</i>&nbsp;        routeDepCountryFilter.getItems().clear();</b>
+<b class="nc"><i>318</i>&nbsp;        if (!routeDepCountryFilter.getItems().contains(departureCountryTag)) {</b>
+<b class="nc"><i>319</i>&nbsp;            routeDepCountryFilter.getItems().add(departureCountryTag);</b>
+<i>320</i>&nbsp;        }
+<b class="nc"><i>321</i>&nbsp;        Iterator itr = depSet.iterator();</b>
+<b class="nc"><i>322</i>&nbsp;        while (itr.hasNext()) {</b>
+<b class="nc"><i>323</i>&nbsp;            routeDepCountryFilter.getItems().add(itr.next());</b>
+<i>324</i>&nbsp;        }
+<i>325</i>&nbsp;    }
+<i>326</i>&nbsp;
+<i>327</i>&nbsp;    private void updateDestCountryBox() {
+<b class="nc"><i>328</i>&nbsp;        routeDestCountryFilter.getItems().clear();</b>
+<b class="nc"><i>329</i>&nbsp;        if (!routeDestCountryFilter.getItems().contains(destinationCountryTag)) {</b>
+<b class="nc"><i>330</i>&nbsp;            routeDestCountryFilter.getItems().add(destinationCountryTag);</b>
+<i>331</i>&nbsp;        }
+<b class="nc"><i>332</i>&nbsp;        Iterator itr = destSet.iterator();</b>
+<b class="nc"><i>333</i>&nbsp;        while (itr.hasNext()) {</b>
+<b class="nc"><i>334</i>&nbsp;            routeDestCountryFilter.getItems().add(itr.next());</b>
+<i>335</i>&nbsp;        }
+<i>336</i>&nbsp;    }
+<i>337</i>&nbsp;
+<i>338</i>&nbsp;
+<i>339</i>&nbsp;    private void searchRoutes() {
+<i>340</i>&nbsp;        // searching for route
+<b class="nc"><i>341</i>&nbsp;        FilteredList&lt;RouteTable&gt; routeTableFiltered = new FilteredList&lt;&gt;(routeTData, p -&gt; true);</b>
+<i>342</i>&nbsp;
+<b class="nc"><i>343</i>&nbsp;        routeSearch.textProperty().addListener((observable, oldValue, newValue) -&gt; {</b>
+<b class="nc"><i>344</i>&nbsp;            routeTableFiltered.setPredicate(route -&gt; {</b>
+<i>345</i>&nbsp;                // Some columns in route table (rt)
+<b class="nc"><i>346</i>&nbsp;                String rtAirID = route.getRairline();</b>
+<b class="nc"><i>347</i>&nbsp;                String rtID = route.getRid();</b>
+<b class="nc"><i>348</i>&nbsp;                String rtSrcAirport = route.getRsource();</b>
+<b class="nc"><i>349</i>&nbsp;                String rtSrcAirportId = route.getRsourceid();</b>
+<b class="nc"><i>350</i>&nbsp;                String rtDestAirport = route.getRdest();</b>
+<b class="nc"><i>351</i>&nbsp;                String rtDestAirportId = route.getRdestid();</b>
+<b class="nc"><i>352</i>&nbsp;                String rtCodeshare = route.getRcodeshare();</b>
+<b class="nc"><i>353</i>&nbsp;                String rtStops = route.getRstops();</b>
+<b class="nc"><i>354</i>&nbsp;                String rtEquipment = route.getRequipment();</b>
+<b class="nc"><i>355</i>&nbsp;                List&lt;String&gt; rtEquipmentArray = null;</b>
+<b class="nc"><i>356</i>&nbsp;                Boolean toggled = false; // toggle to see if anything was matched in the search box</b>
+<i>357</i>&nbsp;
+<i>358</i>&nbsp;                // set up for equipment drop down box
+<b class="nc"><i>359</i>&nbsp;                boolean emptyEquipFilter = routeEquipFilter.getSelectionModel().getSelectedItem() == null;</b>
+<i>360</i>&nbsp;                // selectedRouteEquip is a string to hold whats selected in the dropdown
+<i>361</i>&nbsp;                // set to null unless a dropdown is selected
+<b class="nc"><i>362</i>&nbsp;                String selectedRouteEquip = null;</b>
+<b class="nc"><i>363</i>&nbsp;                if (routeEquipFilter.getValue() != null) {</b>
+<b class="nc"><i>364</i>&nbsp;                    rtEquipmentArray = Arrays.asList(rtEquipment.toLowerCase().split(&quot;\\s*,\\s*&quot;));</b>
+<b class="nc"><i>365</i>&nbsp;                    selectedRouteEquip = routeEquipFilter.getValue().toString();</b>
+<i>366</i>&nbsp;                }
+<i>367</i>&nbsp;
+<i>368</i>&nbsp;                // set up for departure country drop down box
+<b class="nc"><i>369</i>&nbsp;                boolean emptyDepartFilter = routeDepCountryFilter.getSelectionModel().getSelectedItem() == null;</b>
+<i>370</i>&nbsp;                // selectedAirportCountry is a string to hold whats selected in the dropdown
+<i>371</i>&nbsp;                // set to null unless a dropdown is selected
+<b class="nc"><i>372</i>&nbsp;                String selectedDepartCountry = null;</b>
+<b class="nc"><i>373</i>&nbsp;                if (routeDepCountryFilter.getValue() != null) {</b>
+<b class="nc"><i>374</i>&nbsp;                    selectedDepartCountry = routeDepCountryFilter.getValue().toString();</b>
+<i>375</i>&nbsp;                }
+<i>376</i>&nbsp;
+<i>377</i>&nbsp;                // set up for destination country drop down box
+<b class="nc"><i>378</i>&nbsp;                boolean emptyDestFilter = routeDestCountryFilter.getSelectionModel().getSelectedItem() == null;</b>
+<i>379</i>&nbsp;                // selectedAirportCountry is a string to hold whats selected in the dropdown
+<i>380</i>&nbsp;                // set to null unless a dropdown is selected
+<b class="nc"><i>381</i>&nbsp;                String selectedDestCountry = null;</b>
+<b class="nc"><i>382</i>&nbsp;                if (routeDestCountryFilter.getValue() != null) {</b>
+<b class="nc"><i>383</i>&nbsp;                    selectedDestCountry = routeDestCountryFilter.getValue().toString();</b>
+<i>384</i>&nbsp;                }
+<i>385</i>&nbsp;
+<i>386</i>&nbsp;                // hold the string that&#39;s typed in the search bar in lowercase
+<b class="nc"><i>387</i>&nbsp;                String lowerCaseFilter = newValue.toLowerCase();</b>
+<i>388</i>&nbsp;
+<i>389</i>&nbsp;                // The following returns true if the filter matches
+<i>390</i>&nbsp;                // base case
+<b class="nc"><i>391</i>&nbsp;                if (newValue.isEmpty() &amp;&amp; !direct.isSelected() &amp;&amp; !indirect.isSelected()</b>
+<b class="nc"><i>392</i>&nbsp;                        &amp;&amp; selectedRouteEquip != null &amp;&amp; selectedRouteEquip.equals(allCountriesTag)</b>
+<b class="nc"><i>393</i>&nbsp;                        &amp;&amp; selectedDepartCountry.equals(departureCountryTag)</b>
+<b class="nc"><i>394</i>&nbsp;                        &amp;&amp; selectedDestCountry.equals(destinationCountryTag)) {</b>
+<b class="nc"><i>395</i>&nbsp;                    return true;    // display all data.</b>
+<i>396</i>&nbsp;                }
+<i>397</i>&nbsp;
+<i>398</i>&nbsp;                // Check if the search criteria matches the following columns
+<b class="nc"><i>399</i>&nbsp;                if ((rtAirID != null &amp;&amp; rtAirID.toLowerCase().contains(lowerCaseFilter) ||</b>
+<b class="nc"><i>400</i>&nbsp;                        (rtID != null &amp;&amp; rtID.toLowerCase().contains(lowerCaseFilter)) ||</b>
+<b class="nc"><i>401</i>&nbsp;                        (rtSrcAirport != null &amp;&amp; rtSrcAirport.toLowerCase().contains(lowerCaseFilter)) ||</b>
+<b class="nc"><i>402</i>&nbsp;                        (rtSrcAirportId != null &amp;&amp; rtSrcAirportId.toLowerCase().contains(lowerCaseFilter)) ||</b>
+<b class="nc"><i>403</i>&nbsp;                        (rtDestAirport != null &amp;&amp; rtDestAirport.toLowerCase().contains(lowerCaseFilter)) ||</b>
+<b class="nc"><i>404</i>&nbsp;                        (rtDestAirportId != null &amp;&amp; rtDestAirportId.toLowerCase().contains(lowerCaseFilter)) ||</b>
+<b class="nc"><i>405</i>&nbsp;                        (rtCodeshare != null &amp;&amp; rtCodeshare.toLowerCase().contains(lowerCaseFilter)) ||</b>
+<b class="nc"><i>406</i>&nbsp;                        (rtStops != null &amp;&amp; rtStops.toLowerCase().contains(lowerCaseFilter)) ||</b>
+<b class="nc"><i>407</i>&nbsp;                        (rtEquipment != null &amp;&amp; rtEquipment.toLowerCase().contains(lowerCaseFilter)))) {</b>
+<b class="nc"><i>408</i>&nbsp;                    toggled = true;</b>
+<i>409</i>&nbsp;                }
+<i>410</i>&nbsp;
+<i>411</i>&nbsp;                // For the following cases, return true if the equipment dropdown is empty, --ALL EQUIPMENTS-- or
+<i>412</i>&nbsp;                // matches the equipment in the table
+<b class="nc"><i>413</i>&nbsp;                if ((toggled &amp;&amp; !direct.isSelected() &amp;&amp; !indirect.isSelected()) ||</b>
+<b class="nc"><i>414</i>&nbsp;                        (direct.isSelected() &amp;&amp; rtStops != null &amp;&amp; rtStops.equals(&quot;0&quot;) &amp;&amp; toggled) ||</b>
+<b class="nc"><i>415</i>&nbsp;                        (indirect.isSelected() &amp;&amp; rtStops != null &amp;&amp; !rtStops.equals(&quot;0&quot;) &amp;&amp; toggled)) {</b>
+<b class="nc"><i>416</i>&nbsp;                    boolean filterChecked = filterEquipDepDest(emptyEquipFilter, emptyDepartFilter, emptyDestFilter,</b>
+<i>417</i>&nbsp;                            selectedRouteEquip, selectedDepartCountry, selectedDestCountry, rtEquipmentArray,
+<i>418</i>&nbsp;                            rtDestAirportId, rtSrcAirportId);
+<b class="nc"><i>419</i>&nbsp;                    if (filterChecked) {</b>
+<b class="nc"><i>420</i>&nbsp;                        return true;</b>
+<i>421</i>&nbsp;                    }
+<i>422</i>&nbsp;                }
+<b class="nc"><i>423</i>&nbsp;                return false;   // does not match</b>
+<i>424</i>&nbsp;            });
+<i>425</i>&nbsp;        });
+<i>426</i>&nbsp;
+<i>427</i>&nbsp;        // Wrap the filtered list in a SortedList
+<b class="nc"><i>428</i>&nbsp;        SortedList&lt;RouteTable&gt; routeTableSorted = new SortedList&lt;&gt;(routeTableFiltered);</b>
+<i>429</i>&nbsp;
+<i>430</i>&nbsp;        // Bind the SortedList comparator to the TableView comparator
+<b class="nc"><i>431</i>&nbsp;        routeTableSorted.comparatorProperty().bind(routeTableID.comparatorProperty());</b>
+<i>432</i>&nbsp;
+<i>433</i>&nbsp;        // Add sorted (and filtered) data to the table
+<b class="nc"><i>434</i>&nbsp;        routeTableID.setItems(routeTableSorted);</b>
+<i>435</i>&nbsp;    }
+<i>436</i>&nbsp;
+<i>437</i>&nbsp;
+<i>438</i>&nbsp;    private boolean filterEquipDepDest(boolean emptyEquipFilter, boolean emptyDepartFilter, boolean emptyDestFilter,
+<i>439</i>&nbsp;                                       String selectedRouteEquip, String selectedDepartCountry,
+<i>440</i>&nbsp;                                       String selectedDestCountry, List&lt;String&gt; rtEquipmentArray,
+<i>441</i>&nbsp;                                       String rtDestAirportId, String rtSrcAirportId) {
+<i>442</i>&nbsp;
+<i>443</i>&nbsp;        // empty cases when no filters are selected
+<b class="nc"><i>444</i>&nbsp;        if ((emptyEquipFilter &amp;&amp; emptyDepartFilter &amp;&amp; emptyDestFilter) || (selectedRouteEquip != null</b>
+<b class="nc"><i>445</i>&nbsp;                &amp;&amp; selectedRouteEquip.equals(allEquipmentsTag) &amp;&amp; selectedDepartCountry != null &amp;&amp;</b>
+<b class="nc"><i>446</i>&nbsp;                selectedDepartCountry.equals(departureCountryTag) &amp;&amp; selectedDestCountry != null</b>
+<b class="nc"><i>447</i>&nbsp;                &amp;&amp; selectedDestCountry.equals(destinationCountryTag))) {</b>
+<b class="nc"><i>448</i>&nbsp;            return true;</b>
+<i>449</i>&nbsp;        }
+<i>450</i>&nbsp;
+<i>451</i>&nbsp;        // if only one filter is selected
+<i>452</i>&nbsp;        // filter only equipment
+<b class="nc"><i>453</i>&nbsp;        if (((emptyDepartFilter &amp;&amp; emptyDestFilter) || (selectedDepartCountry != null &amp;&amp;</b>
+<b class="nc"><i>454</i>&nbsp;                selectedDepartCountry.equals(departureCountryTag) &amp;&amp; selectedDestCountry != null</b>
+<b class="nc"><i>455</i>&nbsp;                &amp;&amp; selectedDestCountry.equals(destinationCountryTag))) &amp;&amp; selectedRouteEquip != null) {</b>
+<b class="nc"><i>456</i>&nbsp;            if (selectedRouteEquip.equals(allEquipmentsTag)) {</b>
+<b class="nc"><i>457</i>&nbsp;                return true;</b>
+<b class="nc"><i>458</i>&nbsp;            } else if (rtEquipmentArray.contains(selectedRouteEquip.toLowerCase())) {</b>
+<b class="nc"><i>459</i>&nbsp;                return true;</b>
+<i>460</i>&nbsp;            }
+<i>461</i>&nbsp;        }
+<i>462</i>&nbsp;
+<i>463</i>&nbsp;        // filter only destination country
+<b class="nc"><i>464</i>&nbsp;        else if (((emptyEquipFilter &amp;&amp; emptyDepartFilter) || (selectedRouteEquip != null</b>
+<b class="nc"><i>465</i>&nbsp;                &amp;&amp; selectedRouteEquip.equals(allEquipmentsTag) &amp;&amp; selectedDepartCountry != null &amp;&amp;</b>
+<b class="nc"><i>466</i>&nbsp;                selectedDepartCountry.equals(departureCountryTag))) &amp;&amp;</b>
+<i>467</i>&nbsp;                selectedDestCountry != null) {
+<b class="nc"><i>468</i>&nbsp;            if (selectedDestCountry.equals(destinationCountryTag)) {</b>
+<b class="nc"><i>469</i>&nbsp;                return true;</b>
+<b class="nc"><i>470</i>&nbsp;            } else if (!rtDestAirportId.equals(&quot;null&quot;) &amp;&amp;</b>
+<b class="nc"><i>471</i>&nbsp;                    Repository.airportRepository.airportIDsOfCountry(selectedDestCountry.toLowerCase()).contains(Integer.parseInt(rtDestAirportId))) {</b>
+<b class="nc"><i>472</i>&nbsp;                return true;</b>
+<i>473</i>&nbsp;            }
+<i>474</i>&nbsp;        }
+<i>475</i>&nbsp;
+<i>476</i>&nbsp;        // filter only departure country
+<b class="nc"><i>477</i>&nbsp;        else if (((emptyEquipFilter &amp;&amp; emptyDestFilter) || (selectedRouteEquip != null</b>
+<b class="nc"><i>478</i>&nbsp;                &amp;&amp; selectedRouteEquip.equals(allEquipmentsTag) &amp;&amp; selectedDestCountry != null &amp;&amp;</b>
+<b class="nc"><i>479</i>&nbsp;                selectedDestCountry.equals(destinationCountryTag))) &amp;&amp;</b>
+<i>480</i>&nbsp;                selectedDepartCountry != null) {
+<b class="nc"><i>481</i>&nbsp;            if (selectedDepartCountry.equals(departureCountryTag)) {</b>
+<b class="nc"><i>482</i>&nbsp;                return true;</b>
+<b class="nc"><i>483</i>&nbsp;            } else if (!rtSrcAirportId.equals(&quot;null&quot;) &amp;&amp;</b>
+<b class="nc"><i>484</i>&nbsp;                    Repository.airportRepository.airportIDsOfCountry(selectedDepartCountry.toLowerCase()).contains(Integer.parseInt(rtSrcAirportId))) {</b>
+<b class="nc"><i>485</i>&nbsp;                return true;</b>
+<i>486</i>&nbsp;            }
+<i>487</i>&nbsp;        }
+<i>488</i>&nbsp;
+<i>489</i>&nbsp;        // if two filters are selected
+<i>490</i>&nbsp;        // filter equipment and destination country
+<b class="nc"><i>491</i>&nbsp;        else if ((emptyDepartFilter || (selectedDepartCountry != null &amp;&amp;</b>
+<b class="nc"><i>492</i>&nbsp;                selectedDepartCountry.equals(departureCountryTag))) &amp;&amp; selectedDestCountry != null &amp;&amp;</b>
+<i>493</i>&nbsp;                selectedRouteEquip != null) {
+<b class="nc"><i>494</i>&nbsp;            if (selectedDestCountry.equals(destinationCountryTag) &amp;&amp; selectedRouteEquip.equals(allEquipmentsTag)) {</b>
+<b class="nc"><i>495</i>&nbsp;                return true;</b>
+<b class="nc"><i>496</i>&nbsp;            } else if (selectedDestCountry.equals(destinationCountryTag) &amp;&amp;</b>
+<b class="nc"><i>497</i>&nbsp;                    rtEquipmentArray.contains(selectedRouteEquip.toLowerCase())) {</b>
+<b class="nc"><i>498</i>&nbsp;                return true;</b>
+<b class="nc"><i>499</i>&nbsp;            } else if (selectedRouteEquip.equals(allEquipmentsTag) &amp;&amp; !rtDestAirportId.equals(&quot;null&quot;) &amp;&amp;</b>
+<b class="nc"><i>500</i>&nbsp;                    Repository.airportRepository.airportIDsOfCountry(selectedDestCountry.toLowerCase()).contains(Integer.parseInt(rtDestAirportId))) {</b>
+<b class="nc"><i>501</i>&nbsp;                return true;</b>
+<b class="nc"><i>502</i>&nbsp;            } else if (rtEquipmentArray.contains(selectedRouteEquip.toLowerCase()) &amp;&amp;</b>
+<b class="nc"><i>503</i>&nbsp;                    !rtDestAirportId.equals(&quot;null&quot;) &amp;&amp;</b>
+<b class="nc"><i>504</i>&nbsp;                    Repository.airportRepository.airportIDsOfCountry(selectedDestCountry.toLowerCase()).contains(Integer.parseInt(rtDestAirportId))) {</b>
+<b class="nc"><i>505</i>&nbsp;                return true;</b>
+<i>506</i>&nbsp;            }
+<i>507</i>&nbsp;        }
+<i>508</i>&nbsp;
+<i>509</i>&nbsp;        //filter equipment and departure country
+<b class="nc"><i>510</i>&nbsp;        else if ((emptyDestFilter || (selectedDestCountry != null &amp;&amp;</b>
+<b class="nc"><i>511</i>&nbsp;                selectedDestCountry.equals(destinationCountryTag))) &amp;&amp; selectedDepartCountry != null &amp;&amp;</b>
+<i>512</i>&nbsp;                selectedRouteEquip != null) {
+<b class="nc"><i>513</i>&nbsp;            if (selectedDepartCountry.equals(departureCountryTag) &amp;&amp; selectedRouteEquip.equals(allEquipmentsTag)) {</b>
+<b class="nc"><i>514</i>&nbsp;                return true;</b>
+<b class="nc"><i>515</i>&nbsp;            } else if (selectedDepartCountry.equals(departureCountryTag) &amp;&amp;</b>
+<b class="nc"><i>516</i>&nbsp;                    rtEquipmentArray.contains(selectedRouteEquip.toLowerCase())) {</b>
+<b class="nc"><i>517</i>&nbsp;                return true;</b>
+<b class="nc"><i>518</i>&nbsp;            } else if (selectedRouteEquip.equals(allEquipmentsTag) &amp;&amp; !rtSrcAirportId.equals(&quot;null&quot;) &amp;&amp;</b>
+<b class="nc"><i>519</i>&nbsp;                    Repository.airportRepository.airportIDsOfCountry(selectedDepartCountry.toLowerCase()).contains(Integer.parseInt(rtSrcAirportId))) {</b>
+<b class="nc"><i>520</i>&nbsp;                return true;</b>
+<b class="nc"><i>521</i>&nbsp;            } else if (rtEquipmentArray.contains(selectedRouteEquip.toLowerCase()) &amp;&amp;</b>
+<b class="nc"><i>522</i>&nbsp;                    !rtSrcAirportId.equals(&quot;null&quot;) &amp;&amp;</b>
+<b class="nc"><i>523</i>&nbsp;                    Repository.airportRepository.airportIDsOfCountry(selectedDepartCountry.toLowerCase()).contains(Integer.parseInt(rtSrcAirportId))) {</b>
+<b class="nc"><i>524</i>&nbsp;                return true;</b>
+<i>525</i>&nbsp;            }
+<i>526</i>&nbsp;        }
+<i>527</i>&nbsp;
+<i>528</i>&nbsp;        //filter departure country and destination country
+<b class="nc"><i>529</i>&nbsp;        else if ((emptyEquipFilter || (selectedRouteEquip != null &amp;&amp;</b>
+<b class="nc"><i>530</i>&nbsp;                selectedRouteEquip.equals(allEquipmentsTag))) &amp;&amp; selectedDepartCountry != null &amp;&amp;</b>
+<i>531</i>&nbsp;                selectedDestCountry != null) {
+<b class="nc"><i>532</i>&nbsp;            if (selectedDepartCountry.equals(departureCountryTag) &amp;&amp;</b>
+<b class="nc"><i>533</i>&nbsp;                    selectedDestCountry.equals(destinationCountryTag)) {</b>
+<b class="nc"><i>534</i>&nbsp;                return true;</b>
+<b class="nc"><i>535</i>&nbsp;            } else if (selectedDepartCountry.equals(departureCountryTag) &amp;&amp; !rtDestAirportId.equals(&quot;null&quot;) &amp;&amp;</b>
+<b class="nc"><i>536</i>&nbsp;                    Repository.airportRepository.airportIDsOfCountry(selectedDestCountry.toLowerCase()).contains(Integer.parseInt(rtDestAirportId))) {</b>
+<b class="nc"><i>537</i>&nbsp;                return true;</b>
+<b class="nc"><i>538</i>&nbsp;            } else if (selectedDestCountry.equals(destinationCountryTag) &amp;&amp; !rtSrcAirportId.equals(&quot;null&quot;) &amp;&amp;</b>
+<b class="nc"><i>539</i>&nbsp;                    Repository.airportRepository.airportIDsOfCountry(selectedDepartCountry.toLowerCase()).contains(Integer.parseInt(rtSrcAirportId))) {</b>
+<b class="nc"><i>540</i>&nbsp;                return true;</b>
+<b class="nc"><i>541</i>&nbsp;            } else if (!rtDestAirportId.equals(&quot;null&quot;) &amp;&amp;</b>
+<b class="nc"><i>542</i>&nbsp;                    Repository.airportRepository.airportIDsOfCountry(selectedDestCountry.toLowerCase()).contains(Integer.parseInt(rtDestAirportId))</b>
+<b class="nc"><i>543</i>&nbsp;                    &amp;&amp; !rtSrcAirportId.equals(&quot;null&quot;) &amp;&amp;</b>
+<b class="nc"><i>544</i>&nbsp;                    Repository.airportRepository.airportIDsOfCountry(selectedDepartCountry.toLowerCase()).contains(Integer.parseInt(rtSrcAirportId))) {</b>
+<b class="nc"><i>545</i>&nbsp;                return true;</b>
+<i>546</i>&nbsp;            }
+<i>547</i>&nbsp;        }
+<i>548</i>&nbsp;
+<i>549</i>&nbsp;        // if three filters are selected
+<i>550</i>&nbsp;        // filter destination/departure country and equipment
+<b class="nc"><i>551</i>&nbsp;        else if (selectedDepartCountry != null &amp;&amp; selectedDestCountry != null &amp;&amp; selectedRouteEquip != null) {</b>
+<b class="nc"><i>552</i>&nbsp;            if (!rtDestAirportId.equals(&quot;null&quot;) &amp;&amp;</b>
+<b class="nc"><i>553</i>&nbsp;                    Repository.airportRepository.airportIDsOfCountry(selectedDestCountry.toLowerCase()).contains(Integer.parseInt(rtDestAirportId))</b>
+<b class="nc"><i>554</i>&nbsp;                    &amp;&amp; !rtSrcAirportId.equals(&quot;null&quot;) &amp;&amp;</b>
+<b class="nc"><i>555</i>&nbsp;                    Repository.airportRepository.airportIDsOfCountry(selectedDepartCountry.toLowerCase()).contains(Integer.parseInt(rtSrcAirportId))</b>
+<b class="nc"><i>556</i>&nbsp;                    &amp;&amp; rtEquipmentArray.contains(selectedRouteEquip.toLowerCase())) {</b>
+<b class="nc"><i>557</i>&nbsp;                return true;</b>
+<i>558</i>&nbsp;            }
+<i>559</i>&nbsp;
+<i>560</i>&nbsp;        }
+<b class="nc"><i>561</i>&nbsp;        return false;</b>
+<i>562</i>&nbsp;    }
+<i>563</i>&nbsp;
+<i>564</i>&nbsp;    /**
+<i>565</i>&nbsp;     * Clears the route table and routeRepository then replaces them with the default routes.
+<i>566</i>&nbsp;     *
+<i>567</i>&nbsp;     * @throws IOException when default route file cannot be read
+<i>568</i>&nbsp;     */
+<i>569</i>&nbsp;    public void resetRoute() throws IOException {
+<b class="nc"><i>570</i>&nbsp;        boolean result = mainController.resetConformation();</b>
+<i>571</i>&nbsp;
+<b class="nc"><i>572</i>&nbsp;        if (result) {</b>
+<b class="nc"><i>573</i>&nbsp;            Label label = new Label();</b>
+<b class="nc"><i>574</i>&nbsp;            label.setText(&quot;loading: &quot;);</b>
+<b class="nc"><i>575</i>&nbsp;            ProgressBar pb = new ProgressBar();</b>
+<b class="nc"><i>576</i>&nbsp;            ProgressIndicator pin = new ProgressIndicator();</b>
+<b class="nc"><i>577</i>&nbsp;            Text text = new Text();</b>
+<b class="nc"><i>578</i>&nbsp;            text.setText(&quot;\nThis action might take longer usual.\nPlease wait :)\n&quot;);</b>
+<b class="nc"><i>579</i>&nbsp;            Button toClose = new Button();</b>
+<b class="nc"><i>580</i>&nbsp;            toClose.setText(&quot;Click to close!&quot;);</b>
+<b class="nc"><i>581</i>&nbsp;            toClose.setVisible(false);</b>
+<i>582</i>&nbsp;
+<b class="nc"><i>583</i>&nbsp;            Task&lt;Void&gt; task = new Task&lt;Void&gt;() {</b>
+<i>584</i>&nbsp;                @Override
+<i>585</i>&nbsp;                public Void call() {
+<i>586</i>&nbsp;                    // process long-running computation, data retrieval, etc...
+<b class="nc"><i>587</i>&nbsp;                    clearRouteTable();</b>
+<b class="nc"><i>588</i>&nbsp;                    InputStream file = getClass().getResourceAsStream(&quot;/routes.dat&quot;);</b>
+<b class="nc"><i>589</i>&nbsp;                    if (file != null) {</b>
+<i>590</i>&nbsp;                        try {
+<b class="nc"><i>591</i>&nbsp;                            insertRouteTable(file);</b>
+<b class="nc"><i>592</i>&nbsp;                        } catch (IOException e) {</b>
+<b class="nc"><i>593</i>&nbsp;                            e.printStackTrace();</b>
+<b class="nc"><i>594</i>&nbsp;                        }</b>
+<i>595</i>&nbsp;                    }
+<b class="nc"><i>596</i>&nbsp;                    Repository.serializeObject(Repository.routeRepository, &quot;route&quot;);</b>
+<b class="nc"><i>597</i>&nbsp;                    return null;</b>
+<i>598</i>&nbsp;                }
+<i>599</i>&nbsp;            };
+<i>600</i>&nbsp;
+<b class="nc"><i>601</i>&nbsp;            task.setOnSucceeded(e -&gt; {</b>
+<b class="nc"><i>602</i>&nbsp;                pb.setProgress(1.0f);</b>
+<b class="nc"><i>603</i>&nbsp;                pin.setProgress(1.0f);</b>
+<b class="nc"><i>604</i>&nbsp;                toClose.setVisible(true);</b>
+<i>605</i>&nbsp;            });
+<i>606</i>&nbsp;
+<b class="nc"><i>607</i>&nbsp;            new Thread(task).start();</b>
+<i>608</i>&nbsp;
+<b class="nc"><i>609</i>&nbsp;            pb.setProgress(ProgressIndicator.INDETERMINATE_PROGRESS);</b>
+<i>610</i>&nbsp;
+<b class="nc"><i>611</i>&nbsp;            pin.setProgress(ProgressIndicator.INDETERMINATE_PROGRESS);</b>
+<b class="nc"><i>612</i>&nbsp;            HBox hb = new HBox();</b>
+<b class="nc"><i>613</i>&nbsp;            hb.setSpacing(5);</b>
+<b class="nc"><i>614</i>&nbsp;            hb.setAlignment(Pos.CENTER);</b>
+<b class="nc"><i>615</i>&nbsp;            hb.getChildren().addAll(label, pb, pin);</b>
+<i>616</i>&nbsp;
+<b class="nc"><i>617</i>&nbsp;            Stage stage = new Stage();</b>
+<b class="nc"><i>618</i>&nbsp;            Scene scene = new Scene(VBoxBuilder.create()</b>
+<b class="nc"><i>619</i>&nbsp;                    .children(hb, text, toClose)</b>
+<b class="nc"><i>620</i>&nbsp;                    .alignment(Pos.CENTER)</b>
+<b class="nc"><i>621</i>&nbsp;                    .padding(new Insets(10))</b>
+<b class="nc"><i>622</i>&nbsp;                    .build(), 300, 170);</b>
+<b class="nc"><i>623</i>&nbsp;            stage.setScene(scene);</b>
+<b class="nc"><i>624</i>&nbsp;            stage.setTitle(&quot;Progress Controls&quot;);</b>
+<b class="nc"><i>625</i>&nbsp;            stage.initModality(Modality.WINDOW_MODAL);</b>
+<b class="nc"><i>626</i>&nbsp;            stage.initOwner(App.primaryStage);</b>
+<i>627</i>&nbsp;
+<b class="nc"><i>628</i>&nbsp;            stage.show();</b>
+<b class="nc"><i>629</i>&nbsp;            toClose.setOnAction( event -&gt;</b>
+<b class="nc"><i>630</i>&nbsp;                    stage.close()</b>
+<i>631</i>&nbsp;            );
+<i>632</i>&nbsp;        }
+<i>633</i>&nbsp;    }
+<i>634</i>&nbsp;
+<i>635</i>&nbsp;    /**
+<i>636</i>&nbsp;     * Clears the route table and routeRepository.
+<i>637</i>&nbsp;     */
+<i>638</i>&nbsp;    public void deleteAllRoutes() {
+<b class="nc"><i>639</i>&nbsp;        boolean result = mainController.deleteAllConformation();</b>
+<b class="nc"><i>640</i>&nbsp;        if (result) {</b>
+<b class="nc"><i>641</i>&nbsp;            clearRouteTable();</b>
+<b class="nc"><i>642</i>&nbsp;            Repository.serializeObject(Repository.routeRepository, &quot;route&quot;);</b>
+<i>643</i>&nbsp;        }
+<i>644</i>&nbsp;    }
+<i>645</i>&nbsp;
+<i>646</i>&nbsp;    // Compare routes, return true if the routes are different otherwise false
+<i>647</i>&nbsp;    private boolean diffRoutes(Route route) {
+<b class="nc"><i>648</i>&nbsp;        if (Repository.routeRepository.getRoutes().containsKey(RouteRepository.getKey(route))) {</b>
+<b class="nc"><i>649</i>&nbsp;            return false;</b>
+<i>650</i>&nbsp;        } else {
+<b class="nc"><i>651</i>&nbsp;            return true;</b>
+<i>652</i>&nbsp;        }
+<i>653</i>&nbsp;    }
+<i>654</i>&nbsp;
+<i>655</i>&nbsp;    private void clearRouteTable() {
+<b class="nc"><i>656</i>&nbsp;        routeTData.clear();</b>
+<b class="nc"><i>657</i>&nbsp;        Repository.routeRepository = new RouteRepository();</b>
+<i>658</i>&nbsp;    }
+<i>659</i>&nbsp;
+<i>660</i>&nbsp;    private void loadDefaultRoute() throws IOException, URISyntaxException {
+<b class="nc"><i>661</i>&nbsp;        if (Repository.routeRepository != null) {</b>
+<b class="nc"><i>662</i>&nbsp;            loadSerializedRoute();</b>
+<i>663</i>&nbsp;        } else {
+<b class="nc"><i>664</i>&nbsp;            Repository.routeRepository = new RouteRepository();</b>
+<b class="nc"><i>665</i>&nbsp;            InputStream file = getClass().getResourceAsStream(&quot;/routes.dat&quot;);</b>
+<b class="nc"><i>666</i>&nbsp;            if (file != null) {</b>
+<b class="nc"><i>667</i>&nbsp;                insertEmptyRouteTable(file);</b>
+<i>668</i>&nbsp;            }
+<i>669</i>&nbsp;        }
+<i>670</i>&nbsp;    }
+<i>671</i>&nbsp;
+<i>672</i>&nbsp;    // insert the given routes in a file into route table that&#39;s empty so dont check for duplicates
+<i>673</i>&nbsp;    private void insertEmptyRouteTable(InputStream file) throws IOException {
+<b class="nc"><i>674</i>&nbsp;        RouteValidator validator = new RouteValidator(file);</b>
+<b class="nc"><i>675</i>&nbsp;        ArrayList&lt;Route&gt; routes = validator.makeroutes();</b>
+<b class="nc"><i>676</i>&nbsp;        validator = null;</b>
+<b class="nc"><i>677</i>&nbsp;        if (routes != null) {</b>
+<b class="nc"><i>678</i>&nbsp;            for (int i = 0; i &lt; routes.size(); i++) {</b>
+<b class="nc"><i>679</i>&nbsp;                Route route = routes.get(i);</b>
+<b class="nc"><i>680</i>&nbsp;                Repository.routeRepository.addRoute(route);</b>
+<b class="nc"><i>681</i>&nbsp;                routeTData.add(new RouteTable(route.getAirline(), String.valueOf(route.getAirlineID()),</b>
+<b class="nc"><i>682</i>&nbsp;                        route.getSrcAirport(), String.valueOf(route.getSrcAirportID()),</b>
+<b class="nc"><i>683</i>&nbsp;                        route.getDestAirport(), String.valueOf(route.getDestAirportID()),</b>
+<b class="nc"><i>684</i>&nbsp;                        route.getCodeshare(), String.valueOf(route.getStops()),</b>
+<b class="nc"><i>685</i>&nbsp;                        route.getEquipment().stream().collect(Collectors.joining(&quot;, &quot;))));</b>
+<i>686</i>&nbsp;
+<i>687</i>&nbsp;                // if destination country id is not null then add it to destSet
+<b class="nc"><i>688</i>&nbsp;                if (route.getDestAirportID() != null) {</b>
+<i>689</i>&nbsp;                    // also check that the airport of that id exists in the repository
+<b class="nc"><i>690</i>&nbsp;                    if (Repository.airportRepository.getAirports().get(route.getDestAirportID()) != null) {</b>
+<b class="nc"><i>691</i>&nbsp;                        destSet.add(Repository.airportRepository.getAirports().get(route.getDestAirportID()).getCountry());</b>
+<i>692</i>&nbsp;                    }
+<i>693</i>&nbsp;                }
+<i>694</i>&nbsp;                // if departure country id is not null then add it to depSet
+<b class="nc"><i>695</i>&nbsp;                if (route.getSrcAirportID() != null) {</b>
+<i>696</i>&nbsp;                    // also check that the airport of that id exists in the repository
+<b class="nc"><i>697</i>&nbsp;                    if (Repository.airportRepository.getAirports().get(route.getSrcAirportID()) != null) {</b>
+<b class="nc"><i>698</i>&nbsp;                        depSet.add(Repository.airportRepository.getAirports().get(route.getSrcAirportID()).getCountry());</b>
+<i>699</i>&nbsp;                    }
+<i>700</i>&nbsp;                }
+<i>701</i>&nbsp;
+<b class="nc"><i>702</i>&nbsp;                for (String r : route.getEquipment()) {</b>
+<b class="nc"><i>703</i>&nbsp;                    if (!r.isEmpty()) {</b>
+<b class="nc"><i>704</i>&nbsp;                        equipmentSet.add(r);</b>
+<i>705</i>&nbsp;                    }
+<b class="nc"><i>706</i>&nbsp;                }</b>
+<i>707</i>&nbsp;            }
+<b class="nc"><i>708</i>&nbsp;            updateEquipBox();</b>
+<b class="nc"><i>709</i>&nbsp;            updateDepCountryBox();</b>
+<b class="nc"><i>710</i>&nbsp;            updateDestCountryBox();</b>
+<i>711</i>&nbsp;        }
+<i>712</i>&nbsp;    }
+<i>713</i>&nbsp;
+<i>714</i>&nbsp;    private void loadSerializedRoute() {
+<b class="nc"><i>715</i>&nbsp;        Collection&lt;Route&gt; routes = Repository.routeRepository.getRoutes().values();</b>
+<b class="nc"><i>716</i>&nbsp;        for (Route route : routes) {</b>
+<b class="nc"><i>717</i>&nbsp;            routeTData.add(new RouteTable(route.getAirline(), String.valueOf(route.getAirlineID()),</b>
+<b class="nc"><i>718</i>&nbsp;                    route.getSrcAirport(), String.valueOf(route.getSrcAirportID()),</b>
+<b class="nc"><i>719</i>&nbsp;                    route.getDestAirport(), String.valueOf(route.getDestAirportID()),</b>
+<b class="nc"><i>720</i>&nbsp;                    route.getCodeshare(), String.valueOf(route.getStops()),</b>
+<b class="nc"><i>721</i>&nbsp;                    route.getEquipment().stream().collect(Collectors.joining(&quot;, &quot;))));</b>
+<i>722</i>&nbsp;
+<i>723</i>&nbsp;            // if destination country id is not null then add it to destSet
+<b class="nc"><i>724</i>&nbsp;            if (route.getDestAirportID() != null) {</b>
+<i>725</i>&nbsp;                // also check that the airport of that id exists in the repository
+<b class="nc"><i>726</i>&nbsp;                if (Repository.airportRepository.getAirports().get(route.getDestAirportID()) != null) {</b>
+<b class="nc"><i>727</i>&nbsp;                    destSet.add(Repository.airportRepository.getAirports().get(route.getDestAirportID()).getCountry());</b>
+<i>728</i>&nbsp;                }
+<i>729</i>&nbsp;            }
+<i>730</i>&nbsp;            // if departure country id is not null then add it to depSet
+<b class="nc"><i>731</i>&nbsp;            if (route.getSrcAirportID() != null) {</b>
+<i>732</i>&nbsp;                // also check that the airport of that id exists in the repository
+<b class="nc"><i>733</i>&nbsp;                if (Repository.airportRepository.getAirports().get(route.getSrcAirportID()) != null) {</b>
+<b class="nc"><i>734</i>&nbsp;                    depSet.add(Repository.airportRepository.getAirports().get(route.getSrcAirportID()).getCountry());</b>
+<i>735</i>&nbsp;                }
+<i>736</i>&nbsp;            }
+<i>737</i>&nbsp;
+<i>738</i>&nbsp;            // loop through the equipments given and add it to the equipmentSet
+<b class="nc"><i>739</i>&nbsp;            for (String r : route.getEquipment()) {</b>
+<b class="nc"><i>740</i>&nbsp;                if (!r.isEmpty()) {</b>
+<b class="nc"><i>741</i>&nbsp;                    equipmentSet.add(r);</b>
+<i>742</i>&nbsp;                }
+<b class="nc"><i>743</i>&nbsp;            }</b>
+<b class="nc"><i>744</i>&nbsp;        }</b>
+<b class="nc"><i>745</i>&nbsp;        updateEquipBox();</b>
+<b class="nc"><i>746</i>&nbsp;        updateDepCountryBox();</b>
+<b class="nc"><i>747</i>&nbsp;        updateDestCountryBox();</b>
+<i>748</i>&nbsp;    }
+<i>749</i>&nbsp;
+<i>750</i>&nbsp;    /**
+<i>751</i>&nbsp;     * Filters by departure country, only showing routes departing from the selected country.
+<i>752</i>&nbsp;     *
+<i>753</i>&nbsp;     * @throws IOException throws IOException error
+<i>754</i>&nbsp;     */
+<i>755</i>&nbsp;    public void filterDepCountry() throws IOException {
+<b class="nc"><i>756</i>&nbsp;        updateRouteSearch();</b>
+<i>757</i>&nbsp;    }
+<i>758</i>&nbsp;
+<i>759</i>&nbsp;    /**
+<i>760</i>&nbsp;     * Filters by destination country, only showing routes that arrive in the selected country.
+<i>761</i>&nbsp;     *
+<i>762</i>&nbsp;     * @throws IOException throws IOException error
+<i>763</i>&nbsp;     */
+<i>764</i>&nbsp;    public void filterDestCountry() throws IOException {
+<b class="nc"><i>765</i>&nbsp;        updateRouteSearch();</b>
+<i>766</i>&nbsp;    }
+<i>767</i>&nbsp;
+<i>768</i>&nbsp;    /**
+<i>769</i>&nbsp;     * Filters by the equipment in a route, only showing routes that utilize that equipment.
+<i>770</i>&nbsp;     *
+<i>771</i>&nbsp;     * @throws IOException throws IOException error
+<i>772</i>&nbsp;     */
+<i>773</i>&nbsp;    public void filterEquipment() throws IOException {
+<b class="nc"><i>774</i>&nbsp;        updateRouteSearch();</b>
+<i>775</i>&nbsp;    }
+<i>776</i>&nbsp;
+<i>777</i>&nbsp;    private void updateRouteSearch() {
+<b class="nc"><i>778</i>&nbsp;        String text = routeSearch.getText();</b>
+<b class="nc"><i>779</i>&nbsp;        routeSearch.setText(text + &quot; &quot;);</b>
+<b class="nc"><i>780</i>&nbsp;        routeSearch.setText(text);</b>
+<i>781</i>&nbsp;    }
+<i>782</i>&nbsp;    /**
+<i>783</i>&nbsp;     * Allows the user to select the direct flight filter option.
+<i>784</i>&nbsp;     *
+<i>785</i>&nbsp;     * @throws IOException throws IOException error
+<i>786</i>&nbsp;     */
+<i>787</i>&nbsp;    public void selectDirect() throws IOException {
+<b class="nc"><i>788</i>&nbsp;        updateRouteSearch();</b>
+<i>789</i>&nbsp;    }
+<i>790</i>&nbsp;
+<i>791</i>&nbsp;    /**
+<i>792</i>&nbsp;     * Allows the user to select the indirect flight filter option.
+<i>793</i>&nbsp;     *
+<i>794</i>&nbsp;     * @throws IOException throws IOException error
+<i>795</i>&nbsp;     */
+<i>796</i>&nbsp;    public void selectIndirect() throws IOException {
+<b class="nc"><i>797</i>&nbsp;        updateRouteSearch();</b>
+<i>798</i>&nbsp;    }
+<i>799</i>&nbsp;
+<i>800</i>&nbsp;    /**
+<i>801</i>&nbsp;     * Returns routeTData to be used on other class.
+<i>802</i>&nbsp;     *
+<i>803</i>&nbsp;     * @return ObservableList&lt;RouteTable&gt;
+<i>804</i>&nbsp;     */
+<i>805</i>&nbsp;    public ObservableList&lt;RouteTable&gt; getRouteTData() {
+<b class="nc"><i>806</i>&nbsp;        return routeTData;</b>
+<i>807</i>&nbsp;    }
+<i>808</i>&nbsp;
+<i>809</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2016-10-06 13:18</div>
+</div>
+</body>
+</html>

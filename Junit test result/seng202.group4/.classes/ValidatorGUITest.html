@@ -1,0 +1,157 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: ValidatorGUITest</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">seng202.group4</a> ]
+</div>
+
+<h1>Coverage Summary for Class: ValidatorGUITest (seng202.group4)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ValidatorGUITest</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    80%
+  </span>
+  <span class="absValue">
+    (4/ 5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    64.7%
+  </span>
+  <span class="absValue">
+    (11/ 17)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package seng202.group4;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import javafx.application.Application;
+<i>4</i>&nbsp;import javafx.fxml.FXMLLoader;
+<i>5</i>&nbsp;import javafx.scene.Parent;
+<i>6</i>&nbsp;import javafx.scene.Scene;
+<i>7</i>&nbsp;import javafx.scene.control.Alert;
+<i>8</i>&nbsp;import javafx.stage.Stage;
+<i>9</i>&nbsp;import seng202.group4.data.dataType.Airline;
+<i>10</i>&nbsp;import seng202.group4.data.dataType.Airport;
+<i>11</i>&nbsp;import seng202.group4.data.dataType.Route;
+<i>12</i>&nbsp;import seng202.group4.data.parser.validator.AirlineValidator;
+<i>13</i>&nbsp;import seng202.group4.data.parser.validator.AirportValidator;
+<i>14</i>&nbsp;import seng202.group4.data.parser.validator.RouteValidator;
+<i>15</i>&nbsp;
+<i>16</i>&nbsp;import java.io.File;
+<i>17</i>&nbsp;import java.io.FileInputStream;
+<i>18</i>&nbsp;import java.io.IOException;
+<i>19</i>&nbsp;import java.util.ArrayList;
+<i>20</i>&nbsp;
+<i>21</i>&nbsp;/**
+<i>22</i>&nbsp; * Ensures that the validator GUI responses are working as expected.
+<i>23</i>&nbsp; * Created by jjg64 on 28/08/16.
+<i>24</i>&nbsp; */
+<b class="fc"><i>25</i>&nbsp;public class ValidatorGUITest {</b>
+<i>26</i>&nbsp;
+<i>27</i>&nbsp;    /**
+<i>28</i>&nbsp;     * Tests an invalid airline file to ensure the GUI responds as anticipated, by producing a pop-up dialog.
+<i>29</i>&nbsp;     *
+<i>30</i>&nbsp;     * @param file the filename
+<i>31</i>&nbsp;     * @throws IOException when file cannot be read
+<i>32</i>&nbsp;     */
+<i>33</i>&nbsp;    public static void testInvalidAirlineFile(String file) throws IOException {
+<b class="fc"><i>34</i>&nbsp;        AirlineValidator parser = new AirlineValidator(new FileInputStream(file));</b>
+<b class="fc"><i>35</i>&nbsp;        ArrayList&lt;Airline&gt; airlines = parser.makeAirlines();</b>
+<b class="fc"><i>36</i>&nbsp;        assert(airlines == null);</b>
+<b class="fc"><i>37</i>&nbsp;    }</b>
+<i>38</i>&nbsp;
+<i>39</i>&nbsp;    /**
+<i>40</i>&nbsp;     * Tests an invalid route file to ensure the GUI acts as anticipated, by producing a pop-up dialog.
+<i>41</i>&nbsp;     *
+<i>42</i>&nbsp;     * @param file the name of the file
+<i>43</i>&nbsp;     * @throws IOException when file cannot be read
+<i>44</i>&nbsp;     */
+<i>45</i>&nbsp;    public static void testInvalidRouteFile(String file) throws IOException {
+<b class="fc"><i>46</i>&nbsp;        RouteValidator parser = new RouteValidator(new FileInputStream(file));</b>
+<b class="fc"><i>47</i>&nbsp;        ArrayList&lt;Route&gt; routes = parser.makeroutes();</b>
+<b class="nc"><i>48</i>&nbsp;        assert(routes == null);</b>
+<b class="nc"><i>49</i>&nbsp;    }</b>
+<i>50</i>&nbsp;
+<i>51</i>&nbsp;    /**
+<i>52</i>&nbsp;     * Tests a valid airport file to see that the GUI responds as anticipated, by happily accepting the file.
+<i>53</i>&nbsp;     *
+<i>54</i>&nbsp;     * @param file the filename
+<i>55</i>&nbsp;     * @throws IOException when file cannot be read
+<i>56</i>&nbsp;     */
+<i>57</i>&nbsp;    public static void testValidAirportFile(String file) throws IOException {
+<b class="nc"><i>58</i>&nbsp;        AirportValidator parser = new AirportValidator(new FileInputStream(file));</b>
+<b class="nc"><i>59</i>&nbsp;        ArrayList&lt;Airport&gt; airports = parser.makeAirports();</b>
+<b class="nc"><i>60</i>&nbsp;        assert(airports.size() == 8106);</b>
+<b class="nc"><i>61</i>&nbsp;    }</b>
+<i>62</i>&nbsp;
+<i>63</i>&nbsp;    /**
+<i>64</i>&nbsp;     * Tests an invalid aiport file to see that the GUI responds appropriately, by producing a pop-up dialog.
+<i>65</i>&nbsp;     *
+<i>66</i>&nbsp;     * @param file Filepath in string format
+<i>67</i>&nbsp;     * @throws IOException when file cannot be read
+<i>68</i>&nbsp;     */
+<i>69</i>&nbsp;    public static void testInvalidAirportFile(String file) throws IOException {
+<b class="fc"><i>70</i>&nbsp;        AirportValidator parser = new AirportValidator(new FileInputStream(file));</b>
+<b class="fc"><i>71</i>&nbsp;        ArrayList&lt;Airport&gt; airports = parser.makeAirports();</b>
+<b class="fc"><i>72</i>&nbsp;        assert(airports.size() == 0);</b>
+<b class="fc"><i>73</i>&nbsp;    }</b>
+<i>74</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2016-10-06 13:18</div>
+</div>
+</body>
+</html>

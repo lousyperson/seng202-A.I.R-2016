@@ -1,0 +1,185 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: ValidatorTest</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">seng202.group4</a> ]
+</div>
+
+<h1>Coverage Summary for Class: ValidatorTest (seng202.group4)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ValidatorTest</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (5/ 5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (18/ 18)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package seng202.group4;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;
+<i>4</i>&nbsp;import javafx.application.Application;
+<i>5</i>&nbsp;import javafx.fxml.FXMLLoader;
+<i>6</i>&nbsp;import javafx.scene.Parent;
+<i>7</i>&nbsp;import javafx.scene.Scene;
+<i>8</i>&nbsp;import javafx.stage.Stage;
+<i>9</i>&nbsp;import junit.framework.TestCase;
+<i>10</i>&nbsp;import org.junit.After;
+<i>11</i>&nbsp;import org.junit.Before;
+<i>12</i>&nbsp;import org.junit.Test;
+<i>13</i>&nbsp;import seng202.group4.data.dataType.Airline;
+<i>14</i>&nbsp;import seng202.group4.data.dataType.Airport;
+<i>15</i>&nbsp;import seng202.group4.data.dataType.Route;
+<i>16</i>&nbsp;import seng202.group4.data.parser.AirlineParser;
+<i>17</i>&nbsp;import seng202.group4.data.parser.validator.AirlineValidator;
+<i>18</i>&nbsp;import seng202.group4.data.repository.AirlineRepository;
+<i>19</i>&nbsp;import seng202.group4.data.repository.AirportRepository;
+<i>20</i>&nbsp;import seng202.group4.data.repository.RouteRepository;
+<i>21</i>&nbsp;
+<i>22</i>&nbsp;import java.io.*;
+<i>23</i>&nbsp;import java.util.ArrayList;
+<i>24</i>&nbsp;
+<i>25</i>&nbsp;import static org.junit.Assert.assertEquals;
+<i>26</i>&nbsp;import static org.junit.Assert.assertTrue;
+<i>27</i>&nbsp;
+<i>28</i>&nbsp;/**
+<i>29</i>&nbsp; * ValidatorTest is a JUnit test class used to test the data file validators.
+<i>30</i>&nbsp; * Created by jjg64 on 25/08/16.
+<i>31</i>&nbsp; */
+<b class="fc"><i>32</i>&nbsp;public class ValidatorTest {</b>
+<i>33</i>&nbsp;
+<i>34</i>&nbsp;    /* Airline validator test cases */
+<i>35</i>&nbsp;
+<i>36</i>&nbsp;    /* Valid files */
+<i>37</i>&nbsp;
+<i>38</i>&nbsp;    /**
+<i>39</i>&nbsp;     * Checks if one valid airline is parsed in, one valid airline is read.
+<i>40</i>&nbsp;     *
+<i>41</i>&nbsp;     *  @throws IOException throws an IOException error
+<i>42</i>&nbsp;     */
+<i>43</i>&nbsp;    @Test
+<i>44</i>&nbsp;    public void oneValidAirlineSize() throws IOException {
+<b class="fc"><i>45</i>&nbsp;        AirlineValidator parser = new AirlineValidator(new FileInputStream(&quot;testfiles/Airlines/oneValidAirline.txt&quot;));</b>
+<b class="fc"><i>46</i>&nbsp;        ArrayList&lt;Airline&gt; airlines = parser.makeAirlines();</b>
+<b class="fc"><i>47</i>&nbsp;        assertTrue(airlines.size() == 1);</b>
+<i>48</i>&nbsp;
+<b class="fc"><i>49</i>&nbsp;    }</b>
+<i>50</i>&nbsp;
+<i>51</i>&nbsp;    /**
+<i>52</i>&nbsp;     * Checks if multiple valid airlines are entered, the correct number of airlines is read.
+<i>53</i>&nbsp;     *
+<i>54</i>&nbsp;     * @throws IOException throws an IOException error
+<i>55</i>&nbsp;     */
+<i>56</i>&nbsp;    @Test
+<i>57</i>&nbsp;    public void multipleValidAirlinesSize() throws IOException {
+<b class="fc"><i>58</i>&nbsp;        AirlineValidator parser = new AirlineValidator(new FileInputStream(&quot;testfiles/Airlines/6048Airlines.txt&quot;));</b>
+<b class="fc"><i>59</i>&nbsp;        ArrayList&lt;Airline&gt; airlines = parser.makeAirlines();</b>
+<b class="fc"><i>60</i>&nbsp;        assertTrue(airlines.size() == 6048);</b>
+<i>61</i>&nbsp;
+<b class="fc"><i>62</i>&nbsp;    }</b>
+<i>63</i>&nbsp;
+<i>64</i>&nbsp;    /**
+<i>65</i>&nbsp;     * Checks that if one airline is entered with a null value, that the airline data is still parsed through as a valid
+<i>66</i>&nbsp;     * airline.
+<i>67</i>&nbsp;     *
+<i>68</i>&nbsp;     * @throws IOException throws an IOException error
+<i>69</i>&nbsp;     */
+<i>70</i>&nbsp;    @Test
+<i>71</i>&nbsp;    public void oneValidAirlineWithNullSize() throws IOException {
+<b class="fc"><i>72</i>&nbsp;        AirlineValidator parser = new AirlineValidator(new FileInputStream(&quot;testfiles/Airlines/oneValidAirlineWithNull.txt&quot;));</b>
+<b class="fc"><i>73</i>&nbsp;        ArrayList&lt;Airline&gt; airlines = parser.makeAirlines();</b>
+<b class="fc"><i>74</i>&nbsp;        assertTrue(airlines.size() == 1);</b>
+<b class="fc"><i>75</i>&nbsp;    }</b>
+<i>76</i>&nbsp;
+<i>77</i>&nbsp;    /**
+<i>78</i>&nbsp;     * Checks to see if the validator handles an empty file correctly.
+<i>79</i>&nbsp;     *
+<i>80</i>&nbsp;     * @throws IOException throws an IOException error
+<i>81</i>&nbsp;     */
+<i>82</i>&nbsp;    @Test
+<i>83</i>&nbsp;    public void emptyFile() throws IOException {
+<b class="fc"><i>84</i>&nbsp;        AirlineValidator parser = new AirlineValidator(new FileInputStream(&quot;testfiles/empty.txt&quot;));</b>
+<b class="fc"><i>85</i>&nbsp;        ArrayList&lt;Airline&gt; airlines = parser.makeAirlines();</b>
+<b class="fc"><i>86</i>&nbsp;        int size = airlines.size();</b>
+<b class="fc"><i>87</i>&nbsp;        assertTrue(size == 0);</b>
+<b class="fc"><i>88</i>&nbsp;    }</b>
+<i>89</i>&nbsp;
+<i>90</i>&nbsp;    /* Invalid files */
+<i>91</i>&nbsp;    /* Invalid files have been moved to a GUI test as they use an alert popup */
+<i>92</i>&nbsp;
+<i>93</i>&nbsp;    // Moved to ValidatorGUITest
+<i>94</i>&nbsp;
+<i>95</i>&nbsp;//    @Test
+<i>96</i>&nbsp;//    public void missingQuotation() throws IOException {
+<i>97</i>&nbsp;//
+<i>98</i>&nbsp;//        AirlineValidator parser = new AirlineValidator(new File(&quot;testfiles/Airlines/oneDodgyAirline.txt&quot;));
+<i>99</i>&nbsp;//        ArrayList&lt;Airline&gt; airlines = parser.makeAirlines();
+<i>100</i>&nbsp;//        assertTrue(airlines == null);
+<i>101</i>&nbsp;//    }
+<i>102</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2016-10-06 13:18</div>
+</div>
+</body>
+</html>

@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import seng202.group4.GUI.controller.Controller;
 
 import java.io.IOException;
 
@@ -34,8 +35,8 @@ public class GUITest extends Application{
 
     private void test() throws IOException {
         testAirline();
-        testRoute();
         testAirport();
+        testRoute();
     }
 
     private void testAirline() throws IOException {

@@ -1,0 +1,267 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: Controller</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">seng202.group4.GUI.controller</a> ]
+</div>
+
+<h1>Coverage Summary for Class: Controller (seng202.group4.GUI.controller)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Controller</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 13)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 17)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package seng202.group4.GUI.controller;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import javafx.beans.value.ObservableValue;
+<i>4</i>&nbsp;import javafx.collections.FXCollections;
+<i>5</i>&nbsp;import javafx.collections.ObservableList;
+<i>6</i>&nbsp;import javafx.fxml.FXML;
+<i>7</i>&nbsp;import javafx.fxml.Initializable;
+<i>8</i>&nbsp;import javafx.scene.control.*;
+<i>9</i>&nbsp;import javafx.scene.layout.AnchorPane;
+<i>10</i>&nbsp;import javafx.scene.web.WebView;
+<i>11</i>&nbsp;import seng202.group4.data.dataType.Airport;
+<i>12</i>&nbsp;import seng202.group4.data.dataType.Route;
+<i>13</i>&nbsp;import seng202.group4.data.repository.Repository;
+<i>14</i>&nbsp;
+<i>15</i>&nbsp;import java.net.URL;
+<i>16</i>&nbsp;import java.util.*;
+<i>17</i>&nbsp;import java.util.regex.Matcher;
+<i>18</i>&nbsp;import java.util.regex.Pattern;
+<i>19</i>&nbsp;
+<i>20</i>&nbsp;//import com.aquafx_project.AquaFx;
+<i>21</i>&nbsp;
+<i>22</i>&nbsp;/**
+<i>23</i>&nbsp; * The main controller implementing GUI functions.
+<i>24</i>&nbsp; */
+<b class="nc"><i>25</i>&nbsp;public class Controller implements Initializable {</b>
+<i>26</i>&nbsp;
+<i>27</i>&nbsp;    @FXML
+<i>28</i>&nbsp;    private MenuBarController menuBarController;
+<i>29</i>&nbsp;
+<i>30</i>&nbsp;    @FXML
+<i>31</i>&nbsp;    private RouteAnchorController routeAnchorController;
+<i>32</i>&nbsp;
+<i>33</i>&nbsp;    @FXML
+<i>34</i>&nbsp;    private DataTabController dataTabController;
+<i>35</i>&nbsp;
+<i>36</i>&nbsp;    @FXML
+<i>37</i>&nbsp;    private FlightTabController flightTabController;
+<i>38</i>&nbsp;
+<i>39</i>&nbsp;    @FXML
+<i>40</i>&nbsp;    private MapTabController mapTabController;
+<i>41</i>&nbsp;
+<i>42</i>&nbsp;    @FXML
+<i>43</i>&nbsp;    private AirportAnchorController airportAnchorController;
+<i>44</i>&nbsp;
+<i>45</i>&nbsp;    @FXML
+<i>46</i>&nbsp;    private AirlineAnchorController airlineAnchorController;
+<i>47</i>&nbsp;
+<i>48</i>&nbsp;    @FXML
+<i>49</i>&nbsp;    private AnalysisTabController analysisTabController;
+<i>50</i>&nbsp;
+<i>51</i>&nbsp;    @FXML
+<i>52</i>&nbsp;    private MenuBar menuBar;
+<i>53</i>&nbsp;
+<i>54</i>&nbsp;    @FXML
+<i>55</i>&nbsp;    private Tab mapTab;
+<i>56</i>&nbsp;
+<i>57</i>&nbsp;    @FXML
+<i>58</i>&nbsp;    private TabPane tabPane;
+<i>59</i>&nbsp;
+<i>60</i>&nbsp;    @FXML
+<i>61</i>&nbsp;    private Tab dataTab;
+<i>62</i>&nbsp;
+<i>63</i>&nbsp;    @FXML
+<i>64</i>&nbsp;    private Tab flightTab;
+<i>65</i>&nbsp;
+<i>66</i>&nbsp;    @FXML
+<i>67</i>&nbsp;    private Tab analysisTab;
+<i>68</i>&nbsp;
+<i>69</i>&nbsp;
+<i>70</i>&nbsp;    /**
+<i>71</i>&nbsp;     * Initializes the controller.
+<i>72</i>&nbsp;     *
+<i>73</i>&nbsp;     * @param location URL
+<i>74</i>&nbsp;     * @param resources ResourceBundle
+<i>75</i>&nbsp;     */
+<i>76</i>&nbsp;    public void initialize(URL location, ResourceBundle resources) {
+<i>77</i>&nbsp;        // Passing MainController to the other controllers
+<b class="nc"><i>78</i>&nbsp;        menuBarController.setMainController(this);</b>
+<b class="nc"><i>79</i>&nbsp;        mapTabController.setMainController(this);</b>
+<b class="nc"><i>80</i>&nbsp;        dataTabController.setMainController(this);</b>
+<b class="nc"><i>81</i>&nbsp;        flightTabController.setMainController(this);</b>
+<b class="nc"><i>82</i>&nbsp;        analysisTabController.setMainController(this);</b>
+<i>83</i>&nbsp;    }
+<i>84</i>&nbsp;
+<i>85</i>&nbsp;    /**
+<i>86</i>&nbsp;     * Getter for flight tab.
+<i>87</i>&nbsp;     *
+<i>88</i>&nbsp;     * @return Tab
+<i>89</i>&nbsp;     */
+<i>90</i>&nbsp;    public Tab getFlightTab() {
+<b class="nc"><i>91</i>&nbsp;        return flightTab;</b>
+<i>92</i>&nbsp;    }
+<i>93</i>&nbsp;
+<i>94</i>&nbsp;    /**
+<i>95</i>&nbsp;     * Getting for tab pane.
+<i>96</i>&nbsp;     *
+<i>97</i>&nbsp;     * @return TabPane
+<i>98</i>&nbsp;     */
+<i>99</i>&nbsp;    public TabPane getTabPane() {
+<b class="nc"><i>100</i>&nbsp;        return tabPane;</b>
+<i>101</i>&nbsp;    }
+<i>102</i>&nbsp;
+<i>103</i>&nbsp;    /**
+<i>104</i>&nbsp;     * Getter for data tab.
+<i>105</i>&nbsp;     *
+<i>106</i>&nbsp;     * @return Tab
+<i>107</i>&nbsp;     */
+<i>108</i>&nbsp;    public Tab getDataTab() {
+<b class="nc"><i>109</i>&nbsp;        return dataTab;</b>
+<i>110</i>&nbsp;    }
+<i>111</i>&nbsp;
+<i>112</i>&nbsp;    /**
+<i>113</i>&nbsp;     * Getter for dataTabController.
+<i>114</i>&nbsp;     *
+<i>115</i>&nbsp;     * @return DataTabController
+<i>116</i>&nbsp;     */
+<i>117</i>&nbsp;    public DataTabController getDataTabController() {
+<b class="nc"><i>118</i>&nbsp;        return dataTabController;</b>
+<i>119</i>&nbsp;    }
+<i>120</i>&nbsp;
+<i>121</i>&nbsp;    /**
+<i>122</i>&nbsp;     * Getter for routeAnchorController.
+<i>123</i>&nbsp;     *
+<i>124</i>&nbsp;     * @return RouteAnchorController
+<i>125</i>&nbsp;     */
+<i>126</i>&nbsp;    public RouteAnchorController getRouteAnchorController() {
+<b class="nc"><i>127</i>&nbsp;        return routeAnchorController;</b>
+<i>128</i>&nbsp;    }
+<i>129</i>&nbsp;
+<i>130</i>&nbsp;    /**
+<i>131</i>&nbsp;     * Getter for flightTabController.
+<i>132</i>&nbsp;     *
+<i>133</i>&nbsp;     * @return FlightTabController
+<i>134</i>&nbsp;     */
+<i>135</i>&nbsp;    public FlightTabController getFlightTabController() {
+<b class="nc"><i>136</i>&nbsp;        return flightTabController;</b>
+<i>137</i>&nbsp;    }
+<i>138</i>&nbsp;
+<i>139</i>&nbsp;    /**
+<i>140</i>&nbsp;     * Getter for airportAnchorController.
+<i>141</i>&nbsp;     *
+<i>142</i>&nbsp;     * @return AirportAnchorController
+<i>143</i>&nbsp;     */
+<i>144</i>&nbsp;    public AirportAnchorController getAirportAnchorController() {
+<b class="nc"><i>145</i>&nbsp;        return airportAnchorController;</b>
+<i>146</i>&nbsp;    }
+<i>147</i>&nbsp;
+<i>148</i>&nbsp;    /**
+<i>149</i>&nbsp;     * Getter for airlineAnchorController.
+<i>150</i>&nbsp;     *
+<i>151</i>&nbsp;     * @return AirlineAnchorController
+<i>152</i>&nbsp;     */
+<i>153</i>&nbsp;    public AirlineAnchorController getAirlineAnchorController() {
+<b class="nc"><i>154</i>&nbsp;        return airlineAnchorController;</b>
+<i>155</i>&nbsp;    }
+<i>156</i>&nbsp;
+<i>157</i>&nbsp;    /**
+<i>158</i>&nbsp;     * Getter for menuBarController.
+<i>159</i>&nbsp;     *
+<i>160</i>&nbsp;     * @return MenuBarController
+<i>161</i>&nbsp;     */
+<i>162</i>&nbsp;    public MenuBarController getMenuBarController() {
+<b class="nc"><i>163</i>&nbsp;        return menuBarController;</b>
+<i>164</i>&nbsp;    }
+<i>165</i>&nbsp;
+<i>166</i>&nbsp;    /**
+<i>167</i>&nbsp;     * Getter for analysisTabController.
+<i>168</i>&nbsp;     *
+<i>169</i>&nbsp;     * @return AnalysisTabController
+<i>170</i>&nbsp;     */
+<i>171</i>&nbsp;    public AnalysisTabController getAnalysisTabController() {
+<b class="nc"><i>172</i>&nbsp;        return analysisTabController;</b>
+<i>173</i>&nbsp;    }
+<i>174</i>&nbsp;
+<i>175</i>&nbsp;    /**
+<i>176</i>&nbsp;     * Getter for mapTabController.
+<i>177</i>&nbsp;     *
+<i>178</i>&nbsp;     * @return MapTabController
+<i>179</i>&nbsp;     */
+<i>180</i>&nbsp;    public MapTabController getMapTabController() {
+<b class="nc"><i>181</i>&nbsp;        return mapTabController;</b>
+<i>182</i>&nbsp;    }
+<i>183</i>&nbsp;
+<i>184</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2016-10-06 13:18</div>
+</div>
+</body>
+</html>

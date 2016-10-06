@@ -1,0 +1,233 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: AirportRepository</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">seng202.group4.data.repository</a> ]
+</div>
+
+<h1>Coverage Summary for Class: AirportRepository (seng202.group4.data.repository)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">AirportRepository</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    10%
+  </span>
+  <span class="absValue">
+    (1/ 10)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    2.2%
+  </span>
+  <span class="absValue">
+    (1/ 46)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package seng202.group4.data.repository;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import seng202.group4.data.dataType.Airport;
+<i>4</i>&nbsp;
+<i>5</i>&nbsp;import java.io.Serializable;
+<i>6</i>&nbsp;import java.util.*;
+<i>7</i>&nbsp;
+<i>8</i>&nbsp;/**
+<i>9</i>&nbsp; * Stores all the Airports in exactly one HashMap and has methods that Airports will use.
+<i>10</i>&nbsp; */
+<b class="nc"><i>11</i>&nbsp;public class AirportRepository extends Repository implements Serializable {</b>
+<b class="nc"><i>12</i>&nbsp;    private HashMap&lt;Integer, Airport&gt; airports = new HashMap&lt;&gt;();</b>
+<b class="nc"><i>13</i>&nbsp;    private HashMap&lt;String, HashSet&gt; countryAirports = new HashMap&lt;&gt;();</b>
+<i>14</i>&nbsp;
+<i>15</i>&nbsp;    /**
+<i>16</i>&nbsp;     * Adds an airport to the list of airports.
+<i>17</i>&nbsp;     *
+<i>18</i>&nbsp;     * @param airport Airport
+<i>19</i>&nbsp;     */
+<i>20</i>&nbsp;    public void addAirport(Airport airport) {
+<b class="nc"><i>21</i>&nbsp;        airports.put(airport.getID(), airport);</b>
+<i>22</i>&nbsp;
+<b class="nc"><i>23</i>&nbsp;        HashSet ids = countryAirports.get(airport.getCountry().toLowerCase());</b>
+<i>24</i>&nbsp;        // add airport to the countryAirports to keep track of airports in each country
+<b class="nc"><i>25</i>&nbsp;        if(ids == null){</b>
+<b class="nc"><i>26</i>&nbsp;            ids = new HashSet();</b>
+<b class="nc"><i>27</i>&nbsp;            ids.add(airport.getID());</b>
+<i>28</i>&nbsp;        }
+<i>29</i>&nbsp;        else{
+<b class="nc"><i>30</i>&nbsp;            ids.add(airport.getID());</b>
+<i>31</i>&nbsp;        }
+<b class="nc"><i>32</i>&nbsp;        countryAirports.put(airport.getCountry().toLowerCase(), ids);</b>
+<i>33</i>&nbsp;
+<b class="nc"><i>34</i>&nbsp;    }</b>
+<i>35</i>&nbsp;
+<i>36</i>&nbsp;    /**
+<i>37</i>&nbsp;     * Gets a list of all the airports.
+<i>38</i>&nbsp;     *
+<i>39</i>&nbsp;     * @return airports
+<i>40</i>&nbsp;     */
+<i>41</i>&nbsp;    public HashMap&lt;Integer, Airport&gt; getAirports() {
+<b class="fc"><i>42</i>&nbsp;        return airports;</b>
+<i>43</i>&nbsp;    }
+<i>44</i>&nbsp;
+<i>45</i>&nbsp;    /**
+<i>46</i>&nbsp;     * Gets the list of airports in a country.
+<i>47</i>&nbsp;     *
+<i>48</i>&nbsp;     * @return countryAirports
+<i>49</i>&nbsp;     */
+<i>50</i>&nbsp;    public HashMap&lt;String, HashSet&gt; getCountryAirports(){
+<b class="nc"><i>51</i>&nbsp;        return countryAirports;</b>
+<i>52</i>&nbsp;    }
+<i>53</i>&nbsp;
+<i>54</i>&nbsp;    /**
+<i>55</i>&nbsp;     * Takes a country and returns all the airport identification numbers of that country.
+<i>56</i>&nbsp;     *
+<i>57</i>&nbsp;     * @param country String
+<i>58</i>&nbsp;     * @return Set
+<i>59</i>&nbsp;     */
+<i>60</i>&nbsp;    public Set airportIDsOfCountry(String country){
+<b class="nc"><i>61</i>&nbsp;        if(countryAirports.get(country) == null){</b>
+<b class="nc"><i>62</i>&nbsp;            return Collections.emptySet();</b>
+<i>63</i>&nbsp;        }
+<b class="nc"><i>64</i>&nbsp;        return countryAirports.get(country);</b>
+<i>65</i>&nbsp;    }
+<i>66</i>&nbsp;
+<i>67</i>&nbsp;    /**
+<i>68</i>&nbsp;     * Finds and returns all airports in a given country.
+<i>69</i>&nbsp;     *
+<i>70</i>&nbsp;     * @param country String
+<i>71</i>&nbsp;     * @return AirportCountry
+<i>72</i>&nbsp;     */
+<i>73</i>&nbsp;    public ArrayList&lt;Airport&gt; getAirportsFromCountry(String country) {
+<b class="nc"><i>74</i>&nbsp;        ArrayList&lt;Airport&gt; AirportCountry = new ArrayList&lt;Airport&gt;();</b>
+<b class="nc"><i>75</i>&nbsp;        for (Airport airport : airports.values()) {</b>
+<b class="nc"><i>76</i>&nbsp;            if (airport.getCountry().equals(country)) {</b>
+<b class="nc"><i>77</i>&nbsp;                AirportCountry.add(airport);</b>
+<i>78</i>&nbsp;            }
+<b class="nc"><i>79</i>&nbsp;        }</b>
+<b class="nc"><i>80</i>&nbsp;        return AirportCountry;</b>
+<i>81</i>&nbsp;    }
+<i>82</i>&nbsp;
+<i>83</i>&nbsp;    /**
+<i>84</i>&nbsp;     * Finds the country of an airport with a given airport ID.
+<i>85</i>&nbsp;     *
+<i>86</i>&nbsp;     * @param id Integer
+<i>87</i>&nbsp;     * @return airport country if it exists otherwise null
+<i>88</i>&nbsp;     */
+<i>89</i>&nbsp;    public String findCountry(Integer id) {
+<b class="nc"><i>90</i>&nbsp;        for (Airport airport : airports.values()) {</b>
+<b class="nc"><i>91</i>&nbsp;            if (airport.getID() == id) {</b>
+<b class="nc"><i>92</i>&nbsp;                return airport.getCountry();</b>
+<i>93</i>&nbsp;            }
+<b class="nc"><i>94</i>&nbsp;        }</b>
+<b class="nc"><i>95</i>&nbsp;        return null;</b>
+<i>96</i>&nbsp;    }
+<i>97</i>&nbsp;
+<i>98</i>&nbsp;    /**
+<i>99</i>&nbsp;     * Calculates the distance given two points (with latitude and longitudes).
+<i>100</i>&nbsp;     *
+<i>101</i>&nbsp;     * @param pointALat Double: Point A latitude
+<i>102</i>&nbsp;     * @param pointALon Double: Point A longitude
+<i>103</i>&nbsp;     * @param pointBLat Double: Point B latitude
+<i>104</i>&nbsp;     * @param pointBLon Double: Point B longitude
+<i>105</i>&nbsp;     * @return String
+<i>106</i>&nbsp;     */
+<i>107</i>&nbsp;    public static String calculateDistance(Double pointALat, Double pointALon, Double pointBLat, Double pointBLon) {
+<b class="nc"><i>108</i>&nbsp;        final int R = 6371; // Radius of the earth in km</b>
+<i>109</i>&nbsp;
+<b class="nc"><i>110</i>&nbsp;        Double latDistance = Math.toRadians(pointBLat - pointALat);</b>
+<b class="nc"><i>111</i>&nbsp;        Double lonDistance = Math.toRadians(pointBLon - pointALon);</b>
+<b class="nc"><i>112</i>&nbsp;        Double a = Math.sin(latDistance / 2) * Math.sin(latDistance / 2)</b>
+<b class="nc"><i>113</i>&nbsp;                + Math.cos(Math.toRadians(pointALat)) * Math.cos(Math.toRadians(pointBLat))</b>
+<b class="nc"><i>114</i>&nbsp;                * Math.sin(lonDistance / 2) * Math.sin(lonDistance / 2);</b>
+<b class="nc"><i>115</i>&nbsp;        Double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));</b>
+<i>116</i>&nbsp;
+<b class="nc"><i>117</i>&nbsp;        double distance = R * c; // convert to meters</b>
+<b class="nc"><i>118</i>&nbsp;        return String.format(&quot;%.2f&quot;, distance);</b>
+<i>119</i>&nbsp;    }
+<i>120</i>&nbsp;
+<i>121</i>&nbsp;    /**
+<i>122</i>&nbsp;     * Finds an airport IATA with a given airport ID.
+<i>123</i>&nbsp;     *
+<i>124</i>&nbsp;     * @param id Integer
+<i>125</i>&nbsp;     * @return airport IATA if it exists otherwise null
+<i>126</i>&nbsp;     */
+<i>127</i>&nbsp;    public String findAirportIATA(Integer id) {
+<b class="nc"><i>128</i>&nbsp;        for (Airport airport : airports.values()) {</b>
+<b class="nc"><i>129</i>&nbsp;            if (airport.getID() == id) {</b>
+<b class="nc"><i>130</i>&nbsp;                return airport.getIATA();</b>
+<i>131</i>&nbsp;            }
+<b class="nc"><i>132</i>&nbsp;        }</b>
+<b class="nc"><i>133</i>&nbsp;        return null;</b>
+<i>134</i>&nbsp;    }
+<i>135</i>&nbsp;
+<i>136</i>&nbsp;    /**
+<i>137</i>&nbsp;     * Returns airport given airport name in string.
+<i>138</i>&nbsp;     *
+<i>139</i>&nbsp;     * @param airportName String
+<i>140</i>&nbsp;     * @return airport if it exists otherwise null
+<i>141</i>&nbsp;     */
+<i>142</i>&nbsp;    public Airport getAirport(String airportName) {
+<b class="nc"><i>143</i>&nbsp;        for (Airport airport : airports.values()) {</b>
+<b class="nc"><i>144</i>&nbsp;            if (airport.getName().toLowerCase().equals(airportName)) {</b>
+<b class="nc"><i>145</i>&nbsp;                return airport;</b>
+<i>146</i>&nbsp;            }
+<b class="nc"><i>147</i>&nbsp;        }</b>
+<b class="nc"><i>148</i>&nbsp;        return null;</b>
+<i>149</i>&nbsp;    }
+<i>150</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2016-10-06 13:18</div>
+</div>
+</body>
+</html>

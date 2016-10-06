@@ -1,0 +1,446 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: AnalysisTabController</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">seng202.group4.GUI.controller</a> ]
+</div>
+
+<h1>Coverage Summary for Class: AnalysisTabController (seng202.group4.GUI.controller)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">AnalysisTabController</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 10)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 181)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package seng202.group4.GUI.controller;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import javafx.collections.FXCollections;
+<i>4</i>&nbsp;import javafx.collections.ObservableList;
+<i>5</i>&nbsp;import javafx.collections.ObservableMap;
+<i>6</i>&nbsp;import javafx.fxml.FXML;
+<i>7</i>&nbsp;import javafx.fxml.Initializable;
+<i>8</i>&nbsp;import javafx.scene.chart.BarChart;
+<i>9</i>&nbsp;import javafx.scene.chart.PieChart;
+<i>10</i>&nbsp;import javafx.scene.chart.XYChart;
+<i>11</i>&nbsp;import javafx.scene.control.ComboBox;
+<i>12</i>&nbsp;import javafx.scene.control.TableColumn;
+<i>13</i>&nbsp;import javafx.scene.control.TableView;
+<i>14</i>&nbsp;import javafx.scene.control.cell.PropertyValueFactory;
+<i>15</i>&nbsp;import javafx.scene.text.Text;
+<i>16</i>&nbsp;import seng202.group4.GUI.table.AirlineTable;
+<i>17</i>&nbsp;import seng202.group4.GUI.table.AirportTable;
+<i>18</i>&nbsp;import seng202.group4.GUI.table.AnalysisTable;
+<i>19</i>&nbsp;import seng202.group4.GUI.table.RouteTable;
+<i>20</i>&nbsp;import seng202.group4.data.dataType.Airport;
+<i>21</i>&nbsp;import seng202.group4.data.repository.Repository;
+<i>22</i>&nbsp;
+<i>23</i>&nbsp;import java.net.URL;
+<i>24</i>&nbsp;import java.util.*;
+<i>25</i>&nbsp;
+<i>26</i>&nbsp;/**
+<i>27</i>&nbsp; * Created by psu43 on 2/10/16.
+<i>28</i>&nbsp; */
+<b class="nc"><i>29</i>&nbsp;public class AnalysisTabController implements Initializable{</b>
+<i>30</i>&nbsp;
+<i>31</i>&nbsp;
+<i>32</i>&nbsp;
+<i>33</i>&nbsp;    // FXML for analysis tab
+<i>34</i>&nbsp;    @FXML
+<i>35</i>&nbsp;    private ComboBox analysisDropdown;
+<i>36</i>&nbsp;
+<i>37</i>&nbsp;    @FXML
+<i>38</i>&nbsp;    private ComboBox countryDropdown;
+<i>39</i>&nbsp;
+<i>40</i>&nbsp;    @FXML
+<i>41</i>&nbsp;    private TableView&lt;AnalysisTable&gt; airportsAndRoutes;
+<i>42</i>&nbsp;
+<i>43</i>&nbsp;    @FXML
+<i>44</i>&nbsp;    private TableColumn&lt;AnalysisTable, String&gt; column1;
+<i>45</i>&nbsp;
+<i>46</i>&nbsp;    @FXML
+<i>47</i>&nbsp;    private TableColumn&lt;AnalysisTable, Integer&gt; airportCount;
+<i>48</i>&nbsp;
+<i>49</i>&nbsp;    @FXML
+<i>50</i>&nbsp;    private PieChart pieChart;
+<i>51</i>&nbsp;
+<i>52</i>&nbsp;    @FXML
+<i>53</i>&nbsp;    private BarChart&lt;String,Number&gt; barChart;
+<i>54</i>&nbsp;
+<i>55</i>&nbsp;    @FXML
+<i>56</i>&nbsp;    private Text selectCountryText;
+<i>57</i>&nbsp;
+<i>58</i>&nbsp;    @FXML
+<i>59</i>&nbsp;    private Text warningPieChart;
+<i>60</i>&nbsp;
+<i>61</i>&nbsp;    @FXML
+<i>62</i>&nbsp;    private Text warningBarChart;
+<i>63</i>&nbsp;
+<i>64</i>&nbsp;    @FXML
+<i>65</i>&nbsp;    private Text rowSize;
+<i>66</i>&nbsp;
+<i>67</i>&nbsp;    private Controller mainController;
+<i>68</i>&nbsp;
+<i>69</i>&nbsp;    private DataTabController dataTabController;
+<i>70</i>&nbsp;
+<i>71</i>&nbsp;    // Used in flightAnalysis
+<b class="nc"><i>72</i>&nbsp;    private TreeSet&lt;String&gt; airportCountrySet = new TreeSet();</b>
+<i>73</i>&nbsp;
+<i>74</i>&nbsp;    /**
+<i>75</i>&nbsp;     * Initializes the controller.
+<i>76</i>&nbsp;     *
+<i>77</i>&nbsp;     * @param location URL
+<i>78</i>&nbsp;     * @param resources ResourceBundle
+<i>79</i>&nbsp;     */
+<i>80</i>&nbsp;    public void initialize(URL location, ResourceBundle resources) {
+<i>81</i>&nbsp;
+<i>82</i>&nbsp;
+<b class="nc"><i>83</i>&nbsp;        analysisDropdown.getItems().addAll(</b>
+<i>84</i>&nbsp;                &quot;Airports with routes&quot;,
+<i>85</i>&nbsp;                &quot;Equipment used on routes&quot;,
+<i>86</i>&nbsp;                &quot;Airports per country&quot;,
+<i>87</i>&nbsp;                &quot;Airlines per country&quot;
+<i>88</i>&nbsp;        );
+<i>89</i>&nbsp;
+<b class="nc"><i>90</i>&nbsp;        countryDropdown.setDisable(true);</b>
+<i>91</i>&nbsp;
+<b class="nc"><i>92</i>&nbsp;        updateCountryDropdown();</b>
+<i>93</i>&nbsp;    }
+<i>94</i>&nbsp;
+<i>95</i>&nbsp;    /**
+<i>96</i>&nbsp;     * Sets the main controller and retrieves private variables from the main controller.
+<i>97</i>&nbsp;     *
+<i>98</i>&nbsp;     * @param controller Controller
+<i>99</i>&nbsp;     */
+<i>100</i>&nbsp;    public void setMainController(Controller controller) {
+<b class="nc"><i>101</i>&nbsp;        this.mainController = controller;</b>
+<b class="nc"><i>102</i>&nbsp;        this.dataTabController = mainController.getDataTabController();</b>
+<i>103</i>&nbsp;    }
+<i>104</i>&nbsp;
+<i>105</i>&nbsp;    private void updateCountryDropdown() {
+<i>106</i>&nbsp;        // clear the current combo box
+<b class="nc"><i>107</i>&nbsp;        countryDropdown.getItems().clear();</b>
+<i>108</i>&nbsp;
+<i>109</i>&nbsp;        // populate airportCountrySet for combobox use later
+<b class="nc"><i>110</i>&nbsp;        HashMap&lt;Integer, Airport&gt; airports = Repository.airportRepository.getAirports();</b>
+<b class="nc"><i>111</i>&nbsp;        if (airports != null) {</b>
+<b class="nc"><i>112</i>&nbsp;            for (Airport airport : airports.values()) {</b>
+<b class="nc"><i>113</i>&nbsp;                if (airport != null &amp;&amp; airport.getCountry() != null) {</b>
+<b class="nc"><i>114</i>&nbsp;                    airportCountrySet.add(airport.getCountry());</b>
+<i>115</i>&nbsp;                }
+<b class="nc"><i>116</i>&nbsp;            }</b>
+<i>117</i>&nbsp;        }
+<i>118</i>&nbsp;
+<i>119</i>&nbsp;        // if the combo box doesn&#39;t have --ALL COUNTRIES-- then add one
+<b class="nc"><i>120</i>&nbsp;        if (!countryDropdown.getItems().contains(&quot;--ALL COUNTRIES--&quot;)) {</b>
+<b class="nc"><i>121</i>&nbsp;            countryDropdown.getItems().add(&quot;--ALL COUNTRIES--&quot;);</b>
+<i>122</i>&nbsp;        }
+<i>123</i>&nbsp;        // add countries from TreeSet as combobox options
+<b class="nc"><i>124</i>&nbsp;        Iterator&lt;String&gt; itr = airportCountrySet.iterator();</b>
+<b class="nc"><i>125</i>&nbsp;        while (itr.hasNext()) {</b>
+<b class="nc"><i>126</i>&nbsp;            countryDropdown.getItems().add(itr.next());</b>
+<i>127</i>&nbsp;        }
+<b class="nc"><i>128</i>&nbsp;        countryDropdown.getSelectionModel().select(0);</b>
+<i>129</i>&nbsp;    }
+<i>130</i>&nbsp;
+<i>131</i>&nbsp;    private void airportAnalysis(String country) {
+<b class="nc"><i>132</i>&nbsp;        ObservableList&lt;AnalysisTable&gt; analysisTData = FXCollections.observableArrayList();</b>
+<b class="nc"><i>133</i>&nbsp;        ObservableMap&lt;String, Integer&gt; countAirport = FXCollections.observableHashMap();</b>
+<b class="nc"><i>134</i>&nbsp;        ObservableList&lt;PieChart.Data&gt; pieChartData = FXCollections.observableArrayList();</b>
+<i>135</i>&nbsp;
+<b class="nc"><i>136</i>&nbsp;        for (RouteTable airport : dataTabController.getRouteAnchorController().getRouteTData()) {</b>
+<b class="nc"><i>137</i>&nbsp;            if (countAirport.containsKey(airport.getRsource())) {</b>
+<b class="nc"><i>138</i>&nbsp;                countAirport.put(airport.getRsource(), countAirport.get(airport.getRsource()) + 1);</b>
+<i>139</i>&nbsp;            } else {
+<b class="nc"><i>140</i>&nbsp;                countAirport.put(airport.getRsource(), 1);</b>
+<i>141</i>&nbsp;            }
+<b class="nc"><i>142</i>&nbsp;        }</b>
+<i>143</i>&nbsp;
+<b class="nc"><i>144</i>&nbsp;        XYChart.Series airportMostRoutes = new XYChart.Series();</b>
+<i>145</i>&nbsp;
+<b class="nc"><i>146</i>&nbsp;        if (!country.equals(&quot;--ALL COUNTRIES--&quot;)) {</b>
+<b class="nc"><i>147</i>&nbsp;            Set&lt;Integer&gt; countryAirportID = Repository.airportRepository.airportIDsOfCountry(country.toLowerCase());</b>
+<b class="nc"><i>148</i>&nbsp;            Set&lt;String&gt; countryAirport = new HashSet&lt;&gt;();</b>
+<b class="nc"><i>149</i>&nbsp;            for (Integer id : countryAirportID) {</b>
+<b class="nc"><i>150</i>&nbsp;                countryAirport.add(Repository.airportRepository.findAirportIATA(id));</b>
+<b class="nc"><i>151</i>&nbsp;            }</b>
+<i>152</i>&nbsp;
+<b class="nc"><i>153</i>&nbsp;            for (String keyFiltered : countAirport.keySet()) {</b>
+<b class="nc"><i>154</i>&nbsp;                if (countryAirport.contains(keyFiltered)) {</b>
+<b class="nc"><i>155</i>&nbsp;                    analysisTData.add(new AnalysisTable(keyFiltered, countAirport.get(keyFiltered)));</b>
+<b class="nc"><i>156</i>&nbsp;                    pieChartData.add(new PieChart.Data(keyFiltered, countAirport.get(keyFiltered)));</b>
+<b class="nc"><i>157</i>&nbsp;                    airportMostRoutes.getData().add(new XYChart.Data(keyFiltered, countAirport.get(keyFiltered)));</b>
+<i>158</i>&nbsp;                }
+<b class="nc"><i>159</i>&nbsp;            }</b>
+<b class="nc"><i>160</i>&nbsp;        } else if (country.equals(&quot;--ALL COUNTRIES--&quot;)) {</b>
+<b class="nc"><i>161</i>&nbsp;            for (String key : countAirport.keySet()) {</b>
+<b class="nc"><i>162</i>&nbsp;                analysisTData.add(new AnalysisTable(key, countAirport.get(key)));</b>
+<b class="nc"><i>163</i>&nbsp;            }</b>
+<i>164</i>&nbsp;        } else {
+<b class="nc"><i>165</i>&nbsp;            analysisTData.add(new AnalysisTable(&quot;no data&quot;, 0)); // In case something else happens</b>
+<i>166</i>&nbsp;        }
+<i>167</i>&nbsp;
+<b class="nc"><i>168</i>&nbsp;        column1.setCellValueFactory(new PropertyValueFactory&lt;&gt;(&quot;column1&quot;));</b>
+<b class="nc"><i>169</i>&nbsp;        column1.setText(&quot;Airport&quot;);</b>
+<b class="nc"><i>170</i>&nbsp;        airportCount.setCellValueFactory(new PropertyValueFactory&lt;&gt;(&quot;number&quot;));</b>
+<b class="nc"><i>171</i>&nbsp;        airportCount.setText(&quot;Number of Routes&quot;);</b>
+<b class="nc"><i>172</i>&nbsp;        airportsAndRoutes.setItems(analysisTData);</b>
+<b class="nc"><i>173</i>&nbsp;        airportCount.setSortType(TableColumn.SortType.DESCENDING);</b>
+<b class="nc"><i>174</i>&nbsp;        airportsAndRoutes.getSortOrder().setAll(airportCount);</b>
+<i>175</i>&nbsp;
+<b class="nc"><i>176</i>&nbsp;        if (!country.equals(&quot;--ALL COUNTRIES--&quot;)) {</b>
+<b class="nc"><i>177</i>&nbsp;            pieChart.setVisible(true);</b>
+<b class="nc"><i>178</i>&nbsp;            warningPieChart.setVisible(false);</b>
+<i>179</i>&nbsp;
+<b class="nc"><i>180</i>&nbsp;            barChart.setVisible(true);</b>
+<b class="nc"><i>181</i>&nbsp;            warningBarChart.setVisible(false);</b>
+<i>182</i>&nbsp;
+<b class="nc"><i>183</i>&nbsp;            pieChart.setData(pieChartData);</b>
+<b class="nc"><i>184</i>&nbsp;            pieChart.setTitle(&quot;Routes by Airports in &quot; + country);</b>
+<i>185</i>&nbsp;
+<b class="nc"><i>186</i>&nbsp;            barChart.getData().setAll(airportMostRoutes);</b>
+<b class="nc"><i>187</i>&nbsp;            barChart.setTitle(&quot;Routes by Airports in &quot; + country);</b>
+<i>188</i>&nbsp;        } else {
+<b class="nc"><i>189</i>&nbsp;            pieChart.setVisible(false);</b>
+<b class="nc"><i>190</i>&nbsp;            warningPieChart.setVisible(true);</b>
+<b class="nc"><i>191</i>&nbsp;            warningPieChart.setText(&quot;Please select country to enable pie chart.&quot;);</b>
+<i>192</i>&nbsp;
+<b class="nc"><i>193</i>&nbsp;            barChart.setVisible(false);</b>
+<b class="nc"><i>194</i>&nbsp;            warningBarChart.setVisible(true);</b>
+<b class="nc"><i>195</i>&nbsp;            warningBarChart.setText(&quot;Please select country to enable bar chart.&quot;);</b>
+<i>196</i>&nbsp;        }
+<i>197</i>&nbsp;
+<b class="nc"><i>198</i>&nbsp;        rowSize.setVisible(true);</b>
+<b class="nc"><i>199</i>&nbsp;        if (!country.equals(&quot;--ALL COUNTRIES--&quot;)) {</b>
+<b class="nc"><i>200</i>&nbsp;            rowSize.setText(Integer.toString(analysisTData.size()) + &quot; airport(s) found in &quot; + country + &quot; with routes.&quot;);</b>
+<i>201</i>&nbsp;        } else {
+<b class="nc"><i>202</i>&nbsp;            rowSize.setText(Integer.toString(analysisTData.size()) + &quot; airports are shown in the table.&quot;);</b>
+<i>203</i>&nbsp;        }
+<i>204</i>&nbsp;    }
+<i>205</i>&nbsp;
+<i>206</i>&nbsp;    private void equipmentAnalysis() {
+<b class="nc"><i>207</i>&nbsp;        ObservableList&lt;AnalysisTable&gt; analysisTData = FXCollections.observableArrayList();</b>
+<b class="nc"><i>208</i>&nbsp;        ObservableMap&lt;String, Integer&gt; countEquip = FXCollections.observableHashMap();</b>
+<b class="nc"><i>209</i>&nbsp;        ObservableList&lt;PieChart.Data&gt; pieChartData = FXCollections.observableArrayList();</b>
+<i>210</i>&nbsp;
+<b class="nc"><i>211</i>&nbsp;        for (RouteTable airport : dataTabController.getRouteAnchorController().getRouteTData()) {</b>
+<b class="nc"><i>212</i>&nbsp;            List&lt;String&gt; items = Arrays.asList(airport.getRequipment().split(&quot;\\s*,\\s*&quot;));</b>
+<b class="nc"><i>213</i>&nbsp;            for (String equip : items) {</b>
+<b class="nc"><i>214</i>&nbsp;                if (countEquip.containsKey(equip)) {</b>
+<b class="nc"><i>215</i>&nbsp;                    countEquip.put(equip, countEquip.get(equip) + 1);</b>
+<i>216</i>&nbsp;                } else {
+<b class="nc"><i>217</i>&nbsp;                    countEquip.put(equip, 1);</b>
+<i>218</i>&nbsp;                }
+<b class="nc"><i>219</i>&nbsp;            }</b>
+<b class="nc"><i>220</i>&nbsp;        }</b>
+<i>221</i>&nbsp;
+<b class="nc"><i>222</i>&nbsp;        for (String key : countEquip.keySet()) {</b>
+<b class="nc"><i>223</i>&nbsp;            analysisTData.add(new AnalysisTable(key, countEquip.get(key)));</b>
+<b class="nc"><i>224</i>&nbsp;            pieChartData.add(new PieChart.Data(key, countEquip.get(key)));</b>
+<b class="nc"><i>225</i>&nbsp;        }</b>
+<i>226</i>&nbsp;
+<b class="nc"><i>227</i>&nbsp;        column1.setCellValueFactory(new PropertyValueFactory&lt;&gt;(&quot;column1&quot;));</b>
+<b class="nc"><i>228</i>&nbsp;        column1.setText(&quot;Equipment&quot;);</b>
+<b class="nc"><i>229</i>&nbsp;        airportCount.setCellValueFactory(new PropertyValueFactory&lt;&gt;(&quot;number&quot;));</b>
+<b class="nc"><i>230</i>&nbsp;        airportCount.setText(&quot;Number of Routes&quot;);</b>
+<b class="nc"><i>231</i>&nbsp;        airportsAndRoutes.setItems(analysisTData);</b>
+<b class="nc"><i>232</i>&nbsp;        airportCount.setSortType(TableColumn.SortType.DESCENDING);</b>
+<b class="nc"><i>233</i>&nbsp;        airportsAndRoutes.getSortOrder().setAll(airportCount);</b>
+<i>234</i>&nbsp;
+<b class="nc"><i>235</i>&nbsp;        pieChart.setVisible(true);</b>
+<b class="nc"><i>236</i>&nbsp;        warningPieChart.setVisible(false);</b>
+<b class="nc"><i>237</i>&nbsp;        pieChart.setData(pieChartData);</b>
+<b class="nc"><i>238</i>&nbsp;        pieChart.setTitle(&quot;Routes by equipment&quot;);</b>
+<i>239</i>&nbsp;
+<b class="nc"><i>240</i>&nbsp;        barChart.setVisible(false);</b>
+<b class="nc"><i>241</i>&nbsp;        warningBarChart.setVisible(true);</b>
+<b class="nc"><i>242</i>&nbsp;        warningBarChart.setText(&quot;Bar chart not available for this analysis.&quot;);</b>
+<i>243</i>&nbsp;
+<b class="nc"><i>244</i>&nbsp;        rowSize.setVisible(true);</b>
+<b class="nc"><i>245</i>&nbsp;        rowSize.setText(Integer.toString(analysisTData.size()) + &quot; equipments are shown in the table.&quot;);</b>
+<i>246</i>&nbsp;    }
+<i>247</i>&nbsp;
+<i>248</i>&nbsp;    private void airportCountryAnalysis() {
+<b class="nc"><i>249</i>&nbsp;        ObservableList&lt;AnalysisTable&gt; analysisTData = FXCollections.observableArrayList();</b>
+<b class="nc"><i>250</i>&nbsp;        ObservableMap&lt;String, Integer&gt; countAirport = FXCollections.observableHashMap();</b>
+<b class="nc"><i>251</i>&nbsp;        ObservableList&lt;PieChart.Data&gt; pieChartData = FXCollections.observableArrayList();</b>
+<i>252</i>&nbsp;
+<b class="nc"><i>253</i>&nbsp;        for (AirportTable airport : dataTabController.getAirportAnchorController().getAirportTData()) {</b>
+<b class="nc"><i>254</i>&nbsp;            if (countAirport.containsKey(airport.getAtcountry())) {</b>
+<b class="nc"><i>255</i>&nbsp;                countAirport.put(airport.getAtcountry(), countAirport.get(airport.getAtcountry()) + 1);</b>
+<i>256</i>&nbsp;            } else {
+<b class="nc"><i>257</i>&nbsp;                countAirport.put(airport.getAtcountry(), 1);</b>
+<i>258</i>&nbsp;            }
+<b class="nc"><i>259</i>&nbsp;        }</b>
+<i>260</i>&nbsp;
+<b class="nc"><i>261</i>&nbsp;        for (String key : countAirport.keySet()) {</b>
+<b class="nc"><i>262</i>&nbsp;            analysisTData.add(new AnalysisTable(key, countAirport.get(key)));</b>
+<b class="nc"><i>263</i>&nbsp;            pieChartData.add(new PieChart.Data(key, countAirport.get(key)));</b>
+<b class="nc"><i>264</i>&nbsp;        }</b>
+<i>265</i>&nbsp;
+<b class="nc"><i>266</i>&nbsp;        column1.setCellValueFactory(new PropertyValueFactory&lt;&gt;(&quot;column1&quot;));</b>
+<b class="nc"><i>267</i>&nbsp;        column1.setText(&quot;Country&quot;);</b>
+<b class="nc"><i>268</i>&nbsp;        airportCount.setCellValueFactory(new PropertyValueFactory&lt;&gt;(&quot;number&quot;));</b>
+<b class="nc"><i>269</i>&nbsp;        airportCount.setText(&quot;Number of Airports&quot;);</b>
+<b class="nc"><i>270</i>&nbsp;        airportsAndRoutes.setItems(analysisTData);</b>
+<b class="nc"><i>271</i>&nbsp;        airportCount.setSortType(TableColumn.SortType.DESCENDING);</b>
+<b class="nc"><i>272</i>&nbsp;        airportsAndRoutes.getSortOrder().setAll(airportCount);</b>
+<i>273</i>&nbsp;
+<b class="nc"><i>274</i>&nbsp;        pieChart.setVisible(true);</b>
+<b class="nc"><i>275</i>&nbsp;        warningPieChart.setVisible(false);</b>
+<b class="nc"><i>276</i>&nbsp;        pieChart.setData(pieChartData);</b>
+<b class="nc"><i>277</i>&nbsp;        pieChart.setTitle(&quot;Airports by Country&quot;);</b>
+<i>278</i>&nbsp;
+<i>279</i>&nbsp;
+<b class="nc"><i>280</i>&nbsp;        barChart.setVisible(false);</b>
+<b class="nc"><i>281</i>&nbsp;        warningBarChart.setVisible(true);</b>
+<b class="nc"><i>282</i>&nbsp;        warningBarChart.setText(&quot;Bar chart not available for this analysis.&quot;);</b>
+<i>283</i>&nbsp;
+<b class="nc"><i>284</i>&nbsp;        rowSize.setVisible(true);</b>
+<b class="nc"><i>285</i>&nbsp;        rowSize.setText(Integer.toString(analysisTData.size()) + &quot; countries are shown in the table.&quot;);</b>
+<i>286</i>&nbsp;    }
+<i>287</i>&nbsp;
+<i>288</i>&nbsp;    private void airlineCountryAnalysis() {
+<b class="nc"><i>289</i>&nbsp;        ObservableList&lt;AnalysisTable&gt; analysisTData = FXCollections.observableArrayList();</b>
+<b class="nc"><i>290</i>&nbsp;        ObservableMap&lt;String, Integer&gt; countAirline = FXCollections.observableHashMap();</b>
+<b class="nc"><i>291</i>&nbsp;        ObservableList&lt;PieChart.Data&gt; pieChartData = FXCollections.observableArrayList();</b>
+<i>292</i>&nbsp;
+<b class="nc"><i>293</i>&nbsp;        for (AirlineTable airline : dataTabController.getAirlineAnchorController().getAirlineTData()) {</b>
+<b class="nc"><i>294</i>&nbsp;            if (countAirline.containsKey(airline.getRcountry())) {</b>
+<b class="nc"><i>295</i>&nbsp;                countAirline.put(airline.getRcountry(), countAirline.get(airline.getRcountry()) + 1);</b>
+<i>296</i>&nbsp;            } else {
+<b class="nc"><i>297</i>&nbsp;                countAirline.put(airline.getRcountry(), 1);</b>
+<i>298</i>&nbsp;            }
+<b class="nc"><i>299</i>&nbsp;        }</b>
+<i>300</i>&nbsp;
+<b class="nc"><i>301</i>&nbsp;        for (String key : countAirline.keySet()) {</b>
+<b class="nc"><i>302</i>&nbsp;            if (key != null) {</b>
+<b class="nc"><i>303</i>&nbsp;                analysisTData.add(new AnalysisTable(key, countAirline.get(key)));</b>
+<b class="nc"><i>304</i>&nbsp;                pieChartData.add(new PieChart.Data(key, countAirline.get(key)));</b>
+<i>305</i>&nbsp;            }
+<b class="nc"><i>306</i>&nbsp;        }</b>
+<i>307</i>&nbsp;
+<b class="nc"><i>308</i>&nbsp;        column1.setCellValueFactory(new PropertyValueFactory&lt;&gt;(&quot;column1&quot;));</b>
+<b class="nc"><i>309</i>&nbsp;        column1.setText(&quot;Country&quot;);</b>
+<b class="nc"><i>310</i>&nbsp;        airportCount.setCellValueFactory(new PropertyValueFactory&lt;&gt;(&quot;number&quot;));</b>
+<b class="nc"><i>311</i>&nbsp;        airportCount.setText(&quot;Number of Airlines&quot;);</b>
+<b class="nc"><i>312</i>&nbsp;        airportsAndRoutes.setItems(analysisTData);</b>
+<b class="nc"><i>313</i>&nbsp;        airportCount.setSortType(TableColumn.SortType.DESCENDING);</b>
+<b class="nc"><i>314</i>&nbsp;        airportsAndRoutes.getSortOrder().setAll(airportCount);</b>
+<i>315</i>&nbsp;
+<b class="nc"><i>316</i>&nbsp;        pieChart.setVisible(true);</b>
+<b class="nc"><i>317</i>&nbsp;        warningPieChart.setVisible(false);</b>
+<b class="nc"><i>318</i>&nbsp;        pieChart.setData(pieChartData);</b>
+<b class="nc"><i>319</i>&nbsp;        pieChart.setTitle(&quot;Airlines by Country&quot;);</b>
+<i>320</i>&nbsp;
+<b class="nc"><i>321</i>&nbsp;        barChart.setVisible(false);</b>
+<b class="nc"><i>322</i>&nbsp;        warningBarChart.setVisible(true);</b>
+<b class="nc"><i>323</i>&nbsp;        warningBarChart.setText(&quot;Bar chart not available for this analysis.&quot;);</b>
+<i>324</i>&nbsp;
+<b class="nc"><i>325</i>&nbsp;        rowSize.setVisible(true);</b>
+<b class="nc"><i>326</i>&nbsp;        rowSize.setText(Integer.toString(analysisTData.size()) + &quot; countries are shown in the table.&quot;);</b>
+<i>327</i>&nbsp;    }
+<i>328</i>&nbsp;
+<i>329</i>&nbsp;    /**
+<i>330</i>&nbsp;     * Button action function when &#39;Get Analysis!&#39; button is pressed.
+<i>331</i>&nbsp;     */
+<i>332</i>&nbsp;    public void getAnalysis() {
+<b class="nc"><i>333</i>&nbsp;        String country = countryDropdown.getSelectionModel().getSelectedItem().toString();</b>
+<b class="nc"><i>334</i>&nbsp;        if (analysisDropdown.getSelectionModel().getSelectedIndex() == 0) {</b>
+<b class="nc"><i>335</i>&nbsp;            airportAnalysis(country);</b>
+<b class="nc"><i>336</i>&nbsp;        } else if (analysisDropdown.getSelectionModel().getSelectedIndex() == 1) {</b>
+<b class="nc"><i>337</i>&nbsp;            equipmentAnalysis();</b>
+<b class="nc"><i>338</i>&nbsp;        } else if (analysisDropdown.getSelectionModel().getSelectedIndex() == 2) {</b>
+<b class="nc"><i>339</i>&nbsp;            airportCountryAnalysis();</b>
+<b class="nc"><i>340</i>&nbsp;        } else if (analysisDropdown.getSelectionModel().getSelectedIndex() == 3) {</b>
+<b class="nc"><i>341</i>&nbsp;            airlineCountryAnalysis();</b>
+<i>342</i>&nbsp;        }
+<i>343</i>&nbsp;    }
+<i>344</i>&nbsp;
+<i>345</i>&nbsp;    /**
+<i>346</i>&nbsp;     * Disables country dropdown when analysisDropdown is pressed.
+<i>347</i>&nbsp;     */
+<i>348</i>&nbsp;    public void disableCountryDropdown() {
+<b class="nc"><i>349</i>&nbsp;        if (analysisDropdown.getSelectionModel().getSelectedIndex() == 0) {</b>
+<b class="nc"><i>350</i>&nbsp;            selectCountryText.setDisable(false);</b>
+<b class="nc"><i>351</i>&nbsp;            countryDropdown.setDisable(false);</b>
+<b class="nc"><i>352</i>&nbsp;        } else if (analysisDropdown.getSelectionModel().getSelectedIndex() == 1) {</b>
+<b class="nc"><i>353</i>&nbsp;            selectCountryText.setDisable(true);</b>
+<b class="nc"><i>354</i>&nbsp;            countryDropdown.setDisable(true);</b>
+<b class="nc"><i>355</i>&nbsp;        } else if (analysisDropdown.getSelectionModel().getSelectedIndex() == 2) {</b>
+<b class="nc"><i>356</i>&nbsp;            selectCountryText.setDisable(true);</b>
+<b class="nc"><i>357</i>&nbsp;            countryDropdown.setDisable(true);</b>
+<b class="nc"><i>358</i>&nbsp;        } else if (analysisDropdown.getSelectionModel().getSelectedIndex() == 3) {</b>
+<b class="nc"><i>359</i>&nbsp;            selectCountryText.setDisable(true);</b>
+<b class="nc"><i>360</i>&nbsp;            countryDropdown.setDisable(true);</b>
+<i>361</i>&nbsp;        }
+<i>362</i>&nbsp;    }
+<i>363</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2016-10-06 13:18</div>
+</div>
+</body>
+</html>

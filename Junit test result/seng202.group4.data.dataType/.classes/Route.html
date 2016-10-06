@@ -1,0 +1,203 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: Route</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">seng202.group4.data.dataType</a> ]
+</div>
+
+<h1>Coverage Summary for Class: Route (seng202.group4.data.dataType)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Route</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    52.6%
+  </span>
+  <span class="absValue">
+    (10/ 19)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    53.8%
+  </span>
+  <span class="absValue">
+    (21/ 39)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package seng202.group4.data.dataType;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import java.io.Serializable;
+<i>4</i>&nbsp;import java.util.ArrayList;
+<i>5</i>&nbsp;
+<i>6</i>&nbsp;
+<i>7</i>&nbsp;/**
+<i>8</i>&nbsp; * Stores information about a route.
+<i>9</i>&nbsp; * The route class creates the route object using the information for the route and allows for the construction of the
+<i>10</i>&nbsp; * route table.
+<i>11</i>&nbsp; */
+<i>12</i>&nbsp;public class Route implements Serializable {
+<i>13</i>&nbsp;    private String airline;
+<i>14</i>&nbsp;    private Integer AirlineID;
+<i>15</i>&nbsp;    private String srcAirport;
+<i>16</i>&nbsp;    private Integer srcAirportID;
+<i>17</i>&nbsp;    private String destAirport;
+<i>18</i>&nbsp;    private Integer destAirportID;
+<i>19</i>&nbsp;    private String codeshare;
+<i>20</i>&nbsp;    private Integer stops;
+<i>21</i>&nbsp;    private double distance;    // Will be used in phase 3
+<b class="fc"><i>22</i>&nbsp;    private ArrayList&lt;String&gt; equipment = new ArrayList&lt;String&gt;();</b>
+<i>23</i>&nbsp;
+<i>24</i>&nbsp;    /**
+<i>25</i>&nbsp;     * Initializes the variables for the route class.
+<i>26</i>&nbsp;     * @param airline A String for the route&#39;s airline
+<i>27</i>&nbsp;     * @param airlineID An Integer for the route&#39;s airline ID
+<i>28</i>&nbsp;     * @param srcAirport A String for the route&#39;s source airport
+<i>29</i>&nbsp;     * @param srcAirportID An Integer for the route&#39;s source airport ID
+<i>30</i>&nbsp;     * @param destAirport A String for the route&#39;s destination airport
+<i>31</i>&nbsp;     * @param destAirportID An Integer for the route&#39;s destination airport ID
+<i>32</i>&nbsp;     * @param codeshare A String for the route&#39;s codeshare
+<i>33</i>&nbsp;     * @param stops An Integer for the number of stops
+<i>34</i>&nbsp;     * @param equipment An ArrayList containing the route&#39;s equipment(s)
+<i>35</i>&nbsp;     */
+<i>36</i>&nbsp;    public Route(String airline, Integer airlineID, String srcAirport, Integer srcAirportID, String destAirport,
+<b class="fc"><i>37</i>&nbsp;                 Integer destAirportID, String codeshare, Integer stops, ArrayList&lt;String&gt; equipment) {</b>
+<b class="fc"><i>38</i>&nbsp;        this.airline = airline;</b>
+<b class="fc"><i>39</i>&nbsp;        this.AirlineID = airlineID;</b>
+<b class="fc"><i>40</i>&nbsp;        this.srcAirport = srcAirport;</b>
+<b class="fc"><i>41</i>&nbsp;        this.srcAirportID = srcAirportID;</b>
+<b class="fc"><i>42</i>&nbsp;        this.destAirport = destAirport;</b>
+<b class="fc"><i>43</i>&nbsp;        this.destAirportID = destAirportID;</b>
+<b class="fc"><i>44</i>&nbsp;        this.codeshare = codeshare;</b>
+<b class="fc"><i>45</i>&nbsp;        this.stops = stops;</b>
+<b class="fc"><i>46</i>&nbsp;        this.equipment = equipment;</b>
+<b class="fc"><i>47</i>&nbsp;    }</b>
+<i>48</i>&nbsp;
+<i>49</i>&nbsp;    public String getAirline() {
+<b class="fc"><i>50</i>&nbsp;        return airline;</b>
+<i>51</i>&nbsp;    }
+<i>52</i>&nbsp;
+<i>53</i>&nbsp;    public void setAirline(String airline) {
+<b class="nc"><i>54</i>&nbsp;        this.airline = airline;</b>
+<b class="nc"><i>55</i>&nbsp;    }</b>
+<i>56</i>&nbsp;
+<i>57</i>&nbsp;    public Integer getAirlineID() {
+<b class="fc"><i>58</i>&nbsp;        return AirlineID;</b>
+<i>59</i>&nbsp;    }
+<i>60</i>&nbsp;
+<i>61</i>&nbsp;    public void setAirlineID(Integer airlineID) {
+<b class="nc"><i>62</i>&nbsp;        AirlineID = airlineID;</b>
+<b class="nc"><i>63</i>&nbsp;    }</b>
+<i>64</i>&nbsp;
+<i>65</i>&nbsp;    public String getSrcAirport() {
+<b class="fc"><i>66</i>&nbsp;        return srcAirport;</b>
+<i>67</i>&nbsp;    }
+<i>68</i>&nbsp;
+<i>69</i>&nbsp;    public void setSrcAirport(String srcAirport) {
+<b class="nc"><i>70</i>&nbsp;        this.srcAirport = srcAirport;</b>
+<b class="nc"><i>71</i>&nbsp;    }</b>
+<i>72</i>&nbsp;
+<i>73</i>&nbsp;    public Integer getSrcAirportID() {
+<b class="fc"><i>74</i>&nbsp;        return srcAirportID;</b>
+<i>75</i>&nbsp;    }
+<i>76</i>&nbsp;
+<i>77</i>&nbsp;    public void setSrcAirportID(Integer srcAirportID) {
+<b class="nc"><i>78</i>&nbsp;        this.srcAirportID = srcAirportID;</b>
+<b class="nc"><i>79</i>&nbsp;    }</b>
+<i>80</i>&nbsp;
+<i>81</i>&nbsp;    public String getDestAirport() {
+<b class="fc"><i>82</i>&nbsp;        return destAirport;</b>
+<i>83</i>&nbsp;    }
+<i>84</i>&nbsp;
+<i>85</i>&nbsp;    public void setDestAirport(String destAirport) {
+<b class="nc"><i>86</i>&nbsp;        this.destAirport = destAirport;</b>
+<b class="nc"><i>87</i>&nbsp;    }</b>
+<i>88</i>&nbsp;
+<i>89</i>&nbsp;    public Integer getDestAirportID() {
+<b class="fc"><i>90</i>&nbsp;        return destAirportID;</b>
+<i>91</i>&nbsp;    }
+<i>92</i>&nbsp;
+<i>93</i>&nbsp;    public void setDestAirportID(Integer destAirportID) {
+<b class="nc"><i>94</i>&nbsp;        this.destAirportID = destAirportID;</b>
+<b class="nc"><i>95</i>&nbsp;    }</b>
+<i>96</i>&nbsp;
+<i>97</i>&nbsp;    public String getCodeshare() {
+<b class="fc"><i>98</i>&nbsp;        return codeshare;</b>
+<i>99</i>&nbsp;    }
+<i>100</i>&nbsp;
+<i>101</i>&nbsp;    public void setCodeshare(String codeshare) {
+<b class="nc"><i>102</i>&nbsp;        this.codeshare = codeshare;</b>
+<b class="nc"><i>103</i>&nbsp;    }</b>
+<i>104</i>&nbsp;
+<i>105</i>&nbsp;    public Integer getStops() {
+<b class="fc"><i>106</i>&nbsp;        return stops;</b>
+<i>107</i>&nbsp;    }
+<i>108</i>&nbsp;
+<i>109</i>&nbsp;    public void setStops(Integer stops) {
+<b class="nc"><i>110</i>&nbsp;        this.stops = stops;</b>
+<b class="nc"><i>111</i>&nbsp;    }</b>
+<i>112</i>&nbsp;
+<i>113</i>&nbsp;    public ArrayList&lt;String&gt; getEquipment() {
+<b class="fc"><i>114</i>&nbsp;        return equipment;</b>
+<i>115</i>&nbsp;    }
+<i>116</i>&nbsp;
+<i>117</i>&nbsp;    public void setEquipment(ArrayList&lt;String&gt; equipment) {
+<b class="nc"><i>118</i>&nbsp;        this.equipment = equipment;</b>
+<b class="nc"><i>119</i>&nbsp;    }</b>
+<i>120</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2016-10-06 13:18</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,430 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: AirportTable</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">seng202.group4.GUI.table</a> ]
+</div>
+
+<h1>Coverage Summary for Class: AirportTable (seng202.group4.GUI.table)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">AirportTable</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 37)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 49)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package seng202.group4.GUI.table;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import javafx.beans.property.SimpleDoubleProperty;
+<i>4</i>&nbsp;import javafx.beans.property.SimpleFloatProperty;
+<i>5</i>&nbsp;import javafx.beans.property.SimpleIntegerProperty;
+<i>6</i>&nbsp;import javafx.beans.property.SimpleStringProperty;
+<i>7</i>&nbsp;import seng202.group4.data.dataType.DaylightSavingsTime;
+<i>8</i>&nbsp;
+<i>9</i>&nbsp;
+<i>10</i>&nbsp;/**
+<i>11</i>&nbsp; * Used to make a row of information to populate the airline table based upon given data.
+<i>12</i>&nbsp; */
+<i>13</i>&nbsp;public class AirportTable {
+<i>14</i>&nbsp;
+<i>15</i>&nbsp;    private SimpleIntegerProperty atid;
+<i>16</i>&nbsp;    private SimpleStringProperty atname;
+<i>17</i>&nbsp;    private SimpleStringProperty atcity;
+<i>18</i>&nbsp;    private SimpleStringProperty atcountry;
+<i>19</i>&nbsp;    private SimpleStringProperty atiata;
+<i>20</i>&nbsp;    private SimpleStringProperty aticao;
+<i>21</i>&nbsp;    private SimpleDoubleProperty atlatitude;
+<i>22</i>&nbsp;    private SimpleDoubleProperty atlongitude;
+<i>23</i>&nbsp;    private SimpleDoubleProperty ataltitude;
+<i>24</i>&nbsp;    private SimpleFloatProperty attimezone;
+<i>25</i>&nbsp;    private SimpleStringProperty atdst;
+<i>26</i>&nbsp;    private SimpleStringProperty attzdatabase;
+<i>27</i>&nbsp;
+<i>28</i>&nbsp;    /**
+<i>29</i>&nbsp;     * Initializes the variables within the class.
+<i>30</i>&nbsp;     * @param ttid int
+<i>31</i>&nbsp;     * @param ttname String
+<i>32</i>&nbsp;     * @param ttcity String
+<i>33</i>&nbsp;     * @param ttcountry String
+<i>34</i>&nbsp;     * @param ttiata String
+<i>35</i>&nbsp;     * @param tticao String
+<i>36</i>&nbsp;     * @param ttlatitude double
+<i>37</i>&nbsp;     * @param ttlongitude double
+<i>38</i>&nbsp;     * @param ttaltitude double
+<i>39</i>&nbsp;     * @param tttimezone float
+<i>40</i>&nbsp;     * @param ttdst String
+<i>41</i>&nbsp;     * @param tttzdatabase String
+<i>42</i>&nbsp;     */
+<i>43</i>&nbsp;    public AirportTable(int ttid, String ttname, String ttcity, String ttcountry, String ttiata, String tticao,
+<b class="nc"><i>44</i>&nbsp;                        double ttlatitude, double ttlongitude, double ttaltitude, float tttimezone, String ttdst, String tttzdatabase){</b>
+<b class="nc"><i>45</i>&nbsp;        this.atid = new SimpleIntegerProperty(ttid);</b>
+<b class="nc"><i>46</i>&nbsp;        this.atname = new SimpleStringProperty(ttname);</b>
+<b class="nc"><i>47</i>&nbsp;        this.atcity = new SimpleStringProperty(ttcity);</b>
+<b class="nc"><i>48</i>&nbsp;        this.atcountry = new SimpleStringProperty(ttcountry);</b>
+<b class="nc"><i>49</i>&nbsp;        this.atiata = new SimpleStringProperty(ttiata);</b>
+<b class="nc"><i>50</i>&nbsp;        this.aticao = new SimpleStringProperty(tticao);</b>
+<b class="nc"><i>51</i>&nbsp;        this.atlatitude = new SimpleDoubleProperty(ttlatitude);</b>
+<b class="nc"><i>52</i>&nbsp;        this.atlongitude = new SimpleDoubleProperty(ttlongitude);</b>
+<b class="nc"><i>53</i>&nbsp;        this.ataltitude = new SimpleDoubleProperty(ttaltitude);</b>
+<b class="nc"><i>54</i>&nbsp;        this.attimezone = new SimpleFloatProperty(tttimezone);</b>
+<b class="nc"><i>55</i>&nbsp;        this.atdst = new SimpleStringProperty(ttdst);</b>
+<b class="nc"><i>56</i>&nbsp;        this.attzdatabase = new SimpleStringProperty(tttzdatabase);</b>
+<i>57</i>&nbsp;    }
+<i>58</i>&nbsp;
+<i>59</i>&nbsp;
+<i>60</i>&nbsp;    /**
+<i>61</i>&nbsp;     * A getter for the airport id value in the table.
+<i>62</i>&nbsp;     * @return atid
+<i>63</i>&nbsp;     */
+<i>64</i>&nbsp;    public int getAtid() {
+<b class="nc"><i>65</i>&nbsp;        return atid.get();</b>
+<i>66</i>&nbsp;    }
+<i>67</i>&nbsp;
+<i>68</i>&nbsp;    /**
+<i>69</i>&nbsp;     * Retrieves the id of the airport from the parsed in data.
+<i>70</i>&nbsp;     * @return atid
+<i>71</i>&nbsp;     */
+<i>72</i>&nbsp;    public SimpleIntegerProperty atidProperty() {
+<b class="nc"><i>73</i>&nbsp;        return atid;</b>
+<i>74</i>&nbsp;    }
+<i>75</i>&nbsp;
+<i>76</i>&nbsp;    /**
+<i>77</i>&nbsp;     * Sets the id value in the airport table
+<i>78</i>&nbsp;     * @param atid int
+<i>79</i>&nbsp;     */
+<i>80</i>&nbsp;    public void setAtid(int atid) {
+<b class="nc"><i>81</i>&nbsp;        this.atid.set(atid);</b>
+<i>82</i>&nbsp;    }
+<i>83</i>&nbsp;
+<i>84</i>&nbsp;    /**
+<i>85</i>&nbsp;     * Gets the value of the airport name in the airport table
+<i>86</i>&nbsp;     * @return atname
+<i>87</i>&nbsp;     */
+<i>88</i>&nbsp;    public String getAtname() {
+<b class="nc"><i>89</i>&nbsp;        return atname.get();</b>
+<i>90</i>&nbsp;    }
+<i>91</i>&nbsp;
+<i>92</i>&nbsp;    /**
+<i>93</i>&nbsp;     * Retrieves the airport name that has been parsed in by the data file.
+<i>94</i>&nbsp;     * @return atname
+<i>95</i>&nbsp;     */
+<i>96</i>&nbsp;    public SimpleStringProperty atnameProperty() {
+<b class="nc"><i>97</i>&nbsp;        return atname;</b>
+<i>98</i>&nbsp;    }
+<i>99</i>&nbsp;
+<i>100</i>&nbsp;    /**
+<i>101</i>&nbsp;     * Sets the name of the airport in the airport table.
+<i>102</i>&nbsp;     * @param atname String
+<i>103</i>&nbsp;     */
+<i>104</i>&nbsp;    public void setAtname(String atname) {
+<b class="nc"><i>105</i>&nbsp;        this.atname.set(atname);</b>
+<i>106</i>&nbsp;    }
+<i>107</i>&nbsp;
+<i>108</i>&nbsp;    /**
+<i>109</i>&nbsp;     * Gets the city of the airport in the airport table.
+<i>110</i>&nbsp;     * @return atcity String
+<i>111</i>&nbsp;     */
+<i>112</i>&nbsp;    public String getAtcity() {
+<b class="nc"><i>113</i>&nbsp;        return atcity.get();</b>
+<i>114</i>&nbsp;    }
+<i>115</i>&nbsp;
+<i>116</i>&nbsp;    /**
+<i>117</i>&nbsp;     * Retrieves that value of the airport city as parsed in from the data file.
+<i>118</i>&nbsp;     * @return atcity
+<i>119</i>&nbsp;     */
+<i>120</i>&nbsp;    public SimpleStringProperty atcityProperty() {
+<b class="nc"><i>121</i>&nbsp;        return atcity;</b>
+<i>122</i>&nbsp;    }
+<i>123</i>&nbsp;
+<i>124</i>&nbsp;    /**
+<i>125</i>&nbsp;     * Sets the value of the city in the airport table.
+<i>126</i>&nbsp;     * @param atcity String
+<i>127</i>&nbsp;     */
+<i>128</i>&nbsp;    public void setAtcity(String atcity) {
+<b class="nc"><i>129</i>&nbsp;        this.atcity.set(atcity);</b>
+<i>130</i>&nbsp;    }
+<i>131</i>&nbsp;
+<i>132</i>&nbsp;    /**
+<i>133</i>&nbsp;     * Gets the value of the airport country in the airport table.
+<i>134</i>&nbsp;     * @return atcountry String
+<i>135</i>&nbsp;     */
+<i>136</i>&nbsp;    public String getAtcountry() {
+<b class="nc"><i>137</i>&nbsp;        return atcountry.get();</b>
+<i>138</i>&nbsp;    }
+<i>139</i>&nbsp;
+<i>140</i>&nbsp;    /**
+<i>141</i>&nbsp;     * Retrieves the value of the country from the parsed data.
+<i>142</i>&nbsp;     * @return atcountry
+<i>143</i>&nbsp;     */
+<i>144</i>&nbsp;    public SimpleStringProperty atcountryProperty() {
+<b class="nc"><i>145</i>&nbsp;        return atcountry;</b>
+<i>146</i>&nbsp;    }
+<i>147</i>&nbsp;
+<i>148</i>&nbsp;    /**
+<i>149</i>&nbsp;     * Sets the value of the country in the table.
+<i>150</i>&nbsp;     * @param atcountry String
+<i>151</i>&nbsp;     */
+<i>152</i>&nbsp;    public void setAtcountry(String atcountry) {
+<b class="nc"><i>153</i>&nbsp;        this.atcountry.set(atcountry);</b>
+<i>154</i>&nbsp;    }
+<i>155</i>&nbsp;
+<i>156</i>&nbsp;    /**
+<i>157</i>&nbsp;     * Gets the airport IATA value for the airport table.
+<i>158</i>&nbsp;     * @return atiata String
+<i>159</i>&nbsp;     */
+<i>160</i>&nbsp;    public String getAtiata() {
+<b class="nc"><i>161</i>&nbsp;        return atiata.get();</b>
+<i>162</i>&nbsp;    }
+<i>163</i>&nbsp;
+<i>164</i>&nbsp;    /**
+<i>165</i>&nbsp;     * Retrieves the airport IATA value from the parsed data.
+<i>166</i>&nbsp;     * @return atiata
+<i>167</i>&nbsp;     */
+<i>168</i>&nbsp;    public SimpleStringProperty atiataProperty() {
+<b class="nc"><i>169</i>&nbsp;        return atiata;</b>
+<i>170</i>&nbsp;    }
+<i>171</i>&nbsp;
+<i>172</i>&nbsp;    /**
+<i>173</i>&nbsp;     * Sets the IATA number in the airport table.
+<i>174</i>&nbsp;     * @param atiata String
+<i>175</i>&nbsp;     */
+<i>176</i>&nbsp;    public void setAtiata(String atiata) {
+<b class="nc"><i>177</i>&nbsp;        this.atiata.set(atiata);</b>
+<i>178</i>&nbsp;    }
+<i>179</i>&nbsp;
+<i>180</i>&nbsp;    /**
+<i>181</i>&nbsp;     * A getter for the ICAO number of the airport in the airport table.
+<i>182</i>&nbsp;     * @return aticao String
+<i>183</i>&nbsp;     */
+<i>184</i>&nbsp;    public String getAticao() {
+<b class="nc"><i>185</i>&nbsp;        return aticao.get();</b>
+<i>186</i>&nbsp;    }
+<i>187</i>&nbsp;
+<i>188</i>&nbsp;    /**
+<i>189</i>&nbsp;     * Retrieves the airports IATA number from the parsed data.
+<i>190</i>&nbsp;     * @return aticao
+<i>191</i>&nbsp;     */
+<i>192</i>&nbsp;    public SimpleStringProperty aticaoProperty() {
+<b class="nc"><i>193</i>&nbsp;        return aticao;</b>
+<i>194</i>&nbsp;    }
+<i>195</i>&nbsp;
+<i>196</i>&nbsp;    /**
+<i>197</i>&nbsp;     * Sets the airport IATA number in the airport table.
+<i>198</i>&nbsp;     * @param aticao String
+<i>199</i>&nbsp;     */
+<i>200</i>&nbsp;    public void setAticao(String aticao) {
+<b class="nc"><i>201</i>&nbsp;        this.aticao.set(aticao);</b>
+<i>202</i>&nbsp;    }
+<i>203</i>&nbsp;
+<i>204</i>&nbsp;    /**
+<i>205</i>&nbsp;     * A getter for the airport latitude in the airport table.
+<i>206</i>&nbsp;     * @return atlatitude double
+<i>207</i>&nbsp;     */
+<i>208</i>&nbsp;    public double getAtlatitude() {
+<b class="nc"><i>209</i>&nbsp;        return atlatitude.get();</b>
+<i>210</i>&nbsp;    }
+<i>211</i>&nbsp;
+<i>212</i>&nbsp;    /**
+<i>213</i>&nbsp;     * Retrieves the airport latitude from the parsed data.
+<i>214</i>&nbsp;     * @return atlatitude
+<i>215</i>&nbsp;     */
+<i>216</i>&nbsp;    public SimpleDoubleProperty atlatitudeProperty() {
+<b class="nc"><i>217</i>&nbsp;        return atlatitude;</b>
+<i>218</i>&nbsp;    }
+<i>219</i>&nbsp;
+<i>220</i>&nbsp;    /**
+<i>221</i>&nbsp;     * Sets the airport latitude in the airport table.
+<i>222</i>&nbsp;     * @param atlatitude double
+<i>223</i>&nbsp;     */
+<i>224</i>&nbsp;    public void setAtlatitude(double atlatitude) {
+<b class="nc"><i>225</i>&nbsp;        this.atlatitude.set(atlatitude);</b>
+<i>226</i>&nbsp;    }
+<i>227</i>&nbsp;
+<i>228</i>&nbsp;    /**
+<i>229</i>&nbsp;     * A getter for the airport longitude in the airport table.
+<i>230</i>&nbsp;     * @return atlongitude double
+<i>231</i>&nbsp;     */
+<i>232</i>&nbsp;    public double getAtlongitude() {
+<b class="nc"><i>233</i>&nbsp;        return atlongitude.get();</b>
+<i>234</i>&nbsp;    }
+<i>235</i>&nbsp;
+<i>236</i>&nbsp;    /**
+<i>237</i>&nbsp;     * Retrieves the longitude of the airport from the parsed data.
+<i>238</i>&nbsp;     * @return atlongitude
+<i>239</i>&nbsp;     */
+<i>240</i>&nbsp;    public SimpleDoubleProperty atlongitudeProperty() {
+<b class="nc"><i>241</i>&nbsp;        return atlongitude;</b>
+<i>242</i>&nbsp;    }
+<i>243</i>&nbsp;
+<i>244</i>&nbsp;    /**
+<i>245</i>&nbsp;     * Sets the longitude of the airport in the airport table.
+<i>246</i>&nbsp;     * @param atlongitude double
+<i>247</i>&nbsp;     */
+<i>248</i>&nbsp;    public void setAtlongitude(double atlongitude) {
+<b class="nc"><i>249</i>&nbsp;        this.atlongitude.set(atlongitude);</b>
+<i>250</i>&nbsp;    }
+<i>251</i>&nbsp;
+<i>252</i>&nbsp;    /**
+<i>253</i>&nbsp;     * A getter for the altitude of the airport in the airport table
+<i>254</i>&nbsp;     * @return ataltitude double
+<i>255</i>&nbsp;     */
+<i>256</i>&nbsp;    public double getAtaltitude() {
+<b class="nc"><i>257</i>&nbsp;        return ataltitude.get();</b>
+<i>258</i>&nbsp;    }
+<i>259</i>&nbsp;
+<i>260</i>&nbsp;    /**
+<i>261</i>&nbsp;     * Retrieves the altitude of the airport from the parsed data.
+<i>262</i>&nbsp;     * @return ataltitude
+<i>263</i>&nbsp;     */
+<i>264</i>&nbsp;    public SimpleDoubleProperty ataltitudeProperty() {
+<b class="nc"><i>265</i>&nbsp;        return ataltitude;</b>
+<i>266</i>&nbsp;    }
+<i>267</i>&nbsp;
+<i>268</i>&nbsp;    /**
+<i>269</i>&nbsp;     * Sets the altitude of the airport in the airport table.
+<i>270</i>&nbsp;     * @param ataltitude double
+<i>271</i>&nbsp;     */
+<i>272</i>&nbsp;    public void setAtaltitude(double ataltitude) {
+<b class="nc"><i>273</i>&nbsp;        this.ataltitude.set(ataltitude);</b>
+<i>274</i>&nbsp;    }
+<i>275</i>&nbsp;
+<i>276</i>&nbsp;    /**
+<i>277</i>&nbsp;     * A getter for the airport timezone in the airport table.
+<i>278</i>&nbsp;     * @return attimezone float
+<i>279</i>&nbsp;     */
+<i>280</i>&nbsp;    public float getAttimezone() {
+<b class="nc"><i>281</i>&nbsp;        return attimezone.get();</b>
+<i>282</i>&nbsp;    }
+<i>283</i>&nbsp;
+<i>284</i>&nbsp;    /**
+<i>285</i>&nbsp;     * Retrieves the airport timezone form the parsed data.
+<i>286</i>&nbsp;     * @return attimezone
+<i>287</i>&nbsp;     */
+<i>288</i>&nbsp;    public SimpleFloatProperty attimezoneProperty() {
+<b class="nc"><i>289</i>&nbsp;        return attimezone;</b>
+<i>290</i>&nbsp;    }
+<i>291</i>&nbsp;
+<i>292</i>&nbsp;    /**
+<i>293</i>&nbsp;     * Sets the airport timezone in the airport table.
+<i>294</i>&nbsp;     * @param attimezone float
+<i>295</i>&nbsp;     */
+<i>296</i>&nbsp;    public void setAttimezone(float attimezone) {
+<b class="nc"><i>297</i>&nbsp;        this.attimezone.set(attimezone);</b>
+<i>298</i>&nbsp;    }
+<i>299</i>&nbsp;
+<i>300</i>&nbsp;    /**
+<i>301</i>&nbsp;     * A getter for the airport daylight saving time.
+<i>302</i>&nbsp;     * @return atdst String
+<i>303</i>&nbsp;     */
+<i>304</i>&nbsp;    public String getAtdst() {
+<b class="nc"><i>305</i>&nbsp;        return atdst.get();</b>
+<i>306</i>&nbsp;    }
+<i>307</i>&nbsp;
+<i>308</i>&nbsp;    /**
+<i>309</i>&nbsp;     * Retrieves the daylight saving time from the parsed data.
+<i>310</i>&nbsp;     * @return atdst
+<i>311</i>&nbsp;     */
+<i>312</i>&nbsp;    public SimpleStringProperty atdstProperty() {
+<b class="nc"><i>313</i>&nbsp;        return atdst;</b>
+<i>314</i>&nbsp;    }
+<i>315</i>&nbsp;
+<i>316</i>&nbsp;    /**
+<i>317</i>&nbsp;     * Sets the daylight saving time in the airport table.
+<i>318</i>&nbsp;     * @param atdst String
+<i>319</i>&nbsp;     */
+<i>320</i>&nbsp;    public void setAtdst(String atdst) {
+<b class="nc"><i>321</i>&nbsp;        this.atdst.set(atdst);</b>
+<i>322</i>&nbsp;    }
+<i>323</i>&nbsp;
+<i>324</i>&nbsp;    /**
+<i>325</i>&nbsp;     * A getter for the airport time zone database for the airport table.
+<i>326</i>&nbsp;     * @return attzdatabase String
+<i>327</i>&nbsp;     */
+<i>328</i>&nbsp;    public String getAttzdatabase() {
+<b class="nc"><i>329</i>&nbsp;        return attzdatabase.get();</b>
+<i>330</i>&nbsp;    }
+<i>331</i>&nbsp;
+<i>332</i>&nbsp;    /**
+<i>333</i>&nbsp;     * Retrieves the airport timezone database from the parsed data.
+<i>334</i>&nbsp;     * @return attzdatabase
+<i>335</i>&nbsp;     */
+<i>336</i>&nbsp;    public SimpleStringProperty attzdatabaseProperty() {
+<b class="nc"><i>337</i>&nbsp;        return attzdatabase;</b>
+<i>338</i>&nbsp;    }
+<i>339</i>&nbsp;
+<i>340</i>&nbsp;    /**
+<i>341</i>&nbsp;     * Sets the timezone database in the airport talle.
+<i>342</i>&nbsp;     * @param attzdatabase String
+<i>343</i>&nbsp;     */
+<i>344</i>&nbsp;    public void setAttzdatabase(String attzdatabase) {
+<b class="nc"><i>345</i>&nbsp;        this.attzdatabase.set(attzdatabase);</b>
+<i>346</i>&nbsp;    }
+<i>347</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2016-10-06 13:18</div>
+</div>
+</body>
+</html>

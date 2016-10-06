@@ -1,0 +1,538 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: AirlineAnchorController</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">seng202.group4.GUI.controller</a> ]
+</div>
+
+<h1>Coverage Summary for Class: AirlineAnchorController (seng202.group4.GUI.controller)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">AirlineAnchorController</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 26)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 173)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package seng202.group4.GUI.controller;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import javafx.beans.binding.Bindings;
+<i>4</i>&nbsp;import javafx.collections.FXCollections;
+<i>5</i>&nbsp;import javafx.collections.ObservableList;
+<i>6</i>&nbsp;import javafx.collections.transformation.FilteredList;
+<i>7</i>&nbsp;import javafx.collections.transformation.SortedList;
+<i>8</i>&nbsp;import javafx.fxml.FXML;
+<i>9</i>&nbsp;import javafx.fxml.Initializable;
+<i>10</i>&nbsp;import javafx.scene.control.*;
+<i>11</i>&nbsp;import javafx.scene.control.cell.PropertyValueFactory;
+<i>12</i>&nbsp;import javafx.scene.layout.AnchorPane;
+<i>13</i>&nbsp;import javafx.stage.FileChooser;
+<i>14</i>&nbsp;import seng202.group4.App;
+<i>15</i>&nbsp;import seng202.group4.GUI.table.AirlineTable;
+<i>16</i>&nbsp;import seng202.group4.GUI.ButtonResult;
+<i>17</i>&nbsp;import seng202.group4.data.dataType.Airline;
+<i>18</i>&nbsp;import seng202.group4.data.parser.validator.AirlineValidator;
+<i>19</i>&nbsp;import seng202.group4.data.repository.AirlineRepository;
+<i>20</i>&nbsp;import seng202.group4.data.repository.Repository;
+<i>21</i>&nbsp;
+<i>22</i>&nbsp;import java.io.File;
+<i>23</i>&nbsp;import java.io.FileInputStream;
+<i>24</i>&nbsp;import java.io.IOException;
+<i>25</i>&nbsp;import java.io.InputStream;
+<i>26</i>&nbsp;import java.net.URISyntaxException;
+<i>27</i>&nbsp;import java.net.URL;
+<i>28</i>&nbsp;import java.util.*;
+<i>29</i>&nbsp;
+<i>30</i>&nbsp;/**
+<i>31</i>&nbsp; * Created by Pang on 25/09/16.
+<i>32</i>&nbsp; */
+<b class="nc"><i>33</i>&nbsp;public class AirlineAnchorController implements Initializable{</b>
+<i>34</i>&nbsp;
+<i>35</i>&nbsp;    // search field
+<i>36</i>&nbsp;    @FXML
+<i>37</i>&nbsp;    private TextField airlineSearch;
+<i>38</i>&nbsp;
+<i>39</i>&nbsp;    // airlines inactive and active check boxes
+<i>40</i>&nbsp;    @FXML
+<i>41</i>&nbsp;    private CheckBox active;
+<i>42</i>&nbsp;
+<i>43</i>&nbsp;    @FXML
+<i>44</i>&nbsp;    private CheckBox inactive;
+<i>45</i>&nbsp;
+<i>46</i>&nbsp;    // airline country filter
+<i>47</i>&nbsp;    @FXML
+<i>48</i>&nbsp;    private ComboBox airlineCountryFilter;
+<i>49</i>&nbsp;
+<i>50</i>&nbsp;    @FXML
+<i>51</i>&nbsp;    private AnchorPane airlinePane;
+<i>52</i>&nbsp;
+<i>53</i>&nbsp;    // airline table view and columns
+<i>54</i>&nbsp;    @FXML
+<i>55</i>&nbsp;    private TableView airlineTableID;
+<i>56</i>&nbsp;
+<i>57</i>&nbsp;    @FXML
+<i>58</i>&nbsp;    private TableColumn&lt;AirlineTable, String&gt; aid;
+<i>59</i>&nbsp;
+<i>60</i>&nbsp;    @FXML
+<i>61</i>&nbsp;    private TableColumn&lt;AirlineTable, String&gt; aname;
+<i>62</i>&nbsp;
+<i>63</i>&nbsp;    @FXML
+<i>64</i>&nbsp;    private TableColumn&lt;AirlineTable, String&gt; aalias;
+<i>65</i>&nbsp;
+<i>66</i>&nbsp;    @FXML
+<i>67</i>&nbsp;    private TableColumn&lt;AirlineTable, String&gt; aiata;
+<i>68</i>&nbsp;
+<i>69</i>&nbsp;    @FXML
+<i>70</i>&nbsp;    private TableColumn&lt;AirlineTable, String&gt; aicao;
+<i>71</i>&nbsp;
+<i>72</i>&nbsp;    @FXML
+<i>73</i>&nbsp;    private TableColumn&lt;AirlineTable, String&gt; acallsign;
+<i>74</i>&nbsp;
+<i>75</i>&nbsp;    @FXML
+<i>76</i>&nbsp;    private TableColumn&lt;AirlineTable, String&gt; acountry;
+<i>77</i>&nbsp;
+<i>78</i>&nbsp;    @FXML
+<i>79</i>&nbsp;    private TableColumn&lt;AirlineTable, String&gt; aactive;
+<i>80</i>&nbsp;
+<i>81</i>&nbsp;    // controllers
+<i>82</i>&nbsp;    private DataTabController mainController;
+<i>83</i>&nbsp;
+<i>84</i>&nbsp;    // the default string for country combo box
+<i>85</i>&nbsp;    private String allCountriesTag;
+<i>86</i>&nbsp;
+<i>87</i>&nbsp;    // create table data
+<b class="nc"><i>88</i>&nbsp;    private ObservableList&lt;AirlineTable&gt; airlineTData = FXCollections.observableArrayList();</b>
+<i>89</i>&nbsp;
+<i>90</i>&nbsp;    // create parallel hash map
+<b class="nc"><i>91</i>&nbsp;    private HashMap&lt;Integer, AirlineTable&gt; airlineTableMap = new HashMap&lt;Integer, AirlineTable&gt;();</b>
+<i>92</i>&nbsp;
+<i>93</i>&nbsp;    // airlineCountrySet holds all the countries uploaded to airline
+<b class="nc"><i>94</i>&nbsp;    private TreeSet airlineCountrySet = new TreeSet();</b>
+<i>95</i>&nbsp;
+<i>96</i>&nbsp;    /**
+<i>97</i>&nbsp;     * Where the program starts, initializes things like listeners and starts running the GUI.
+<i>98</i>&nbsp;     *
+<i>99</i>&nbsp;     * @param location  URL
+<i>100</i>&nbsp;     * @param resources ResourceBundle
+<i>101</i>&nbsp;     */
+<i>102</i>&nbsp;    public void initialize(URL location, ResourceBundle resources) {
+<i>103</i>&nbsp;        // bring airline table to front initially
+<b class="nc"><i>104</i>&nbsp;        airlineTableID.toFront();</b>
+<i>105</i>&nbsp;
+<i>106</i>&nbsp;        // initialise airline table resources
+<b class="nc"><i>107</i>&nbsp;        aid.setCellValueFactory(new PropertyValueFactory&lt;&gt;(&quot;rid&quot;));</b>
+<b class="nc"><i>108</i>&nbsp;        aname.setCellValueFactory(new PropertyValueFactory&lt;&gt;(&quot;rname&quot;));</b>
+<b class="nc"><i>109</i>&nbsp;        aalias.setCellValueFactory(new PropertyValueFactory&lt;&gt;(&quot;ralias&quot;));</b>
+<b class="nc"><i>110</i>&nbsp;        aiata.setCellValueFactory(new PropertyValueFactory&lt;&gt;(&quot;riata&quot;));</b>
+<b class="nc"><i>111</i>&nbsp;        aicao.setCellValueFactory(new PropertyValueFactory&lt;&gt;(&quot;ricao&quot;));</b>
+<b class="nc"><i>112</i>&nbsp;        acallsign.setCellValueFactory(new PropertyValueFactory&lt;&gt;(&quot;rcallsign&quot;));</b>
+<b class="nc"><i>113</i>&nbsp;        acountry.setCellValueFactory(new PropertyValueFactory&lt;&gt;(&quot;rcountry&quot;));</b>
+<b class="nc"><i>114</i>&nbsp;        aactive.setCellValueFactory(new PropertyValueFactory&lt;&gt;(&quot;ractive&quot;));</b>
+<i>115</i>&nbsp;
+<i>116</i>&nbsp;        // set items into airline table
+<b class="nc"><i>117</i>&nbsp;        airlineTableID.setItems(airlineTData);</b>
+<i>118</i>&nbsp;
+<i>119</i>&nbsp;        // loads default airline list
+<i>120</i>&nbsp;        try {
+<b class="nc"><i>121</i>&nbsp;            loadDefaultAirline();</b>
+<b class="nc"><i>122</i>&nbsp;        } catch (IOException e) {</b>
+<b class="nc"><i>123</i>&nbsp;            e.printStackTrace();</b>
+<b class="nc"><i>124</i>&nbsp;        } catch (URISyntaxException e) {</b>
+<b class="nc"><i>125</i>&nbsp;            e.printStackTrace();</b>
+<b class="nc"><i>126</i>&nbsp;        }</b>
+<i>127</i>&nbsp;
+<i>128</i>&nbsp;        // enable search box listener
+<b class="nc"><i>129</i>&nbsp;        searchAirlines();</b>
+<i>130</i>&nbsp;
+<i>131</i>&nbsp;        // enable multi select on table
+<b class="nc"><i>132</i>&nbsp;        airlineTableID.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);</b>
+<i>133</i>&nbsp;
+<i>134</i>&nbsp;        // enable deleting on table
+<b class="nc"><i>135</i>&nbsp;        enableDeleteAirlines();</b>
+<i>136</i>&nbsp;    }
+<i>137</i>&nbsp;
+<i>138</i>&nbsp;    /**
+<i>139</i>&nbsp;     * Sets the main controller and retrieves variables from other controllers.
+<i>140</i>&nbsp;     *
+<i>141</i>&nbsp;     * @param controller Controller
+<i>142</i>&nbsp;     */
+<i>143</i>&nbsp;    public void setMainController(DataTabController controller) {
+<b class="nc"><i>144</i>&nbsp;        this.mainController = controller;</b>
+<b class="nc"><i>145</i>&nbsp;        this.allCountriesTag = mainController.getAllCountriesTag();</b>
+<i>146</i>&nbsp;    }
+<i>147</i>&nbsp;
+<i>148</i>&nbsp;    private void enableDeleteAirlines(){
+<b class="nc"><i>149</i>&nbsp;        airlineTableID.setRowFactory(tableView -&gt; {</b>
+<b class="nc"><i>150</i>&nbsp;            final TableRow&lt;AirlineTable&gt; row = new TableRow&lt;&gt;();</b>
+<b class="nc"><i>151</i>&nbsp;            final ContextMenu rowMenu = new ContextMenu();</b>
+<b class="nc"><i>152</i>&nbsp;            MenuItem removeItem = new MenuItem(&quot;Delete&quot;);</b>
+<b class="nc"><i>153</i>&nbsp;            row.setOnMouseClicked(event -&gt; {</b>
+<i>154</i>&nbsp;            });
+<b class="nc"><i>155</i>&nbsp;            removeItem.setOnAction(event -&gt; {</b>
+<b class="nc"><i>156</i>&nbsp;                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);</b>
+<b class="nc"><i>157</i>&nbsp;                alert.setTitle(&quot;Confirmation Dialog&quot;);</b>
+<b class="nc"><i>158</i>&nbsp;                alert.setHeaderText(&quot;Are you sure you want to delete?&quot;);</b>
+<b class="nc"><i>159</i>&nbsp;                alert.setContentText(&quot;Pressing OK will delete the row(s).\nWARNING: The action cannot be undone.\n&quot;);</b>
+<i>160</i>&nbsp;
+<b class="nc"><i>161</i>&nbsp;                Optional&lt;ButtonType&gt; result = alert.showAndWait();</b>
+<b class="nc"><i>162</i>&nbsp;                if (result.get() == ButtonType.OK) {</b>
+<b class="nc"><i>163</i>&nbsp;                    ObservableList&lt;AirlineTable&gt; selectedItems = airlineTableID.getSelectionModel().getSelectedItems();</b>
+<b class="nc"><i>164</i>&nbsp;                    for (AirlineTable airline : selectedItems) {</b>
+<b class="nc"><i>165</i>&nbsp;                        Repository.airlineRepository.getAirlines().remove(airline.getRid());</b>
+<b class="nc"><i>166</i>&nbsp;                    }</b>
+<b class="nc"><i>167</i>&nbsp;                    airlineTData.removeAll(selectedItems);</b>
+<b class="nc"><i>168</i>&nbsp;                    airlineTableID.getSelectionModel().clearSelection();</b>
+<i>169</i>&nbsp;                }
+<i>170</i>&nbsp;            });
+<b class="nc"><i>171</i>&nbsp;            rowMenu.getItems().addAll(removeItem);</b>
+<b class="nc"><i>172</i>&nbsp;            row.contextMenuProperty().bind(</b>
+<b class="nc"><i>173</i>&nbsp;                    Bindings.when(Bindings.isNotNull(row.itemProperty()))</b>
+<b class="nc"><i>174</i>&nbsp;                            .then(rowMenu)</b>
+<b class="nc"><i>175</i>&nbsp;                            .otherwise((ContextMenu) null)</b>
+<i>176</i>&nbsp;            );
+<b class="nc"><i>177</i>&nbsp;            return row;</b>
+<i>178</i>&nbsp;        });
+<i>179</i>&nbsp;    }
+<i>180</i>&nbsp;
+<i>181</i>&nbsp;    private void updateAirlineSearch() {
+<b class="nc"><i>182</i>&nbsp;        String text = airlineSearch.getText();</b>
+<b class="nc"><i>183</i>&nbsp;        airlineSearch.setText(text + &quot; &quot;);</b>
+<b class="nc"><i>184</i>&nbsp;        airlineSearch.setText(text);</b>
+<i>185</i>&nbsp;    }
+<i>186</i>&nbsp;
+<i>187</i>&nbsp;    /**
+<i>188</i>&nbsp;     * Filters by whether or not the airline is active, only showing active airlines.
+<i>189</i>&nbsp;     *
+<i>190</i>&nbsp;     * @throws IOException throws IOException error
+<i>191</i>&nbsp;     */
+<i>192</i>&nbsp;    public void selectActiveAirlines() throws IOException {
+<b class="nc"><i>193</i>&nbsp;        updateAirlineSearch();</b>
+<i>194</i>&nbsp;    }
+<i>195</i>&nbsp;
+<i>196</i>&nbsp;    /**
+<i>197</i>&nbsp;     * Filters by whether or not the airline is active, only showing inactive airlines.
+<i>198</i>&nbsp;     *
+<i>199</i>&nbsp;     * @throws IOException throws IOException error
+<i>200</i>&nbsp;     */
+<i>201</i>&nbsp;    public void selectInactiveAirlines() throws IOException {
+<b class="nc"><i>202</i>&nbsp;        updateAirlineSearch();</b>
+<i>203</i>&nbsp;    }
+<i>204</i>&nbsp;
+<i>205</i>&nbsp;    /**
+<i>206</i>&nbsp;     * Filters the list of airlines by country, leaving only airlines from the selected county.
+<i>207</i>&nbsp;     *
+<i>208</i>&nbsp;     * @throws IOException throws IOException error
+<i>209</i>&nbsp;     */
+<i>210</i>&nbsp;    public void filterAirlineCountry() throws IOException {
+<b class="nc"><i>211</i>&nbsp;        updateAirlineSearch();</b>
+<i>212</i>&nbsp;    }
+<i>213</i>&nbsp;
+<i>214</i>&nbsp;
+<i>215</i>&nbsp;    /**
+<i>216</i>&nbsp;     * Allows the user to load airline data from a file.
+<i>217</i>&nbsp;     *
+<i>218</i>&nbsp;     * @throws IOException throws IOException error
+<i>219</i>&nbsp;     */
+<i>220</i>&nbsp;    public void loadAirline() throws IOException {
+<b class="nc"><i>221</i>&nbsp;        FileChooser fileChooser = new FileChooser();</b>
+<b class="nc"><i>222</i>&nbsp;        fileChooser.setTitle(&quot;Open file&quot;);</b>
+<b class="nc"><i>223</i>&nbsp;        File in = fileChooser.showOpenDialog(App.primaryStage);</b>
+<b class="nc"><i>224</i>&nbsp;        if (in != null &amp;&amp; in.exists()) {</b>
+<b class="nc"><i>225</i>&nbsp;            InputStream file = new FileInputStream(in);</b>
+<b class="nc"><i>226</i>&nbsp;            mainController.goToDataTab(mainController.getAirlineLabel());</b>
+<b class="nc"><i>227</i>&nbsp;            insertAirlineTable(file);</b>
+<i>228</i>&nbsp;        }
+<i>229</i>&nbsp;    }
+<i>230</i>&nbsp;
+<i>231</i>&nbsp;
+<i>232</i>&nbsp;    private void loadDefaultAirline() throws IOException, URISyntaxException {
+<b class="nc"><i>233</i>&nbsp;        if (Repository.airlineRepository != null) {</b>
+<b class="nc"><i>234</i>&nbsp;            loadSerializedAirline();</b>
+<i>235</i>&nbsp;        } else {
+<b class="nc"><i>236</i>&nbsp;            Repository.airlineRepository = new AirlineRepository();</b>
+<b class="nc"><i>237</i>&nbsp;            InputStream file = getClass().getResourceAsStream(&quot;/airlines.dat&quot;);</b>
+<b class="nc"><i>238</i>&nbsp;            if (file != null) {</b>
+<b class="nc"><i>239</i>&nbsp;                insertAirlineTable(file);</b>
+<i>240</i>&nbsp;            }
+<i>241</i>&nbsp;        }
+<i>242</i>&nbsp;    }
+<i>243</i>&nbsp;
+<i>244</i>&nbsp;    private void addNewAirline(Airline airline) {
+<b class="nc"><i>245</i>&nbsp;        AirlineTable airlineEntryData = new AirlineTable(airline.getID(), airline.getName(),</b>
+<b class="nc"><i>246</i>&nbsp;                airline.getAlias(), airline.getIATA(),</b>
+<b class="nc"><i>247</i>&nbsp;                airline.getICAO(), airline.getCallsign(),</b>
+<b class="nc"><i>248</i>&nbsp;                airline.getCountry(), airline.getActive());</b>
+<b class="nc"><i>249</i>&nbsp;        airlineTData.add(airlineEntryData);</b>
+<b class="nc"><i>250</i>&nbsp;        airlineTableMap.put(airline.getID(), airlineEntryData);</b>
+<b class="nc"><i>251</i>&nbsp;        Repository.airlineRepository.getAirlines().put(airline.getID(), airline);</b>
+<b class="nc"><i>252</i>&nbsp;        if (airline.getCountry() != null) {</b>
+<b class="nc"><i>253</i>&nbsp;            airlineCountrySet.add(airline.getCountry());</b>
+<i>254</i>&nbsp;        }
+<i>255</i>&nbsp;    }
+<i>256</i>&nbsp;
+<i>257</i>&nbsp;    /* -------------------------------------------------------------------------------------------------------------------------------------------------------------- */
+<i>258</i>&nbsp;    /* Airline table loader methods below*/
+<i>259</i>&nbsp;
+<i>260</i>&nbsp;    /**Insert the airlines in a given file into the airline table GUI checking for duplicates
+<i>261</i>&nbsp;     *
+<i>262</i>&nbsp;     * @param file InputStream
+<i>263</i>&nbsp;     * @throws IOException throws IOException error
+<i>264</i>&nbsp;     */
+<i>265</i>&nbsp;    private void insertAirlineTable(InputStream file) throws IOException {
+<b class="nc"><i>266</i>&nbsp;        AirlineValidator validator = new AirlineValidator(file);</b>
+<b class="nc"><i>267</i>&nbsp;        ArrayList&lt;Airline&gt; airlines = validator.makeAirlines();</b>
+<b class="nc"><i>268</i>&nbsp;        ButtonResult buttonResult = null;</b>
+<b class="nc"><i>269</i>&nbsp;        for (Airline airline : airlines) {</b>
+<i>270</i>&nbsp;            // if the airline ID already exists in the repository, warn the user
+<b class="nc"><i>271</i>&nbsp;            if (!Repository.airlineRepository.getAirlines().containsKey(airline.getID())) {</b>
+<b class="nc"><i>272</i>&nbsp;                addNewAirline(airline);</b>
+<i>273</i>&nbsp;            } else {
+<i>274</i>&nbsp;                // Override data option popup
+<b class="nc"><i>275</i>&nbsp;                if (buttonResult == ButtonResult.OVERRIDEALL) {</b>
+<b class="nc"><i>276</i>&nbsp;                    overrideAirline(airline);</b>
+<b class="nc"><i>277</i>&nbsp;                } else if (buttonResult != ButtonResult.IGNOREALL) {</b>
+<b class="nc"><i>278</i>&nbsp;                    buttonResult = dataOverridePopup(airline.getID());</b>
+<b class="nc"><i>279</i>&nbsp;                    if (buttonResult == ButtonResult.OVERRIDE || buttonResult == ButtonResult.OVERRIDEALL) {</b>
+<b class="nc"><i>280</i>&nbsp;                        overrideAirline(airline);</b>
+<b class="nc"><i>281</i>&nbsp;                    } else if (buttonResult == ButtonResult.CANCEL) {</b>
+<b class="nc"><i>282</i>&nbsp;                        break;</b>
+<i>283</i>&nbsp;                    }
+<i>284</i>&nbsp;                }
+<i>285</i>&nbsp;
+<i>286</i>&nbsp;            }
+<b class="nc"><i>287</i>&nbsp;        }</b>
+<b class="nc"><i>288</i>&nbsp;        updateAirlineCountryBox();</b>
+<i>289</i>&nbsp;    }
+<i>290</i>&nbsp;
+<i>291</i>&nbsp;    private void loadSerializedAirline() {
+<b class="nc"><i>292</i>&nbsp;        Collection&lt;Airline&gt; airlines = Repository.airlineRepository.getAirlines().values();</b>
+<b class="nc"><i>293</i>&nbsp;        for (Airline airline : airlines) {</b>
+<b class="nc"><i>294</i>&nbsp;            addNewAirline(airline);</b>
+<b class="nc"><i>295</i>&nbsp;        }</b>
+<b class="nc"><i>296</i>&nbsp;        updateAirlineCountryBox();</b>
+<i>297</i>&nbsp;    }
+<i>298</i>&nbsp;
+<i>299</i>&nbsp;    /**
+<i>300</i>&nbsp;     * Clears the airline table and AirlineRepository then replaces them with the default airlines.
+<i>301</i>&nbsp;     *
+<i>302</i>&nbsp;     * @throws IOException when default airline file cannot be read
+<i>303</i>&nbsp;     */
+<i>304</i>&nbsp;    public void resetAirline() throws IOException {
+<b class="nc"><i>305</i>&nbsp;        boolean result = mainController.resetConformation();</b>
+<b class="nc"><i>306</i>&nbsp;        if (result) {</b>
+<b class="nc"><i>307</i>&nbsp;            clearAirlineTable();</b>
+<b class="nc"><i>308</i>&nbsp;            InputStream file = getClass().getResourceAsStream(&quot;/airlines.dat&quot;);</b>
+<b class="nc"><i>309</i>&nbsp;            if (file != null) {</b>
+<b class="nc"><i>310</i>&nbsp;                insertAirlineTable(file);</b>
+<i>311</i>&nbsp;            }
+<b class="nc"><i>312</i>&nbsp;            Repository.serializeObject(Repository.airlineRepository, &quot;airline&quot;);</b>
+<i>313</i>&nbsp;        }
+<i>314</i>&nbsp;    }
+<i>315</i>&nbsp;
+<i>316</i>&nbsp;    /**
+<i>317</i>&nbsp;     * Clears the airline table and AirlineRepository.
+<i>318</i>&nbsp;     */
+<i>319</i>&nbsp;    public void deleteAllAirlines() {
+<b class="nc"><i>320</i>&nbsp;        boolean result = mainController.deleteAllConformation();</b>
+<b class="nc"><i>321</i>&nbsp;        if (result) {</b>
+<b class="nc"><i>322</i>&nbsp;            clearAirlineTable();</b>
+<b class="nc"><i>323</i>&nbsp;            Repository.serializeObject(Repository.airlineRepository, &quot;airline&quot;);</b>
+<i>324</i>&nbsp;        }
+<i>325</i>&nbsp;    }
+<i>326</i>&nbsp;
+<i>327</i>&nbsp;    private void overrideAirline(Airline airline) {
+<b class="nc"><i>328</i>&nbsp;        Repository.airlineRepository.getAirlines().put(airline.getID(), airline);</b>
+<b class="nc"><i>329</i>&nbsp;        AirlineTable oldAirline = airlineTableMap.get(airline.getID());</b>
+<b class="nc"><i>330</i>&nbsp;        oldAirline.setRname(airline.getName());</b>
+<b class="nc"><i>331</i>&nbsp;        oldAirline.setRalias(airline.getAlias());</b>
+<b class="nc"><i>332</i>&nbsp;        oldAirline.setRiata(airline.getIATA());</b>
+<b class="nc"><i>333</i>&nbsp;        oldAirline.setRicao(airline.getICAO());</b>
+<b class="nc"><i>334</i>&nbsp;        oldAirline.setRcallsign(airline.getCallsign());</b>
+<b class="nc"><i>335</i>&nbsp;        oldAirline.setRcountry(airline.getCountry());</b>
+<b class="nc"><i>336</i>&nbsp;        oldAirline.setRactive(airline.getActive());</b>
+<b class="nc"><i>337</i>&nbsp;        if (airline.getCountry() != null) {</b>
+<b class="nc"><i>338</i>&nbsp;            airlineCountrySet.add(airline.getCountry());</b>
+<i>339</i>&nbsp;        }
+<i>340</i>&nbsp;    }
+<i>341</i>&nbsp;
+<i>342</i>&nbsp;    private ButtonResult dataOverridePopup(int ID) {
+<b class="nc"><i>343</i>&nbsp;        return OverrideDataController.getPopUpResult(&quot;Airline with ID &quot; + ID + &quot; already exists in the system&quot;);</b>
+<i>344</i>&nbsp;    }
+<i>345</i>&nbsp;
+<i>346</i>&nbsp;    private void clearAirlineTable() {
+<b class="nc"><i>347</i>&nbsp;        airlineTData.clear();</b>
+<b class="nc"><i>348</i>&nbsp;        airlineTableMap = new HashMap&lt;&gt;();</b>
+<b class="nc"><i>349</i>&nbsp;        Repository.airlineRepository = new AirlineRepository();</b>
+<i>350</i>&nbsp;    }
+<i>351</i>&nbsp;
+<i>352</i>&nbsp;    /* Airline table methods above*/
+<i>353</i>&nbsp;    /* -------------------------------------------------------------------------------------------------------------------------------------------------------------- */
+<i>354</i>&nbsp;
+<i>355</i>&nbsp;    private void updateAirlineCountryBox() {
+<i>356</i>&nbsp;        // clear the current combo box
+<b class="nc"><i>357</i>&nbsp;        airlineCountryFilter.getItems().clear();</b>
+<i>358</i>&nbsp;        // if the combo box doesn&#39;t have --ALL COUNTRIES-- then add one
+<b class="nc"><i>359</i>&nbsp;        if (!airlineCountryFilter.getItems().contains(allCountriesTag)) {</b>
+<b class="nc"><i>360</i>&nbsp;            airlineCountryFilter.getItems().add(allCountriesTag);</b>
+<i>361</i>&nbsp;        }
+<i>362</i>&nbsp;
+<i>363</i>&nbsp;        // loop through the current airlineCountrySet
+<b class="nc"><i>364</i>&nbsp;        Iterator itr = airlineCountrySet.iterator();</b>
+<b class="nc"><i>365</i>&nbsp;        while (itr.hasNext()) {</b>
+<b class="nc"><i>366</i>&nbsp;            airlineCountryFilter.getItems().add(itr.next());</b>
+<i>367</i>&nbsp;        }
+<i>368</i>&nbsp;    }
+<i>369</i>&nbsp;
+<i>370</i>&nbsp;    private void searchAirlines() {
+<i>371</i>&nbsp;        // searching for airline
+<b class="nc"><i>372</i>&nbsp;        FilteredList&lt;AirlineTable&gt; airlineTableFiltered = new FilteredList&lt;&gt;(airlineTData, p -&gt; true);</b>
+<i>373</i>&nbsp;
+<b class="nc"><i>374</i>&nbsp;        airlineSearch.textProperty().addListener((observable, oldValue, newValue) -&gt; {</b>
+<b class="nc"><i>375</i>&nbsp;            airlineTableFiltered.setPredicate(airline -&gt; {</b>
+<i>376</i>&nbsp;                // Some columns in airline table (at)
+<b class="nc"><i>377</i>&nbsp;                Integer atID = airline.getRid();</b>
+<b class="nc"><i>378</i>&nbsp;                String atName = airline.getRname();</b>
+<b class="nc"><i>379</i>&nbsp;                String atAlias = airline.getRalias();</b>
+<b class="nc"><i>380</i>&nbsp;                String atIATA = airline.getRiata();</b>
+<b class="nc"><i>381</i>&nbsp;                String atICAO = airline.getRicao();</b>
+<b class="nc"><i>382</i>&nbsp;                String atCallsign = airline.getRcallsign();</b>
+<b class="nc"><i>383</i>&nbsp;                String atCountry = airline.getRcountry();</b>
+<b class="nc"><i>384</i>&nbsp;                Boolean atActive = airline.getRactive();</b>
+<b class="nc"><i>385</i>&nbsp;                boolean toggled = false;    // toggle to see if anything was matched in the search box</b>
+<i>386</i>&nbsp;
+<i>387</i>&nbsp;                // set up for country drop down box
+<b class="nc"><i>388</i>&nbsp;                boolean emptyCountryFilter = airlineCountryFilter.getSelectionModel().getSelectedItem() == null;</b>
+<i>389</i>&nbsp;                // selectedAirlineCountry is a string to hold whats selected in the dropdown
+<i>390</i>&nbsp;                // set to null unless a dropdown is selected
+<b class="nc"><i>391</i>&nbsp;                String selectedAirlineCountry = null;</b>
+<b class="nc"><i>392</i>&nbsp;                if (airlineCountryFilter.getValue() != null) {</b>
+<b class="nc"><i>393</i>&nbsp;                    selectedAirlineCountry = airlineCountryFilter.getValue().toString();</b>
+<i>394</i>&nbsp;                }
+<i>395</i>&nbsp;
+<i>396</i>&nbsp;                // hold the string that&#39;s typed in the search bar in lowercase
+<b class="nc"><i>397</i>&nbsp;                String lowerCaseFilter = newValue.toLowerCase();</b>
+<i>398</i>&nbsp;
+<i>399</i>&nbsp;                // The following returns true if the filter matches
+<b class="nc"><i>400</i>&nbsp;                if (newValue.isEmpty() &amp;&amp; !active.isSelected() &amp;&amp; !inactive.isSelected()</b>
+<b class="nc"><i>401</i>&nbsp;                        &amp;&amp; selectedAirlineCountry != null &amp;&amp; selectedAirlineCountry.equals(allCountriesTag)) {</b>
+<b class="nc"><i>402</i>&nbsp;                    return true; // display all data</b>
+<i>403</i>&nbsp;                }
+<i>404</i>&nbsp;
+<i>405</i>&nbsp;                // Check if the search criteria matches the following columns
+<b class="nc"><i>406</i>&nbsp;                if ((lowerCaseFilter.matches(&quot;[0-9]+&quot;) &amp;&amp; atID == Integer.parseInt(lowerCaseFilter)) ||</b>
+<b class="nc"><i>407</i>&nbsp;                        (atName != null &amp;&amp; atName.toLowerCase().contains(lowerCaseFilter)) ||</b>
+<b class="nc"><i>408</i>&nbsp;                        (atAlias != null &amp;&amp; atAlias.toLowerCase().contains(lowerCaseFilter)) ||</b>
+<b class="nc"><i>409</i>&nbsp;                        (atIATA != null &amp;&amp; atIATA.toLowerCase().contains(lowerCaseFilter)) ||</b>
+<b class="nc"><i>410</i>&nbsp;                        (atICAO != null &amp;&amp; atICAO.toLowerCase().contains(lowerCaseFilter)) ||</b>
+<b class="nc"><i>411</i>&nbsp;                        (atCallsign != null &amp;&amp; atCallsign.toLowerCase().contains(lowerCaseFilter)) ||</b>
+<b class="nc"><i>412</i>&nbsp;                        (atCountry != null &amp;&amp; atCountry.toLowerCase().contains(lowerCaseFilter))) {</b>
+<b class="nc"><i>413</i>&nbsp;                    toggled = true;</b>
+<i>414</i>&nbsp;                }
+<i>415</i>&nbsp;
+<i>416</i>&nbsp;                // For the following cases, return true if the country dropdown is empty, --ALL COUNTRIES-- or
+<i>417</i>&nbsp;                // matches the country in the table
+<b class="nc"><i>418</i>&nbsp;                if ((!active.isSelected() &amp;&amp; toggled &amp;&amp; !inactive.isSelected()) ||</b>
+<b class="nc"><i>419</i>&nbsp;                        (toggled &amp;&amp; active.isSelected() &amp;&amp; atActive) ||</b>
+<b class="nc"><i>420</i>&nbsp;                        (toggled &amp;&amp; inactive.isSelected() &amp;&amp; !atActive)) {</b>
+<b class="nc"><i>421</i>&nbsp;                    if (emptyCountryFilter) {</b>
+<b class="nc"><i>422</i>&nbsp;                        return true;</b>
+<i>423</i>&nbsp;                    }
+<b class="nc"><i>424</i>&nbsp;                    if (selectedAirlineCountry != null &amp;&amp; selectedAirlineCountry.equals(allCountriesTag)) {</b>
+<b class="nc"><i>425</i>&nbsp;                        return true;</b>
+<b class="nc"><i>426</i>&nbsp;                    } else if (selectedAirlineCountry != null &amp;&amp; atCountry != null &amp;&amp;</b>
+<b class="nc"><i>427</i>&nbsp;                            atCountry.toLowerCase().equals(selectedAirlineCountry.toLowerCase())) {</b>
+<b class="nc"><i>428</i>&nbsp;                        return true;</b>
+<i>429</i>&nbsp;                    }
+<i>430</i>&nbsp;                }
+<b class="nc"><i>431</i>&nbsp;                return false; // does not match</b>
+<i>432</i>&nbsp;            });
+<i>433</i>&nbsp;
+<i>434</i>&nbsp;        });
+<i>435</i>&nbsp;
+<i>436</i>&nbsp;        // Wrap the filtered list in a SortedList
+<b class="nc"><i>437</i>&nbsp;        SortedList&lt;AirlineTable&gt; airlineTableSorted = new SortedList&lt;&gt;(airlineTableFiltered);</b>
+<i>438</i>&nbsp;
+<i>439</i>&nbsp;        // Bind the SortedList comparator to the TableView comparator
+<b class="nc"><i>440</i>&nbsp;        airlineTableSorted.comparatorProperty().bind(airlineTableID.comparatorProperty());</b>
+<i>441</i>&nbsp;
+<i>442</i>&nbsp;        // Add sorted (and filtered) data to the table
+<b class="nc"><i>443</i>&nbsp;        airlineTableID.setItems(airlineTableSorted);</b>
+<i>444</i>&nbsp;    }
+<i>445</i>&nbsp;
+<i>446</i>&nbsp;    /**
+<i>447</i>&nbsp;     * Returns airlineTData to be used on other class.
+<i>448</i>&nbsp;     *
+<i>449</i>&nbsp;     * @return ObservableList&lt;AirlineTable&gt;
+<i>450</i>&nbsp;     */
+<i>451</i>&nbsp;    public ObservableList&lt;AirlineTable&gt; getAirlineTData() {
+<b class="nc"><i>452</i>&nbsp;        return airlineTData;</b>
+<i>453</i>&nbsp;    }
+<i>454</i>&nbsp;
+<i>455</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2016-10-06 13:18</div>
+</div>
+</body>
+</html>

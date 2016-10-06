@@ -1,0 +1,271 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: AirportParserTest</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">seng202.group4</a> ]
+</div>
+
+<h1>Coverage Summary for Class: AirportParserTest (seng202.group4)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">AirportParserTest</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (14/ 14)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (68/ 68)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package seng202.group4;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import org.junit.Test;
+<i>4</i>&nbsp;import seng202.group4.data.dataType.Airport;
+<i>5</i>&nbsp;import seng202.group4.data.parser.AirportParser;
+<i>6</i>&nbsp;
+<i>7</i>&nbsp;import java.io.IOException;
+<i>8</i>&nbsp;import java.util.ArrayList;
+<i>9</i>&nbsp;
+<i>10</i>&nbsp;import static org.junit.Assert.assertTrue;
+<i>11</i>&nbsp;
+<i>12</i>&nbsp;/**
+<i>13</i>&nbsp; * Tests the AirportParser class with valid Airport files.
+<i>14</i>&nbsp; */
+<b class="fc"><i>15</i>&nbsp;public class AirportParserTest extends ParserTest {</b>
+<b class="fc"><i>16</i>&nbsp;    String path = &quot;testfiles/Airports/&quot;;</b>
+<i>17</i>&nbsp;
+<i>18</i>&nbsp;    /**
+<i>19</i>&nbsp;     * Gets the string of the flight position that is used for testing.
+<i>20</i>&nbsp;     */
+<i>21</i>&nbsp;    private String getString(Airport airport) {
+<b class="fc"><i>22</i>&nbsp;        String s = &quot;&quot;;</b>
+<b class="fc"><i>23</i>&nbsp;        s += airport.getID() + &quot;,&quot; + airport.getName() + &quot;,&quot; + airport.getCity() + &quot;,&quot; + airport.getCountry() + &quot;,&quot; +</b>
+<b class="fc"><i>24</i>&nbsp;                airport.getIATA() + &quot;,&quot; + airport.getICAO() + &quot;,&quot; + airport.getLatitude() + &quot;,&quot; +</b>
+<b class="fc"><i>25</i>&nbsp;                airport.getLongitude() + &quot;,&quot; + airport.getAltitude() + &quot;,&quot; + airport.getTimezone() + &quot;,&quot; +</b>
+<b class="fc"><i>26</i>&nbsp;                airport.getDST() + &quot;,&quot; + airport.getTz();</b>
+<b class="fc"><i>27</i>&nbsp;        return s;</b>
+<i>28</i>&nbsp;    }
+<i>29</i>&nbsp;
+<i>30</i>&nbsp;    /**
+<i>31</i>&nbsp;     * Check that an empty text file does not make any airports when parsed.
+<i>32</i>&nbsp;     *
+<i>33</i>&nbsp;     * @throws IOException throws IOException error
+<i>34</i>&nbsp;     */
+<i>35</i>&nbsp;    @Test
+<i>36</i>&nbsp;    public void emptyFileAirport() throws IOException {
+<b class="fc"><i>37</i>&nbsp;        AirportParser parser = new AirportParser(fileArray(&quot;testfiles/empty.txt&quot;));</b>
+<b class="fc"><i>38</i>&nbsp;        ArrayList&lt;Airport&gt; airports = parser.makeAirports();</b>
+<b class="fc"><i>39</i>&nbsp;        int size = airports.size();</b>
+<b class="fc"><i>40</i>&nbsp;        assertTrue(size == 0);</b>
+<b class="fc"><i>41</i>&nbsp;    }</b>
+<i>42</i>&nbsp;
+<i>43</i>&nbsp;    /**
+<i>44</i>&nbsp;     * Check that one valid airport is parsed when loading a file with two valid airports.
+<i>45</i>&nbsp;     *
+<i>46</i>&nbsp;     * @throws IOException throws IOException error
+<i>47</i>&nbsp;     */
+<i>48</i>&nbsp;    @Test
+<i>49</i>&nbsp;    public void twoValidAirportsSize() throws IOException {
+<b class="fc"><i>50</i>&nbsp;        AirportParser parser = new AirportParser(fileArray(path + &quot;twoValidAirports.txt&quot;));</b>
+<b class="fc"><i>51</i>&nbsp;        ArrayList&lt;Airport&gt; airports = parser.makeAirports();</b>
+<b class="fc"><i>52</i>&nbsp;        assertTrue(airports.size() == 2);</b>
+<i>53</i>&nbsp;
+<b class="fc"><i>54</i>&nbsp;    }</b>
+<i>55</i>&nbsp;
+<i>56</i>&nbsp;    /**
+<i>57</i>&nbsp;     * Check that one valid airport is parsed when loading a file with three valid airports.
+<i>58</i>&nbsp;     *
+<i>59</i>&nbsp;     * @throws IOException throws IOException error
+<i>60</i>&nbsp;     */
+<i>61</i>&nbsp;    @Test
+<i>62</i>&nbsp;    public void threeValidAirportsSize() throws IOException {
+<b class="fc"><i>63</i>&nbsp;        AirportParser parser = new AirportParser(fileArray(path + &quot;threeValidAirports.txt&quot;));</b>
+<b class="fc"><i>64</i>&nbsp;        ArrayList&lt;Airport&gt; airports = parser.makeAirports();</b>
+<b class="fc"><i>65</i>&nbsp;        assertTrue(airports.size() == 3);</b>
+<i>66</i>&nbsp;
+<b class="fc"><i>67</i>&nbsp;    }</b>
+<i>68</i>&nbsp;
+<i>69</i>&nbsp;    /**
+<i>70</i>&nbsp;     * Check that one valid airport is parsed when loading a file with only one valid airport.
+<i>71</i>&nbsp;     *
+<i>72</i>&nbsp;     * @throws IOException throws IOException error
+<i>73</i>&nbsp;     */
+<i>74</i>&nbsp;    @Test
+<i>75</i>&nbsp;    public void oneValidAirportSize() throws IOException {
+<b class="fc"><i>76</i>&nbsp;        AirportParser parser = new AirportParser(fileArray(path + &quot;oneValidAirport.txt&quot;));</b>
+<b class="fc"><i>77</i>&nbsp;        ArrayList&lt;Airport&gt; airports = parser.makeAirports();</b>
+<b class="fc"><i>78</i>&nbsp;        assertTrue(airports.size() == 1);</b>
+<i>79</i>&nbsp;
+<b class="fc"><i>80</i>&nbsp;    }</b>
+<i>81</i>&nbsp;
+<i>82</i>&nbsp;    /**
+<i>83</i>&nbsp;     * Checks that a file with one valid airport with null can be parsed.
+<i>84</i>&nbsp;     *
+<i>85</i>&nbsp;     * @throws IOException throws IOException error
+<i>86</i>&nbsp;     */
+<i>87</i>&nbsp;    @Test
+<i>88</i>&nbsp;    public void oneValidAirportWithNullSize() throws IOException {
+<b class="fc"><i>89</i>&nbsp;        AirportParser parser = new AirportParser(fileArray(path + &quot;oneValidAirportWithNull.txt&quot;));</b>
+<b class="fc"><i>90</i>&nbsp;        ArrayList&lt;Airport&gt; airports = parser.makeAirports();</b>
+<b class="fc"><i>91</i>&nbsp;        assertTrue(airports.size() == 1);</b>
+<i>92</i>&nbsp;
+<b class="fc"><i>93</i>&nbsp;    }</b>
+<i>94</i>&nbsp;
+<i>95</i>&nbsp;    /**
+<i>96</i>&nbsp;     * Checks that a valid airport with comma can be parsed.
+<i>97</i>&nbsp;     *
+<i>98</i>&nbsp;     * @throws IOException throws IOException error
+<i>99</i>&nbsp;     */
+<i>100</i>&nbsp;    @Test public void oneValidAirportWithCommaSize() throws IOException {
+<b class="fc"><i>101</i>&nbsp;        AirportParser parser = new AirportParser(fileArray(path + &quot;oneValidAirportWithComma.txt&quot;));</b>
+<b class="fc"><i>102</i>&nbsp;        ArrayList&lt;Airport&gt; airports = parser.makeAirports();</b>
+<b class="fc"><i>103</i>&nbsp;        assertTrue(airports.size() == 1);</b>
+<b class="fc"><i>104</i>&nbsp;    }</b>
+<i>105</i>&nbsp;
+<i>106</i>&nbsp;    /**
+<i>107</i>&nbsp;     * Checks that all airports in the valid airport file has been parsed, checks if all 8106 airports are parsed.
+<i>108</i>&nbsp;     *
+<i>109</i>&nbsp;     * @throws IOException throws IOException error
+<i>110</i>&nbsp;     */
+<i>111</i>&nbsp;    @Test
+<i>112</i>&nbsp;    public void Airports8016Size() throws IOException {
+<b class="fc"><i>113</i>&nbsp;        AirportParser parser = new AirportParser(fileArray(path + &quot;8106Airports.txt&quot;));</b>
+<b class="fc"><i>114</i>&nbsp;        ArrayList&lt;Airport&gt; airports = parser.makeAirports();</b>
+<b class="fc"><i>115</i>&nbsp;        assertTrue(airports.size() == 8106);</b>
+<b class="fc"><i>116</i>&nbsp;    }</b>
+<i>117</i>&nbsp;
+<i>118</i>&nbsp;    /**
+<i>119</i>&nbsp;     * Check that the correct contents have been parsed given a valid airport.
+<i>120</i>&nbsp;     *
+<i>121</i>&nbsp;     * @throws IOException throws IOException error
+<i>122</i>&nbsp;     */
+<i>123</i>&nbsp;    @Test
+<i>124</i>&nbsp;    public void oneValidAirportContents() throws IOException {
+<b class="fc"><i>125</i>&nbsp;        AirportParser parser = new AirportParser(fileArray(path + &quot;oneValidAirport.txt&quot;));</b>
+<b class="fc"><i>126</i>&nbsp;        ArrayList&lt;Airport&gt; airports = parser.makeAirports();</b>
+<b class="fc"><i>127</i>&nbsp;        String airport0 = getString(airports.get(0));</b>
+<b class="fc"><i>128</i>&nbsp;        assertTrue(airport0.equals(&quot;1,Goroka,Goroka,Papua New Guinea,GKA,AYGA,-6.081689,145.391881,5282.0,10.0,U,Pacific/Port_Moresby&quot;));</b>
+<b class="fc"><i>129</i>&nbsp;    }</b>
+<i>130</i>&nbsp;
+<i>131</i>&nbsp;    /**
+<i>132</i>&nbsp;     * Check that the correct contents have been parsed given a consecutive valid airport.
+<i>133</i>&nbsp;     *
+<i>134</i>&nbsp;     * @throws IOException throws IOException error
+<i>135</i>&nbsp;     */
+<i>136</i>&nbsp;    @Test
+<i>137</i>&nbsp;    public void twoValidAirportsContents() throws IOException {
+<b class="fc"><i>138</i>&nbsp;        AirportParser parser = new AirportParser(fileArray(path + &quot;twoValidAirports.txt&quot;));</b>
+<b class="fc"><i>139</i>&nbsp;        ArrayList&lt;Airport&gt; airports = parser.makeAirports();</b>
+<b class="fc"><i>140</i>&nbsp;        String airport0 = getString(airports.get(0));</b>
+<b class="fc"><i>141</i>&nbsp;        String airport1 = getString(airports.get(1));</b>
+<b class="fc"><i>142</i>&nbsp;        assertTrue(airport0.equals(&quot;92,Maniwaki,Maniwaki,Canada,YMW,CYMW,46.272778,-75.990556,656.0,-5.0,A,America/Toronto&quot;) &amp;&amp;</b>
+<b class="fc"><i>143</i>&nbsp;                airport1.equals(&quot;93,Montreal Intl Mirabel,Montreal,Canada,YMX,CYMX,45.681944,-74.005278,270.0,-5.0,A,America/Toronto&quot;));</b>
+<b class="fc"><i>144</i>&nbsp;    }</b>
+<i>145</i>&nbsp;
+<i>146</i>&nbsp;    /**
+<i>147</i>&nbsp;     * Check that the correct contents have been parsed given multiple valid airport.
+<i>148</i>&nbsp;     *
+<i>149</i>&nbsp;     * @throws IOException throws IOException error
+<i>150</i>&nbsp;     */
+<i>151</i>&nbsp;    @Test
+<i>152</i>&nbsp;    public void threeValidAirportsContents() throws IOException {
+<b class="fc"><i>153</i>&nbsp;        AirportParser parser = new AirportParser(fileArray(path + &quot;threeValidAirports.txt&quot;));</b>
+<b class="fc"><i>154</i>&nbsp;        ArrayList&lt;Airport&gt; airports = parser.makeAirports();</b>
+<b class="fc"><i>155</i>&nbsp;        String airport0 = getString(airports.get(0));</b>
+<b class="fc"><i>156</i>&nbsp;        String airport1 = getString(airports.get(1));</b>
+<b class="fc"><i>157</i>&nbsp;        String airport2 = getString(airports.get(2));</b>
+<b class="fc"><i>158</i>&nbsp;        assertTrue(airport0.equals(&quot;119,Comox,Comox,Canada,YQQ,CYQQ,49.710833,-124.886667,84.0,-8.0,A,America/Vancouver&quot;) &amp;&amp;</b>
+<b class="fc"><i>159</i>&nbsp;                airport1.equals(&quot;177,North Bay,North Bay,Canada,YYB,CYYB,46.363611,-79.422778,1215.0,-5.0,A,America/Toronto&quot;) &amp;&amp;</b>
+<b class="fc"><i>160</i>&nbsp;                airport2.equals(&quot;5794,Banja Luka International Airport,Banja Luka,Bosnia and Herzegovina,BNX,LQBK,44.941444,17.297501,400.0,1.0,E,Europe/Sarajevo&quot;));</b>
+<b class="fc"><i>161</i>&nbsp;    }</b>
+<i>162</i>&nbsp;
+<i>163</i>&nbsp;    /**
+<i>164</i>&nbsp;     * Check that the correct contents have been parsed given a valid airport with a null.
+<i>165</i>&nbsp;     *
+<i>166</i>&nbsp;     * @throws IOException throws IOException error
+<i>167</i>&nbsp;     */
+<i>168</i>&nbsp;    @Test
+<i>169</i>&nbsp;    public void oneValidAirportWithNullContents() throws IOException {
+<b class="fc"><i>170</i>&nbsp;        AirportParser parser = new AirportParser(fileArray(path + &quot;oneValidAirportWithNull.txt&quot;));</b>
+<b class="fc"><i>171</i>&nbsp;        ArrayList&lt;Airport&gt; airports = parser.makeAirports();</b>
+<b class="fc"><i>172</i>&nbsp;        String airport0 = getString(airports.get(0));</b>
+<b class="fc"><i>173</i>&nbsp;        assertTrue(airport0.equals(&quot;6891,Putnam County Airport,Greencastle,United States,4I7,null,39.6335556,-86.8138056,842.0,-5.0,U,America/New_York&quot;));</b>
+<b class="fc"><i>174</i>&nbsp;    }</b>
+<i>175</i>&nbsp;
+<i>176</i>&nbsp;    /**
+<i>177</i>&nbsp;     * Check that the correct contents have been parsed given a valid airport with a comma.
+<i>178</i>&nbsp;     *
+<i>179</i>&nbsp;     * @throws IOException throws IOException error
+<i>180</i>&nbsp;     */
+<i>181</i>&nbsp;    @Test
+<i>182</i>&nbsp;    public void oneValidAirportWithCommaContents() throws IOException {
+<b class="fc"><i>183</i>&nbsp;        AirportParser parser = new AirportParser(fileArray(path + &quot;oneValidAirportWithComma.txt&quot;));</b>
+<b class="fc"><i>184</i>&nbsp;        ArrayList&lt;Airport&gt; airports = parser.makeAirports();</b>
+<b class="fc"><i>185</i>&nbsp;        String airport0 = getString(airports.get(0));</b>
+<b class="fc"><i>186</i>&nbsp;        assertTrue(airport0.equals(&quot;1,Goroka,Goroka, Memes,Papua New Guinea,GKA,AYGA,-6.081689,145.391881,5282.0,10.0,U,Pacific/Port_Moresby&quot;));</b>
+<b class="fc"><i>187</i>&nbsp;    }</b>
+<i>188</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2016-10-06 13:18</div>
+</div>
+</body>
+</html>

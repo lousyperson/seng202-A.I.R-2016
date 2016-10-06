@@ -1,0 +1,169 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: OverrideDataController</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">seng202.group4.GUI.controller</a> ]
+</div>
+
+<h1>Coverage Summary for Class: OverrideDataController (seng202.group4.GUI.controller)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">OverrideDataController</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 25)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package seng202.group4.GUI.controller;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import javafx.fxml.FXML;
+<i>4</i>&nbsp;import javafx.fxml.FXMLLoader;
+<i>5</i>&nbsp;import javafx.scene.Parent;
+<i>6</i>&nbsp;import javafx.scene.Scene;
+<i>7</i>&nbsp;import javafx.scene.control.CheckBox;
+<i>8</i>&nbsp;import javafx.scene.text.Text;
+<i>9</i>&nbsp;import javafx.stage.Modality;
+<i>10</i>&nbsp;import javafx.stage.Stage;
+<i>11</i>&nbsp;import seng202.group4.GUI.ButtonResult;
+<i>12</i>&nbsp;
+<i>13</i>&nbsp;import java.io.IOException;
+<i>14</i>&nbsp;
+<i>15</i>&nbsp;/**
+<i>16</i>&nbsp; * Shows a popup menu for overriding data when ID clashes.
+<i>17</i>&nbsp; */
+<b class="nc"><i>18</i>&nbsp;public class OverrideDataController {</b>
+<i>19</i>&nbsp;
+<i>20</i>&nbsp;    @FXML
+<i>21</i>&nbsp;    private CheckBox doAllButton;
+<i>22</i>&nbsp;
+<i>23</i>&nbsp;    @FXML
+<i>24</i>&nbsp;    private Text overrideMessage;
+<i>25</i>&nbsp;
+<i>26</i>&nbsp;    private ButtonResult result;
+<i>27</i>&nbsp;    private Stage stage;
+<i>28</i>&nbsp;
+<i>29</i>&nbsp;    /**
+<i>30</i>&nbsp;     * Shows a popup menu for overriding data when ID clashes.
+<i>31</i>&nbsp;     *
+<i>32</i>&nbsp;     * @param message the message the user sees
+<i>33</i>&nbsp;     * @return ButtonResult
+<i>34</i>&nbsp;     */
+<i>35</i>&nbsp;    public static ButtonResult getPopUpResult(String message) {
+<i>36</i>&nbsp;        try {
+<b class="nc"><i>37</i>&nbsp;            FXMLLoader fxml = new FXMLLoader();</b>
+<b class="nc"><i>38</i>&nbsp;            Parent root = fxml.load(OverrideDataController.class.getClassLoader().getResourceAsStream(&quot;overrideData.fxml&quot;));</b>
+<b class="nc"><i>39</i>&nbsp;            OverrideDataController popUp = fxml.getController();</b>
+<b class="nc"><i>40</i>&nbsp;            popUp.overrideMessage.setText(message);</b>
+<b class="nc"><i>41</i>&nbsp;            popUp.stage = new Stage();</b>
+<b class="nc"><i>42</i>&nbsp;            popUp.stage.initModality(Modality.APPLICATION_MODAL);</b>
+<b class="nc"><i>43</i>&nbsp;            popUp.stage.setResizable(false);</b>
+<b class="nc"><i>44</i>&nbsp;            popUp.stage.setTitle(&quot;Clashing ID&quot;);</b>
+<b class="nc"><i>45</i>&nbsp;            popUp.stage.setScene(new Scene(root, 450, 200));</b>
+<b class="nc"><i>46</i>&nbsp;            popUp.stage.showAndWait();</b>
+<b class="nc"><i>47</i>&nbsp;            return popUp.result;</b>
+<b class="nc"><i>48</i>&nbsp;        } catch (IOException e) {</b>
+<b class="nc"><i>49</i>&nbsp;            e.printStackTrace();</b>
+<b class="nc"><i>50</i>&nbsp;            return null;</b>
+<i>51</i>&nbsp;        }
+<i>52</i>&nbsp;    }
+<i>53</i>&nbsp;
+<i>54</i>&nbsp;    /**
+<i>55</i>&nbsp;     * Overrides the old data with current clashing data.
+<i>56</i>&nbsp;     */
+<i>57</i>&nbsp;    public void overrideData() {
+<b class="nc"><i>58</i>&nbsp;        if (doAllButton.isSelected()) {</b>
+<b class="nc"><i>59</i>&nbsp;            this.result = ButtonResult.OVERRIDEALL;</b>
+<i>60</i>&nbsp;        } else {
+<b class="nc"><i>61</i>&nbsp;            this.result = ButtonResult.OVERRIDE;</b>
+<i>62</i>&nbsp;        }
+<b class="nc"><i>63</i>&nbsp;        stage.close();</b>
+<i>64</i>&nbsp;    }
+<i>65</i>&nbsp;
+<i>66</i>&nbsp;    /**
+<i>67</i>&nbsp;     * Ignores the current clashing data and retains the old data.
+<i>68</i>&nbsp;     */
+<i>69</i>&nbsp;    public void ignoreData() {
+<b class="nc"><i>70</i>&nbsp;        if (doAllButton.isSelected()) {</b>
+<b class="nc"><i>71</i>&nbsp;            this.result = ButtonResult.IGNOREALL;</b>
+<i>72</i>&nbsp;        } else {
+<b class="nc"><i>73</i>&nbsp;            this.result = ButtonResult.IGNORE;</b>
+<i>74</i>&nbsp;        }
+<b class="nc"><i>75</i>&nbsp;        stage.close();</b>
+<i>76</i>&nbsp;    }
+<i>77</i>&nbsp;
+<i>78</i>&nbsp;    /**
+<i>79</i>&nbsp;     * Cancels the check and closes the popup.
+<i>80</i>&nbsp;     */
+<i>81</i>&nbsp;    public void cancelData() {
+<b class="nc"><i>82</i>&nbsp;        this.result = ButtonResult.CANCEL;</b>
+<b class="nc"><i>83</i>&nbsp;        stage.close();</b>
+<i>84</i>&nbsp;    }
+<i>85</i>&nbsp;
+<i>86</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2016-10-06 13:18</div>
+</div>
+</body>
+</html>

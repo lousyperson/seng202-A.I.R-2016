@@ -1,0 +1,227 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: FlightParserTest</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">seng202.group4</a> ]
+</div>
+
+<h1>Coverage Summary for Class: FlightParserTest (seng202.group4)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">FlightParserTest</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (10/ 10)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (55/ 55)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package seng202.group4;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import org.junit.Test;
+<i>4</i>&nbsp;import seng202.group4.data.dataType.Flight;
+<i>5</i>&nbsp;import seng202.group4.data.dataType.FlightPosition;
+<i>6</i>&nbsp;import seng202.group4.data.parser.FlightParser;
+<i>7</i>&nbsp;
+<i>8</i>&nbsp;import java.io.IOException;
+<i>9</i>&nbsp;import java.util.ArrayList;
+<i>10</i>&nbsp;
+<i>11</i>&nbsp;import static org.junit.Assert.assertSame;
+<i>12</i>&nbsp;import static org.junit.Assert.assertTrue;
+<i>13</i>&nbsp;
+<i>14</i>&nbsp;/**
+<i>15</i>&nbsp; * Tests the FlightParser class with valid Flight files.
+<i>16</i>&nbsp; */
+<b class="fc"><i>17</i>&nbsp;public class FlightParserTest extends ParserTest {</b>
+<b class="fc"><i>18</i>&nbsp;    private String path = &quot;testfiles/Flights/&quot;;</b>
+<i>19</i>&nbsp;
+<i>20</i>&nbsp;    /**
+<i>21</i>&nbsp;     * Gets the string of the flight position that is used for testing.
+<i>22</i>&nbsp;     */
+<i>23</i>&nbsp;    private String getString(FlightPosition position) {
+<b class="fc"><i>24</i>&nbsp;        String s = &quot;&quot;;</b>
+<b class="fc"><i>25</i>&nbsp;        s += position.getType() + &quot;,&quot; + position.getID() + &quot;,&quot; + position.getAltitude() + &quot;,&quot; +</b>
+<b class="fc"><i>26</i>&nbsp;                position.getLatitude() + &quot;,&quot; + position.getLongitude();</b>
+<b class="fc"><i>27</i>&nbsp;        return s;</b>
+<i>28</i>&nbsp;    }
+<i>29</i>&nbsp;
+<i>30</i>&nbsp;    /**
+<i>31</i>&nbsp;     * Check that an empty file is parsed and does not make any flights.
+<i>32</i>&nbsp;     *
+<i>33</i>&nbsp;     * @throws IOException throws IOException error
+<i>34</i>&nbsp;     */
+<i>35</i>&nbsp;    @Test
+<i>36</i>&nbsp;    public void emptyFileFlight() throws IOException {
+<b class="fc"><i>37</i>&nbsp;        FlightParser parser = new FlightParser(fileArray(&quot;testfiles/empty.csv&quot;));</b>
+<b class="fc"><i>38</i>&nbsp;        Flight flight = parser.makeFlight();</b>
+<b class="fc"><i>39</i>&nbsp;        int size = flight.getFlightPositions().size();</b>
+<b class="fc"><i>40</i>&nbsp;        assertTrue(size == 0);</b>
+<b class="fc"><i>41</i>&nbsp;    }</b>
+<i>42</i>&nbsp;
+<i>43</i>&nbsp;    /**
+<i>44</i>&nbsp;     * Check that each row from a valid flight file is parsed by checking if the 1 flight postions is stored.
+<i>45</i>&nbsp;     *
+<i>46</i>&nbsp;     * @throws IOException throws IOException error
+<i>47</i>&nbsp;     */
+<i>48</i>&nbsp;    @Test
+<i>49</i>&nbsp;    public void oneFlightPositionSize() throws IOException {
+<b class="fc"><i>50</i>&nbsp;        FlightParser parser = new FlightParser(fileArray(path + &quot;oneFlightPosition.csv&quot;));</b>
+<b class="fc"><i>51</i>&nbsp;        Flight flight = parser.makeFlight();</b>
+<b class="fc"><i>52</i>&nbsp;        int size = flight.getFlightPositions().size();</b>
+<b class="fc"><i>53</i>&nbsp;        assertTrue(size == 1);</b>
+<b class="fc"><i>54</i>&nbsp;    }</b>
+<i>55</i>&nbsp;
+<i>56</i>&nbsp;    /**
+<i>57</i>&nbsp;     * Check that each row from a valid flight file is parsed by checking if all 2 flight postions are stored.
+<i>58</i>&nbsp;     *
+<i>59</i>&nbsp;     * @throws IOException throws IOException error
+<i>60</i>&nbsp;     */
+<i>61</i>&nbsp;    @Test
+<i>62</i>&nbsp;    public void twoFlightPositionsSize() throws IOException {
+<b class="fc"><i>63</i>&nbsp;        FlightParser parser = new FlightParser(fileArray(path + &quot;twoFlightPositions.csv&quot;));</b>
+<b class="fc"><i>64</i>&nbsp;        Flight flight = parser.makeFlight();</b>
+<b class="fc"><i>65</i>&nbsp;        int size = flight.getFlightPositions().size();</b>
+<b class="fc"><i>66</i>&nbsp;        assertTrue(size == 2);</b>
+<b class="fc"><i>67</i>&nbsp;    }</b>
+<i>68</i>&nbsp;
+<i>69</i>&nbsp;    /**
+<i>70</i>&nbsp;     * Check that each row from a valid flight file is parsed by checking if all 3 flight postions are stored.
+<i>71</i>&nbsp;     *
+<i>72</i>&nbsp;     * @throws IOException throws IOException error
+<i>73</i>&nbsp;     */
+<i>74</i>&nbsp;    @Test
+<i>75</i>&nbsp;    public void threeFlightPositionsSize() throws IOException {
+<b class="fc"><i>76</i>&nbsp;        FlightParser parser = new FlightParser(fileArray(path + &quot;threeFlightPositions.csv&quot;));</b>
+<b class="fc"><i>77</i>&nbsp;        Flight flight = parser.makeFlight();</b>
+<b class="fc"><i>78</i>&nbsp;        int size = flight.getFlightPositions().size();</b>
+<b class="fc"><i>79</i>&nbsp;        assertTrue(size == 3);</b>
+<b class="fc"><i>80</i>&nbsp;    }</b>
+<i>81</i>&nbsp;
+<i>82</i>&nbsp;    /**
+<i>83</i>&nbsp;     * Check that each row from a valid flight file is parsed by checking if all 31 flight postions are stored.
+<i>84</i>&nbsp;     *
+<i>85</i>&nbsp;     * @throws IOException throws IOException error
+<i>86</i>&nbsp;     */
+<i>87</i>&nbsp;    @Test
+<i>88</i>&nbsp;    public void validFlight31Size() throws IOException {
+<b class="fc"><i>89</i>&nbsp;        FlightParser parser = new FlightParser(fileArray(path + &quot;31FlightPositions.csv&quot;));</b>
+<b class="fc"><i>90</i>&nbsp;        Flight flight = parser.makeFlight();</b>
+<b class="fc"><i>91</i>&nbsp;        int size = flight.getFlightPositions().size();</b>
+<b class="fc"><i>92</i>&nbsp;        assertTrue(size == 31);</b>
+<b class="fc"><i>93</i>&nbsp;    }</b>
+<i>94</i>&nbsp;
+<i>95</i>&nbsp;
+<i>96</i>&nbsp;    /**
+<i>97</i>&nbsp;     * Check that the parser can read one line correctly.
+<i>98</i>&nbsp;     *
+<i>99</i>&nbsp;     * @throws IOException throws IOException error
+<i>100</i>&nbsp;     */
+<i>101</i>&nbsp;    @Test
+<i>102</i>&nbsp;    public void oneFlightPositionContents() throws IOException {
+<b class="fc"><i>103</i>&nbsp;        FlightParser parser = new FlightParser(fileArray(path + &quot;oneFlightPosition.csv&quot;));</b>
+<b class="fc"><i>104</i>&nbsp;        Flight flight = parser.makeFlight();</b>
+<b class="fc"><i>105</i>&nbsp;        ArrayList&lt;FlightPosition&gt; positions = flight.getFlightPositions();</b>
+<b class="fc"><i>106</i>&nbsp;        String position0 = getString(positions.get(0));</b>
+<b class="fc"><i>107</i>&nbsp;        assertTrue(position0.equals(&quot;APT,NZCH,0.0,-43.48664019,172.53368221&quot;));</b>
+<b class="fc"><i>108</i>&nbsp;    }</b>
+<i>109</i>&nbsp;
+<i>110</i>&nbsp;    /**
+<i>111</i>&nbsp;     * Checks if the parser can read a consecutive line.
+<i>112</i>&nbsp;     *
+<i>113</i>&nbsp;     * @throws IOException throws IOException error
+<i>114</i>&nbsp;     */
+<i>115</i>&nbsp;    @Test
+<i>116</i>&nbsp;    public void twoFlightPositionsContents() throws IOException {
+<b class="fc"><i>117</i>&nbsp;        FlightParser parser = new FlightParser(fileArray(path + &quot;twoFlightPositions.csv&quot;));</b>
+<b class="fc"><i>118</i>&nbsp;        Flight flight = parser.makeFlight();</b>
+<b class="fc"><i>119</i>&nbsp;        ArrayList&lt;FlightPosition&gt; positions = flight.getFlightPositions();</b>
+<b class="fc"><i>120</i>&nbsp;        String position0 = getString(positions.get(0));</b>
+<b class="fc"><i>121</i>&nbsp;        String position1 = getString(positions.get(1));</b>
+<b class="fc"><i>122</i>&nbsp;        assertTrue(position0.equals(&quot;APT,NZCH,0.0,-43.48664019,172.53368221&quot;) &amp;&amp;</b>
+<b class="fc"><i>123</i>&nbsp;                position1.equals(&quot;APT,WSSS,0.0,1.3519171399999976,103.99560303999999&quot;));</b>
+<b class="fc"><i>124</i>&nbsp;    }</b>
+<i>125</i>&nbsp;
+<i>126</i>&nbsp;    /**
+<i>127</i>&nbsp;     * Checks if the parser can read multiple lines.
+<i>128</i>&nbsp;     *
+<i>129</i>&nbsp;     * @throws IOException throws IOException error
+<i>130</i>&nbsp;     */
+<i>131</i>&nbsp;    @Test
+<i>132</i>&nbsp;    public void threeFlightPositionsContents() throws IOException {
+<b class="fc"><i>133</i>&nbsp;        FlightParser parser = new FlightParser(fileArray(path + &quot;threeFlightPositions.csv&quot;));</b>
+<b class="fc"><i>134</i>&nbsp;        Flight flight = parser.makeFlight();</b>
+<b class="fc"><i>135</i>&nbsp;        ArrayList&lt;FlightPosition&gt; positions = flight.getFlightPositions();</b>
+<b class="fc"><i>136</i>&nbsp;        String position0 = getString(positions.get(0));</b>
+<b class="fc"><i>137</i>&nbsp;        String position1 = getString(positions.get(1));</b>
+<b class="fc"><i>138</i>&nbsp;        String position2 = getString(positions.get(2));</b>
+<b class="fc"><i>139</i>&nbsp;        assertTrue(position0.equals(&quot;APT,KPMD,0.0,34.62938675000001,-118.0845505&quot;) &amp;&amp;</b>
+<b class="fc"><i>140</i>&nbsp;                position1.equals(&quot;FIX,MUBIT,34000.0,3.5,164.66833299999996&quot;) &amp;&amp;</b>
+<b class="fc"><i>141</i>&nbsp;                position2.equals(&quot;APT,YUPG,0.0,-14.705201990000006,134.56256028999996&quot;));</b>
+<b class="fc"><i>142</i>&nbsp;    }</b>
+<i>143</i>&nbsp;
+<i>144</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2016-10-06 13:18</div>
+</div>
+</body>
+</html>

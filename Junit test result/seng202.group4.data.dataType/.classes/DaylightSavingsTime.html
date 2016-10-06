@@ -1,0 +1,113 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: DaylightSavingsTime</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">seng202.group4.data.dataType</a> ]
+</div>
+
+<h1>Coverage Summary for Class: DaylightSavingsTime (seng202.group4.data.dataType)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">DaylightSavingsTime</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    75%
+  </span>
+  <span class="absValue">
+    (3/ 4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    91.7%
+  </span>
+  <span class="absValue">
+    (11/ 12)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package seng202.group4.data.dataType;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;/**
+<i>4</i>&nbsp; * An enum for Daylight Savings Time to allow for easy access to the timing in different countries and areas.
+<i>5</i>&nbsp; */
+<b class="fc"><i>6</i>&nbsp;public enum DaylightSavingsTime {</b>
+<b class="fc"><i>7</i>&nbsp;    E (&quot;Europe&quot;),</b>
+<b class="fc"><i>8</i>&nbsp;    A (&quot;US / Canada&quot;),</b>
+<b class="fc"><i>9</i>&nbsp;    S (&quot;South America&quot;),</b>
+<b class="fc"><i>10</i>&nbsp;    O (&quot;Australia&quot;),</b>
+<b class="fc"><i>11</i>&nbsp;    Z (&quot;New Zealand&quot;),</b>
+<b class="fc"><i>12</i>&nbsp;    N (&quot;None&quot;),</b>
+<b class="fc"><i>13</i>&nbsp;    U (&quot;Unknown&quot;);</b>
+<i>14</i>&nbsp;
+<i>15</i>&nbsp;    private final String zone;
+<i>16</i>&nbsp;
+<b class="fc"><i>17</i>&nbsp;    private DaylightSavingsTime(String zone) {</b>
+<b class="fc"><i>18</i>&nbsp;        this.zone = zone;</b>
+<b class="fc"><i>19</i>&nbsp;    }</b>
+<i>20</i>&nbsp;
+<i>21</i>&nbsp;    /**
+<i>22</i>&nbsp;     * Gets the DayListSavingsTime String value from the DayListSavingsTime.
+<i>23</i>&nbsp;     *
+<i>24</i>&nbsp;     * @return The string corresponding the the DayLightSavingTime value.
+<i>25</i>&nbsp;     */
+<i>26</i>&nbsp;    public String toText() {
+<b class="nc"><i>27</i>&nbsp;        return this.zone;</b>
+<i>28</i>&nbsp;    }
+<i>29</i>&nbsp;}
+<i>30</i>&nbsp;
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2016-10-06 13:18</div>
+</div>
+</body>
+</html>

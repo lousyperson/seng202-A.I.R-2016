@@ -1,0 +1,434 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: FlightTabController</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">seng202.group4.GUI.controller</a> ]
+</div>
+
+<h1>Coverage Summary for Class: FlightTabController (seng202.group4.GUI.controller)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">FlightTabController</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 19)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 126)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package seng202.group4.GUI.controller;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import javafx.beans.value.ObservableValue;
+<i>4</i>&nbsp;import javafx.collections.FXCollections;
+<i>5</i>&nbsp;import javafx.collections.ObservableList;
+<i>6</i>&nbsp;import javafx.fxml.FXML;
+<i>7</i>&nbsp;import javafx.fxml.Initializable;
+<i>8</i>&nbsp;import javafx.scene.control.*;
+<i>9</i>&nbsp;import javafx.scene.control.cell.PropertyValueFactory;
+<i>10</i>&nbsp;import javafx.scene.web.WebView;
+<i>11</i>&nbsp;import javafx.stage.FileChooser;
+<i>12</i>&nbsp;import seng202.group4.App;
+<i>13</i>&nbsp;import seng202.group4.GUI.controller.Controller;
+<i>14</i>&nbsp;import seng202.group4.GUI.table.FlightTable;
+<i>15</i>&nbsp;import seng202.group4.data.dataType.Flight;
+<i>16</i>&nbsp;import seng202.group4.data.dataType.FlightPosition;
+<i>17</i>&nbsp;import seng202.group4.data.parser.validator.FlightValidator;
+<i>18</i>&nbsp;import seng202.group4.data.repository.FlightRepository;
+<i>19</i>&nbsp;import seng202.group4.data.repository.Repository;
+<i>20</i>&nbsp;
+<i>21</i>&nbsp;import java.io.File;
+<i>22</i>&nbsp;import java.io.FileInputStream;
+<i>23</i>&nbsp;import java.io.IOException;
+<i>24</i>&nbsp;import java.io.InputStream;
+<i>25</i>&nbsp;import java.net.URL;
+<i>26</i>&nbsp;import java.util.Optional;
+<i>27</i>&nbsp;import java.util.ResourceBundle;
+<i>28</i>&nbsp;
+<i>29</i>&nbsp;/**
+<i>30</i>&nbsp; * Created by Pang on 24/09/16.
+<i>31</i>&nbsp; */
+<b class="nc"><i>32</i>&nbsp;public class FlightTabController implements Initializable{</b>
+<i>33</i>&nbsp;
+<i>34</i>&nbsp;    // flight map web view
+<i>35</i>&nbsp;    @FXML
+<i>36</i>&nbsp;    private WebView flightMap;
+<i>37</i>&nbsp;
+<i>38</i>&nbsp;    // instructions accordion
+<i>39</i>&nbsp;    @FXML
+<i>40</i>&nbsp;    private TitledPane instructions;
+<i>41</i>&nbsp;
+<i>42</i>&nbsp;    @FXML
+<i>43</i>&nbsp;    private Accordion accord;
+<i>44</i>&nbsp;
+<i>45</i>&nbsp;    // Flight table
+<i>46</i>&nbsp;
+<i>47</i>&nbsp;    @FXML
+<i>48</i>&nbsp;    private TextField flightNameSearch;
+<i>49</i>&nbsp;
+<i>50</i>&nbsp;    @FXML
+<i>51</i>&nbsp;    private TableView&lt;FlightTable&gt; flightTableID;
+<i>52</i>&nbsp;
+<i>53</i>&nbsp;    @FXML
+<i>54</i>&nbsp;    private TableColumn&lt;FlightTable, String&gt; flightID;
+<i>55</i>&nbsp;
+<i>56</i>&nbsp;    @FXML
+<i>57</i>&nbsp;    private TableColumn&lt;FlightTable, String&gt; flightType;
+<i>58</i>&nbsp;
+<i>59</i>&nbsp;    @FXML
+<i>60</i>&nbsp;    private TableColumn&lt;FlightTable, Integer&gt; flightAltitude;
+<i>61</i>&nbsp;
+<i>62</i>&nbsp;    @FXML
+<i>63</i>&nbsp;    private TableColumn&lt;FlightTable, Double&gt; flightLatitude;
+<i>64</i>&nbsp;
+<i>65</i>&nbsp;    @FXML
+<i>66</i>&nbsp;    private TableColumn&lt;FlightTable, Double&gt; flightLongitude;
+<i>67</i>&nbsp;
+<i>68</i>&nbsp;    @FXML
+<i>69</i>&nbsp;    private ListView&lt;String&gt; flightList;
+<i>70</i>&nbsp;
+<i>71</i>&nbsp;    // main controller
+<i>72</i>&nbsp;    private Controller mainController;
+<i>73</i>&nbsp;
+<i>74</i>&nbsp;    // for variables from main controller
+<i>75</i>&nbsp;    private Tab flightTab;
+<i>76</i>&nbsp;    private TabPane tabPane;
+<i>77</i>&nbsp;
+<i>78</i>&nbsp;    // for flight table and list
+<b class="nc"><i>79</i>&nbsp;    private ObservableList&lt;String&gt; flightItems = FXCollections.observableArrayList();</b>
+<b class="nc"><i>80</i>&nbsp;    private ObservableList&lt;FlightTable&gt; flightTData = FXCollections.observableArrayList();</b>
+<i>81</i>&nbsp;
+<i>82</i>&nbsp;    /**
+<i>83</i>&nbsp;     * Sets the main controller and retrieves variables from the main controller.
+<i>84</i>&nbsp;     *
+<i>85</i>&nbsp;     * @param controller Controller
+<i>86</i>&nbsp;     */
+<i>87</i>&nbsp;    public void setMainController(Controller controller) {
+<b class="nc"><i>88</i>&nbsp;        this.mainController = controller;</b>
+<b class="nc"><i>89</i>&nbsp;        this.flightTab = mainController.getFlightTab();</b>
+<b class="nc"><i>90</i>&nbsp;        this.tabPane = mainController.getTabPane();</b>
+<i>91</i>&nbsp;    }
+<i>92</i>&nbsp;
+<i>93</i>&nbsp;    /**
+<i>94</i>&nbsp;     * Where the program starts, initializes things like listeners and starts running the GUI.
+<i>95</i>&nbsp;     *
+<i>96</i>&nbsp;     * @param location URL
+<i>97</i>&nbsp;     * @param resources ResourceBundle
+<i>98</i>&nbsp;     */
+<i>99</i>&nbsp;    public void initialize(URL location, ResourceBundle resources) {
+<i>100</i>&nbsp;
+<i>101</i>&nbsp;        // Load the flight map
+<b class="nc"><i>102</i>&nbsp;        flightMap.getEngine().load(getClass().getClassLoader().getResource(&quot;map.html&quot;).toExternalForm());</b>
+<i>103</i>&nbsp;
+<i>104</i>&nbsp;        // initially expand the map instructions on the side bar
+<b class="nc"><i>105</i>&nbsp;        accord.setExpandedPane(instructions);</b>
+<i>106</i>&nbsp;
+<b class="nc"><i>107</i>&nbsp;        updateFlightNameSearch();</b>
+<i>108</i>&nbsp;
+<i>109</i>&nbsp;        // listen to whats being selected in the flight list
+<b class="nc"><i>110</i>&nbsp;        flightList.getSelectionModel().selectedItemProperty().addListener((ObservableValue&lt;? extends String&gt; ov,</b>
+<i>111</i>&nbsp;                                                                           String old_val, String new_val) -&gt; {
+<b class="nc"><i>112</i>&nbsp;            if (new_val != null) {</b>
+<i>113</i>&nbsp;                // clear table and populate it again with what&#39;s selected
+<b class="nc"><i>114</i>&nbsp;                updateFlightTable(new_val.toLowerCase());</b>
+<b class="nc"><i>115</i>&nbsp;                showFlightPath(new_val.toLowerCase());</b>
+<i>116</i>&nbsp;            }
+<i>117</i>&nbsp;        });
+<i>118</i>&nbsp;
+<i>119</i>&nbsp;        // enable search flight names listener
+<b class="nc"><i>120</i>&nbsp;        searchFlightNames();</b>
+<i>121</i>&nbsp;
+<i>122</i>&nbsp;        // initialise route data table resources
+<b class="nc"><i>123</i>&nbsp;        flightID.setCellValueFactory(new PropertyValueFactory&lt;&gt;(&quot;fid&quot;));</b>
+<b class="nc"><i>124</i>&nbsp;        flightType.setCellValueFactory(new PropertyValueFactory&lt;&gt;(&quot;ftype&quot;));</b>
+<b class="nc"><i>125</i>&nbsp;        flightAltitude.setCellValueFactory(new PropertyValueFactory&lt;&gt;(&quot;faltitude&quot;));</b>
+<b class="nc"><i>126</i>&nbsp;        flightLatitude.setCellValueFactory(new PropertyValueFactory&lt;&gt;(&quot;flatitude&quot;));</b>
+<b class="nc"><i>127</i>&nbsp;        flightLongitude.setCellValueFactory(new PropertyValueFactory&lt;&gt;(&quot;flongitude&quot;));</b>
+<i>128</i>&nbsp;
+<i>129</i>&nbsp;        // set items to flight table
+<b class="nc"><i>130</i>&nbsp;        flightTableID.setItems(flightTData);</b>
+<i>131</i>&nbsp;
+<i>132</i>&nbsp;        // enable delete flight
+<b class="nc"><i>133</i>&nbsp;        enableDeleteFlight();</b>
+<i>134</i>&nbsp;
+<i>135</i>&nbsp;        // load default flight
+<b class="nc"><i>136</i>&nbsp;        loadDefaultFlight();</b>
+<i>137</i>&nbsp;    }
+<i>138</i>&nbsp;
+<i>139</i>&nbsp;    private void enableDeleteFlight(){
+<b class="nc"><i>140</i>&nbsp;        flightList.setCellFactory(listView -&gt; {</b>
+<b class="nc"><i>141</i>&nbsp;            final ListCell&lt;String&gt; cell = new ListCell&lt;&gt;();</b>
+<b class="nc"><i>142</i>&nbsp;            final ContextMenu contextMenu = new ContextMenu();</b>
+<b class="nc"><i>143</i>&nbsp;            MenuItem removeItem = new MenuItem(&quot;Delete&quot;);</b>
+<i>144</i>&nbsp;
+<i>145</i>&nbsp;            cell.setOnMouseClicked(event -&gt; {});
+<b class="nc"><i>146</i>&nbsp;            removeItem.setOnAction(event -&gt; {</b>
+<b class="nc"><i>147</i>&nbsp;                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);</b>
+<b class="nc"><i>148</i>&nbsp;                alert.setTitle(&quot;Confirmation Dialog&quot;);</b>
+<b class="nc"><i>149</i>&nbsp;                alert.setHeaderText(&quot;Are you sure you want to delete?&quot;);</b>
+<b class="nc"><i>150</i>&nbsp;                alert.setContentText(&quot;Pressing OK will delete the row(s).\nWARNING: The action cannot be undone.\n&quot;);</b>
+<i>151</i>&nbsp;
+<b class="nc"><i>152</i>&nbsp;                Optional&lt;ButtonType&gt; result = alert.showAndWait();</b>
+<b class="nc"><i>153</i>&nbsp;                if (result.get() == ButtonType.OK) {</b>
+<b class="nc"><i>154</i>&nbsp;                    Repository.flightRepository.getFlights().remove(cell.getItem());</b>
+<b class="nc"><i>155</i>&nbsp;                    flightList.getItems().remove(cell.getItem());</b>
+<b class="nc"><i>156</i>&nbsp;                    flightMap.getEngine().executeScript(&quot;initMap();&quot;);</b>
+<b class="nc"><i>157</i>&nbsp;                    flightList.getSelectionModel().clearSelection();</b>
+<b class="nc"><i>158</i>&nbsp;                    flightTData.clear();</b>
+<i>159</i>&nbsp;                }
+<i>160</i>&nbsp;            });
+<b class="nc"><i>161</i>&nbsp;            contextMenu.getItems().addAll(removeItem);</b>
+<i>162</i>&nbsp;
+<b class="nc"><i>163</i>&nbsp;            cell.textProperty().bind(cell.itemProperty());</b>
+<i>164</i>&nbsp;
+<b class="nc"><i>165</i>&nbsp;            cell.emptyProperty().addListener((obs, wasEmpty, isNowEmpty) -&gt; {</b>
+<b class="nc"><i>166</i>&nbsp;                if (isNowEmpty) {</b>
+<b class="nc"><i>167</i>&nbsp;                    cell.setContextMenu(null);</b>
+<i>168</i>&nbsp;                } else {
+<b class="nc"><i>169</i>&nbsp;                    cell.setContextMenu(contextMenu);</b>
+<i>170</i>&nbsp;                }
+<i>171</i>&nbsp;            });
+<b class="nc"><i>172</i>&nbsp;            return cell;</b>
+<i>173</i>&nbsp;        });
+<i>174</i>&nbsp;    }
+<i>175</i>&nbsp;
+<i>176</i>&nbsp;    /**
+<i>177</i>&nbsp;     * Update flight table view given the flight name.
+<i>178</i>&nbsp;     */
+<i>179</i>&nbsp;    private void updateFlightTable(String name){
+<i>180</i>&nbsp;
+<i>181</i>&nbsp;        // access flight repository to get the flight positions array given the name
+<b class="nc"><i>182</i>&nbsp;        Flight flight = Repository.flightRepository.getFlights().get(name);</b>
+<i>183</i>&nbsp;
+<i>184</i>&nbsp;        // clear the table then populate it with this flight
+<b class="nc"><i>185</i>&nbsp;        flightTData.clear();</b>
+<i>186</i>&nbsp;        // loop through array of flight positions
+<b class="nc"><i>187</i>&nbsp;        for(FlightPosition position: flight.getFlightPositions()){</b>
+<b class="nc"><i>188</i>&nbsp;            flightTData.add(new FlightTable(position.getID(), position.getType(), position.getAltitude(),</b>
+<b class="nc"><i>189</i>&nbsp;                    position.getLatitude(), position.getLongitude()));</b>
+<b class="nc"><i>190</i>&nbsp;        }</b>
+<i>191</i>&nbsp;
+<i>192</i>&nbsp;    }
+<i>193</i>&nbsp;
+<i>194</i>&nbsp;
+<i>195</i>&nbsp;    /**
+<i>196</i>&nbsp;     * Update map with flight path given the flight name.
+<i>197</i>&nbsp;     */
+<i>198</i>&nbsp;    private void showFlightPath(String flightName) {
+<b class="nc"><i>199</i>&nbsp;        if (flightMap.getEngine() != null) {</b>
+<b class="nc"><i>200</i>&nbsp;            flightMap.getEngine().executeScript(&quot;deleteFlights();&quot;);</b>
+<b class="nc"><i>201</i>&nbsp;            Flight flight = Repository.flightRepository.getFlights().get(flightName);</b>
+<b class="nc"><i>202</i>&nbsp;            for (int i = 0; i &lt; flight.getFlightPositions().size(); i++) {</b>
+<b class="nc"><i>203</i>&nbsp;                FlightPosition firstRow = flight.getFlightPositions().get(i);</b>
+<b class="nc"><i>204</i>&nbsp;                double lat = firstRow.getLatitude();</b>
+<b class="nc"><i>205</i>&nbsp;                double lon = firstRow.getLongitude();</b>
+<b class="nc"><i>206</i>&nbsp;                flightMap.getEngine().executeScript(&quot;addFlight(&quot; + lat + &quot;, &quot; + lon + &quot;);&quot;);</b>
+<i>207</i>&nbsp;            }
+<b class="nc"><i>208</i>&nbsp;            flightMap.getEngine().executeScript(&quot;makePath();&quot;);</b>
+<i>209</i>&nbsp;        }
+<i>210</i>&nbsp;    }
+<i>211</i>&nbsp;
+<i>212</i>&nbsp;    /**
+<i>213</i>&nbsp;     * Searches through the names of the flights so that the user is able to find and select flight from the list.
+<i>214</i>&nbsp;     */
+<i>215</i>&nbsp;    private void searchFlightNames() {
+<i>216</i>&nbsp;        // listen to whats being typed in the search box
+<b class="nc"><i>217</i>&nbsp;        flightNameSearch.textProperty().addListener((observable, oldValue, newValue) -&gt; {</b>
+<b class="nc"><i>218</i>&nbsp;            if (!newValue.isEmpty()) {</b>
+<i>219</i>&nbsp;                //clear the table
+<b class="nc"><i>220</i>&nbsp;                flightTData.clear();</b>
+<i>221</i>&nbsp;                // store the names that match
+<b class="nc"><i>222</i>&nbsp;                ObservableList&lt;String&gt; tempNames = FXCollections.observableArrayList();</b>
+<b class="nc"><i>223</i>&nbsp;                for (String s : flightItems) {</b>
+<b class="nc"><i>224</i>&nbsp;                    if (s.toLowerCase().contains(newValue.toLowerCase())) {</b>
+<b class="nc"><i>225</i>&nbsp;                        tempNames.add(s);</b>
+<i>226</i>&nbsp;                    }
+<b class="nc"><i>227</i>&nbsp;                }</b>
+<i>228</i>&nbsp;                // update the flight list with the names that match
+<b class="nc"><i>229</i>&nbsp;                flightList.setItems(tempNames);</b>
+<b class="nc"><i>230</i>&nbsp;            } else {</b>
+<i>231</i>&nbsp;                // update flight list with all names
+<b class="nc"><i>232</i>&nbsp;                flightList.setItems(flightItems);</b>
+<i>233</i>&nbsp;            }
+<i>234</i>&nbsp;        });
+<i>235</i>&nbsp;    }
+<i>236</i>&nbsp;
+<i>237</i>&nbsp;    /**
+<i>238</i>&nbsp;     * Refresh the flight map.
+<i>239</i>&nbsp;     */
+<i>240</i>&nbsp;    public void refreshMap() {
+<b class="nc"><i>241</i>&nbsp;        flightMap.getEngine().load(getClass().getClassLoader().getResource(&quot;map.html&quot;).toExternalForm());</b>
+<b class="nc"><i>242</i>&nbsp;        flightList.getSelectionModel().clearSelection();</b>
+<b class="nc"><i>243</i>&nbsp;        flightTData.clear();</b>
+<i>244</i>&nbsp;    }
+<i>245</i>&nbsp;
+<i>246</i>&nbsp;    /**
+<i>247</i>&nbsp;     * Allows the user to load a flight from a file.
+<i>248</i>&nbsp;     *
+<i>249</i>&nbsp;     * @throws IOException throws IOException error
+<i>250</i>&nbsp;     */
+<i>251</i>&nbsp;    public void loadFlight() throws IOException {
+<b class="nc"><i>252</i>&nbsp;        FileChooser fileChooser = new FileChooser();</b>
+<b class="nc"><i>253</i>&nbsp;        fileChooser.setTitle(&quot;Open file&quot;);</b>
+<b class="nc"><i>254</i>&nbsp;        File in = fileChooser.showOpenDialog(App.primaryStage);</b>
+<b class="nc"><i>255</i>&nbsp;        if (in != null &amp;&amp; in.exists()) {</b>
+<b class="nc"><i>256</i>&nbsp;            InputStream file = new FileInputStream(in);</b>
+<i>257</i>&nbsp;            // change tab to flight tab if its not on it already
+<b class="nc"><i>258</i>&nbsp;            if (!tabPane.getSelectionModel().equals(flightTab)) {</b>
+<b class="nc"><i>259</i>&nbsp;                tabPane.getSelectionModel().select(flightTab);</b>
+<i>260</i>&nbsp;            }
+<b class="nc"><i>261</i>&nbsp;            insertFlightTable(file);</b>
+<i>262</i>&nbsp;        }
+<i>263</i>&nbsp;    }
+<i>264</i>&nbsp;
+<i>265</i>&nbsp;    /**
+<i>266</i>&nbsp;     * Insert the flight in a given file into the flight table.
+<i>267</i>&nbsp;     *
+<i>268</i>&nbsp;     * @param file InputStream
+<i>269</i>&nbsp;     * @throws IOException throws IOException error
+<i>270</i>&nbsp;     */
+<i>271</i>&nbsp;    public void insertFlightTable(InputStream file) throws IOException {
+<b class="nc"><i>272</i>&nbsp;        FlightValidator validator = new FlightValidator(file);</b>
+<b class="nc"><i>273</i>&nbsp;        Flight flight = validator.makeFlight();</b>
+<b class="nc"><i>274</i>&nbsp;        validator = null;</b>
+<i>275</i>&nbsp;
+<b class="nc"><i>276</i>&nbsp;        if(flight != null) {</b>
+<b class="nc"><i>277</i>&nbsp;            boolean gotName = false;</b>
+<b class="nc"><i>278</i>&nbsp;            while(!gotName){</b>
+<i>279</i>&nbsp;                // ask user for flight name
+<b class="nc"><i>280</i>&nbsp;                TextInputDialog dialog = new TextInputDialog();</b>
+<b class="nc"><i>281</i>&nbsp;                dialog.setTitle(&quot;Name your flight!&quot;);</b>
+<b class="nc"><i>282</i>&nbsp;                dialog.setHeaderText(&quot;Please give a name for your flight.&quot;);</b>
+<b class="nc"><i>283</i>&nbsp;                dialog.setContentText(&quot;Flight name:&quot;);</b>
+<b class="nc"><i>284</i>&nbsp;                Optional&lt;String&gt; name = dialog.showAndWait();</b>
+<i>285</i>&nbsp;                // if they press ok and field is not empty, check if a flight with that name exists
+<b class="nc"><i>286</i>&nbsp;                if(name.isPresent() &amp;&amp; !name.get().trim().isEmpty()) {</b>
+<i>287</i>&nbsp;                    // if it does not already exist add the flight with that name to the repository
+<b class="nc"><i>288</i>&nbsp;                    if(!Repository.flightRepository.getFlights().containsKey(name.get().toLowerCase())){</b>
+<b class="nc"><i>289</i>&nbsp;                        gotName = true;</b>
+<b class="nc"><i>290</i>&nbsp;                        Repository.flightRepository.addFlight(name.get().toLowerCase(), flight);</b>
+<b class="nc"><i>291</i>&nbsp;                        flightItems.add(name.get());</b>
+<i>292</i>&nbsp;
+<i>293</i>&nbsp;                        // update the listView of flight names
+<b class="nc"><i>294</i>&nbsp;                        flightList.setItems(flightItems);</b>
+<i>295</i>&nbsp;
+<i>296</i>&nbsp;                        // make the listView select to the newly uploaded flight which is
+<i>297</i>&nbsp;                        // listened to already so it will populate the table
+<b class="nc"><i>298</i>&nbsp;                        flightList.getSelectionModel().selectLast();</b>
+<i>299</i>&nbsp;
+<i>300</i>&nbsp;                    }
+<i>301</i>&nbsp;                    else{
+<b class="nc"><i>302</i>&nbsp;                        Alert alert = new Alert(Alert.AlertType.INFORMATION);</b>
+<b class="nc"><i>303</i>&nbsp;                        alert.setTitle(&quot;Oops!&quot;);</b>
+<b class="nc"><i>304</i>&nbsp;                        alert.setHeaderText(null);</b>
+<b class="nc"><i>305</i>&nbsp;                        alert.setContentText(&quot;Please give a different name for your flight \n&quot; +</b>
+<i>306</i>&nbsp;                                &quot;and make sure that it does not already exist \nin the system.&quot;);
+<b class="nc"><i>307</i>&nbsp;                        alert.showAndWait();</b>
+<b class="nc"><i>308</i>&nbsp;                    }</b>
+<i>309</i>&nbsp;                }
+<b class="nc"><i>310</i>&nbsp;                else if(!name.isPresent()){</b>
+<b class="nc"><i>311</i>&nbsp;                    gotName = true;</b>
+<i>312</i>&nbsp;                }
+<b class="nc"><i>313</i>&nbsp;            }</b>
+<i>314</i>&nbsp;        }
+<b class="nc"><i>315</i>&nbsp;        tabPane.getSelectionModel().select(1);</b>
+<i>316</i>&nbsp;    }
+<i>317</i>&nbsp;
+<i>318</i>&nbsp;    /**
+<i>319</i>&nbsp;     * Clears the flight table and AirportRepository.
+<i>320</i>&nbsp;     */
+<i>321</i>&nbsp;    public void deleteAllFlights() {
+<b class="nc"><i>322</i>&nbsp;        boolean result = mainController.getDataTabController().deleteAllConformation();</b>
+<b class="nc"><i>323</i>&nbsp;        if (result) {</b>
+<b class="nc"><i>324</i>&nbsp;            clearFlightTable();</b>
+<b class="nc"><i>325</i>&nbsp;            Repository.serializeObject(Repository.flightRepository, &quot;flight&quot;);</b>
+<i>326</i>&nbsp;        }
+<i>327</i>&nbsp;    }
+<i>328</i>&nbsp;
+<i>329</i>&nbsp;    private void clearFlightTable() {
+<b class="nc"><i>330</i>&nbsp;        flightTData.clear();</b>
+<b class="nc"><i>331</i>&nbsp;        flightItems.clear();</b>
+<b class="nc"><i>332</i>&nbsp;        flightMap.getEngine().executeScript(&quot;initMap();&quot;);</b>
+<b class="nc"><i>333</i>&nbsp;        Repository.flightRepository = new FlightRepository();</b>
+<i>334</i>&nbsp;    }
+<i>335</i>&nbsp;
+<i>336</i>&nbsp;    private void updateFlightNameSearch() {
+<b class="nc"><i>337</i>&nbsp;        String text = flightNameSearch.getText();</b>
+<b class="nc"><i>338</i>&nbsp;        flightNameSearch.setText(text + &quot; &quot;);</b>
+<b class="nc"><i>339</i>&nbsp;        flightNameSearch.setText(text);</b>
+<i>340</i>&nbsp;    }
+<i>341</i>&nbsp;
+<i>342</i>&nbsp;    private void loadDefaultFlight() {
+<b class="nc"><i>343</i>&nbsp;        if (Repository.flightRepository != null) {</b>
+<b class="nc"><i>344</i>&nbsp;            for (String name : Repository.flightRepository.getFlights().keySet()) {</b>
+<b class="nc"><i>345</i>&nbsp;                flightItems.add(name);</b>
+<b class="nc"><i>346</i>&nbsp;                flightList.setItems(flightItems);</b>
+<b class="nc"><i>347</i>&nbsp;            }</b>
+<i>348</i>&nbsp;        }
+<i>349</i>&nbsp;    }
+<i>350</i>&nbsp;
+<i>351</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2016-10-06 13:18</div>
+</div>
+</body>
+</html>
